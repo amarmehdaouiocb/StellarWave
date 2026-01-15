@@ -7,7 +7,7 @@ import { SpinnerGap, CheckCircle } from "@phosphor-icons/react";
 import { easings } from "@/lib/animations";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "outline" | "gradient";
-type ButtonSize = "sm" | "md" | "lg";
+type ButtonSize = "sm" | "md" | "lg" | "xl";
 
 interface CTAButtonProps
   extends Omit<HTMLMotionProps<"button">, "children"> {
@@ -62,6 +62,7 @@ const sizeClasses: Record<ButtonSize, string> = {
   sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
   md: "px-6 py-3 text-base rounded-xl gap-2",
   lg: "px-8 py-4 text-lg rounded-2xl gap-2.5",
+  xl: "px-10 py-5 text-xl rounded-2xl gap-3",
 };
 
 // Ripple effect component
