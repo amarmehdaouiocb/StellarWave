@@ -13,10 +13,14 @@ import {
   EstimateForm,
   FAQ,
 } from "@/components/sections";
+import { ScrollProgress } from "@/components/shared/ScrollProgress";
 
 export default function HomePage() {
   return (
     <>
+      {/* Scroll progress indicator */}
+      <ScrollProgress variant="gradient" />
+
       {/* Navigation */}
       <SidebarGlass />
       <NavPill />
