@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Github, Mail, Phone, MapPin } from "lucide-react";
+import { LinkedinLogo, XLogo, GithubLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/config/brand";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
@@ -30,9 +30,9 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Linkedin, href: brand.socials.linkedin, label: "LinkedIn" },
-  { icon: Twitter, href: brand.socials.twitter, label: "Twitter" },
-  { icon: Github, href: brand.socials.github, label: "GitHub" },
+  { icon: LinkedinLogo, href: brand.socials.linkedin, label: "LinkedIn" },
+  { icon: XLogo, href: brand.socials.twitter, label: "Twitter" },
+  { icon: GithubLogo, href: brand.socials.github, label: "GitHub" },
 ];
 
 export function Footer() {
@@ -72,7 +72,7 @@ export function Footer() {
                 href={`mailto:${brand.contactEmail}`}
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Mail className="h-4 w-4" />
+                <EnvelopeSimple className="h-4 w-4" weight="duotone" />
                 <span>{brand.contactEmail}</span>
               </a>
               <a

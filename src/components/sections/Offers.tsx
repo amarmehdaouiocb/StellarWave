@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Check, Star, ArrowRight, Sparkles, Zap, Building2 } from "lucide-react";
+import { Check, Star, ArrowRight, Sparkle, Lightning, Buildings } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { offers, cloudOffers } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
@@ -11,7 +11,7 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { staggerContainer, staggerItemBlur, fadeInUp, easings } from "@/lib/animations";
 
 // Plan icons mapping
-const planIcons = [Zap, Star, Building2];
+const planIcons = [Lightning, Star, Buildings];
 
 // Pricing card with mouse-follow spotlight effect
 function PricingCard({
@@ -85,7 +85,7 @@ function PricingCard({
             transition={{ delay: 0.3 }}
           >
             <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-b-xl bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-rose)] to-[var(--ember-coral)] text-sm font-semibold text-white shadow-lg">
-              <Sparkles className="h-4 w-4" />
+              <Sparkle className="h-4 w-4" weight="fill" />
               Recommandé
             </span>
           </motion.div>

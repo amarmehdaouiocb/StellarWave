@@ -1,32 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import Link from "next/link";
 import {
-  Home,
+  House,
   Briefcase,
-  FolderKanban,
+  Kanban,
   Package,
   Cloud,
-  HelpCircle,
-  Mail,
-  Menu,
-  X,
-} from "lucide-react";
+  Question,
+  EnvelopeSimple,
+  List,
+} from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/config/brand";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { fadeInLeft, navPillIndicator } from "@/lib/animations";
 
 const navItems = [
-  { id: "hero", label: "Accueil", icon: Home, href: "#hero" },
+  { id: "hero", label: "Accueil", icon: House, href: "#hero" },
   { id: "services", label: "Services", icon: Briefcase, href: "#services" },
-  { id: "projects", label: "Projets", icon: FolderKanban, href: "#projects" },
+  { id: "projects", label: "Projets", icon: Kanban, href: "#projects" },
   { id: "offers", label: "Offres", icon: Package, href: "#offers" },
   { id: "cloud", label: "Cloud", icon: Cloud, href: "#cloud" },
-  { id: "faq", label: "FAQ", icon: HelpCircle, href: "#faq" },
-  { id: "contact", label: "Contact", icon: Mail, href: "#contact" },
+  { id: "faq", label: "FAQ", icon: Question, href: "#faq" },
+  { id: "contact", label: "Contact", icon: EnvelopeSimple, href: "#contact" },
 ];
 
 interface SidebarGlassProps {
@@ -36,6 +35,21 @@ interface SidebarGlassProps {
 export function SidebarGlass({ className }: SidebarGlassProps) {
   const [activeSection, setActiveSection] = useState("hero");
   const [isOpen, setIsOpen] = useState(false);
+
+  // Mouse-follow shimmer effect
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const shimmerX = useTransform(mouseX, [0, 1], ["0%", "100%"]);
+  const shimmerY = useTransform(mouseY, [0, 1], ["0%", "100%"]);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      mouseX.set((e.clientX - rect.left) / rect.width);
+      mouseY.set((e.clientY - rect.top) / rect.height);
+    },
+    [mouseX, mouseY]
+  );
 
   const handleNavClick = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -85,9 +99,16 @@ export function SidebarGlass({ className }: SidebarGlassProps) {
         className={cn(
           "fixed left-0 top-0 z-40 h-screen w-20 lg:w-64",
           "hidden lg:flex flex-col",
-          "glass-heavy",
+          "liquid-glass liquid-glass-border rounded-r-3xl",
           className
         )}
+        style={
+          {
+            "--shimmer-x": shimmerX,
+            "--shimmer-y": shimmerY,
+          } as React.CSSProperties
+        }
+        onMouseMove={handleMouseMove}
         variants={fadeInLeft}
         initial="hidden"
         animate="visible"
@@ -114,7 +135,7 @@ export function SidebarGlass({ className }: SidebarGlassProps) {
             href="#contact"
             className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl aurora-gradient text-primary-foreground font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Mail className="h-4 w-4" />
+            <EnvelopeSimple className="h-4 w-4" weight="duotone" />
             <span>Nous contacter</span>
           </Link>
         </div>
@@ -126,17 +147,17 @@ export function SidebarGlass({ className }: SidebarGlassProps) {
           <button
             className={cn(
               "fixed left-4 top-4 z-50 lg:hidden",
-              "flex h-12 w-12 items-center justify-center rounded-xl",
-              "glass-heavy",
+              "flex h-12 w-12 items-center justify-center rounded-2xl",
+              "liquid-glass liquid-glass-border",
               "transition-transform hover:scale-105 active:scale-95"
             )}
             aria-label="Ouvrir le menu"
           >
-            <Menu className="h-5 w-5" />
+            <List className="h-5 w-5" weight="bold" />
           </button>
         </SheetTrigger>
 
-        <SheetContent side="left" className="w-72 glass-heavy border-white/10 p-0">
+        <SheetContent side="left" className="w-72 liquid-glass border-white/10 p-0 rounded-r-3xl">
           {/* Mobile Logo */}
           <div className="flex items-center gap-3 px-4 py-6 border-b border-white/5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl aurora-gradient">
@@ -160,7 +181,7 @@ export function SidebarGlass({ className }: SidebarGlassProps) {
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl aurora-gradient text-primary-foreground font-semibold"
             >
-              <Mail className="h-4 w-4" />
+              <EnvelopeSimple className="h-4 w-4" weight="duotone" />
               <span>Nous contacter</span>
             </Link>
           </div>

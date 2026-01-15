@@ -1,21 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, DM_Sans } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { brand, seoKeywords } from "@/config/brand";
 
-// Premium fonts
-const sora = Sora({
+// Premium font - Outfit (geometric, contemporary, tech-forward)
+// Full weight range for extreme contrast typography
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-outfit",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 // Metadata
@@ -181,7 +175,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body
-        className={`${sora.variable} ${dmSans.variable} font-sans antialiased`}
+        className={`${outfit.variable} font-sans antialiased`}
       >
         {/* Skip to main content for accessibility */}
         <a

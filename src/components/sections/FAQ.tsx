@@ -7,7 +7,7 @@ import { faqs, brand } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { fadeInUp, staggerContainer, staggerItemBlur, easings } from "@/lib/animations";
-import { MessageCircle, Plus, Minus, HelpCircle } from "lucide-react";
+import { ChatCircle, Plus, Minus, Question } from "@phosphor-icons/react";
 
 // Premium accordion item component
 function FAQItem({
@@ -155,7 +155,7 @@ export function FAQ() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: easings.smooth }}
               >
-                <HelpCircle className="h-4 w-4 text-[var(--ember-amber)]" />
+                <Question className="h-4 w-4 text-[var(--ember-amber)]" weight="duotone" />
                 FAQ
               </motion.span>
 
@@ -185,7 +185,7 @@ export function FAQ() {
 
               <CTAButton
                 variant="secondary"
-                icon={<MessageCircle className="h-4 w-4" />}
+                icon={<ChatCircle className="h-4 w-4" weight="duotone" />}
                 href={`mailto:${brand.contactEmail}`}
               >
                 Poser une question

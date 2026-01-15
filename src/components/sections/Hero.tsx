@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CalendarDots } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
 import { cn } from "@/lib/utils";
@@ -11,18 +11,8 @@ import {
   NoiseOverlay,
   VignetteOverlay,
 } from "@/components/shared/NoiseOverlay";
-import {
-  heroSubtitle,
-  heroCTA,
-  fadeInUp,
-  carouselSlide,
-  easings,
-  textCharacterContainer,
-  textCharacter,
-  staggerContainer,
-  staggerItemBlur,
-  float,
-} from "@/lib/animations";
+import { VideoBackground } from "@/components/shared/VideoBackground";
+import { easings, float } from "@/lib/animations";
 
 // Animated counter component for KPIs
 function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: string }) {
@@ -235,37 +225,6 @@ function ScrollIndicator() {
   );
 }
 
-// Character-by-character animated text
-function AnimatedTitle({ text, highlightIndices }: { text: string; highlightIndices: number[] }) {
-  const words = text.split(" ");
-
-  return (
-    <motion.h1
-      className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-display text-foreground mb-6"
-      variants={textCharacterContainer}
-      initial="hidden"
-      animate="visible"
-    >
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} className="inline-block mr-[0.25em]">
-          {word.split("").map((char, charIndex) => (
-            <motion.span
-              key={`${wordIndex}-${charIndex}`}
-              className={cn(
-                "inline-block",
-                highlightIndices.includes(wordIndex) && "text-gradient-hero"
-              )}
-              variants={textCharacter}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </span>
-      ))}
-    </motion.h1>
-  );
-}
-
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -291,80 +250,67 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
     >
-      {/* Background layers */}
-      <div className="absolute inset-0">
-        {/* Animated gradient mesh */}
-        <GradientMeshBackground />
+      {/* Layer 0: Video/Image Background with parallax */}
+      <VideoBackground
+        posterSrc="/hero/hero-poster-4k.webp"
+        videoSrc="/hero/hero-bg.webm"
+        videoSrcFallback="/hero/hero-bg.mp4"
+        overlayOpacity={0.65}
+        parallaxStrength={150}
+        scaleOnScroll={1.25}
+      />
 
-        {/* Mouse-follow aurora glow */}
-        <MouseFollowAurora />
+      {/* Layer 1: Animated gradient mesh */}
+      <GradientMeshBackground />
 
-        {/* Gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+      {/* Layer 2: Interactive aurora glow */}
+      <MouseFollowAurora />
 
-        {/* Noise texture */}
-        <NoiseOverlay opacity={0.03} />
-
-        {/* Vignette */}
-        <VignetteOverlay />
-      </div>
+      {/* Layer 3: Overlays for depth */}
+      <NoiseOverlay opacity={0.03} />
+      <VignetteOverlay intensity={0.4} />
 
       {/* Content */}
-      <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 lg:pl-72 py-32">
+      <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 lg:pl-72 pt-28 lg:pt-36 pb-24">
         <div className="max-w-4xl">
-          {/* Animated slide content */}
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentSlide}
-              custom={direction}
-              variants={carouselSlide}
-              initial="enter"
-              animate="center"
-              exit="exit"
-            >
-              {/* Badge */}
-              <motion.div
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-highlight mb-8 shadow-premium-sm"
-                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.6, ease: easings.smooth }}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--ember-amber)] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--ember-amber)]" />
+          {/* Slide content */}
+          <div key={currentSlide}>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-highlight mb-8 shadow-premium-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--ember-amber)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--ember-amber)]" />
+              </span>
+              <span className="text-sm font-medium text-muted-foreground">
+                {brand.tagline}
+              </span>
+            </div>
+
+            {/* H1 Title */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-display-heavy text-foreground mb-6">
+              {slide.title.split(" ").map((word, wordIndex) => (
+                <span
+                  key={wordIndex}
+                  className={cn(
+                    "inline-block mr-[0.25em]",
+                    [2, 5].includes(wordIndex) && "text-gradient-hero"
+                  )}
+                >
+                  {word}
                 </span>
-                <span className="text-sm font-medium text-muted-foreground">
-                  {brand.tagline}
-                </span>
-              </motion.div>
+              ))}
+            </h1>
 
-              {/* Animated H1 Title */}
-              <AnimatedTitle
-                text={slide.title}
-                highlightIndices={[2, 5]}
-              />
+            {/* Subtitle */}
+            <p className="text-lg sm:text-xl font-light text-body-relaxed text-muted-foreground max-w-2xl mb-10">
+              {slide.subtitle}
+            </p>
+          </div>
 
-              {/* Subtitle with blur reveal */}
-              <motion.p
-                className="text-lg sm:text-xl text-body-relaxed text-muted-foreground max-w-2xl mb-10"
-                variants={heroSubtitle}
-                initial="hidden"
-                animate="visible"
-              >
-                {slide.subtitle}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* CTAs with stagger */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 mb-16"
-            variants={heroCTA}
-            initial="hidden"
-            animate="visible"
-          >
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-16">
             <CTAButton
               variant="primary"
               size="lg"
@@ -382,17 +328,12 @@ export function Hero() {
             >
               Recevoir une estimation
             </CTAButton>
-          </motion.div>
+          </div>
 
-          {/* KPI Row with animated counters */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
+          {/* KPI Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {heroMetrics.map((metric, index) => (
-              <motion.div
+              <div
                 key={index}
                 className={cn(
                   "text-center p-4 md:p-5 rounded-2xl",
@@ -401,7 +342,6 @@ export function Hero() {
                   "hover-lift",
                   "border border-white/5"
                 )}
-                variants={staggerItemBlur}
               >
                 <div className="text-2xl sm:text-3xl font-bold text-gradient-hero mb-1 text-h2">
                   <AnimatedCounter value={metric.value} />
@@ -409,18 +349,13 @@ export function Hero() {
                 <div className="text-sm text-muted-foreground text-small-caps">
                   {metric.label}
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        {/* Slide dots - redesigned */}
-        <motion.div
-          className="absolute bottom-20 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-12 flex items-center gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5, ease: easings.smooth }}
-        >
+        {/* Slide dots */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-12 flex items-center gap-3">
           {heroSlides.map((_, index) => (
             <button
               key={index}
@@ -450,7 +385,7 @@ export function Hero() {
               )}
             </button>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator - redesigned */}

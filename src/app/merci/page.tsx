@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import {
   Check,
-  Calendar,
+  CalendarDots,
   ArrowRight,
   FileText,
   Clock,
-  MessageSquare,
-} from "lucide-react";
+  ChatCircle,
+} from "@phosphor-icons/react/dist/ssr";
 import { brand, thankYouPage } from "@/config/brand";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { CTAButton } from "@/components/shared/CTAButton";
@@ -120,7 +120,7 @@ export default function ThankYouPage() {
           <div className="text-center">
             <GlassCard className="inline-block p-8">
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center justify-center gap-3">
-                <MessageSquare className="h-5 w-5 text-[var(--ember-amber)]" />
+                <ChatCircle className="h-5 w-5 text-[var(--ember-amber)]" weight="duotone" />
                 Envie de gagner du temps ?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-md">
@@ -131,7 +131,7 @@ export default function ThankYouPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <CTAButton
                   variant="primary"
-                  icon={<Calendar className="h-5 w-5" />}
+                  icon={<CalendarDots className="h-5 w-5" weight="duotone" />}
                   href={brand.calendlyUrl}
                 >
                   Réserver un appel

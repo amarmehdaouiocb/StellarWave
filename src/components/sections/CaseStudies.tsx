@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, TrendingUp, TrendingDown } from "lucide-react";
+import { ArrowUpRight, TrendUp, TrendDown } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { caseStudies } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
@@ -128,9 +128,9 @@ export function CaseStudies() {
                             >
                               {result.after}
                               {isPositive ? (
-                                <TrendingUp className="h-3 w-3" />
+                                <TrendUp className="h-3 w-3" weight="bold" />
                               ) : (
-                                <TrendingDown className="h-3 w-3" />
+                                <TrendDown className="h-3 w-3" weight="bold" />
                               )}
                             </span>
                           </div>

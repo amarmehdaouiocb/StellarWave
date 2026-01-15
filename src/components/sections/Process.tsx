@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { CheckCircle, MagnifyingGlass, Palette, Code, RocketLaunch } from "@phosphor-icons/react";
 import MagnifierIcon from "@/components/ui/magnifier-icon";
+import PaletteIcon from "@/components/ui/palette-icon";
 import CodeIcon from "@/components/ui/code-icon";
 import RocketIcon from "@/components/ui/rocket-icon";
 import CheckedIcon from "@/components/ui/checked-icon";
@@ -13,9 +14,9 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { fadeInUp, easings, staggerItemBlur } from "@/lib/animations";
 
-// Step icons mapping - using itshover animated icons
+// Step icons mapping - using animated hover icons
 const stepIcons = [MagnifyingGlass, Palette, Code, RocketLaunch];
-const stepAnimatedIcons = [MagnifierIcon, null, CodeIcon, RocketIcon]; // itshover animated versions
+const stepAnimatedIcons = [MagnifierIcon, PaletteIcon, CodeIcon, RocketIcon];
 
 // Animated step number with glow effect
 function StepNumber({

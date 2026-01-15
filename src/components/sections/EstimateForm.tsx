@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Send, Mail, Phone, MapPin } from "lucide-react";
+import { PaperPlaneTilt, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/config/brand";
 import {
@@ -118,7 +118,7 @@ export function EstimateForm() {
                         href={`mailto:${brand.contactEmail}`}
                         className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <Mail className="h-5 w-5 text-[var(--ember-amber)]" />
+                        <EnvelopeSimple className="h-5 w-5 text-[var(--ember-amber)]" weight="duotone" />
                         {brand.contactEmail}
                       </a>
                     </li>
@@ -405,7 +405,7 @@ export function EstimateForm() {
                   size="lg"
                   className="w-full sm:w-auto"
                   loading={isSubmitting}
-                  icon={<Send className="h-5 w-5" />}
+                  icon={<PaperPlaneTilt className="h-5 w-5" weight="duotone" />}
                 >
                   Envoyer ma demande
                 </CTAButton>
