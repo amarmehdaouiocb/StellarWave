@@ -129,21 +129,123 @@
   --aurora-teal: oklch(0.7 0.15 175);
   --aurora-blue: oklch(0.6 0.18 250);
 
-  /* Glow effects */
+  /* Glow effects - Multiple intensities */
   --glow-cyan: oklch(0.75 0.15 195 / 30%);
+  --glow-cyan-subtle: oklch(0.75 0.15 195 / 15%);
+  --glow-cyan-intense: oklch(0.75 0.15 195 / 50%);
   --glow-violet: oklch(0.65 0.2 300 / 30%);
+  --glow-violet-subtle: oklch(0.65 0.2 300 / 15%);
+  --glow-violet-intense: oklch(0.65 0.2 300 / 50%);
   --glow-teal: oklch(0.7 0.15 175 / 30%);
+  --glow-teal-subtle: oklch(0.7 0.15 175 / 15%);
+  --glow-teal-intense: oklch(0.7 0.15 175 / 50%);
 
-  /* Glass effects */
+  /* Glass effects - Multiple levels */
   --glass-bg: oklch(1 0 0 / 5%);
+  --glass-bg-subtle: oklch(1 0 0 / 3%);
+  --glass-bg-heavy: oklch(1 0 0 / 10%);
   --glass-border: oklch(1 0 0 / 10%);
+  --glass-border-subtle: oklch(1 0 0 / 6%);
+  --glass-border-strong: oklch(1 0 0 / 15%);
   --glass-blur: 20px;
+  --glass-blur-subtle: 12px;
+  --glass-blur-heavy: 40px;
   --glass-highlight: oklch(1 0 0 / 5%);
 
   /* Gradient stops */
   --gradient-start: oklch(0.75 0.15 195);
   --gradient-mid: oklch(0.65 0.2 300);
   --gradient-end: oklch(0.7 0.15 175);
+
+  /* ================================================
+     PREMIUM SHADOW SYSTEM - Multi-layer, tinted
+     ================================================ */
+
+  /* Subtle shadows - for small elements */
+  --shadow-xs:
+    0 1px 2px oklch(0 0 0 / 10%);
+
+  /* Default card shadow - 3 layers with cyan tint */
+  --shadow-sm:
+    0 1px 2px oklch(0 0 0 / 8%),
+    0 2px 4px oklch(0 0 0 / 6%),
+    0 4px 8px oklch(0.5 0.02 195 / 4%);
+
+  --shadow-md:
+    0 2px 4px oklch(0 0 0 / 10%),
+    0 4px 8px oklch(0 0 0 / 8%),
+    0 8px 16px oklch(0.5 0.03 195 / 6%),
+    0 16px 32px oklch(0.5 0.02 270 / 4%);
+
+  /* Elevated - for important cards, modals */
+  --shadow-lg:
+    0 4px 6px oklch(0 0 0 / 12%),
+    0 8px 15px oklch(0 0 0 / 10%),
+    0 16px 30px oklch(0.5 0.04 195 / 8%),
+    0 32px 50px oklch(0.5 0.03 270 / 6%);
+
+  /* Floating - for dropdowns, popovers */
+  --shadow-xl:
+    0 8px 16px oklch(0 0 0 / 15%),
+    0 16px 32px oklch(0 0 0 / 12%),
+    0 32px 64px oklch(0.5 0.05 195 / 10%),
+    0 48px 80px oklch(0.5 0.04 270 / 8%);
+
+  /* Glow shadows - colored */
+  --shadow-glow-cyan:
+    0 0 20px oklch(0.75 0.15 195 / 25%),
+    0 0 40px oklch(0.75 0.15 195 / 15%),
+    0 0 60px oklch(0.75 0.15 195 / 8%);
+
+  --shadow-glow-violet:
+    0 0 20px oklch(0.65 0.2 300 / 25%),
+    0 0 40px oklch(0.65 0.2 300 / 15%),
+    0 0 60px oklch(0.65 0.2 300 / 8%);
+
+  --shadow-glow-teal:
+    0 0 20px oklch(0.7 0.15 175 / 25%),
+    0 0 40px oklch(0.7 0.15 175 / 15%),
+    0 0 60px oklch(0.7 0.15 175 / 8%);
+
+  /* Inner shadows - for depth */
+  --shadow-inner-subtle:
+    inset 0 1px 2px oklch(0 0 0 / 10%);
+
+  --shadow-inner:
+    inset 0 2px 4px oklch(0 0 0 / 15%),
+    inset 0 4px 8px oklch(0 0 0 / 8%);
+
+  /* ================================================
+     TYPOGRAPHY SCALE - Contextual letter-spacing
+     ================================================ */
+
+  /* Display - Ultra large headlines (Hero) */
+  --text-display-spacing: -0.03em;
+  --text-display-height: 1.0;
+
+  /* H1 - Section titles */
+  --text-h1-spacing: -0.025em;
+  --text-h1-height: 1.1;
+
+  /* H2 - Card titles */
+  --text-h2-spacing: -0.02em;
+  --text-h2-height: 1.15;
+
+  /* H3 - Subtitles */
+  --text-h3-spacing: -0.01em;
+  --text-h3-height: 1.2;
+
+  /* Body - Paragraphs */
+  --text-body-spacing: 0em;
+  --text-body-height: 1.6;
+
+  /* Small - Captions, labels */
+  --text-small-spacing: 0.01em;
+  --text-small-height: 1.5;
+
+  /* Micro - Tags, badges */
+  --text-micro-spacing: 0.05em;
+  --text-micro-height: 1.4;
 }
 
 /* Light theme override (if needed) */
@@ -199,29 +301,91 @@
     @apply outline-2 outline-offset-2 outline-ring;
   }
 
-  /* Scrollbar styling */
+  /* ================================================
+     PREMIUM SCROLLBAR - With glow effect
+     ================================================ */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: oklch(0.08 0.01 270);
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: oklch(1 0 0 / 15%);
-    border-radius: 4px;
+    background: linear-gradient(
+      180deg,
+      oklch(0.75 0.1 195 / 40%) 0%,
+      oklch(0.65 0.15 270 / 30%) 100%
+    );
+    border-radius: 5px;
+    border: 2px solid oklch(0.08 0.01 270);
+    transition: all 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(1 0 0 / 25%);
+    background: linear-gradient(
+      180deg,
+      oklch(0.75 0.15 195 / 60%) 0%,
+      oklch(0.65 0.2 300 / 50%) 100%
+    );
+    box-shadow: 0 0 10px oklch(0.75 0.15 195 / 30%);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: oklch(0.08 0.01 270);
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: oklch(1 0 0 / 15%) transparent;
+    scrollbar-color: oklch(0.75 0.1 195 / 40%) oklch(0.08 0.01 270);
+  }
+
+  /* ================================================
+     CUSTOM CURSOR - Premium interactive feedback
+     ================================================ */
+
+  /* Default cursor - slightly refined */
+  html {
+    cursor: default;
+  }
+
+  /* Interactive elements - pointer with glow effect via CSS */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  /* Grab cursor for draggable elements */
+  .cursor-grab {
+    cursor: grab;
+  }
+
+  .cursor-grab:active,
+  .cursor-grabbing {
+    cursor: grabbing;
+  }
+
+  /* Text cursor enhancement */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+    caret-color: var(--aurora-cyan);
+  }
+
+  /* Disabled state */
+  [disabled],
+  .cursor-not-allowed {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 
@@ -272,7 +436,11 @@
     50% { background-position: 100% 50%; }
   }
 
-  /* Text gradient */
+  /* ================================================
+     TEXT GRADIENTS - Contextual variations
+     ================================================ */
+
+  /* Default text gradient - 2 colors */
   .text-gradient {
     background: linear-gradient(
       135deg,
@@ -284,7 +452,156 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* Glow effects */
+  /* Hero text gradient - 3 colors, dramatic */
+  .text-gradient-hero {
+    background: linear-gradient(
+      120deg,
+      var(--aurora-cyan) 0%,
+      var(--aurora-violet) 40%,
+      var(--aurora-teal) 80%,
+      var(--aurora-cyan) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Accent text gradient - Subtle */
+  .text-gradient-accent {
+    background: linear-gradient(
+      90deg,
+      var(--aurora-violet) 0%,
+      var(--aurora-teal) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* CTA text gradient - Reversed direction */
+  .text-gradient-cta {
+    background: linear-gradient(
+      -45deg,
+      var(--aurora-teal) 0%,
+      var(--aurora-cyan) 50%,
+      var(--aurora-violet) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Animated text gradient on hover */
+  .text-gradient-animated {
+    background: linear-gradient(
+      90deg,
+      var(--aurora-cyan) 0%,
+      var(--aurora-violet) 25%,
+      var(--aurora-teal) 50%,
+      var(--aurora-violet) 75%,
+      var(--aurora-cyan) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes text-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ================================================
+     CONTEXTUAL GRADIENTS - Backgrounds
+     ================================================ */
+
+  /* Hero gradient - Dramatic, top-down */
+  .gradient-hero {
+    background: linear-gradient(
+      180deg,
+      oklch(0.12 0.02 270) 0%,
+      oklch(0.08 0.015 250) 40%,
+      oklch(0.06 0.02 195 / 50%) 70%,
+      oklch(0.08 0.01 270) 100%
+    );
+  }
+
+  /* Feature gradient - Subtle diagonal */
+  .gradient-feature {
+    background: linear-gradient(
+      135deg,
+      oklch(0.1 0.015 195 / 30%) 0%,
+      transparent 50%,
+      oklch(0.1 0.02 300 / 20%) 100%
+    );
+  }
+
+  /* CTA gradient - Radial centered */
+  .gradient-cta {
+    background: radial-gradient(
+      ellipse at center,
+      oklch(0.15 0.03 195 / 40%) 0%,
+      oklch(0.1 0.02 270 / 20%) 50%,
+      transparent 80%
+    );
+  }
+
+  /* Section divider gradient - Horizontal */
+  .gradient-section-divide {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(1 0 0 / 8%) 20%,
+      oklch(1 0 0 / 8%) 80%,
+      transparent 100%
+    );
+    height: 1px;
+  }
+
+  /* Mesh gradient - Complex multi-point */
+  .gradient-mesh {
+    background:
+      radial-gradient(ellipse at 20% 20%, var(--glow-cyan-subtle) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, var(--glow-violet-subtle) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 80%, var(--glow-teal-subtle) 0%, transparent 50%),
+      oklch(0.08 0.01 270);
+  }
+
+  /* ================================================
+     PREMIUM SHADOW CLASSES
+     ================================================ */
+
+  .shadow-premium-xs { box-shadow: var(--shadow-xs); }
+  .shadow-premium-sm { box-shadow: var(--shadow-sm); }
+  .shadow-premium-md { box-shadow: var(--shadow-md); }
+  .shadow-premium-lg { box-shadow: var(--shadow-lg); }
+  .shadow-premium-xl { box-shadow: var(--shadow-xl); }
+
+  .shadow-glow-cyan { box-shadow: var(--shadow-glow-cyan); }
+  .shadow-glow-violet { box-shadow: var(--shadow-glow-violet); }
+  .shadow-glow-teal { box-shadow: var(--shadow-glow-teal); }
+
+  .shadow-inner-subtle { box-shadow: var(--shadow-inner-subtle); }
+  .shadow-inner { box-shadow: var(--shadow-inner); }
+
+  /* Combined shadow + glow for premium cards */
+  .shadow-card-glow {
+    box-shadow:
+      var(--shadow-md),
+      0 0 30px var(--glow-cyan-subtle);
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .shadow-card-glow:hover {
+    box-shadow:
+      var(--shadow-lg),
+      0 0 50px var(--glow-cyan);
+  }
+
+  /* Glow effects - Legacy (keep for compatibility) */
   .glow-cyan {
     box-shadow: 0 0 30px var(--glow-cyan);
   }
@@ -295,6 +612,46 @@
 
   .glow-teal {
     box-shadow: 0 0 30px var(--glow-teal);
+  }
+
+  /* ================================================
+     TYPOGRAPHY UTILITY CLASSES
+     ================================================ */
+
+  .text-display {
+    letter-spacing: var(--text-display-spacing);
+    line-height: var(--text-display-height);
+  }
+
+  .text-h1 {
+    letter-spacing: var(--text-h1-spacing);
+    line-height: var(--text-h1-height);
+  }
+
+  .text-h2 {
+    letter-spacing: var(--text-h2-spacing);
+    line-height: var(--text-h2-height);
+  }
+
+  .text-h3 {
+    letter-spacing: var(--text-h3-spacing);
+    line-height: var(--text-h3-height);
+  }
+
+  .text-body-relaxed {
+    letter-spacing: var(--text-body-spacing);
+    line-height: var(--text-body-height);
+  }
+
+  .text-small-caps {
+    letter-spacing: var(--text-small-spacing);
+    line-height: var(--text-small-height);
+  }
+
+  .text-micro {
+    letter-spacing: var(--text-micro-spacing);
+    line-height: var(--text-micro-height);
+    text-transform: uppercase;
   }
 
   /* Noise texture overlay */
@@ -419,6 +776,247 @@
   /* Focus ring with glow */
   .focus-ring {
     @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-primary;
+  }
+
+  /* ================================================
+     PREMIUM LINK ANIMATIONS
+     ================================================ */
+
+  /* Underline slide from left */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--aurora-cyan), var(--aurora-violet));
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Underline expand from center */
+  .link-underline-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Glow on hover */
+  .link-glow {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .link-glow:hover {
+    text-shadow: 0 0 20px var(--glow-cyan);
+  }
+
+  /* ================================================
+     HOVER LIFT EFFECTS
+     ================================================ */
+
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .hover-lift-lg {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-lift-lg:hover {
+    transform: translateY(-8px);
+  }
+
+  /* ================================================
+     BORDER ANIMATIONS
+     ================================================ */
+
+  /* Border glow on hover */
+  .border-glow {
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease, background 0.4s ease;
+  }
+
+  .border-glow:hover::before {
+    opacity: 1;
+    background: linear-gradient(
+      135deg,
+      var(--aurora-cyan) 0%,
+      var(--aurora-violet) 50%,
+      var(--aurora-teal) 100%
+    );
+  }
+
+  /* Animated border - Rotating gradient */
+  .border-animated {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .border-animated::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(
+      from 0deg,
+      var(--aurora-cyan),
+      var(--aurora-violet),
+      var(--aurora-teal),
+      var(--aurora-cyan)
+    );
+    border-radius: inherit;
+    animation: border-rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .border-animated::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--card);
+    border-radius: calc(var(--radius-xl) - 2px);
+  }
+
+  .border-animated:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes border-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ================================================
+     GLASSMORPHISM VARIANTS
+     ================================================ */
+
+  .glass-subtle {
+    background: var(--glass-bg-subtle);
+    backdrop-filter: blur(var(--glass-blur-subtle));
+    -webkit-backdrop-filter: blur(var(--glass-blur-subtle));
+    border: 1px solid var(--glass-border-subtle);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(var(--glass-blur-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+    border: 1px solid var(--glass-border-strong);
+  }
+
+  /* Glass with inner highlight */
+  .glass-highlight {
+    background: linear-gradient(
+      135deg,
+      oklch(1 0 0 / 8%) 0%,
+      oklch(1 0 0 / 3%) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 10%);
+  }
+
+  /* ================================================
+     SHIMMER / LOADING EFFECTS
+     ================================================ */
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(1 0 0 / 5%) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px var(--glow-cyan-subtle);
+    }
+    50% {
+      box-shadow: 0 0 40px var(--glow-cyan);
+    }
+  }
+
+  /* ================================================
+     ASPECT RATIOS
+     ================================================ */
+
+  .aspect-hero { aspect-ratio: 16/9; }
+  .aspect-card { aspect-ratio: 4/3; }
+  .aspect-square { aspect-ratio: 1/1; }
+  .aspect-portrait { aspect-ratio: 3/4; }
+
+  /* ================================================
+     BACKDROP EFFECTS
+     ================================================ */
+
+  .backdrop-blur-hero {
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+  }
+
+  .backdrop-glow {
+    backdrop-filter: blur(20px) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) brightness(1.1);
   }
 }
 
