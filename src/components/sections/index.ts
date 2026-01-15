@@ -1,0 +1,12 @@
+export { Hero } from "./Hero";
+export { TrustBanner } from "./TrustBanner";
+export { ProjectsCarousel } from "./ProjectsCarousel";
+export { Services } from "./Services";
+export { WhyUs } from "./WhyUs";
+export { CaseStudies } from "./CaseStudies";
+export { ProofCards } from "./ProofCards";
+export { Process } from "./Process";
+export { Offers } from "./Offers";
+export { LeadMagnet } from "./LeadMagnet";
+export { EstimateForm } from "./EstimateForm";
+export { FAQ } from "./FAQ";
