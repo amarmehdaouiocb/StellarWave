@@ -131,6 +131,27 @@
   --ember-rose: oklch(0.65 0.22 350);
   --ember-gold: oklch(0.82 0.14 90);
 
+  /* Power Color - Electric Blue (for accent cards) */
+  --power-blue: oklch(0.65 0.22 255);
+  --power-blue-light: oklch(0.75 0.18 255);
+  --power-blue-dark: oklch(0.55 0.22 255);
+  --glow-blue: oklch(0.65 0.22 255 / 35%);
+  --glow-blue-subtle: oklch(0.65 0.22 255 / 18%);
+  --glow-blue-intense: oklch(0.65 0.22 255 / 55%);
+
+  /* Power Color Alt - Warm Yellow (for highlight cards) */
+  --power-yellow: oklch(0.88 0.18 95);
+  --power-yellow-light: oklch(0.92 0.14 95);
+  --power-yellow-dark: oklch(0.78 0.18 95);
+  --glow-yellow: oklch(0.88 0.18 95 / 35%);
+
+  /* Neutrals - For light cards on dark background */
+  --neutral-50: oklch(0.98 0.005 60);
+  --neutral-100: oklch(0.95 0.008 60);
+  --neutral-200: oklch(0.90 0.01 60);
+  --neutral-800: oklch(0.25 0.01 60);
+  --neutral-900: oklch(0.15 0.01 60);
+
   /* Legacy aliases for compatibility */
   --aurora-cyan: var(--ember-amber);
   --aurora-violet: var(--ember-coral);
