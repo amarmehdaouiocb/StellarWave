@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Calendar, MousePointer2 } from "lucide-react";
+import { CalendarDots } from "@phosphor-icons/react";
+import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
 import { cn } from "@/lib/utils";
 import { brand, heroMetrics, heroSlides } from "@/config/brand";
 import { CTAButton } from "@/components/shared/CTAButton";
@@ -80,7 +81,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: strin
   return <div ref={ref}>{displayValue}{suffix}</div>;
 }
 
-// Mouse-follow aurora glow
+// Mouse-follow ember glow
 function MouseFollowAurora() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -101,7 +102,7 @@ function MouseFollowAurora() {
 
   return (
     <>
-      {/* Cyan glow - follows mouse */}
+      {/* Amber glow - follows mouse */}
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -111,12 +112,12 @@ function MouseFollowAurora() {
           height: "60vw",
           left: "20%",
           top: "10%",
-          background: "radial-gradient(circle, oklch(0.75 0.15 195 / 20%) 0%, transparent 60%)",
+          background: "radial-gradient(circle, oklch(0.79 0.16 85 / 20%) 0%, transparent 60%)",
           filter: "blur(80px)",
         }}
       />
 
-      {/* Violet glow - inverse movement */}
+      {/* Coral glow - inverse movement */}
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -126,12 +127,12 @@ function MouseFollowAurora() {
           height: "50vw",
           right: "10%",
           bottom: "20%",
-          background: "radial-gradient(circle, oklch(0.65 0.2 300 / 15%) 0%, transparent 60%)",
+          background: "radial-gradient(circle, oklch(0.705 0.185 47 / 15%) 0%, transparent 60%)",
           filter: "blur(60px)",
         }}
       />
 
-      {/* Teal glow - subtle movement */}
+      {/* Rose glow - subtle movement */}
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -141,7 +142,7 @@ function MouseFollowAurora() {
           height: "40vw",
           left: "50%",
           bottom: "10%",
-          background: "radial-gradient(circle, oklch(0.7 0.15 175 / 12%) 0%, transparent 60%)",
+          background: "radial-gradient(circle, oklch(0.65 0.22 350 / 12%) 0%, transparent 60%)",
           filter: "blur(50px)",
         }}
       />
@@ -158,18 +159,18 @@ function GradientMeshBackground() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
     >
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-[oklch(0.1_0.015_270)] to-background" />
+      {/* Base gradient - warm charcoal */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-[oklch(0.13_0.012_55)] to-background" />
 
-      {/* Animated mesh gradient */}
+      {/* Animated mesh gradient - Ember colors */}
       <motion.div
         className="absolute inset-0"
         animate={{
           background: [
-            "radial-gradient(ellipse 80% 60% at 10% 20%, oklch(0.75 0.1 195 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 90% 80%, oklch(0.65 0.15 300 / 6%) 0%, transparent 50%)",
-            "radial-gradient(ellipse 80% 60% at 30% 40%, oklch(0.75 0.1 195 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 70% 60%, oklch(0.65 0.15 300 / 6%) 0%, transparent 50%)",
-            "radial-gradient(ellipse 80% 60% at 50% 30%, oklch(0.75 0.1 195 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 50% 90%, oklch(0.65 0.15 300 / 6%) 0%, transparent 50%)",
-            "radial-gradient(ellipse 80% 60% at 10% 20%, oklch(0.75 0.1 195 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 90% 80%, oklch(0.65 0.15 300 / 6%) 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 10% 20%, oklch(0.79 0.12 85 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 90% 80%, oklch(0.705 0.14 47 / 6%) 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 30% 40%, oklch(0.79 0.12 85 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 70% 60%, oklch(0.705 0.14 47 / 6%) 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 50% 30%, oklch(0.79 0.12 85 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 50% 90%, oklch(0.705 0.14 47 / 6%) 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 10% 20%, oklch(0.79 0.12 85 / 8%) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 90% 80%, oklch(0.705 0.14 47 / 6%) 0%, transparent 50%)",
           ],
         }}
         transition={{
@@ -184,8 +185,8 @@ function GradientMeshBackground() {
         className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `
-            linear-gradient(oklch(1 0 0 / 8%) 1px, transparent 1px),
-            linear-gradient(90deg, oklch(1 0 0 / 8%) 1px, transparent 1px)
+            linear-gradient(oklch(1 0.01 60 / 8%) 1px, transparent 1px),
+            linear-gradient(90deg, oklch(1 0.01 60 / 8%) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -218,7 +219,7 @@ function ScrollIndicator() {
       >
         {/* Animated dot inside */}
         <motion.div
-          className="absolute left-1/2 -translate-x-1/2 top-2 w-1.5 h-1.5 rounded-full bg-[var(--aurora-cyan)]"
+          className="absolute left-1/2 -translate-x-1/2 top-2 w-1.5 h-1.5 rounded-full bg-[var(--ember-amber)]"
           animate={{
             y: [0, 16, 0],
             opacity: [1, 0.3, 1],
@@ -331,8 +332,8 @@ export function Hero() {
                 transition={{ duration: 0.6, ease: easings.smooth }}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--aurora-cyan)] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--aurora-cyan)]" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--ember-amber)] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--ember-amber)]" />
                 </span>
                 <span className="text-sm font-medium text-muted-foreground">
                   {brand.tagline}
@@ -367,16 +368,16 @@ export function Hero() {
             <CTAButton
               variant="primary"
               size="lg"
-              icon={<Calendar className="h-5 w-5" />}
+              icon={<CalendarDots weight="duotone" className="h-5 w-5" />}
               href={brand.calendlyUrl}
-              className="shadow-glow-cyan"
+              className="shadow-glow-amber"
             >
               Réserver un appel
             </CTAButton>
             <CTAButton
               variant="secondary"
               size="lg"
-              icon={<ArrowRight className="h-5 w-5" />}
+              icon={<ArrowNarrowRightIcon size={20} />}
               href="#contact"
             >
               Recevoir une estimation
@@ -427,7 +428,7 @@ export function Hero() {
               className={cn(
                 "relative h-3 rounded-full transition-all duration-500",
                 currentSlide === index
-                  ? "w-10 bg-gradient-to-r from-[var(--aurora-cyan)] to-[var(--aurora-violet)]"
+                  ? "w-10 bg-gradient-to-r from-[var(--ember-amber)] to-[var(--ember-coral)]"
                   : "w-3 bg-white/20 hover:bg-white/40"
               )}
               aria-label={`Aller à la slide ${index + 1}`}
@@ -439,9 +440,9 @@ export function Hero() {
                   animate={{
                     opacity: [0.5, 1, 0.5],
                     boxShadow: [
-                      "0 0 10px oklch(0.75 0.15 195 / 30%)",
-                      "0 0 20px oklch(0.75 0.15 195 / 50%)",
-                      "0 0 10px oklch(0.75 0.15 195 / 30%)",
+                      "0 0 10px oklch(0.79 0.16 85 / 30%)",
+                      "0 0 20px oklch(0.79 0.16 85 / 50%)",
+                      "0 0 10px oklch(0.79 0.16 85 / 30%)",
                     ]
                   }}
                   transition={{ duration: 2, repeat: Infinity }}

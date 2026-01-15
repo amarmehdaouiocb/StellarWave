@@ -182,7 +182,7 @@ export function ProjectsCarousel() {
               key={index}
               className={cn(
                 "h-2 rounded-full transition-all duration-300",
-                index === 0 ? "w-6 bg-[var(--aurora-cyan)]" : "w-2 bg-white/30"
+                index === 0 ? "w-6 bg-[var(--ember-amber)]" : "w-2 bg-white/30"
               )}
             />
           ))}

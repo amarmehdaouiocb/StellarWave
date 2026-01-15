@@ -2,9 +2,26 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import {
+  RocketLaunch,
+  Globe,
+  Stack,
+  DeviceMobile,
+  Cloud,
+} from "@phosphor-icons/react";
+import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
+import SparklesIcon from "@/components/ui/sparkles-icon";
 import { cn } from "@/lib/utils";
-import { services } from "@/config/brand";
+import { services, type IconName } from "@/config/brand";
+
+// Icon map for looking up Phosphor icons by name
+const iconMap: Record<string, React.ElementType> = {
+  RocketLaunch,
+  Globe,
+  Stack,
+  DeviceMobile,
+  Cloud,
+};
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { CTAButton } from "@/components/shared/CTAButton";
@@ -32,7 +49,7 @@ function AnimatedIcon({
         "relative flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden",
         "transition-all duration-500",
         isHighlighted
-          ? "bg-gradient-to-br from-[var(--aurora-cyan)] via-[var(--aurora-teal)] to-[var(--aurora-violet)]"
+          ? "bg-gradient-to-br from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)]"
           : "bg-white/5 group-hover:bg-white/10",
         className
       )}
@@ -48,11 +65,12 @@ function AnimatedIcon({
         />
       )}
       <Icon
+        weight="duotone"
         className={cn(
           "h-7 w-7 relative z-10 transition-all duration-300",
           isHighlighted
             ? "text-white"
-            : "text-[var(--aurora-cyan)] group-hover:text-[var(--aurora-violet)] group-hover:scale-110"
+            : "text-[var(--ember-amber)] group-hover:text-[var(--ember-coral)] group-hover:scale-110"
         )}
       />
     </motion.div>
@@ -143,7 +161,7 @@ function ServiceCard({
   // Create radial gradient that follows mouse
   const background = useTransform([x, y], ([latestX, latestY]) => {
     if (!isHighlighted) return "transparent";
-    return `radial-gradient(600px circle at ${latestX}px ${latestY}px, oklch(0.75 0.15 195 / 8%), transparent 40%)`;
+    return `radial-gradient(600px circle at ${latestX}px ${latestY}px, oklch(0.79 0.16 85 / 8%), transparent 40%)`;
   });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -153,7 +171,7 @@ function ServiceCard({
     mouseY.set(e.clientY - rect.top);
   };
 
-  const Icon = service.icon;
+  const Icon = iconMap[service.iconName] || RocketLaunch;
 
   return (
     <motion.div
@@ -168,7 +186,7 @@ function ServiceCard({
       <GlassCard
         className={cn(
           "h-full flex flex-col relative overflow-hidden",
-          isHighlighted && "border-gradient shadow-glow-cyan"
+          isHighlighted && "border-gradient shadow-glow-amber"
         )}
         glow={isHighlighted ? "cyan" : "none"}
       >
@@ -185,7 +203,7 @@ function ServiceCard({
 
         {/* Accent corner for highlighted card */}
         {isHighlighted && (
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-[var(--aurora-cyan)]/20 to-transparent rounded-full blur-3xl" />
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-[var(--ember-amber)]/20 to-transparent rounded-full blur-3xl" />
         )}
 
         {/* Content */}
@@ -195,13 +213,13 @@ function ServiceCard({
             <AnimatedIcon icon={Icon} isHighlighted={isHighlighted} />
             {isHighlighted && (
               <motion.div
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--aurora-cyan)]/10 border border-[var(--aurora-cyan)]/20"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--ember-amber)]/10 border border-[var(--ember-amber)]/20"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <Sparkles className="h-3.5 w-3.5 text-[var(--aurora-cyan)]" />
-                <span className="text-xs font-medium text-[var(--aurora-cyan)]">
+                <SparklesIcon size={14} className="text-[var(--ember-amber)]" />
+                <span className="text-xs font-medium text-[var(--ember-amber)]">
                   Populaire
                 </span>
               </motion.div>
@@ -214,7 +232,7 @@ function ServiceCard({
               "text-xl font-semibold mb-3 transition-colors duration-300",
               isHighlighted
                 ? "text-gradient-hero"
-                : "text-foreground group-hover:text-[var(--aurora-cyan)]"
+                : "text-foreground group-hover:text-[var(--ember-amber)]"
             )}
           >
             {service.title}
@@ -240,8 +258,8 @@ function ServiceCard({
                   className={cn(
                     "h-1.5 w-1.5 rounded-full flex-shrink-0",
                     isHighlighted
-                      ? "bg-[var(--aurora-cyan)]"
-                      : "bg-muted-foreground/50 group-hover:bg-[var(--aurora-cyan)]"
+                      ? "bg-[var(--ember-amber)]"
+                      : "bg-muted-foreground/50 group-hover:bg-[var(--ember-amber)]"
                   )}
                   whileHover={{ scale: 1.5 }}
                   transition={{ type: "spring", stiffness: 500 }}
@@ -260,20 +278,13 @@ function ServiceCard({
               "inline-flex items-center gap-2 text-sm font-medium mt-auto",
               "transition-all duration-300",
               isHighlighted
-                ? "text-[var(--aurora-cyan)]"
-                : "text-muted-foreground hover:text-[var(--aurora-cyan)]"
+                ? "text-[var(--ember-amber)]"
+                : "text-muted-foreground hover:text-[var(--ember-amber)]"
             )}
             whileHover={{ x: 4 }}
           >
             {service.cta}
-            <motion.span
-              className="inline-block"
-              initial={{ x: 0 }}
-              whileHover={{ x: 4 }}
-              transition={{ type: "spring", stiffness: 400 }}
-            >
-              <ArrowRight className="h-4 w-4" />
-            </motion.span>
+            <ArrowNarrowRightIcon size={16} />
           </motion.a>
         </div>
       </GlassCard>
@@ -300,8 +311,8 @@ export function Services() {
     <AnimatedSection id="services" className="section-padding relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[var(--aurora-violet)] opacity-5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[var(--ember-coral)] opacity-5 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -376,9 +387,9 @@ export function Services() {
           <CTAButton
             variant="primary"
             size="lg"
-            icon={<ArrowRight className="h-5 w-5" />}
+            icon={<ArrowNarrowRightIcon size={20} />}
             href="#contact"
-            className="shadow-glow-cyan"
+            className="shadow-glow-amber"
           >
             Demander une estimation
           </CTAButton>

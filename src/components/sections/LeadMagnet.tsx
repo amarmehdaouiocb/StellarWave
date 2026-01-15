@@ -70,7 +70,7 @@ export function LeadMagnet() {
     >
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -108,7 +108,7 @@ export function LeadMagnet() {
                       className="flex items-center gap-3"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5">
-                        <Icon className="h-4 w-4 text-[var(--aurora-cyan)]" />
+                        <Icon className="h-4 w-4 text-[var(--ember-amber)]" />
                       </div>
                       <span className="text-sm text-muted-foreground">
                         {feature.label}

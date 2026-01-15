@@ -185,7 +185,7 @@ export function Footer() {
             </p>
             <p className="text-sm text-muted-foreground">
               Conçu et développé avec{" "}
-              <span className="text-[var(--aurora-cyan)]">passion</span> à Paris
+              <span className="text-[var(--ember-amber)]">passion</span> à Paris
             </p>
           </div>
         </motion.div>

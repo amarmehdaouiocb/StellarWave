@@ -55,7 +55,7 @@ export default function ThankYouPage() {
             {/* Next steps */}
             <GlassCard>
               <h2 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-3">
-                <Clock className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                <Clock className="h-5 w-5 text-[var(--ember-amber)]" />
                 Prochaines étapes
               </h2>
 
@@ -81,7 +81,7 @@ export default function ThankYouPage() {
             {/* Brief checklist */}
             <GlassCard>
               <h2 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-3">
-                <FileText className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                <FileText className="h-5 w-5 text-[var(--ember-amber)]" />
                 Préparez votre brief
               </h2>
 
@@ -96,7 +96,7 @@ export default function ThankYouPage() {
                     key={index}
                     className="flex items-center gap-3 text-muted-foreground"
                   >
-                    <div className="h-1.5 w-1.5 rounded-full bg-[var(--aurora-cyan)]" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-[var(--ember-amber)]" />
                     {item}
                   </li>
                 ))}
@@ -107,7 +107,7 @@ export default function ThankYouPage() {
                   Vous pouvez également nous envoyer ces éléments par email à{" "}
                   <a
                     href={`mailto:${brand.contactEmail}`}
-                    className="text-[var(--aurora-cyan)] hover:underline"
+                    className="text-[var(--ember-amber)] hover:underline"
                   >
                     {brand.contactEmail}
                   </a>
@@ -120,7 +120,7 @@ export default function ThankYouPage() {
           <div className="text-center">
             <GlassCard className="inline-block p-8">
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center justify-center gap-3">
-                <MessageSquare className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                <MessageSquare className="h-5 w-5 text-[var(--ember-amber)]" />
                 Envie de gagner du temps ?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-md">

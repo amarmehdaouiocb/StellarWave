@@ -41,7 +41,7 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
     // Inner glow that follows mouse
     const innerGlowBackground = useTransform([x, y], ([latestX, latestY]) => {
       if (!innerGlow) return "transparent";
-      return `radial-gradient(300px circle at ${latestX}px ${latestY}px, oklch(0.75 0.15 195 / 6%), transparent 40%)`;
+      return `radial-gradient(300px circle at ${latestX}px ${latestY}px, oklch(0.79 0.16 85 / 6%), transparent 40%)`;
     });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -113,7 +113,7 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           <motion.div
             className="absolute inset-0 rounded-2xl pointer-events-none z-0"
             style={{
-              background: `conic-gradient(from var(--border-angle, 0deg), var(--aurora-cyan), var(--aurora-violet), var(--aurora-teal), var(--aurora-cyan))`,
+              background: `conic-gradient(from var(--border-angle, 0deg), var(--ember-amber), var(--ember-coral), var(--ember-rose), var(--ember-amber))`,
               padding: "1px",
               WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
               WebkitMaskComposite: "xor",

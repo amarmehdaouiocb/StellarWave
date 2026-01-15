@@ -31,7 +31,7 @@ function FAQItem({
           "rounded-2xl overflow-hidden transition-all duration-500",
           "bg-white/[0.02] border border-white/5",
           isOpen
-            ? "bg-white/[0.04] border-[var(--aurora-cyan)]/20 shadow-glow-cyan/10"
+            ? "bg-white/[0.04] border-[var(--ember-amber)]/20 shadow-glow-cyan/10"
             : "hover:bg-white/[0.03] hover:border-white/10"
         )}
         layout
@@ -46,7 +46,7 @@ function FAQItem({
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-xl flex-shrink-0 transition-all duration-300",
               isOpen
-                ? "bg-gradient-to-br from-[var(--aurora-cyan)] to-[var(--aurora-teal)] text-white"
+                ? "bg-gradient-to-br from-[var(--ember-amber)] to-[var(--ember-rose)] text-white"
                 : "bg-white/5 text-muted-foreground group-hover:bg-white/10"
             )}
             animate={isOpen ? { rotate: 360 } : { rotate: 0 }}
@@ -63,7 +63,7 @@ function FAQItem({
               "flex-1 text-lg font-medium transition-colors duration-300",
               isOpen
                 ? "text-gradient-hero"
-                : "text-foreground group-hover:text-[var(--aurora-cyan)]"
+                : "text-foreground group-hover:text-[var(--ember-amber)]"
             )}
           >
             {faq.question}
@@ -74,7 +74,7 @@ function FAQItem({
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300",
               isOpen
-                ? "bg-[var(--aurora-cyan)]/20 text-[var(--aurora-cyan)]"
+                ? "bg-[var(--ember-amber)]/20 text-[var(--ember-amber)]"
                 : "bg-white/5 text-muted-foreground"
             )}
             animate={{ rotate: isOpen ? 180 : 0 }}
@@ -102,7 +102,7 @@ function FAQItem({
             >
               <div className="px-6 pb-6 pl-20">
                 {/* Decorative line */}
-                <div className="w-12 h-px bg-gradient-to-r from-[var(--aurora-cyan)] to-transparent mb-4" />
+                <div className="w-12 h-px bg-gradient-to-r from-[var(--ember-amber)] to-transparent mb-4" />
 
                 <motion.p
                   className="text-muted-foreground text-body-relaxed leading-relaxed"
@@ -132,8 +132,8 @@ export function FAQ() {
     <AnimatedSection id="faq" className="section-padding relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] bg-[var(--aurora-violet)] opacity-5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] bg-[var(--ember-coral)] opacity-5 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -155,7 +155,7 @@ export function FAQ() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: easings.smooth }}
               >
-                <HelpCircle className="h-4 w-4 text-[var(--aurora-cyan)]" />
+                <HelpCircle className="h-4 w-4 text-[var(--ember-amber)]" />
                 FAQ
               </motion.span>
 
@@ -223,7 +223,7 @@ export function FAQ() {
                 Vous ne trouvez pas votre réponse ?{" "}
                 <a
                   href={`mailto:${brand.contactEmail}`}
-                  className="text-[var(--aurora-cyan)] hover:text-[var(--aurora-violet)] transition-colors font-medium"
+                  className="text-[var(--ember-amber)] hover:text-[var(--ember-coral)] transition-colors font-medium"
                 >
                   Contactez-nous
                 </a>

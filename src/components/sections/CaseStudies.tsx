@@ -122,8 +122,8 @@ export function CaseStudies() {
                               className={cn(
                                 "text-sm font-semibold flex items-center gap-1",
                                 isPositive
-                                  ? "text-[var(--aurora-teal)]"
-                                  : "text-[var(--aurora-cyan)]"
+                                  ? "text-[var(--ember-rose)]"
+                                  : "text-[var(--ember-amber)]"
                               )}
                             >
                               {result.after}

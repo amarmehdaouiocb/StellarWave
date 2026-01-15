@@ -56,7 +56,7 @@ function PricingCard({
     >
       {/* Background glow for popular plan */}
       {offer.popular && (
-        <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[var(--aurora-cyan)] via-[var(--aurora-violet)] to-[var(--aurora-teal)] opacity-50 blur-xl" />
+        <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)] opacity-50 blur-xl" />
       )}
 
       <GlassCard
@@ -84,7 +84,7 @@ function PricingCard({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-b-xl bg-gradient-to-r from-[var(--aurora-cyan)] via-[var(--aurora-teal)] to-[var(--aurora-violet)] text-sm font-semibold text-white shadow-lg">
+            <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-b-xl bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-rose)] to-[var(--ember-coral)] text-sm font-semibold text-white shadow-lg">
               <Sparkles className="h-4 w-4" />
               Recommandé
             </span>
@@ -99,7 +99,7 @@ function PricingCard({
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-xl",
                 offer.popular
-                  ? "bg-gradient-to-br from-[var(--aurora-cyan)] to-[var(--aurora-violet)]"
+                  ? "bg-gradient-to-br from-[var(--ember-amber)] to-[var(--ember-coral)]"
                   : "bg-white/5 group-hover:bg-white/10"
               )}
               whileHover={{ scale: 1.1, rotate: 5 }}
@@ -108,7 +108,7 @@ function PricingCard({
               <Icon
                 className={cn(
                   "h-6 w-6",
-                  offer.popular ? "text-white" : "text-[var(--aurora-cyan)]"
+                  offer.popular ? "text-white" : "text-[var(--ember-amber)]"
                 )}
               />
             </motion.div>
@@ -160,8 +160,8 @@ function PricingCard({
                   className={cn(
                     "flex h-5 w-5 items-center justify-center rounded-full flex-shrink-0 mt-0.5",
                     offer.popular
-                      ? "bg-[var(--aurora-cyan)]/20"
-                      : "bg-white/5 group-hover/feature:bg-[var(--aurora-cyan)]/10"
+                      ? "bg-[var(--ember-amber)]/20"
+                      : "bg-white/5 group-hover/feature:bg-[var(--ember-amber)]/10"
                   )}
                   whileHover={{ scale: 1.2 }}
                 >
@@ -169,8 +169,8 @@ function PricingCard({
                     className={cn(
                       "h-3 w-3",
                       offer.popular
-                        ? "text-[var(--aurora-cyan)]"
-                        : "text-muted-foreground group-hover/feature:text-[var(--aurora-cyan)]"
+                        ? "text-[var(--ember-amber)]"
+                        : "text-muted-foreground group-hover/feature:text-[var(--ember-amber)]"
                     )}
                   />
                 </motion.div>
@@ -221,8 +221,8 @@ function CloudOfferCard({
           className={cn(
             "absolute top-0 left-0 right-0 h-1 rounded-t-2xl",
             index === 0
-              ? "bg-gradient-to-r from-[var(--aurora-cyan)] to-[var(--aurora-teal)]"
-              : "bg-gradient-to-r from-[var(--aurora-violet)] to-[var(--aurora-cyan)]"
+              ? "bg-gradient-to-r from-[var(--ember-amber)] to-[var(--ember-rose)]"
+              : "bg-gradient-to-r from-[var(--ember-coral)] to-[var(--ember-amber)]"
           )}
         />
 
@@ -232,8 +232,8 @@ function CloudOfferCard({
             className={cn(
               "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-4",
               index === 0
-                ? "bg-[var(--aurora-cyan)]/10 text-[var(--aurora-cyan)] border border-[var(--aurora-cyan)]/20"
-                : "bg-[var(--aurora-violet)]/10 text-[var(--aurora-violet)] border border-[var(--aurora-violet)]/20"
+                ? "bg-[var(--ember-amber)]/10 text-[var(--ember-amber)] border border-[var(--ember-amber)]/20"
+                : "bg-[var(--ember-coral)]/10 text-[var(--ember-coral)] border border-[var(--ember-coral)]/20"
             )}
             whileHover={{ scale: 1.05 }}
           >
@@ -246,7 +246,7 @@ function CloudOfferCard({
           <p
             className={cn(
               "text-sm font-medium",
-              index === 0 ? "text-[var(--aurora-cyan)]" : "text-[var(--aurora-violet)]"
+              index === 0 ? "text-[var(--ember-amber)]" : "text-[var(--ember-coral)]"
             )}
           >
             {offer.subtitle}
@@ -277,14 +277,14 @@ function CloudOfferCard({
                   className={cn(
                     "flex h-5 w-5 items-center justify-center rounded-full flex-shrink-0 mt-0.5 transition-colors",
                     index === 0
-                      ? "bg-[var(--aurora-teal)]/10 group-hover/item:bg-[var(--aurora-teal)]/20"
-                      : "bg-[var(--aurora-violet)]/10 group-hover/item:bg-[var(--aurora-violet)]/20"
+                      ? "bg-[var(--ember-rose)]/10 group-hover/item:bg-[var(--ember-rose)]/20"
+                      : "bg-[var(--ember-coral)]/10 group-hover/item:bg-[var(--ember-coral)]/20"
                   )}
                 >
                   <Check
                     className={cn(
                       "h-3 w-3",
-                      index === 0 ? "text-[var(--aurora-teal)]" : "text-[var(--aurora-violet)]"
+                      index === 0 ? "text-[var(--ember-rose)]" : "text-[var(--ember-coral)]"
                     )}
                   />
                 </div>
@@ -328,8 +328,8 @@ export function Offers() {
     <AnimatedSection id="offers" className="section-padding relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-[var(--aurora-violet)] opacity-5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-[var(--ember-coral)] opacity-5 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -387,7 +387,7 @@ export function Offers() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
             >
-              <span className="h-2 w-2 rounded-full bg-[var(--aurora-teal)] animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-[var(--ember-rose)] animate-pulse" />
               Services Cloud
             </motion.div>
             <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-h2">

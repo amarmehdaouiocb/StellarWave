@@ -3,7 +3,7 @@
 import { forwardRef, useState, useRef } from "react";
 import { motion, HTMLMotionProps, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Loader2, Check } from "lucide-react";
+import { SpinnerGap, CheckCircle } from "@phosphor-icons/react";
 import { easings } from "@/lib/animations";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "outline" | "gradient";
@@ -26,10 +26,10 @@ interface CTAButtonProps
 const variantClasses: Record<ButtonVariant, string> = {
   primary: cn(
     "relative overflow-hidden",
-    "bg-gradient-to-r from-[var(--aurora-cyan)] via-[var(--aurora-teal)] to-[var(--aurora-violet)]",
+    "bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)]",
     "text-white font-semibold",
-    "shadow-lg shadow-[var(--aurora-cyan)]/20",
-    "hover:shadow-xl hover:shadow-[var(--aurora-cyan)]/30",
+    "shadow-lg shadow-[var(--ember-amber)]/20",
+    "hover:shadow-xl hover:shadow-[var(--ember-amber)]/30",
     "active:scale-[0.98]"
   ),
   secondary: cn(
@@ -51,7 +51,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   ),
   gradient: cn(
     "relative overflow-hidden",
-    "bg-gradient-to-r from-[var(--aurora-cyan)] to-[var(--aurora-violet)]",
+    "bg-gradient-to-r from-[var(--ember-amber)] to-[var(--ember-coral)]",
     "text-white font-semibold",
     "shadow-premium-md",
     "active:scale-[0.98]"
@@ -192,7 +192,7 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
           >
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <SpinnerGap weight="bold" className="h-4 w-4 animate-spin" />
           </motion.span>
         )}
 
@@ -204,7 +204,7 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
             exit={{ opacity: 0, scale: 0 }}
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
           >
-            <Check className="h-4 w-4" />
+            <CheckCircle weight="duotone" className="h-4 w-4" />
           </motion.span>
         )}
 
@@ -238,7 +238,7 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
     const buttonClasses = cn(
       "inline-flex items-center justify-center",
       "transition-all duration-300",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--aurora-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ember-amber)] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       "disabled:opacity-50 disabled:cursor-not-allowed",
       variantClasses[variant],
       sizeClasses[size],

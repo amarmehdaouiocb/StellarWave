@@ -27,10 +27,10 @@ export function ScrollProgress({
   const percentage = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const variantStyles = {
-    default: "bg-[var(--aurora-cyan)]",
+    default: "bg-[var(--ember-amber)]",
     gradient:
-      "bg-gradient-to-r from-[var(--aurora-cyan)] via-[var(--aurora-violet)] to-[var(--aurora-teal)]",
-    glow: "bg-[var(--aurora-cyan)] shadow-glow-cyan",
+      "bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)]",
+    glow: "bg-[var(--ember-amber)] shadow-glow-amber",
   };
 
   return (

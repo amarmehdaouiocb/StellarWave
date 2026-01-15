@@ -1,17 +1,18 @@
-import {
-  Rocket,
-  Globe,
-  Smartphone,
-  Cloud,
-  Layers,
-  Zap,
-  Shield,
-  TrendingUp,
-  Users,
-  Clock,
-  Award,
-  HeartHandshake,
-} from "lucide-react";
+// Icon names as strings - actual icons are imported in client components
+// This avoids SSR issues with Phosphor icons using React context
+export type IconName =
+  | "RocketLaunch"
+  | "Globe"
+  | "DeviceMobile"
+  | "Cloud"
+  | "Stack"
+  | "Lightning"
+  | "ShieldCheck"
+  | "TrendUp"
+  | "Users"
+  | "Clock"
+  | "Trophy"
+  | "Handshake";
 
 export const brand = {
   name: "Stellar Wave",
@@ -67,7 +68,7 @@ export const trustedLogos = [
 export const services = [
   {
     id: "landing-pages",
-    icon: Rocket,
+    iconName: "RocketLaunch" as IconName,
     title: "Landing Pages Premium",
     description:
       "Pages de conversion ultra-optimisées. SEO technique, performance Lighthouse 95+, design qui convertit.",
@@ -76,7 +77,7 @@ export const services = [
   },
   {
     id: "websites",
-    icon: Globe,
+    iconName: "Globe" as IconName,
     title: "Sites Web",
     description:
       "Sites vitrines et corporate qui marquent les esprits. Design premium, CMS headless, performances exceptionnelles.",
@@ -85,7 +86,7 @@ export const services = [
   },
   {
     id: "web-apps",
-    icon: Layers,
+    iconName: "Stack" as IconName,
     title: "Applications Web",
     description:
       "SaaS, dashboards, portails. Architecture moderne, scalabilité native, expérience utilisateur fluide.",
@@ -94,7 +95,7 @@ export const services = [
   },
   {
     id: "mobile-apps",
-    icon: Smartphone,
+    iconName: "DeviceMobile" as IconName,
     title: "Apps iOS & Android",
     description:
       "Applications natives et cross-platform. React Native, Flutter. Publication App Store & Play Store.",
@@ -103,7 +104,7 @@ export const services = [
   },
   {
     id: "cloud",
-    icon: Cloud,
+    iconName: "Cloud" as IconName,
     title: "Architecture Cloud",
     description:
       "Audit, migration, optimisation. AWS, GCP, Azure. FinOps, sécurité, performance. Réduction des coûts garantie.",
@@ -114,22 +115,22 @@ export const services = [
 
 export const whyUs = [
   {
-    icon: Zap,
+    iconName: "Lightning" as IconName,
     title: "Exécution rapide",
     description: "Méthodologie agile éprouvée. Livraisons itératives. Time-to-market optimisé.",
   },
   {
-    icon: Shield,
+    iconName: "ShieldCheck" as IconName,
     title: "Qualité industrielle",
     description: "Tests automatisés, CI/CD, monitoring. Code maintenable et documenté.",
   },
   {
-    icon: TrendingUp,
+    iconName: "TrendUp" as IconName,
     title: "ROI mesurable",
     description: "Chaque projet est conçu pour générer des résultats. KPIs définis dès le départ.",
   },
   {
-    icon: HeartHandshake,
+    iconName: "Handshake" as IconName,
     title: "Partenaire long terme",
     description: "Support continu, évolutions, maintenance. Nous grandissons avec vous.",
   },
