@@ -95,7 +95,7 @@ export function AuroraGlow({ className, animated = true }: AuroraGlowProps) {
       <div
         className={cn(
           "absolute -top-1/2 -left-1/4 h-[800px] w-[800px] rounded-full",
-          "bg-[var(--aurora-cyan)] opacity-10 blur-[120px]",
+          "bg-[var(--ember-amber)] opacity-10 blur-[120px]",
           animated && "animate-pulse"
         )}
         style={{ animationDuration: "8s" }}
@@ -104,7 +104,7 @@ export function AuroraGlow({ className, animated = true }: AuroraGlowProps) {
       <div
         className={cn(
           "absolute -bottom-1/2 -right-1/4 h-[600px] w-[600px] rounded-full",
-          "bg-[var(--aurora-violet)] opacity-10 blur-[100px]",
+          "bg-[var(--ember-coral)] opacity-10 blur-[100px]",
           animated && "animate-pulse"
         )}
         style={{ animationDuration: "10s", animationDelay: "2s" }}
@@ -113,7 +113,7 @@ export function AuroraGlow({ className, animated = true }: AuroraGlowProps) {
       <div
         className={cn(
           "absolute top-1/3 right-1/4 h-[400px] w-[400px] rounded-full",
-          "bg-[var(--aurora-teal)] opacity-5 blur-[80px]",
+          "bg-[var(--ember-rose)] opacity-5 blur-[80px]",
           animated && "animate-pulse"
         )}
         style={{ animationDuration: "12s", animationDelay: "4s" }}

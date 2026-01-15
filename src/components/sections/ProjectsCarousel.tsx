@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { CaretLeft, CaretRight, ArrowSquareOut } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { caseStudies } from "@/config/brand";
 import { AnimatedSection, AnimatedItem } from "@/components/shared/AnimatedSection";
@@ -107,7 +107,7 @@ export function ProjectsCarousel() {
               )}
               aria-label="Projet précédent"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <CaretLeft className="h-5 w-5" weight="bold" />
             </button>
             <button
               onClick={() => scroll("right")}
@@ -121,7 +121,7 @@ export function ProjectsCarousel() {
               )}
               aria-label="Projet suivant"
             >
-              <ChevronRight className="h-5 w-5" />
+              <CaretRight className="h-5 w-5" weight="bold" />
             </button>
           </div>
         </motion.div>
@@ -151,7 +151,7 @@ export function ProjectsCarousel() {
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="flex items-center gap-2 text-white font-medium">
                       <span>Voir le projet</span>
-                      <ExternalLink className="h-4 w-4" />
+                      <ArrowSquareOut className="h-4 w-4" weight="bold" />
                     </div>
                   </div>
 
@@ -182,7 +182,7 @@ export function ProjectsCarousel() {
               key={index}
               className={cn(
                 "h-2 rounded-full transition-all duration-300",
-                index === 0 ? "w-6 bg-[var(--aurora-cyan)]" : "w-2 bg-white/30"
+                index === 0 ? "w-6 bg-[var(--ember-amber)]" : "w-2 bg-white/30"
               )}
             />
           ))}

@@ -1,17 +1,17 @@
-import { LucideIcon } from "lucide-react";
+import type { IconName } from "@/config/brand";
 
 // Navigation
 export interface NavItem {
   id: string;
   label: string;
   href: string;
-  icon?: LucideIcon;
+  iconName?: IconName;
 }
 
 // Service
 export interface Service {
   id: string;
-  icon: LucideIcon;
+  iconName: IconName;
   title: string;
   description: string;
   features: readonly string[];
@@ -111,7 +111,7 @@ export interface FormState {
 
 // Why Us Item
 export interface WhyUsItem {
-  icon: LucideIcon;
+  iconName: IconName;
   title: string;
   description: string;
 }

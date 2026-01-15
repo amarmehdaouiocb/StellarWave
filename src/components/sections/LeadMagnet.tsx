@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Send, Check, Zap, FileText, BarChart3, Target } from "lucide-react";
+import { PaperPlaneTilt, Check, Lightning, FileText, ChartBar, Target } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { leadMagnet } from "@/config/brand";
 import { leadMagnetSchema, LeadMagnetFormData, validateAntiSpam } from "@/lib/validators";
@@ -16,10 +16,10 @@ import { Label } from "@/components/ui/label";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 
 const features = [
-  { icon: BarChart3, label: leadMagnet.features[0] },
+  { icon: ChartBar, label: leadMagnet.features[0] },
   { icon: FileText, label: leadMagnet.features[1] },
   { icon: Target, label: leadMagnet.features[2] },
-  { icon: Zap, label: leadMagnet.features[3] },
+  { icon: Lightning, label: leadMagnet.features[3] },
 ];
 
 export function LeadMagnet() {
@@ -70,7 +70,7 @@ export function LeadMagnet() {
     >
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -80,7 +80,7 @@ export function LeadMagnet() {
             <motion.div variants={fadeInUp}>
               {/* Badge */}
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full aurora-gradient text-xs font-semibold text-primary-foreground mb-6">
-                <Zap className="h-3 w-3" />
+                <Lightning className="h-3 w-3" weight="fill" />
                 {leadMagnet.subtitle}
               </span>
 
@@ -108,7 +108,7 @@ export function LeadMagnet() {
                       className="flex items-center gap-3"
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5">
-                        <Icon className="h-4 w-4 text-[var(--aurora-cyan)]" />
+                        <Icon className="h-4 w-4 text-[var(--ember-amber)]" />
                       </div>
                       <span className="text-sm text-muted-foreground">
                         {feature.label}
@@ -196,7 +196,7 @@ export function LeadMagnet() {
                     variant="primary"
                     className="w-full"
                     loading={isSubmitting}
-                    icon={<Send className="h-4 w-4" />}
+                    icon={<PaperPlaneTilt className="h-4 w-4" weight="duotone" />}
                   >
                     Recevoir mon mini-audit
                   </CTAButton>

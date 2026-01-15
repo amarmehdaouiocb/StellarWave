@@ -61,8 +61,8 @@ export function ProofCards() {
     >
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[var(--aurora-cyan)] opacity-5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[var(--aurora-teal)] opacity-5 blur-[120px] rounded-full" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[var(--ember-rose)] opacity-5 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -132,8 +132,8 @@ export function ProofCards() {
                     className={cn(
                       "inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold mb-4",
                       isInverse
-                        ? "bg-[var(--aurora-teal)]/20 text-[var(--aurora-teal)]"
-                        : "bg-[var(--aurora-cyan)]/20 text-[var(--aurora-cyan)]"
+                        ? "bg-[var(--ember-rose)]/20 text-[var(--ember-rose)]"
+                        : "bg-[var(--ember-amber)]/20 text-[var(--ember-amber)]"
                     )}
                   >
                     {isInverse ? "-" : "+"}

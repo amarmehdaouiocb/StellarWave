@@ -1,11 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  Lightning,
+  ShieldCheck,
+  TrendUp,
+  Handshake,
+} from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { whyUs } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { staggerContainer, staggerItem, fadeInUp } from "@/lib/animations";
+
+// Icon map for looking up Phosphor icons by name
+const iconMap: Record<string, React.ElementType> = {
+  Lightning,
+  ShieldCheck,
+  TrendUp,
+  Handshake,
+};
 
 export function WhyUs() {
   return (
@@ -15,7 +29,7 @@ export function WhyUs() {
     >
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--aurora-violet)] opacity-5 blur-[150px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--ember-coral)] opacity-5 blur-[150px] rounded-full" />
       </div>
 
       <div className="relative container-wide lg:pl-64">
@@ -45,7 +59,7 @@ export function WhyUs() {
           viewport={{ once: true }}
         >
           {whyUs.map((item, index) => {
-            const Icon = item.icon;
+            const Icon = iconMap[item.iconName] || Lightning;
 
             return (
               <motion.div key={index} variants={staggerItem}>
@@ -55,12 +69,12 @@ export function WhyUs() {
                     <div
                       className={cn(
                         "flex-shrink-0 flex h-12 w-12 items-center justify-center rounded-xl",
-                        "bg-gradient-to-br from-[var(--aurora-cyan)]/20 to-[var(--aurora-violet)]/20",
-                        "group-hover:from-[var(--aurora-cyan)]/30 group-hover:to-[var(--aurora-violet)]/30",
+                        "bg-gradient-to-br from-[var(--ember-amber)]/20 to-[var(--ember-coral)]/20",
+                        "group-hover:from-[var(--ember-amber)]/30 group-hover:to-[var(--ember-coral)]/30",
                         "transition-all duration-300"
                       )}
                     >
-                      <Icon className="h-6 w-6 text-[var(--aurora-cyan)]" />
+                      <Icon weight="duotone" className="h-6 w-6 text-[var(--ember-amber)]" />
                     </div>
 
                     {/* Content */}

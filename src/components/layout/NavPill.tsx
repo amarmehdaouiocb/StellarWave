@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { navPillIndicator } from "@/lib/animations";
 
@@ -105,7 +105,7 @@ export function NavPill({ className }: NavPillProps) {
         )}
         aria-label="Rechercher"
       >
-        <Search className="h-4 w-4" />
+        <MagnifyingGlass className="h-4 w-4" weight="bold" />
       </button>
     </motion.nav>
   );

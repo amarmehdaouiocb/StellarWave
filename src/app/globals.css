@@ -4,15 +4,16 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ================================================
-   STELLAR WAVE - AURORA CINEMA THEME
-   Premium dark theme with cinematic glassmorphism
+   STELLAR WAVE - EMBER LUXE THEME
+   Premium dark theme with warm luxurious tones
+   Palette: Amber → Coral → Rose on Charcoal
    ================================================ */
 
 @theme inline {
   /* Base colors mapped to CSS variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sora), var(--font-dm-sans), system-ui, sans-serif;
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Sidebar colors */
@@ -65,85 +66,210 @@
   --radius: 0.75rem;
 
   /* ================================================
-     DARK THEME (Default - Aurora Cinema)
+     DARK THEME (Default - Ember Luxe)
+     Warm charcoal base with amber/coral/rose accents
      ================================================ */
 
-  /* Core backgrounds */
-  --background: oklch(0.08 0.01 270);
-  --foreground: oklch(0.98 0 0);
+  /* Core backgrounds - Warm charcoal */
+  --background: oklch(0.11 0.008 60);
+  --foreground: oklch(0.98 0.01 60);
 
-  /* Cards & Surfaces */
-  --card: oklch(0.12 0.01 270);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0.015 270);
-  --popover-foreground: oklch(0.98 0 0);
+  /* Cards & Surfaces - Slightly warmer */
+  --card: oklch(0.14 0.01 55);
+  --card-foreground: oklch(0.98 0.01 60);
+  --popover: oklch(0.14 0.012 55);
+  --popover-foreground: oklch(0.98 0.01 60);
 
-  /* Primary - Cyan Aurora */
-  --primary: oklch(0.75 0.15 195);
-  --primary-foreground: oklch(0.1 0.02 270);
+  /* Primary - Amber Gold */
+  --primary: oklch(0.79 0.16 85);
+  --primary-foreground: oklch(0.12 0.02 60);
 
-  /* Secondary - Subtle glass */
-  --secondary: oklch(0.18 0.01 270);
-  --secondary-foreground: oklch(0.9 0 0);
+  /* Secondary - Subtle warm glass */
+  --secondary: oklch(0.18 0.012 55);
+  --secondary-foreground: oklch(0.92 0.01 60);
 
-  /* Muted */
-  --muted: oklch(0.2 0.01 270);
-  --muted-foreground: oklch(0.65 0.01 270);
+  /* Muted - Warm gray */
+  --muted: oklch(0.22 0.01 55);
+  --muted-foreground: oklch(0.65 0.015 60);
 
-  /* Accent - Violet */
-  --accent: oklch(0.65 0.2 300);
-  --accent-foreground: oklch(0.98 0 0);
+  /* Accent - Coral Orange */
+  --accent: oklch(0.705 0.185 47);
+  --accent-foreground: oklch(0.98 0.01 60);
 
-  /* Destructive */
-  --destructive: oklch(0.65 0.2 25);
+  /* Destructive - Stays red-ish */
+  --destructive: oklch(0.6 0.22 25);
 
-  /* Borders & Inputs */
+  /* Borders & Inputs - Warm tint */
   --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.75 0.15 195);
+  --input: oklch(1 0.01 60 / 10%);
+  --ring: oklch(0.79 0.16 85);
 
-  /* Chart colors - Aurora palette */
-  --chart-1: oklch(0.75 0.15 195);
-  --chart-2: oklch(0.65 0.2 300);
-  --chart-3: oklch(0.7 0.15 175);
-  --chart-4: oklch(0.75 0.18 280);
-  --chart-5: oklch(0.65 0.15 220);
+  /* Chart colors - Ember palette */
+  --chart-1: oklch(0.79 0.16 85);
+  --chart-2: oklch(0.705 0.185 47);
+  --chart-3: oklch(0.65 0.22 350);
+  --chart-4: oklch(0.72 0.14 70);
+  --chart-5: oklch(0.6 0.18 30);
 
-  /* Sidebar */
-  --sidebar: oklch(0.06 0.015 270);
-  --sidebar-foreground: oklch(0.85 0 0);
-  --sidebar-primary: oklch(0.75 0.15 195);
-  --sidebar-primary-foreground: oklch(0.1 0.02 270);
-  --sidebar-accent: oklch(0.15 0.02 270);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(1 0 0 / 6%);
-  --sidebar-ring: oklch(0.75 0.15 195);
+  /* Sidebar - Deep warm charcoal */
+  --sidebar: oklch(0.08 0.01 55);
+  --sidebar-foreground: oklch(0.88 0.01 60);
+  --sidebar-primary: oklch(0.79 0.16 85);
+  --sidebar-primary-foreground: oklch(0.12 0.02 60);
+  --sidebar-accent: oklch(0.16 0.015 55);
+  --sidebar-accent-foreground: oklch(0.98 0.01 60);
+  --sidebar-border: oklch(1 0.01 60 / 6%);
+  --sidebar-ring: oklch(0.79 0.16 85);
 
   /* ================================================
-     CUSTOM AURORA THEME VARIABLES
+     CUSTOM EMBER LUXE THEME VARIABLES
      ================================================ */
 
-  /* Aurora accent colors */
-  --aurora-cyan: oklch(0.75 0.15 195);
-  --aurora-violet: oklch(0.65 0.2 300);
-  --aurora-teal: oklch(0.7 0.15 175);
-  --aurora-blue: oklch(0.6 0.18 250);
+  /* Ember accent colors - Warm luxurious palette */
+  --ember-amber: oklch(0.79 0.16 85);
+  --ember-coral: oklch(0.705 0.185 47);
+  --ember-rose: oklch(0.65 0.22 350);
+  --ember-gold: oklch(0.82 0.14 90);
 
-  /* Glow effects */
-  --glow-cyan: oklch(0.75 0.15 195 / 30%);
-  --glow-violet: oklch(0.65 0.2 300 / 30%);
-  --glow-teal: oklch(0.7 0.15 175 / 30%);
+  /* Legacy aliases for compatibility */
+  --aurora-cyan: var(--ember-amber);
+  --aurora-violet: var(--ember-coral);
+  --aurora-teal: var(--ember-rose);
+  --aurora-blue: var(--ember-gold);
 
-  /* Glass effects */
-  --glass-bg: oklch(1 0 0 / 5%);
-  --glass-border: oklch(1 0 0 / 10%);
+  /* Glow effects - Multiple intensities */
+  --glow-amber: oklch(0.79 0.16 85 / 35%);
+  --glow-amber-subtle: oklch(0.79 0.16 85 / 18%);
+  --glow-amber-intense: oklch(0.79 0.16 85 / 55%);
+  --glow-coral: oklch(0.705 0.185 47 / 35%);
+  --glow-coral-subtle: oklch(0.705 0.185 47 / 18%);
+  --glow-coral-intense: oklch(0.705 0.185 47 / 55%);
+  --glow-rose: oklch(0.65 0.22 350 / 35%);
+  --glow-rose-subtle: oklch(0.65 0.22 350 / 18%);
+  --glow-rose-intense: oklch(0.65 0.22 350 / 55%);
+
+  /* Legacy glow aliases */
+  --glow-cyan: var(--glow-amber);
+  --glow-cyan-subtle: var(--glow-amber-subtle);
+  --glow-cyan-intense: var(--glow-amber-intense);
+  --glow-violet: var(--glow-coral);
+  --glow-violet-subtle: var(--glow-coral-subtle);
+  --glow-violet-intense: var(--glow-coral-intense);
+  --glow-teal: var(--glow-rose);
+  --glow-teal-subtle: var(--glow-rose-subtle);
+  --glow-teal-intense: var(--glow-rose-intense);
+
+  /* Glass effects - Warmer tint */
+  --glass-bg: oklch(1 0.01 60 / 5%);
+  --glass-bg-subtle: oklch(1 0.008 60 / 3%);
+  --glass-bg-heavy: oklch(1 0.012 60 / 10%);
+  --glass-border: oklch(1 0.01 60 / 10%);
+  --glass-border-subtle: oklch(1 0.008 60 / 6%);
+  --glass-border-strong: oklch(1 0.012 60 / 15%);
   --glass-blur: 20px;
-  --glass-highlight: oklch(1 0 0 / 5%);
+  --glass-blur-subtle: 12px;
+  --glass-blur-heavy: 40px;
+  --glass-highlight: oklch(1 0.01 60 / 5%);
 
-  /* Gradient stops */
-  --gradient-start: oklch(0.75 0.15 195);
-  --gradient-mid: oklch(0.65 0.2 300);
-  --gradient-end: oklch(0.7 0.15 175);
+  /* Gradient stops - Ember Luxe */
+  --gradient-start: oklch(0.79 0.16 85);
+  --gradient-mid: oklch(0.705 0.185 47);
+  --gradient-end: oklch(0.65 0.22 350);
+
+  /* ================================================
+     PREMIUM SHADOW SYSTEM - Multi-layer, warm tinted
+     ================================================ */
+
+  /* Subtle shadows - for small elements */
+  --shadow-xs:
+    0 1px 2px oklch(0 0 0 / 10%);
+
+  /* Default card shadow - 3 layers with amber tint */
+  --shadow-sm:
+    0 1px 2px oklch(0 0 0 / 8%),
+    0 2px 4px oklch(0 0 0 / 6%),
+    0 4px 8px oklch(0.5 0.02 85 / 4%);
+
+  --shadow-md:
+    0 2px 4px oklch(0 0 0 / 10%),
+    0 4px 8px oklch(0 0 0 / 8%),
+    0 8px 16px oklch(0.5 0.03 85 / 6%),
+    0 16px 32px oklch(0.5 0.02 55 / 4%);
+
+  /* Elevated - for important cards, modals */
+  --shadow-lg:
+    0 4px 6px oklch(0 0 0 / 12%),
+    0 8px 15px oklch(0 0 0 / 10%),
+    0 16px 30px oklch(0.5 0.04 85 / 8%),
+    0 32px 50px oklch(0.5 0.03 55 / 6%);
+
+  /* Floating - for dropdowns, popovers */
+  --shadow-xl:
+    0 8px 16px oklch(0 0 0 / 15%),
+    0 16px 32px oklch(0 0 0 / 12%),
+    0 32px 64px oklch(0.5 0.05 85 / 10%),
+    0 48px 80px oklch(0.5 0.04 55 / 8%);
+
+  /* Glow shadows - Ember palette */
+  --shadow-glow-amber:
+    0 0 20px oklch(0.79 0.16 85 / 28%),
+    0 0 40px oklch(0.79 0.16 85 / 18%),
+    0 0 60px oklch(0.79 0.16 85 / 10%);
+
+  --shadow-glow-coral:
+    0 0 20px oklch(0.705 0.185 47 / 28%),
+    0 0 40px oklch(0.705 0.185 47 / 18%),
+    0 0 60px oklch(0.705 0.185 47 / 10%);
+
+  --shadow-glow-rose:
+    0 0 20px oklch(0.65 0.22 350 / 28%),
+    0 0 40px oklch(0.65 0.22 350 / 18%),
+    0 0 60px oklch(0.65 0.22 350 / 10%);
+
+  /* Legacy aliases */
+  --shadow-glow-cyan: var(--shadow-glow-amber);
+  --shadow-glow-violet: var(--shadow-glow-coral);
+  --shadow-glow-teal: var(--shadow-glow-rose);
+
+  /* Inner shadows - for depth */
+  --shadow-inner-subtle:
+    inset 0 1px 2px oklch(0 0 0 / 10%);
+
+  --shadow-inner:
+    inset 0 2px 4px oklch(0 0 0 / 15%),
+    inset 0 4px 8px oklch(0 0 0 / 8%);
+
+  /* ================================================
+     TYPOGRAPHY SCALE - Contextual letter-spacing
+     ================================================ */
+
+  /* Display - Ultra large headlines (Hero) */
+  --text-display-spacing: -0.03em;
+  --text-display-height: 1.0;
+
+  /* H1 - Section titles */
+  --text-h1-spacing: -0.025em;
+  --text-h1-height: 1.1;
+
+  /* H2 - Card titles */
+  --text-h2-spacing: -0.02em;
+  --text-h2-height: 1.15;
+
+  /* H3 - Subtitles */
+  --text-h3-spacing: -0.01em;
+  --text-h3-height: 1.2;
+
+  /* Body - Paragraphs */
+  --text-body-spacing: 0em;
+  --text-body-height: 1.6;
+
+  /* Small - Captions, labels */
+  --text-small-spacing: 0.01em;
+  --text-small-height: 1.5;
+
+  /* Micro - Tags, badges */
+  --text-micro-spacing: 0.05em;
+  --text-micro-height: 1.4;
 }
 
 /* Light theme override (if needed) */
@@ -188,10 +314,10 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Selection color */
+  /* Selection color - Warm amber */
   ::selection {
-    background: oklch(0.75 0.15 195 / 30%);
-    color: oklch(0.98 0 0);
+    background: oklch(0.79 0.16 85 / 30%);
+    color: oklch(0.98 0.01 60);
   }
 
   /* Focus visible */
@@ -199,29 +325,91 @@
     @apply outline-2 outline-offset-2 outline-ring;
   }
 
-  /* Scrollbar styling */
+  /* ================================================
+     PREMIUM SCROLLBAR - With warm glow effect
+     ================================================ */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: oklch(0.11 0.008 60);
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: oklch(1 0 0 / 15%);
-    border-radius: 4px;
+    background: linear-gradient(
+      180deg,
+      oklch(0.79 0.12 85 / 40%) 0%,
+      oklch(0.705 0.14 47 / 30%) 100%
+    );
+    border-radius: 5px;
+    border: 2px solid oklch(0.11 0.008 60);
+    transition: all 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(1 0 0 / 25%);
+    background: linear-gradient(
+      180deg,
+      oklch(0.79 0.16 85 / 60%) 0%,
+      oklch(0.705 0.185 47 / 50%) 100%
+    );
+    box-shadow: 0 0 10px oklch(0.79 0.16 85 / 30%);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: oklch(0.11 0.008 60);
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: oklch(1 0 0 / 15%) transparent;
+    scrollbar-color: oklch(0.79 0.12 85 / 40%) oklch(0.11 0.008 60);
+  }
+
+  /* ================================================
+     CUSTOM CURSOR - Premium interactive feedback
+     ================================================ */
+
+  /* Default cursor - slightly refined */
+  html {
+    cursor: default;
+  }
+
+  /* Interactive elements - pointer with glow effect via CSS */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  /* Grab cursor for draggable elements */
+  .cursor-grab {
+    cursor: grab;
+  }
+
+  .cursor-grab:active,
+  .cursor-grabbing {
+    cursor: grabbing;
+  }
+
+  /* Text cursor enhancement */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+    caret-color: var(--ember-amber);
+  }
+
+  /* Disabled state */
+  [disabled],
+  .cursor-not-allowed {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 
@@ -245,56 +433,410 @@
     border: 1px solid oklch(1 0 0 / 12%);
   }
 
-  /* Aurora gradient */
+  /* ================================================
+     LIQUID GLASS EFFECTS - Fluid morphing glass
+     ================================================ */
+
+  .liquid-glass {
+    background: linear-gradient(
+      135deg,
+      oklch(1 0.01 60 / 6%) 0%,
+      oklch(1 0.01 60 / 12%) 25%,
+      oklch(1 0.01 60 / 8%) 50%,
+      oklch(1 0.01 60 / 14%) 75%,
+      oklch(1 0.01 60 / 6%) 100%
+    );
+    background-size: 400% 400%;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid oklch(1 0.01 60 / 12%);
+    animation: liquid-flow 12s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 100% 80% at var(--shimmer-x, 50%) var(--shimmer-y, 50%),
+      oklch(1 0.02 85 / 12%) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .liquid-glass:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes liquid-flow {
+    0%, 100% {
+      background-position: 0% 50%;
+      border-color: oklch(1 0.01 60 / 12%);
+    }
+    25% {
+      background-position: 100% 25%;
+      border-color: oklch(0.79 0.08 85 / 18%);
+    }
+    50% {
+      background-position: 100% 100%;
+      border-color: oklch(1 0.01 60 / 12%);
+    }
+    75% {
+      background-position: 0% 75%;
+      border-color: oklch(0.705 0.09 47 / 18%);
+    }
+  }
+
+  /* Liquid glass with animated border */
+  .liquid-glass-border::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      var(--border-angle, 0deg),
+      oklch(0.79 0.16 85 / 40%) 0%,
+      oklch(1 0 0 / 5%) 25%,
+      oklch(0.705 0.185 47 / 40%) 50%,
+      oklch(1 0 0 / 5%) 75%,
+      oklch(0.79 0.16 85 / 40%) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: liquid-border-rotate 16s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes liquid-border-rotate {
+    to {
+      --border-angle: 360deg;
+    }
+  }
+
+  /* Register custom property for border animation */
+  @property --border-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  /* Ember gradient */
+  .ember-gradient,
   .aurora-gradient {
     background: linear-gradient(
       135deg,
-      var(--aurora-cyan) 0%,
-      var(--aurora-violet) 50%,
-      var(--aurora-teal) 100%
+      var(--ember-amber) 0%,
+      var(--ember-coral) 50%,
+      var(--ember-rose) 100%
     );
   }
 
+  .ember-gradient-animated,
   .aurora-gradient-animated {
     background: linear-gradient(
       135deg,
-      var(--aurora-cyan) 0%,
-      var(--aurora-violet) 33%,
-      var(--aurora-teal) 66%,
-      var(--aurora-cyan) 100%
+      var(--ember-amber) 0%,
+      var(--ember-coral) 33%,
+      var(--ember-rose) 66%,
+      var(--ember-amber) 100%
     );
     background-size: 300% 300%;
-    animation: aurora-shift 10s ease infinite;
+    animation: ember-shift 10s ease infinite;
   }
 
+  @keyframes ember-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Legacy alias */
   @keyframes aurora-shift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
 
-  /* Text gradient */
+  /* ================================================
+     TEXT GRADIENTS - Ember Luxe variations
+     ================================================ */
+
+  /* Default text gradient - 2 colors */
   .text-gradient {
     background: linear-gradient(
       135deg,
-      var(--aurora-cyan) 0%,
-      var(--aurora-violet) 100%
+      var(--ember-amber) 0%,
+      var(--ember-coral) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Glow effects */
+  /* Hero text gradient - 3 colors, dramatic warm */
+  .text-gradient-hero {
+    background: linear-gradient(
+      120deg,
+      var(--ember-amber) 0%,
+      var(--ember-coral) 40%,
+      var(--ember-rose) 80%,
+      var(--ember-amber) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Accent text gradient - Subtle coral to rose */
+  .text-gradient-accent {
+    background: linear-gradient(
+      90deg,
+      var(--ember-coral) 0%,
+      var(--ember-rose) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* CTA text gradient - Reversed direction */
+  .text-gradient-cta {
+    background: linear-gradient(
+      -45deg,
+      var(--ember-rose) 0%,
+      var(--ember-amber) 50%,
+      var(--ember-coral) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Animated text gradient on hover */
+  .text-gradient-animated {
+    background: linear-gradient(
+      90deg,
+      var(--ember-amber) 0%,
+      var(--ember-coral) 25%,
+      var(--ember-rose) 50%,
+      var(--ember-coral) 75%,
+      var(--ember-amber) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes text-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ================================================
+     CONTEXTUAL GRADIENTS - Ember Luxe Backgrounds
+     ================================================ */
+
+  /* Hero gradient - Dramatic warm, top-down */
+  .gradient-hero {
+    background: linear-gradient(
+      180deg,
+      oklch(0.14 0.015 55) 0%,
+      oklch(0.11 0.012 60) 40%,
+      oklch(0.09 0.02 85 / 50%) 70%,
+      oklch(0.11 0.008 60) 100%
+    );
+  }
+
+  /* Feature gradient - Subtle warm diagonal */
+  .gradient-feature {
+    background: linear-gradient(
+      135deg,
+      oklch(0.12 0.02 85 / 30%) 0%,
+      transparent 50%,
+      oklch(0.12 0.025 47 / 20%) 100%
+    );
+  }
+
+  /* CTA gradient - Radial warm centered */
+  .gradient-cta {
+    background: radial-gradient(
+      ellipse at center,
+      oklch(0.18 0.04 85 / 40%) 0%,
+      oklch(0.12 0.02 55 / 20%) 50%,
+      transparent 80%
+    );
+  }
+
+  /* Section divider gradient - Horizontal */
+  .gradient-section-divide {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(1 0.01 60 / 8%) 20%,
+      oklch(1 0.01 60 / 8%) 80%,
+      transparent 100%
+    );
+    height: 1px;
+  }
+
+  /* Mesh gradient - Warm multi-point */
+  .gradient-mesh {
+    background:
+      radial-gradient(ellipse at 20% 20%, var(--glow-amber-subtle) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, var(--glow-coral-subtle) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 80%, var(--glow-rose-subtle) 0%, transparent 50%),
+      oklch(0.11 0.008 60);
+  }
+
+  /* ================================================
+     PREMIUM SHADOW CLASSES
+     ================================================ */
+
+  .shadow-premium-xs { box-shadow: var(--shadow-xs); }
+  .shadow-premium-sm { box-shadow: var(--shadow-sm); }
+  .shadow-premium-md { box-shadow: var(--shadow-md); }
+  .shadow-premium-lg { box-shadow: var(--shadow-lg); }
+  .shadow-premium-xl { box-shadow: var(--shadow-xl); }
+
+  /* Ember glow shadows */
+  .shadow-glow-amber { box-shadow: var(--shadow-glow-amber); }
+  .shadow-glow-coral { box-shadow: var(--shadow-glow-coral); }
+  .shadow-glow-rose { box-shadow: var(--shadow-glow-rose); }
+
+  /* Legacy aliases */
+  .shadow-glow-cyan { box-shadow: var(--shadow-glow-amber); }
+  .shadow-glow-violet { box-shadow: var(--shadow-glow-coral); }
+  .shadow-glow-teal { box-shadow: var(--shadow-glow-rose); }
+
+  .shadow-inner-subtle { box-shadow: var(--shadow-inner-subtle); }
+  .shadow-inner { box-shadow: var(--shadow-inner); }
+
+  /* Combined shadow + glow for premium cards */
+  .shadow-card-glow {
+    box-shadow:
+      var(--shadow-md),
+      0 0 30px var(--glow-amber-subtle);
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .shadow-card-glow:hover {
+    box-shadow:
+      var(--shadow-lg),
+      0 0 50px var(--glow-amber);
+  }
+
+  /* Ember glow effects */
+  .glow-amber {
+    box-shadow: 0 0 30px var(--glow-amber);
+  }
+
+  .glow-coral {
+    box-shadow: 0 0 30px var(--glow-coral);
+  }
+
+  .glow-rose {
+    box-shadow: 0 0 30px var(--glow-rose);
+  }
+
+  /* Legacy aliases */
   .glow-cyan {
-    box-shadow: 0 0 30px var(--glow-cyan);
+    box-shadow: 0 0 30px var(--glow-amber);
   }
 
   .glow-violet {
-    box-shadow: 0 0 30px var(--glow-violet);
+    box-shadow: 0 0 30px var(--glow-coral);
   }
 
   .glow-teal {
-    box-shadow: 0 0 30px var(--glow-teal);
+    box-shadow: 0 0 30px var(--glow-rose);
+  }
+
+  /* ================================================
+     TYPOGRAPHY UTILITY CLASSES
+     ================================================ */
+
+  .text-display {
+    letter-spacing: var(--text-display-spacing);
+    line-height: var(--text-display-height);
+  }
+
+  .text-h1 {
+    letter-spacing: var(--text-h1-spacing);
+    line-height: var(--text-h1-height);
+  }
+
+  .text-h2 {
+    letter-spacing: var(--text-h2-spacing);
+    line-height: var(--text-h2-height);
+  }
+
+  .text-h3 {
+    letter-spacing: var(--text-h3-spacing);
+    line-height: var(--text-h3-height);
+  }
+
+  .text-body-relaxed {
+    letter-spacing: var(--text-body-spacing);
+    line-height: var(--text-body-height);
+  }
+
+  .text-small-caps {
+    letter-spacing: var(--text-small-spacing);
+    line-height: var(--text-small-height);
+  }
+
+  /* ================================================
+     EXTREME FONT WEIGHTS - Outfit typography contrast
+     ================================================ */
+
+  .font-thin {
+    font-weight: 100;
+  }
+
+  .font-extralight {
+    font-weight: 200;
+  }
+
+  .font-light {
+    font-weight: 300;
+  }
+
+  .font-black {
+    font-weight: 900;
+  }
+
+  /* Display titles with extreme weight */
+  .text-display-heavy {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  .text-display-black {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+
+  /* Ultra thin contrast text */
+  .text-contrast-thin {
+    font-weight: 100;
+    letter-spacing: 0.02em;
+  }
+
+  .text-micro {
+    letter-spacing: var(--text-micro-spacing);
+    line-height: var(--text-micro-height);
+    text-transform: uppercase;
   }
 
   /* Noise texture overlay */
@@ -324,7 +866,7 @@
     background: radial-gradient(
       ellipse at center,
       transparent 0%,
-      oklch(0.08 0.01 270 / 70%) 100%
+      oklch(0.11 0.008 60 / 70%) 100%
     );
     pointer-events: none;
   }
@@ -402,9 +944,9 @@
     padding: 1px;
     background: linear-gradient(
       135deg,
-      var(--aurora-cyan) 0%,
-      var(--aurora-violet) 50%,
-      var(--aurora-teal) 100%
+      var(--ember-amber) 0%,
+      var(--ember-coral) 50%,
+      var(--ember-rose) 100%
     );
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
@@ -420,6 +962,247 @@
   .focus-ring {
     @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-primary;
   }
+
+  /* ================================================
+     PREMIUM LINK ANIMATIONS
+     ================================================ */
+
+  /* Underline slide from left */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ember-amber), var(--ember-coral));
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Underline expand from center */
+  .link-underline-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Glow on hover */
+  .link-glow {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .link-glow:hover {
+    text-shadow: 0 0 20px var(--glow-amber);
+  }
+
+  /* ================================================
+     HOVER LIFT EFFECTS
+     ================================================ */
+
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .hover-lift-lg {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-lift-lg:hover {
+    transform: translateY(-8px);
+  }
+
+  /* ================================================
+     BORDER ANIMATIONS
+     ================================================ */
+
+  /* Border glow on hover */
+  .border-glow {
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease, background 0.4s ease;
+  }
+
+  .border-glow:hover::before {
+    opacity: 1;
+    background: linear-gradient(
+      135deg,
+      var(--ember-amber) 0%,
+      var(--ember-coral) 50%,
+      var(--ember-rose) 100%
+    );
+  }
+
+  /* Animated border - Rotating warm gradient */
+  .border-animated {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .border-animated::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(
+      from 0deg,
+      var(--ember-amber),
+      var(--ember-coral),
+      var(--ember-rose),
+      var(--ember-amber)
+    );
+    border-radius: inherit;
+    animation: border-rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .border-animated::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--card);
+    border-radius: calc(var(--radius-xl) - 2px);
+  }
+
+  .border-animated:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes border-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ================================================
+     GLASSMORPHISM VARIANTS
+     ================================================ */
+
+  .glass-subtle {
+    background: var(--glass-bg-subtle);
+    backdrop-filter: blur(var(--glass-blur-subtle));
+    -webkit-backdrop-filter: blur(var(--glass-blur-subtle));
+    border: 1px solid var(--glass-border-subtle);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(var(--glass-blur-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+    border: 1px solid var(--glass-border-strong);
+  }
+
+  /* Glass with inner highlight */
+  .glass-highlight {
+    background: linear-gradient(
+      135deg,
+      oklch(1 0 0 / 8%) 0%,
+      oklch(1 0 0 / 3%) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 10%);
+  }
+
+  /* ================================================
+     SHIMMER / LOADING EFFECTS
+     ================================================ */
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(1 0 0 / 5%) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px var(--glow-amber-subtle);
+    }
+    50% {
+      box-shadow: 0 0 40px var(--glow-amber);
+    }
+  }
+
+  /* ================================================
+     ASPECT RATIOS
+     ================================================ */
+
+  .aspect-hero { aspect-ratio: 16/9; }
+  .aspect-card { aspect-ratio: 4/3; }
+  .aspect-square { aspect-ratio: 1/1; }
+  .aspect-portrait { aspect-ratio: 3/4; }
+
+  /* ================================================
+     BACKDROP EFFECTS
+     ================================================ */
+
+  .backdrop-blur-hero {
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+  }
+
+  .backdrop-glow {
+    backdrop-filter: blur(20px) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) brightness(1.1);
+  }
 }
 
 /* ================================================
@@ -430,9 +1213,9 @@
   /* Premium button styles */
   .btn-primary {
     @apply relative overflow-hidden px-6 py-3 rounded-xl font-medium;
-    @apply bg-gradient-to-r from-[var(--aurora-cyan)] via-[var(--aurora-violet)] to-[var(--aurora-teal)];
+    @apply bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)];
     @apply text-[var(--primary-foreground)] transition-all duration-300;
-    @apply hover:shadow-lg hover:shadow-[var(--glow-cyan)];
+    @apply hover:shadow-lg hover:shadow-[var(--glow-amber)];
     @apply active:scale-[0.98];
   }
 

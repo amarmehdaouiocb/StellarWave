@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Send, Mail, Phone, MapPin } from "lucide-react";
+import { PaperPlaneTilt, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/config/brand";
 import {
@@ -118,7 +118,7 @@ export function EstimateForm() {
                         href={`mailto:${brand.contactEmail}`}
                         className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <Mail className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                        <EnvelopeSimple className="h-5 w-5 text-[var(--ember-amber)]" weight="duotone" />
                         {brand.contactEmail}
                       </a>
                     </li>
@@ -127,13 +127,13 @@ export function EstimateForm() {
                         href={`tel:${brand.phone}`}
                         className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <Phone className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                        <Phone className="h-5 w-5 text-[var(--ember-amber)]" />
                         {brand.phone}
                       </a>
                     </li>
                     <li>
                       <div className="flex items-center gap-3 text-muted-foreground">
-                        <MapPin className="h-5 w-5 text-[var(--aurora-cyan)]" />
+                        <MapPin className="h-5 w-5 text-[var(--ember-amber)]" />
                         {brand.address}
                       </div>
                     </li>
@@ -384,7 +384,7 @@ export function EstimateForm() {
                       demande et me recontacter. Consultez notre{" "}
                       <a
                         href="/confidentialite"
-                        className="text-[var(--aurora-cyan)] hover:underline"
+                        className="text-[var(--ember-amber)] hover:underline"
                       >
                         politique de confidentialité
                       </a>
@@ -405,7 +405,7 @@ export function EstimateForm() {
                   size="lg"
                   className="w-full sm:w-auto"
                   loading={isSubmitting}
-                  icon={<Send className="h-5 w-5" />}
+                  icon={<PaperPlaneTilt className="h-5 w-5" weight="duotone" />}
                 >
                   Envoyer ma demande
                 </CTAButton>
