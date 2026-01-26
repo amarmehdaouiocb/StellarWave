@@ -56,11 +56,17 @@ export function NavPill({ className }: NavPillProps) {
         "fixed top-6 left-1/2 -translate-x-1/2 z-50",
         "hidden md:flex items-center gap-1",
         "px-2 py-2 rounded-full",
-        "glass-heavy",
+        // Light theme glass
+        "bg-white/80 backdrop-blur-xl border border-[oklch(0_0_0_/_8%)]",
         "transition-all duration-300",
-        isScrolled && "shadow-lg shadow-black/20",
+        isScrolled && "shadow-lg",
         className
       )}
+      style={{
+        boxShadow: isScrolled
+          ? "0 8px 32px oklch(0.2 0.01 250 / 10%), 0 32px 80px oklch(0.2 0.01 250 / 8%)"
+          : "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+      }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
@@ -77,18 +83,23 @@ export function NavPill({ className }: NavPillProps) {
               "relative px-4 py-2 rounded-full",
               "text-sm font-medium",
               "transition-colors duration-200",
-              isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              isActive
+                ? "text-white"
+                : "text-[var(--neutral-600)] hover:text-[var(--accent-dark)]"
             )}
           >
             {isActive && (
               <motion.div
                 layoutId="nav-pill-active"
-                className="absolute inset-0 rounded-full bg-white"
+                className="absolute inset-0 rounded-full bg-[var(--electric-blue)]"
                 variants={navPillIndicator}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                style={{
+                  boxShadow: "0 4px 12px oklch(0.55 0.25 255 / 25%)",
+                }}
               />
             )}
             <span className="relative z-10">{tab.label}</span>
@@ -100,7 +111,7 @@ export function NavPill({ className }: NavPillProps) {
       <button
         className={cn(
           "ml-2 flex h-9 w-9 items-center justify-center rounded-full",
-          "text-muted-foreground hover:text-foreground hover:bg-white/10",
+          "text-[var(--neutral-500)] hover:text-[var(--electric-blue)] hover:bg-[var(--electric-blue)]/10",
           "transition-colors duration-200"
         )}
         aria-label="Rechercher"

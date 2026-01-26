@@ -92,21 +92,24 @@ export function EstimateForm() {
   return (
     <AnimatedSection
       id="contact"
-      className="section-padding"
+      className="section-padding bg-[var(--background)]"
     >
-      <div className="container-wide lg:pl-64">
+      <div className="container-wide">
         {/* Header */}
         <motion.div
           className="text-center max-w-3xl mx-auto mb-16"
           variants={fadeInUp}
         >
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-muted-foreground mb-6">
+          <span
+            className="inline-block px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] text-sm font-medium text-[var(--neutral-600)] mb-6"
+            style={{ boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)" }}
+          >
             Parlons de votre projet
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Recevoir une <span className="text-gradient">estimation</span>
+          <h2 className="text-display-mega text-[var(--accent-dark)] mb-6">
+            Recevoir une <span className="text-gradient-hero">estimation</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-[var(--neutral-500)]">
             Décrivez votre projet et recevez une proposition détaillée sous 48h.
           </p>
         </motion.div>
@@ -122,32 +125,32 @@ export function EstimateForm() {
           >
             <div className="sticky top-32 space-y-6">
               <motion.div variants={staggerItem}>
-                <GlassCard className="mb-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                <GlassCard className="mb-6" variant="default">
+                  <h3 className="text-lg font-semibold text-[var(--accent-dark)] mb-4">
                     Autres moyens de nous contacter
                   </h3>
                   <ul className="space-y-4">
                     <li>
                       <a
                         href={`mailto:${brand.contactEmail}`}
-                        className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                        className="flex items-center gap-3 text-[var(--neutral-500)] hover:text-[var(--accent-dark)] transition-colors"
                       >
-                        <EnvelopeSimple className="h-5 w-5 text-[var(--ember-amber)]" weight="duotone" />
+                        <EnvelopeSimple className="h-5 w-5 text-[var(--electric-blue)]" weight="duotone" />
                         {brand.contactEmail}
                       </a>
                     </li>
                     <li>
                       <a
                         href={`tel:${brand.phone}`}
-                        className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                        className="flex items-center gap-3 text-[var(--neutral-500)] hover:text-[var(--accent-dark)] transition-colors"
                       >
-                        <Phone className="h-5 w-5 text-[var(--ember-amber)]" />
+                        <Phone className="h-5 w-5 text-[var(--electric-blue)]" weight="duotone" />
                         {brand.phone}
                       </a>
                     </li>
                     <li>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <MapPin className="h-5 w-5 text-[var(--ember-amber)]" />
+                      <div className="flex items-center gap-3 text-[var(--neutral-500)]">
+                        <MapPin className="h-5 w-5 text-[var(--electric-blue)]" weight="duotone" />
                         {brand.address}
                       </div>
                     </li>
@@ -156,14 +159,14 @@ export function EstimateForm() {
               </motion.div>
 
               <motion.div variants={staggerItem}>
-                <GlassCard>
-                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                <GlassCard variant="default">
+                  <h3 className="text-lg font-semibold text-[var(--accent-dark)] mb-4">
                     Délai de réponse
                   </h3>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-[var(--neutral-500)] mb-4">
                     Nous répondons à toutes les demandes sous 24-48h ouvrées.
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-[var(--neutral-400)]">
                     Besoin urgent ? Appelez-nous directement.
                   </p>
                 </GlassCard>
@@ -176,11 +179,11 @@ export function EstimateForm() {
             className="lg:col-span-2"
             variants={fadeInUp}
           >
-            <GlassCard className="p-8">
+            <GlassCard className="p-8" variant="default">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 {/* Personal info */}
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-6">
+                  <h3 className="text-lg font-semibold text-[var(--accent-dark)] mb-6">
                     Vos coordonnées
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -251,7 +254,7 @@ export function EstimateForm() {
 
                 {/* Project info */}
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-6">
+                  <h3 className="text-lg font-semibold text-[var(--accent-dark)] mb-6">
                     Votre projet
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -393,12 +396,12 @@ export function EstimateForm() {
                       className="mt-1 h-4 w-4 rounded border-white/20 bg-white/5 text-primary focus:ring-primary"
                       {...register("consent")}
                     />
-                    <Label htmlFor="consent" className="text-sm text-muted-foreground">
+                    <Label htmlFor="consent" className="text-sm text-[var(--neutral-500)]">
                       J&apos;accepte que mes données soient utilisées pour traiter ma
                       demande et me recontacter. Consultez notre{" "}
                       <a
                         href="/confidentialite"
-                        className="text-[var(--ember-amber)] hover:underline"
+                        className="text-[var(--electric-blue)] hover:underline"
                       >
                         politique de confidentialité
                       </a>
@@ -424,7 +427,7 @@ export function EstimateForm() {
                   Envoyer ma demande
                 </CTAButton>
 
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-[var(--neutral-400)]">
                   * Champs obligatoires. Vos données sont traitées conformément au
                   RGPD et ne seront jamais partagées avec des tiers.
                 </p>

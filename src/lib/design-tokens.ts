@@ -1,69 +1,67 @@
 /**
  * Design Tokens for Stellar Wave
- * Centralized design system values
+ * Stellar Macro Theme - Light Premium with Electric Blue
  */
 
 export const tokens = {
   colors: {
-    // Background & Surface
+    // Background & Surface - Light theme
     background: {
-      dark: "oklch(0.08 0.01 60)",
-      darker: "oklch(0.06 0.008 60)",
-      surface: "oklch(0.12 0.012 60)",
+      primary: "oklch(0.985 0.003 250)",
+      pure: "oklch(1 0 0)",
+      muted: "oklch(0.97 0.005 250)",
+      dark: "oklch(0.12 0.02 250)", // For dark sections
     },
 
-    // Glass effects
+    // Glass effects - Light theme
     glass: {
-      light: "oklch(1 0 0 / 4%)",
-      medium: "oklch(1 0 0 / 8%)",
-      heavy: "oklch(1 0 0 / 12%)",
-      border: "oklch(1 0 0 / 10%)",
+      light: "oklch(1 0 0 / 70%)",
+      medium: "oklch(1 0 0 / 80%)",
+      heavy: "oklch(1 0 0 / 90%)",
+      border: "oklch(0 0 0 / 8%)",
     },
 
-    // Text hierarchy
+    // Text hierarchy - Light theme
     text: {
-      primary: "oklch(0.98 0.01 60)",
-      secondary: "oklch(0.7 0.01 60)",
-      muted: "oklch(0.55 0.01 60)",
-      inverse: "oklch(0.12 0.01 60)",
+      primary: "oklch(0.15 0.02 250)",
+      secondary: "oklch(0.35 0.02 250)",
+      muted: "oklch(0.50 0.02 250)",
+      inverse: "oklch(0.98 0.005 250)",
     },
 
-    // Accent - Ember palette (orange/amber)
+    // Accent - Electric Blue
     accent: {
-      amber: "oklch(0.79 0.16 85)",
-      coral: "oklch(0.705 0.185 47)",
-      rose: "oklch(0.65 0.22 350)",
+      primary: "oklch(0.55 0.25 255)",
+      light: "oklch(0.70 0.18 255)",
+      dark: "oklch(0.45 0.25 255)",
     },
 
-    // Power color - Electric Blue
-    power: {
-      blue: "oklch(0.65 0.22 255)",
-      blueLight: "oklch(0.75 0.18 255)",
-      blueDark: "oklch(0.55 0.22 255)",
+    // Legacy ember aliases (mapped to electric blue for compatibility)
+    ember: {
+      amber: "oklch(0.55 0.25 255)",
+      coral: "oklch(0.70 0.18 255)",
+      rose: "oklch(0.45 0.25 255)",
     },
 
-    // Alternative power - Warm Yellow
-    powerAlt: {
-      yellow: "oklch(0.88 0.18 95)",
-      yellowLight: "oklch(0.92 0.14 95)",
-      yellowDark: "oklch(0.78 0.18 95)",
-    },
-
-    // Neutrals (for light cards)
+    // Neutrals
     neutral: {
-      50: "oklch(0.98 0.005 60)",
-      100: "oklch(0.95 0.008 60)",
-      200: "oklch(0.90 0.01 60)",
-      300: "oklch(0.85 0.012 60)",
-      800: "oklch(0.25 0.01 60)",
-      900: "oklch(0.15 0.01 60)",
+      50: "oklch(0.98 0.003 250)",
+      100: "oklch(0.96 0.005 250)",
+      200: "oklch(0.92 0.008 250)",
+      300: "oklch(0.85 0.01 250)",
+      400: "oklch(0.65 0.015 250)",
+      500: "oklch(0.50 0.02 250)",
+      600: "oklch(0.40 0.02 250)",
+      700: "oklch(0.30 0.02 250)",
+      800: "oklch(0.20 0.02 250)",
+      900: "oklch(0.12 0.02 250)",
     },
 
     // Status colors
     status: {
-      success: "oklch(0.72 0.19 145)",
-      warning: "oklch(0.80 0.16 85)",
-      error: "oklch(0.65 0.22 25)",
+      success: "oklch(0.65 0.19 145)",
+      warning: "oklch(0.75 0.16 85)",
+      error: "oklch(0.55 0.22 25)",
     },
   },
 
@@ -79,62 +77,84 @@ export const tokens = {
     card: "28px",
   },
 
-  // Shadows (very diffuse)
+  // Shadows - Light theme, soft & elegant
   shadows: {
-    sm: "0 4px 20px -4px oklch(0 0 0 / 20%)",
-    md: "0 8px 40px -8px oklch(0 0 0 / 25%)",
-    lg: "0 16px 60px -12px oklch(0 0 0 / 30%)",
+    xs: "0 1px 2px oklch(0.2 0.01 250 / 4%)",
+    sm: "0 2px 8px oklch(0.2 0.01 250 / 4%), 0 8px 24px oklch(0.2 0.01 250 / 6%)",
+    md: "0 4px 12px oklch(0.2 0.01 250 / 5%), 0 16px 48px oklch(0.2 0.01 250 / 8%)",
+    lg: "0 8px 32px oklch(0.2 0.01 250 / 8%), 0 32px 80px oklch(0.2 0.01 250 / 12%)",
+    xl: "0 12px 40px oklch(0.2 0.01 250 / 10%), 0 48px 100px oklch(0.2 0.01 250 / 15%)",
     glow: {
-      amber: "0 0 40px -8px oklch(0.79 0.16 85 / 40%)",
-      blue: "0 0 40px -8px oklch(0.65 0.22 255 / 40%)",
+      blue: "0 0 40px oklch(0.55 0.25 255 / 20%)",
+      subtle: "0 0 20px oklch(0.55 0.25 255 / 10%)",
     },
   },
 
-  // Backdrop blur (single value for consistency)
+  // Backdrop blur
   blur: {
-    glass: "40px",
-    heavy: "60px",
+    glass: "20px",
+    heavy: "40px",
   },
 
-  // Typography scale
+  // Typography scale - MEGA Statement Typography
   typography: {
+    // MEGA - Monumentale (up to 14rem/224px)
+    mega: {
+      size: "clamp(4rem, 15vw, 14rem)",
+      lineHeight: "0.85",
+      letterSpacing: "-0.05em",
+      weight: "600",
+    },
+    megaLight: {
+      size: "clamp(4rem, 15vw, 14rem)",
+      lineHeight: "0.85",
+      letterSpacing: "-0.04em",
+      weight: "300",
+    },
+    // Number MEGA - Stats
+    numberMega: {
+      size: "clamp(6rem, 20vw, 18rem)",
+      lineHeight: "0.8",
+      letterSpacing: "-0.06em",
+      weight: "700",
+    },
     // Display / Headlines
     display: {
       h1: {
-        size: "clamp(3rem, 5vw, 4.5rem)", // 48-72px
-        lineHeight: "0.95",
+        size: "clamp(2.5rem, 8vw, 7rem)",
+        lineHeight: "0.9",
         letterSpacing: "-0.04em",
-        weight: "800",
+        weight: "600",
       },
       h2: {
-        size: "clamp(2.5rem, 4vw, 3.25rem)", // 40-52px
-        lineHeight: "1",
+        size: "clamp(2rem, 5vw, 4rem)",
+        lineHeight: "0.95",
         letterSpacing: "-0.03em",
-        weight: "700",
+        weight: "600",
       },
       h3: {
-        size: "clamp(1.75rem, 3vw, 2.125rem)", // 28-34px
-        lineHeight: "1.1",
-        letterSpacing: "-0.02em",
-        weight: "600",
+        size: "clamp(1.5rem, 4vw, 3.5rem)",
+        lineHeight: "1.0",
+        letterSpacing: "-0.025em",
+        weight: "500",
       },
     },
     // Body text
     body: {
       lead: {
-        size: "clamp(1.125rem, 1.5vw, 1.25rem)", // 18-20px
+        size: "clamp(1.125rem, 1.5vw, 1.25rem)",
         lineHeight: "1.6",
         letterSpacing: "0",
         weight: "400",
       },
       base: {
-        size: "1rem", // 16px
+        size: "1rem",
         lineHeight: "1.65",
         letterSpacing: "0.01em",
         weight: "400",
       },
       small: {
-        size: "0.875rem", // 14px
+        size: "0.875rem",
         lineHeight: "1.5",
         letterSpacing: "0.01em",
         weight: "400",
@@ -143,19 +163,19 @@ export const tokens = {
     // UI elements
     ui: {
       caption: {
-        size: "0.8125rem", // 13px
+        size: "0.8125rem",
         lineHeight: "1.4",
         letterSpacing: "0.02em",
         weight: "500",
       },
       chip: {
-        size: "0.75rem", // 12px
+        size: "0.75rem",
         lineHeight: "1",
-        letterSpacing: "0.04em",
+        letterSpacing: "0.08em",
         weight: "600",
       },
       button: {
-        size: "0.9375rem", // 15px
+        size: "0.9375rem",
         lineHeight: "1",
         letterSpacing: "0.01em",
         weight: "600",
@@ -178,13 +198,13 @@ export const tokens = {
     },
     // Scroll reveal
     reveal: {
-      y: "20px",
+      y: "30px",
       duration: "0.7s",
     },
     // Hover lift
     hover: {
-      y: "-6px",
-      shadow: "0 12px 40px -8px oklch(0 0 0 / 30%)",
+      y: "-4px",
+      shadow: "0 12px 40px oklch(0.2 0.01 250 / 12%)",
     },
   },
 
@@ -194,7 +214,7 @@ export const tokens = {
       sm: "4rem",
       md: "6rem",
       lg: "8rem",
-      xl: "10rem",
+      xl: "12rem", // More generous for MEGA typography
     },
     container: {
       sm: "640px",

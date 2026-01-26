@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ================================================
-   STELLAR WAVE - EMBER LUXE THEME
-   Premium dark theme with warm luxurious tones
-   Palette: Amber → Coral → Rose on Charcoal
+   STELLAR WAVE - STELLAR MACRO THEME
+   Light premium theme — Tech Editorial Megalomane
+   Typographie monumentale + Bleu Électrique
    ================================================ */
 
 @theme inline {
@@ -69,108 +69,106 @@
   --radius: 0.75rem;
 
   /* ================================================
-     DARK THEME (Default - Ember Luxe)
-     Warm charcoal base with amber/coral/rose accents
+     STELLAR MACRO - LIGHT PREMIUM THEME
+     Tech Editorial avec Bleu Électrique
      ================================================ */
 
-  /* Core backgrounds - Warm charcoal */
-  --background: oklch(0.11 0.008 60);
-  --foreground: oklch(0.98 0.01 60);
+  /* Core backgrounds - Light premium */
+  --background: oklch(0.985 0.003 250);
+  --background-pure: oklch(1 0 0);
+  --background-muted: oklch(0.97 0.005 250);
+  --foreground: oklch(0.15 0.02 250);
 
-  /* Cards & Surfaces - Slightly warmer */
-  --card: oklch(0.14 0.01 55);
-  --card-foreground: oklch(0.98 0.01 60);
-  --popover: oklch(0.14 0.012 55);
-  --popover-foreground: oklch(0.98 0.01 60);
+  /* Cards & Surfaces - Pure white with shadows */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 250);
 
-  /* Primary - Amber Gold */
-  --primary: oklch(0.79 0.16 85);
-  --primary-foreground: oklch(0.12 0.02 60);
+  /* Primary - Electric Blue */
+  --primary: oklch(0.55 0.25 255);
+  --primary-foreground: oklch(1 0 0);
 
-  /* Secondary - Subtle warm glass */
-  --secondary: oklch(0.18 0.012 55);
-  --secondary-foreground: oklch(0.92 0.01 60);
+  /* Secondary - Light gray */
+  --secondary: oklch(0.96 0.005 250);
+  --secondary-foreground: oklch(0.25 0.02 250);
 
-  /* Muted - Warm gray */
-  --muted: oklch(0.22 0.01 55);
-  --muted-foreground: oklch(0.65 0.015 60);
+  /* Muted - Soft gray */
+  --muted: oklch(0.95 0.005 250);
+  --muted-foreground: oklch(0.45 0.02 250);
 
-  /* Accent - Coral Orange */
-  --accent: oklch(0.705 0.185 47);
-  --accent-foreground: oklch(0.98 0.01 60);
+  /* Accent - Electric Blue (same as primary) */
+  --accent: oklch(0.55 0.25 255);
+  --accent-foreground: oklch(1 0 0);
 
-  /* Destructive - Stays red-ish */
-  --destructive: oklch(0.6 0.22 25);
+  /* Destructive */
+  --destructive: oklch(0.55 0.22 25);
 
-  /* Borders & Inputs - Warm tint */
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0.01 60 / 10%);
-  --ring: oklch(0.79 0.16 85);
+  /* Borders & Inputs - Light theme */
+  --border: oklch(0 0 0 / 8%);
+  --input: oklch(0 0 0 / 5%);
+  --ring: oklch(0.55 0.25 255);
 
-  /* Chart colors - Ember palette */
-  --chart-1: oklch(0.79 0.16 85);
-  --chart-2: oklch(0.705 0.185 47);
-  --chart-3: oklch(0.65 0.22 350);
-  --chart-4: oklch(0.72 0.14 70);
-  --chart-5: oklch(0.6 0.18 30);
+  /* Chart colors - Bleu Électrique palette */
+  --chart-1: oklch(0.55 0.25 255);
+  --chart-2: oklch(0.65 0.20 255);
+  --chart-3: oklch(0.45 0.25 255);
+  --chart-4: oklch(0.70 0.15 255);
+  --chart-5: oklch(0.35 0.20 255);
 
-  /* Sidebar - Deep warm charcoal */
-  --sidebar: oklch(0.08 0.01 55);
-  --sidebar-foreground: oklch(0.88 0.01 60);
-  --sidebar-primary: oklch(0.79 0.16 85);
-  --sidebar-primary-foreground: oklch(0.12 0.02 60);
-  --sidebar-accent: oklch(0.16 0.015 55);
-  --sidebar-accent-foreground: oklch(0.98 0.01 60);
-  --sidebar-border: oklch(1 0.01 60 / 6%);
-  --sidebar-ring: oklch(0.79 0.16 85);
+  /* Sidebar - Dark contrast (inversé) */
+  --sidebar: oklch(0.12 0.02 250);
+  --sidebar-foreground: oklch(0.95 0.005 250);
+  --sidebar-primary: oklch(0.55 0.25 255);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.20 0.02 250);
+  --sidebar-accent-foreground: oklch(0.95 0.005 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.55 0.25 255);
 
   /* ================================================
-     CUSTOM EMBER LUXE THEME VARIABLES
+     STELLAR MACRO - BLEU ÉLECTRIQUE PALETTE
      ================================================ */
 
-  /* Ember accent colors - Warm luxurious palette */
-  --ember-amber: oklch(0.79 0.16 85);
-  --ember-coral: oklch(0.705 0.185 47);
-  --ember-rose: oklch(0.65 0.22 350);
-  --ember-gold: oklch(0.82 0.14 90);
+  /* Electric Blue - Primary accent */
+  --electric-blue: oklch(0.55 0.25 255);
+  --electric-blue-light: oklch(0.70 0.18 255);
+  --electric-blue-dark: oklch(0.45 0.25 255);
+  --electric-glow: oklch(0.55 0.25 255 / 30%);
 
-  /* Power Color - Electric Blue (for accent cards) */
-  --power-blue: oklch(0.65 0.22 255);
-  --power-blue-light: oklch(0.75 0.18 255);
-  --power-blue-dark: oklch(0.55 0.22 255);
-  --glow-blue: oklch(0.65 0.22 255 / 35%);
-  --glow-blue-subtle: oklch(0.65 0.22 255 / 18%);
-  --glow-blue-intense: oklch(0.65 0.22 255 / 55%);
+  /* Secondary accent - Noir profond */
+  --accent-dark: oklch(0.15 0.02 250);
+  --accent-dark-muted: oklch(0.35 0.02 250);
 
-  /* Power Color Alt - Warm Yellow (for highlight cards) */
-  --power-yellow: oklch(0.88 0.18 95);
-  --power-yellow-light: oklch(0.92 0.14 95);
-  --power-yellow-dark: oklch(0.78 0.18 95);
-  --glow-yellow: oklch(0.88 0.18 95 / 35%);
+  /* Legacy aliases for compatibility (map to electric blue) */
+  --ember-amber: var(--electric-blue);
+  --ember-coral: var(--electric-blue-light);
+  --ember-rose: var(--electric-blue-dark);
+  --ember-gold: var(--electric-blue);
+  --ember-teal: oklch(0.65 0.15 175);
 
-  /* Neutrals - For light cards on dark background */
-  --neutral-50: oklch(0.98 0.005 60);
-  --neutral-100: oklch(0.95 0.008 60);
-  --neutral-200: oklch(0.90 0.01 60);
-  --neutral-800: oklch(0.25 0.01 60);
-  --neutral-900: oklch(0.15 0.01 60);
+  /* Neutrals - For text hierarchy */
+  --neutral-50: oklch(0.98 0.003 250);
+  --neutral-100: oklch(0.96 0.005 250);
+  --neutral-200: oklch(0.92 0.008 250);
+  --neutral-300: oklch(0.85 0.01 250);
+  --neutral-400: oklch(0.65 0.015 250);
+  --neutral-500: oklch(0.50 0.02 250);
+  --neutral-600: oklch(0.40 0.02 250);
+  --neutral-700: oklch(0.30 0.02 250);
+  --neutral-800: oklch(0.20 0.02 250);
+  --neutral-900: oklch(0.12 0.02 250);
 
-  /* Legacy aliases for compatibility */
-  --aurora-cyan: var(--ember-amber);
-  --aurora-violet: var(--ember-coral);
-  --aurora-teal: var(--ember-rose);
-  --aurora-blue: var(--ember-gold);
-
-  /* Glow effects - Multiple intensities */
-  --glow-amber: oklch(0.79 0.16 85 / 35%);
-  --glow-amber-subtle: oklch(0.79 0.16 85 / 18%);
-  --glow-amber-intense: oklch(0.79 0.16 85 / 55%);
-  --glow-coral: oklch(0.705 0.185 47 / 35%);
-  --glow-coral-subtle: oklch(0.705 0.185 47 / 18%);
-  --glow-coral-intense: oklch(0.705 0.185 47 / 55%);
-  --glow-rose: oklch(0.65 0.22 350 / 35%);
-  --glow-rose-subtle: oklch(0.65 0.22 350 / 18%);
-  --glow-rose-intense: oklch(0.65 0.22 350 / 55%);
+  /* Glow effects - Electric Blue */
+  --glow-amber: oklch(0.55 0.25 255 / 25%);
+  --glow-amber-subtle: oklch(0.55 0.25 255 / 12%);
+  --glow-amber-intense: oklch(0.55 0.25 255 / 40%);
+  --glow-coral: oklch(0.55 0.25 255 / 25%);
+  --glow-coral-subtle: oklch(0.55 0.25 255 / 12%);
+  --glow-coral-intense: oklch(0.55 0.25 255 / 40%);
+  --glow-rose: oklch(0.55 0.25 255 / 25%);
+  --glow-rose-subtle: oklch(0.55 0.25 255 / 12%);
+  --glow-rose-intense: oklch(0.55 0.25 255 / 40%);
 
   /* Legacy glow aliases */
   --glow-cyan: var(--glow-amber);
@@ -183,72 +181,65 @@
   --glow-teal-subtle: var(--glow-rose-subtle);
   --glow-teal-intense: var(--glow-rose-intense);
 
-  /* Glass effects - Warmer tint */
-  --glass-bg: oklch(1 0.01 60 / 5%);
-  --glass-bg-subtle: oklch(1 0.008 60 / 3%);
-  --glass-bg-heavy: oklch(1 0.012 60 / 10%);
-  --glass-border: oklch(1 0.01 60 / 10%);
-  --glass-border-subtle: oklch(1 0.008 60 / 6%);
-  --glass-border-strong: oklch(1 0.012 60 / 15%);
+  /* Glass effects - Light theme (inverted) */
+  --glass-bg: oklch(1 0 0 / 70%);
+  --glass-bg-subtle: oklch(1 0 0 / 50%);
+  --glass-bg-heavy: oklch(1 0 0 / 85%);
+  --glass-border: oklch(0 0 0 / 8%);
+  --glass-border-subtle: oklch(0 0 0 / 5%);
+  --glass-border-strong: oklch(0 0 0 / 12%);
   --glass-blur: 20px;
   --glass-blur-subtle: 12px;
   --glass-blur-heavy: 40px;
-  --glass-highlight: oklch(1 0.01 60 / 5%);
+  --glass-highlight: oklch(1 0 0 / 60%);
 
-  /* Gradient stops - Ember Luxe */
-  --gradient-start: oklch(0.79 0.16 85);
-  --gradient-mid: oklch(0.705 0.185 47);
-  --gradient-end: oklch(0.65 0.22 350);
+  /* Gradient stops - Electric Blue */
+  --gradient-start: oklch(0.55 0.25 255);
+  --gradient-mid: oklch(0.50 0.22 260);
+  --gradient-end: oklch(0.45 0.25 255);
 
   /* ================================================
-     PREMIUM SHADOW SYSTEM - Multi-layer, warm tinted
+     PREMIUM SHADOW SYSTEM - Light theme, soft & elegant
      ================================================ */
 
-  /* Subtle shadows - for small elements */
+  /* Subtle shadows */
   --shadow-xs:
-    0 1px 2px oklch(0 0 0 / 10%);
+    0 1px 2px oklch(0.2 0.01 250 / 4%);
 
-  /* Default card shadow - 3 layers with amber tint */
+  /* Soft card shadow */
   --shadow-sm:
-    0 1px 2px oklch(0 0 0 / 8%),
-    0 2px 4px oklch(0 0 0 / 6%),
-    0 4px 8px oklch(0.5 0.02 85 / 4%);
+    0 2px 8px oklch(0.2 0.01 250 / 4%),
+    0 8px 24px oklch(0.2 0.01 250 / 6%);
 
   --shadow-md:
-    0 2px 4px oklch(0 0 0 / 10%),
-    0 4px 8px oklch(0 0 0 / 8%),
-    0 8px 16px oklch(0.5 0.03 85 / 6%),
-    0 16px 32px oklch(0.5 0.02 55 / 4%);
+    0 4px 12px oklch(0.2 0.01 250 / 5%),
+    0 16px 48px oklch(0.2 0.01 250 / 8%);
 
-  /* Elevated - for important cards, modals */
+  /* Elevated shadow */
   --shadow-lg:
-    0 4px 6px oklch(0 0 0 / 12%),
-    0 8px 15px oklch(0 0 0 / 10%),
-    0 16px 30px oklch(0.5 0.04 85 / 8%),
-    0 32px 50px oklch(0.5 0.03 55 / 6%);
+    0 8px 32px oklch(0.2 0.01 250 / 8%),
+    0 32px 80px oklch(0.2 0.01 250 / 12%);
 
-  /* Floating - for dropdowns, popovers */
+  /* Dramatic shadow */
   --shadow-xl:
-    0 8px 16px oklch(0 0 0 / 15%),
-    0 16px 32px oklch(0 0 0 / 12%),
-    0 32px 64px oklch(0.5 0.05 85 / 10%),
-    0 48px 80px oklch(0.5 0.04 55 / 8%);
+    0 12px 40px oklch(0.2 0.01 250 / 10%),
+    0 48px 100px oklch(0.2 0.01 250 / 15%);
 
-  /* Glow shadows - Ember palette */
+  /* Glow shadows - Electric Blue */
   --shadow-glow-amber:
-    0 0 20px oklch(0.79 0.16 85 / 28%),
-    0 0 40px oklch(0.79 0.16 85 / 18%),
-    0 0 60px oklch(0.79 0.16 85 / 10%);
+    0 0 20px oklch(0.55 0.25 255 / 15%),
+    0 0 40px oklch(0.55 0.25 255 / 10%),
+    0 0 60px oklch(0.55 0.25 255 / 5%);
 
   --shadow-glow-coral:
-    0 0 20px oklch(0.705 0.185 47 / 28%),
-    0 0 40px oklch(0.705 0.185 47 / 18%),
-    0 0 60px oklch(0.705 0.185 47 / 10%);
+    0 0 20px oklch(0.55 0.25 255 / 15%),
+    0 0 40px oklch(0.55 0.25 255 / 10%),
+    0 0 60px oklch(0.55 0.25 255 / 5%);
 
   --shadow-glow-rose:
-    0 0 20px oklch(0.65 0.22 350 / 28%),
-    0 0 40px oklch(0.65 0.22 350 / 18%),
-    0 0 60px oklch(0.65 0.22 350 / 10%);
+    0 0 20px oklch(0.55 0.25 255 / 15%),
+    0 0 40px oklch(0.55 0.25 255 / 10%),
+    0 0 60px oklch(0.55 0.25 255 / 5%);
 
   /* Legacy aliases */
   --shadow-glow-cyan: var(--shadow-glow-amber);
@@ -257,19 +248,35 @@
 
   /* Inner shadows - for depth */
   --shadow-inner-subtle:
-    inset 0 1px 2px oklch(0 0 0 / 10%);
+    inset 0 1px 2px oklch(0 0 0 / 3%);
 
   --shadow-inner:
-    inset 0 2px 4px oklch(0 0 0 / 15%),
-    inset 0 4px 8px oklch(0 0 0 / 8%);
+    inset 0 2px 4px oklch(0 0 0 / 5%),
+    inset 0 4px 8px oklch(0 0 0 / 3%);
 
   /* ================================================
-     TYPOGRAPHY SCALE - Contextual letter-spacing
+     TYPOGRAPHY SCALE - MEGA Statement Typography
      ================================================ */
 
-  /* Display - Ultra large headlines (Hero) */
-  --text-display-spacing: -0.03em;
-  --text-display-height: 1.0;
+  /* MEGA - Monumentale (jusqu'à 14rem/224px) */
+  --text-mega-size: clamp(4rem, 15vw, 14rem);
+  --text-mega-height: 0.85;
+  --text-mega-spacing: -0.05em;
+
+  /* Display - Section headers */
+  --text-display-size: clamp(2.5rem, 8vw, 7rem);
+  --text-display-height: 0.9;
+  --text-display-spacing: -0.04em;
+
+  /* Headline - Sous-titres */
+  --text-headline-size: clamp(1.5rem, 4vw, 3.5rem);
+  --text-headline-height: 1.0;
+  --text-headline-spacing: -0.025em;
+
+  /* Number MEGA - Stats, process steps */
+  --text-number-mega-size: clamp(6rem, 20vw, 18rem);
+  --text-number-mega-height: 0.8;
+  --text-number-mega-spacing: -0.06em;
 
   /* H1 - Section titles */
   --text-h1-spacing: -0.025em;
@@ -292,30 +299,20 @@
   --text-small-height: 1.5;
 
   /* Micro - Tags, badges */
-  --text-micro-spacing: 0.05em;
+  --text-micro-spacing: 0.08em;
   --text-micro-height: 1.4;
 }
 
-/* Light theme override (if needed) */
-.light {
-  --background: oklch(0.99 0 0);
-  --foreground: oklch(0.1 0.01 270);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.1 0.01 270);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.1 0.01 270);
-  --primary: oklch(0.55 0.2 250);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.01 270);
-  --secondary-foreground: oklch(0.15 0.01 270);
-  --muted: oklch(0.96 0.01 270);
-  --muted-foreground: oklch(0.5 0.01 270);
-  --accent: oklch(0.55 0.2 300);
-  --accent-foreground: oklch(0.99 0 0);
-  --destructive: oklch(0.55 0.25 25);
-  --border: oklch(0.9 0.01 270);
-  --input: oklch(0.9 0.01 270);
-  --ring: oklch(0.55 0.2 250);
+/* Dark theme override (for sections that need dark contrast) */
+.dark-section {
+  --background: oklch(0.12 0.02 250);
+  --foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.15 0.02 250);
+  --card-foreground: oklch(0.98 0.005 250);
+  --muted-foreground: oklch(0.65 0.01 250);
+  --border: oklch(1 0 0 / 10%);
+  --glass-bg: oklch(1 0 0 / 5%);
+  --glass-border: oklch(1 0 0 / 10%);
 }
 
 /* ================================================
@@ -338,10 +335,10 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Selection color - Warm amber */
+  /* Selection color - Electric Blue */
   ::selection {
-    background: oklch(0.79 0.16 85 / 30%);
-    color: oklch(0.98 0.01 60);
+    background: oklch(0.55 0.25 255 / 25%);
+    color: oklch(0.15 0.02 250);
   }
 
   /* Focus visible */
@@ -350,7 +347,7 @@
   }
 
   /* ================================================
-     PREMIUM SCROLLBAR - With warm glow effect
+     PREMIUM SCROLLBAR - Light theme, subtle
      ================================================ */
   ::-webkit-scrollbar {
     width: 10px;
@@ -358,38 +355,29 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: oklch(0.11 0.008 60);
+    background: oklch(0.96 0.003 250);
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      oklch(0.79 0.12 85 / 40%) 0%,
-      oklch(0.705 0.14 47 / 30%) 100%
-    );
+    background: oklch(0.75 0.01 250);
     border-radius: 5px;
-    border: 2px solid oklch(0.11 0.008 60);
+    border: 2px solid oklch(0.96 0.003 250);
     transition: all 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      oklch(0.79 0.16 85 / 60%) 0%,
-      oklch(0.705 0.185 47 / 50%) 100%
-    );
-    box-shadow: 0 0 10px oklch(0.79 0.16 85 / 30%);
+    background: oklch(0.55 0.25 255);
   }
 
   ::-webkit-scrollbar-corner {
-    background: oklch(0.11 0.008 60);
+    background: oklch(0.96 0.003 250);
   }
 
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.79 0.12 85 / 40%) oklch(0.11 0.008 60);
+    scrollbar-color: oklch(0.75 0.01 250) oklch(0.96 0.003 250);
   }
 
   /* ================================================
@@ -426,7 +414,7 @@
   textarea,
   [contenteditable="true"] {
     cursor: text;
-    caret-color: var(--ember-amber);
+    caret-color: var(--electric-blue);
   }
 
   /* Disabled state */
@@ -442,38 +430,102 @@
    ================================================ */
 
 @layer utilities {
-  /* Glass effect */
+  /* ================================================
+     MEGA TYPOGRAPHY - Statement Scale
+     ================================================ */
+
+  /* MEGA - Monumentale (up to 14rem/224px) */
+  .text-mega {
+    font-size: var(--text-mega-size);
+    line-height: var(--text-mega-height);
+    letter-spacing: var(--text-mega-spacing);
+    font-weight: 600;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  .text-mega-light {
+    font-size: var(--text-mega-size);
+    line-height: var(--text-mega-height);
+    letter-spacing: -0.04em;
+    font-weight: 300;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  .text-mega-bold {
+    font-size: var(--text-mega-size);
+    line-height: var(--text-mega-height);
+    letter-spacing: var(--text-mega-spacing);
+    font-weight: 700;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  /* Display - Sections principales */
+  .text-display-mega {
+    font-size: var(--text-display-size);
+    line-height: var(--text-display-height);
+    letter-spacing: var(--text-display-spacing);
+    font-weight: 500;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  /* Headline - Sous-titres */
+  .text-headline {
+    font-size: var(--text-headline-size);
+    line-height: var(--text-headline-height);
+    letter-spacing: var(--text-headline-spacing);
+    font-weight: 500;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  /* Number MEGA - Stats, process steps */
+  .text-number-mega {
+    font-size: var(--text-number-mega-size);
+    line-height: var(--text-number-mega-height);
+    letter-spacing: var(--text-number-mega-spacing);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  /* Glass effect - Light theme */
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
     border: 1px solid var(--glass-border);
   }
 
   .glass-heavy {
-    background: oklch(1 0 0 / 8%);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid oklch(1 0 0 / 12%);
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(30px) saturate(1.3);
+    -webkit-backdrop-filter: blur(30px) saturate(1.3);
+    border: 1px solid var(--glass-border-strong);
+  }
+
+  .glass-light {
+    background: oklch(1 0 0 / 70%);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border: 1px solid oklch(0 0 0 / 5%);
   }
 
   /* ================================================
-     LIQUID GLASS EFFECTS - Fluid morphing glass
+     LIQUID GLASS EFFECTS - Light theme variant
      ================================================ */
 
   .liquid-glass {
     background: linear-gradient(
       135deg,
-      oklch(1 0.01 60 / 6%) 0%,
-      oklch(1 0.01 60 / 12%) 25%,
-      oklch(1 0.01 60 / 8%) 50%,
-      oklch(1 0.01 60 / 14%) 75%,
-      oklch(1 0.01 60 / 6%) 100%
+      oklch(1 0 0 / 80%) 0%,
+      oklch(1 0 0 / 90%) 25%,
+      oklch(1 0 0 / 85%) 50%,
+      oklch(1 0 0 / 92%) 75%,
+      oklch(1 0 0 / 80%) 100%
     );
     background-size: 400% 400%;
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid oklch(1 0.01 60 / 12%);
+    backdrop-filter: blur(40px) saturate(120%);
+    -webkit-backdrop-filter: blur(40px) saturate(120%);
+    border: 1px solid oklch(0 0 0 / 8%);
     animation: liquid-flow 12s ease-in-out infinite;
     overflow: hidden;
   }
@@ -484,7 +536,7 @@
     inset: 0;
     background: radial-gradient(
       ellipse 100% 80% at var(--shimmer-x, 50%) var(--shimmer-y, 50%),
-      oklch(1 0.02 85 / 12%) 0%,
+      oklch(0.55 0.25 255 / 8%) 0%,
       transparent 50%
     );
     pointer-events: none;
@@ -499,19 +551,19 @@
   @keyframes liquid-flow {
     0%, 100% {
       background-position: 0% 50%;
-      border-color: oklch(1 0.01 60 / 12%);
+      border-color: oklch(0 0 0 / 8%);
     }
     25% {
       background-position: 100% 25%;
-      border-color: oklch(0.79 0.08 85 / 18%);
+      border-color: oklch(0.55 0.15 255 / 15%);
     }
     50% {
       background-position: 100% 100%;
-      border-color: oklch(1 0.01 60 / 12%);
+      border-color: oklch(0 0 0 / 8%);
     }
     75% {
       background-position: 0% 75%;
-      border-color: oklch(0.705 0.09 47 / 18%);
+      border-color: oklch(0.55 0.15 255 / 15%);
     }
   }
 
@@ -524,11 +576,11 @@
     padding: 1px;
     background: linear-gradient(
       var(--border-angle, 0deg),
-      oklch(0.79 0.16 85 / 40%) 0%,
-      oklch(1 0 0 / 5%) 25%,
-      oklch(0.705 0.185 47 / 40%) 50%,
-      oklch(1 0 0 / 5%) 75%,
-      oklch(0.79 0.16 85 / 40%) 100%
+      oklch(0.55 0.25 255 / 40%) 0%,
+      oklch(0 0 0 / 5%) 25%,
+      oklch(0.55 0.25 255 / 40%) 50%,
+      oklch(0 0 0 / 5%) 75%,
+      oklch(0.55 0.25 255 / 40%) 100%
     );
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
@@ -552,25 +604,27 @@
     inherits: false;
   }
 
-  /* Ember gradient */
+  /* Electric Blue gradient */
   .ember-gradient,
-  .aurora-gradient {
+  .aurora-gradient,
+  .electric-gradient {
     background: linear-gradient(
       135deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 50%,
-      var(--ember-rose) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 50%,
+      var(--electric-blue-dark) 100%
     );
   }
 
   .ember-gradient-animated,
-  .aurora-gradient-animated {
+  .aurora-gradient-animated,
+  .electric-gradient-animated {
     background: linear-gradient(
       135deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 33%,
-      var(--ember-rose) 66%,
-      var(--ember-amber) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 33%,
+      var(--electric-blue-dark) 66%,
+      var(--electric-blue) 100%
     );
     background-size: 300% 300%;
     animation: ember-shift 10s ease infinite;
@@ -588,29 +642,29 @@
   }
 
   /* ================================================
-     TEXT GRADIENTS - Ember Luxe variations
+     TEXT GRADIENTS - Electric Blue variations
      ================================================ */
 
-  /* Default text gradient - 2 colors */
+  /* Default text gradient - Electric Blue */
   .text-gradient {
     background: linear-gradient(
       135deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Hero text gradient - 3 colors, dramatic warm */
+  /* Hero text gradient - Bold electric blue */
   .text-gradient-hero {
     background: linear-gradient(
       120deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 40%,
-      var(--ember-rose) 80%,
-      var(--ember-amber) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 40%,
+      var(--electric-blue) 80%,
+      var(--electric-blue-dark) 100%
     );
     background-size: 200% 100%;
     -webkit-background-clip: text;
@@ -618,25 +672,25 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* Accent text gradient - Subtle coral to rose */
+  /* Accent text gradient */
   .text-gradient-accent {
     background: linear-gradient(
       90deg,
-      var(--ember-coral) 0%,
-      var(--ember-rose) 100%
+      var(--electric-blue-dark) 0%,
+      var(--electric-blue) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* CTA text gradient - Reversed direction */
+  /* CTA text gradient */
   .text-gradient-cta {
     background: linear-gradient(
       -45deg,
-      var(--ember-rose) 0%,
-      var(--ember-amber) 50%,
-      var(--ember-coral) 100%
+      var(--electric-blue-dark) 0%,
+      var(--electric-blue) 50%,
+      var(--electric-blue-light) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -647,11 +701,11 @@
   .text-gradient-animated {
     background: linear-gradient(
       90deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 25%,
-      var(--ember-rose) 50%,
-      var(--ember-coral) 75%,
-      var(--ember-amber) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 25%,
+      var(--electric-blue-dark) 50%,
+      var(--electric-blue-light) 75%,
+      var(--electric-blue) 100%
     );
     background-size: 200% 100%;
     -webkit-background-clip: text;
@@ -666,36 +720,36 @@
   }
 
   /* ================================================
-     CONTEXTUAL GRADIENTS - Ember Luxe Backgrounds
+     CONTEXTUAL GRADIENTS - Light Premium Backgrounds
      ================================================ */
 
-  /* Hero gradient - Dramatic warm, top-down */
+  /* Hero gradient - Light with subtle blue tint */
   .gradient-hero {
     background: linear-gradient(
       180deg,
-      oklch(0.14 0.015 55) 0%,
-      oklch(0.11 0.012 60) 40%,
-      oklch(0.09 0.02 85 / 50%) 70%,
-      oklch(0.11 0.008 60) 100%
+      oklch(0.985 0.003 250) 0%,
+      oklch(0.98 0.005 255 / 30%) 40%,
+      oklch(0.975 0.008 255 / 20%) 70%,
+      oklch(0.985 0.003 250) 100%
     );
   }
 
-  /* Feature gradient - Subtle warm diagonal */
+  /* Feature gradient - Subtle blue diagonal */
   .gradient-feature {
     background: linear-gradient(
       135deg,
-      oklch(0.12 0.02 85 / 30%) 0%,
+      oklch(0.55 0.25 255 / 3%) 0%,
       transparent 50%,
-      oklch(0.12 0.025 47 / 20%) 100%
+      oklch(0.55 0.25 255 / 5%) 100%
     );
   }
 
-  /* CTA gradient - Radial warm centered */
+  /* CTA gradient - Radial blue centered */
   .gradient-cta {
     background: radial-gradient(
       ellipse at center,
-      oklch(0.18 0.04 85 / 40%) 0%,
-      oklch(0.12 0.02 55 / 20%) 50%,
+      oklch(0.55 0.25 255 / 8%) 0%,
+      oklch(0.55 0.20 255 / 3%) 50%,
       transparent 80%
     );
   }
@@ -705,20 +759,20 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      oklch(1 0.01 60 / 8%) 20%,
-      oklch(1 0.01 60 / 8%) 80%,
+      oklch(0 0 0 / 8%) 20%,
+      oklch(0 0 0 / 8%) 80%,
       transparent 100%
     );
     height: 1px;
   }
 
-  /* Mesh gradient - Warm multi-point */
+  /* Mesh gradient - Light multi-point */
   .gradient-mesh {
     background:
-      radial-gradient(ellipse at 20% 20%, var(--glow-amber-subtle) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 30%, var(--glow-coral-subtle) 0%, transparent 50%),
-      radial-gradient(ellipse at 40% 80%, var(--glow-rose-subtle) 0%, transparent 50%),
-      oklch(0.11 0.008 60);
+      radial-gradient(ellipse at 20% 20%, oklch(0.55 0.25 255 / 5%) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, oklch(0.55 0.20 255 / 4%) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 80%, oklch(0.55 0.25 255 / 5%) 0%, transparent 50%),
+      oklch(0.985 0.003 250);
   }
 
   /* ================================================
@@ -891,7 +945,7 @@
     mix-blend-mode: overlay;
   }
 
-  /* Vignette effect for hero */
+  /* Vignette effect for hero - Light theme */
   .vignette {
     position: relative;
   }
@@ -903,24 +957,24 @@
     background: radial-gradient(
       ellipse at center,
       transparent 0%,
-      oklch(0.11 0.008 60 / 70%) 100%
+      oklch(0.985 0.003 250 / 60%) 100%
     );
     pointer-events: none;
   }
 
-  /* Premium card shadow */
+  /* Premium card shadow - Light theme */
   .card-shadow {
     box-shadow:
-      0 4px 6px -1px oklch(0 0 0 / 20%),
-      0 2px 4px -2px oklch(0 0 0 / 15%),
-      0 0 0 1px oklch(1 0 0 / 5%);
+      0 2px 8px oklch(0.2 0.01 250 / 4%),
+      0 8px 24px oklch(0.2 0.01 250 / 6%),
+      0 0 0 1px oklch(0 0 0 / 5%);
   }
 
   .card-shadow-hover {
     box-shadow:
-      0 20px 25px -5px oklch(0 0 0 / 30%),
-      0 8px 10px -6px oklch(0 0 0 / 25%),
-      0 0 0 1px oklch(1 0 0 / 8%);
+      0 8px 32px oklch(0.2 0.01 250 / 8%),
+      0 32px 80px oklch(0.2 0.01 250 / 12%),
+      0 0 0 1px oklch(0 0 0 / 8%);
   }
 
   /* Pill navigation style */
@@ -1017,7 +1071,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--ember-amber), var(--ember-coral));
+    background: linear-gradient(90deg, var(--electric-blue), var(--electric-blue-light));
     border-radius: 1px;
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
@@ -1067,7 +1121,7 @@
      BORDER ANIMATIONS
      ================================================ */
 
-  /* Border glow on hover */
+  /* Border glow on hover - Electric Blue */
   .border-glow {
     position: relative;
     transition: border-color 0.3s ease;
@@ -1100,13 +1154,13 @@
     opacity: 1;
     background: linear-gradient(
       135deg,
-      var(--ember-amber) 0%,
-      var(--ember-coral) 50%,
-      var(--ember-rose) 100%
+      var(--electric-blue) 0%,
+      var(--electric-blue-light) 50%,
+      var(--electric-blue) 100%
     );
   }
 
-  /* Animated border - Rotating warm gradient */
+  /* Animated border - Rotating Electric Blue gradient */
   .border-animated {
     position: relative;
     overflow: hidden;
@@ -1118,10 +1172,10 @@
     inset: -2px;
     background: conic-gradient(
       from 0deg,
-      var(--ember-amber),
-      var(--ember-coral),
-      var(--ember-rose),
-      var(--ember-amber)
+      var(--electric-blue),
+      var(--electric-blue-light),
+      var(--electric-blue-dark),
+      var(--electric-blue)
     );
     border-radius: inherit;
     animation: border-rotate 4s linear infinite;
@@ -1147,34 +1201,36 @@
   }
 
   /* ================================================
-     GLASSMORPHISM VARIANTS
+     GLASSMORPHISM VARIANTS - Light Theme
      ================================================ */
 
   .glass-subtle {
-    background: var(--glass-bg-subtle);
-    backdrop-filter: blur(var(--glass-blur-subtle));
-    -webkit-backdrop-filter: blur(var(--glass-blur-subtle));
-    border: 1px solid var(--glass-border-subtle);
+    background: oklch(1 0 0 / 50%);
+    backdrop-filter: blur(var(--glass-blur-subtle)) saturate(1.1);
+    -webkit-backdrop-filter: blur(var(--glass-blur-subtle)) saturate(1.1);
+    border: 1px solid oklch(0 0 0 / 5%);
   }
 
   .glass-strong {
-    background: var(--glass-bg-heavy);
-    backdrop-filter: blur(var(--glass-blur-heavy));
-    -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
-    border: 1px solid var(--glass-border-strong);
+    background: oklch(1 0 0 / 90%);
+    backdrop-filter: blur(var(--glass-blur-heavy)) saturate(1.2);
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy)) saturate(1.2);
+    border: 1px solid oklch(0 0 0 / 10%);
   }
 
-  /* Glass with inner highlight */
+  /* Glass with inner highlight - Light theme */
   .glass-highlight {
     background: linear-gradient(
       135deg,
-      oklch(1 0 0 / 8%) 0%,
-      oklch(1 0 0 / 3%) 100%
+      oklch(1 0 0 / 85%) 0%,
+      oklch(1 0 0 / 70%) 100%
     );
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: inset 0 1px 0 oklch(1 0 0 / 10%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+    border: 1px solid oklch(0 0 0 / 8%);
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 50%),
+      0 2px 8px oklch(0.2 0.01 250 / 4%);
   }
 
   /* ================================================
@@ -1193,7 +1249,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      oklch(1 0 0 / 5%) 50%,
+      oklch(0.55 0.25 255 / 8%) 50%,
       transparent 100%
     );
     transform: translateX(-100%);
@@ -1204,17 +1260,17 @@
     100% { transform: translateX(100%); }
   }
 
-  /* Pulse glow */
+  /* Pulse glow - Electric Blue */
   .pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px var(--glow-amber-subtle);
+      box-shadow: 0 0 20px oklch(0.55 0.25 255 / 10%);
     }
     50% {
-      box-shadow: 0 0 40px var(--glow-amber);
+      box-shadow: 0 0 40px oklch(0.55 0.25 255 / 20%);
     }
   }
 
@@ -1243,59 +1299,73 @@
 }
 
 /* ================================================
-   COMPONENT OVERRIDES
+   COMPONENT OVERRIDES - Light Premium Theme
    ================================================ */
 
 @layer components {
-  /* Premium button styles */
+  /* Premium button styles - Electric Blue */
   .btn-primary {
     @apply relative overflow-hidden px-6 py-3 rounded-xl font-medium;
-    @apply bg-gradient-to-r from-[var(--ember-amber)] via-[var(--ember-coral)] to-[var(--ember-rose)];
-    @apply text-[var(--primary-foreground)] transition-all duration-300;
-    @apply hover:shadow-lg hover:shadow-[var(--glow-amber)];
-    @apply active:scale-[0.98];
+    background: var(--electric-blue);
+    @apply text-white transition-all duration-300;
+    box-shadow: 0 4px 12px oklch(0.55 0.25 255 / 20%);
+  }
+
+  .btn-primary:hover {
+    background: var(--electric-blue-dark);
+    box-shadow: 0 8px 24px oklch(0.55 0.25 255 / 30%);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98) translateY(0);
   }
 
   .btn-secondary {
     @apply px-6 py-3 rounded-xl font-medium;
     @apply text-foreground transition-all duration-300;
-    @apply hover:shadow-lg;
-    @apply active:scale-[0.98];
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
+    background: oklch(1 0 0);
+    border: 1px solid oklch(0 0 0 / 10%);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-secondary:hover {
-    background: oklch(1 0 0 / 10%);
+    background: oklch(0.98 0.003 250);
+    border-color: var(--electric-blue);
+    box-shadow: var(--shadow-md);
   }
 
-  /* Input styles */
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* Input styles - Light theme */
   .input-premium {
     @apply w-full px-4 py-3 rounded-xl;
     @apply text-foreground placeholder:text-muted-foreground;
-    @apply focus:ring-2 focus:ring-primary/50 focus:border-transparent;
+    @apply focus:ring-2 focus:ring-primary/30 focus:border-primary;
     @apply transition-all duration-200;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
+    background: oklch(1 0 0);
+    border: 1px solid oklch(0 0 0 / 10%);
+    box-shadow: var(--shadow-xs);
   }
 
-  /* Card styles */
+  .input-premium:focus {
+    box-shadow: 0 0 0 3px oklch(0.55 0.25 255 / 15%);
+  }
+
+  /* Card styles - Light theme */
   .card-premium {
     @apply rounded-2xl p-6;
     @apply transition-all duration-300;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
+    background: oklch(1 0 0);
+    border: 1px solid oklch(0 0 0 / 8%);
+    box-shadow: var(--shadow-sm);
   }
 
   .card-premium:hover {
-    background: oklch(1 0 0 / 8%);
-    @apply shadow-xl;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
   }
 }
 
