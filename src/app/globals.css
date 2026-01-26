@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -13,7 +14,9 @@
   /* Base colors mapped to CSS variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit), system-ui, sans-serif;
+  /* Typography: Display (ClashDisplay), Body (CabinetGrotesk), Fallback (Outfit) */
+  --font-sans: var(--font-body), var(--font-outfit), system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-outfit), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Sidebar colors */
@@ -785,22 +788,35 @@
      TYPOGRAPHY UTILITY CLASSES
      ================================================ */
 
+  /* Font family utilities */
+  .font-display {
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
+  }
+
+  .font-body {
+    font-family: var(--font-body), var(--font-outfit), system-ui, sans-serif;
+  }
+
   .text-display {
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
     letter-spacing: var(--text-display-spacing);
     line-height: var(--text-display-height);
   }
 
   .text-h1 {
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
     letter-spacing: var(--text-h1-spacing);
     line-height: var(--text-h1-height);
   }
 
   .text-h2 {
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
     letter-spacing: var(--text-h2-spacing);
     line-height: var(--text-h2-height);
   }
 
   .text-h3 {
+    font-family: var(--font-display), var(--font-outfit), system-ui, sans-serif;
     letter-spacing: var(--text-h3-spacing);
     line-height: var(--text-h3-height);
   }
