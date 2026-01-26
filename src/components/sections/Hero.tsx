@@ -146,7 +146,7 @@ export function Hero() {
             <h1
               className="mb-6"
               style={{
-                fontFamily: "var(--font-body)",
+                fontFamily: "var(--font-outfit)",
                 letterSpacing: "0.1em",
                 lineHeight: "0.92"
               }}
