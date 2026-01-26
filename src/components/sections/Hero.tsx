@@ -310,22 +310,6 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Slide dots - Positioned bottom right */}
-        <div className="absolute bottom-24 right-8 lg:right-16 flex items-center gap-3">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={cn(
-                "h-3 rounded-full transition-all duration-300",
-                currentSlide === index
-                  ? "w-10 bg-white"
-                  : "w-3 bg-white/30 hover:bg-white/50"
-              )}
-              aria-label={`Aller à la slide ${index + 1}`}
-            />
-          ))}
-        </div>
       </div>
 
       {/* Scroll indicator - Simple arrow */}

@@ -312,28 +312,6 @@ export function Services() {
             ))}
           </div>
 
-          {/* Scroll Indicator Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {services.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (!carouselRef.current) return;
-                  const cardWidth = 380 + 24; // card width + gap
-                  carouselRef.current.scrollTo({
-                    left: index * cardWidth,
-                    behavior: "smooth",
-                  });
-                }}
-                className="h-2 rounded-full transition-all duration-300 hover:bg-[#3b82f6]"
-                style={{
-                  width: "24px",
-                  background: "rgba(59, 130, 246, 0.3)",
-                }}
-                aria-label={`Aller à la carte ${index + 1}`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Bottom CTA */}
