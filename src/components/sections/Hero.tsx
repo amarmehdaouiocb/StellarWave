@@ -152,13 +152,13 @@ export function Hero() {
               }}
             >
               <span
-                className="block text-[clamp(3.5rem,12vw,8rem)] font-semibold"
+                className="block text-[clamp(3.5rem,12vw,8rem)] font-extrabold"
                 style={{ color: "rgba(255, 255, 255, 0.4)" }}
               >
                 STELLAR
               </span>
               <span
-                className="block text-[clamp(3.5rem,12vw,8rem)] font-bold text-white"
+                className="block text-[clamp(3.5rem,12vw,8rem)] font-extrabold text-white"
               >
                 WAVE
               </span>
