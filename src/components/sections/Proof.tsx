@@ -99,18 +99,18 @@ function CaseStudyMini({
       <div
         className="h-full p-6 relative overflow-hidden"
         style={{
-          background: index === 0
+          background: index % 2 === 0
             ? "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)"
             : "white",
           borderRadius: "var(--card-radius-xl)",
-          border: index === 0
+          border: index % 2 === 0
             ? "1px solid rgba(255, 255, 255, 0.08)"
             : "1px solid rgba(255, 255, 255, 0.40)",
           boxShadow: "var(--shadow-apple-lg)",
         }}
       >
         {/* Inner glow for dark card */}
-        {index === 0 && (
+        {index % 2 === 0 && (
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -121,22 +121,37 @@ function CaseStudyMini({
         )}
 
         <div className="relative z-10">
-          {/* Industry badge */}
-          <span
-            className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-4"
-            style={{
-              background: index === 0 ? "rgba(255,255,255,0.10)" : "rgba(59, 130, 246, 0.08)",
-              color: index === 0 ? "white" : "#3b82f6",
-              border: index === 0 ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(59, 130, 246, 0.15)",
-            }}
-          >
-            {study.industry}
-          </span>
+          {/* Header with logo and industry */}
+          <div className="flex items-center justify-between mb-4">
+            <span
+              className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: index % 2 === 0 ? "rgba(255,255,255,0.10)" : "rgba(59, 130, 246, 0.08)",
+                color: index % 2 === 0 ? "white" : "#3b82f6",
+                border: index % 2 === 0 ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(59, 130, 246, 0.15)",
+              }}
+            >
+              {study.industry}
+            </span>
+            <div
+              className="h-10 w-10 rounded-xl flex items-center justify-center overflow-hidden"
+              style={{
+                background: index % 2 === 0 ? "rgba(255,255,255,0.10)" : "white",
+                border: index % 2 === 0 ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(0,0,0,0.06)",
+              }}
+            >
+              <img
+                src={study.image}
+                alt={study.client}
+                className="h-6 w-6 object-contain"
+              />
+            </div>
+          </div>
 
           {/* Client name */}
           <h4
             className="text-xl font-semibold mb-3"
-            style={{ color: index === 0 ? "white" : "#111111" }}
+            style={{ color: index % 2 === 0 ? "white" : "#111111" }}
           >
             {study.client}
           </h4>
@@ -144,7 +159,7 @@ function CaseStudyMini({
           {/* Context (truncated) */}
           <p
             className="text-sm mb-4 line-clamp-2"
-            style={{ color: index === 0 ? "rgba(255,255,255,0.7)" : "rgba(17,17,17,0.6)" }}
+            style={{ color: index % 2 === 0 ? "rgba(255,255,255,0.7)" : "rgba(17,17,17,0.6)" }}
           >
             {study.context}
           </p>
@@ -161,13 +176,13 @@ function CaseStudyMini({
             <div>
               <div
                 className="text-xs uppercase tracking-wider mb-1"
-                style={{ color: index === 0 ? "rgba(255,255,255,0.5)" : "rgba(17,17,17,0.4)" }}
+                style={{ color: index % 2 === 0 ? "rgba(255,255,255,0.5)" : "rgba(17,17,17,0.4)" }}
               >
                 Résultat clé
               </div>
               <div
                 className="text-sm font-medium"
-                style={{ color: index === 0 ? "#60a5fa" : "#3b82f6" }}
+                style={{ color: index % 2 === 0 ? "#60a5fa" : "#3b82f6" }}
               >
                 {study.results[0].after}
               </div>
@@ -175,13 +190,13 @@ function CaseStudyMini({
             <motion.div
               className="flex h-8 w-8 items-center justify-center rounded-full"
               style={{
-                background: index === 0 ? "rgba(255,255,255,0.10)" : "rgba(59, 130, 246, 0.08)",
+                background: index % 2 === 0 ? "rgba(255,255,255,0.10)" : "rgba(59, 130, 246, 0.08)",
               }}
               whileHover={{ scale: 1.1 }}
             >
               <ArrowUpRight
                 className="h-4 w-4"
-                style={{ color: index === 0 ? "white" : "#3b82f6" }}
+                style={{ color: index % 2 === 0 ? "white" : "#3b82f6" }}
               />
             </motion.div>
           </div>
@@ -192,8 +207,8 @@ function CaseStudyMini({
 }
 
 export function Proof() {
-  // Take only first 2 case studies for conciseness
-  const featuredStudies = caseStudies.slice(0, 2);
+  // Show all 4 case studies
+  const featuredStudies = caseStudies;
   // Duplicate logos for infinite scroll
   const duplicatedLogos = [...trustedLogos, ...trustedLogos];
 
