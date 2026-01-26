@@ -113,14 +113,6 @@ export function Hero() {
         }}
       />
 
-      {/* Bottom fade to next section */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-        style={{
-          background: "linear-gradient(to top, var(--apple-bg) 0%, transparent 100%)",
-        }}
-      />
-
       {/* Content */}
       <div className="relative z-10 container-wide pt-32 lg:pt-40 pb-24">
         <div className="max-w-6xl mx-auto">
