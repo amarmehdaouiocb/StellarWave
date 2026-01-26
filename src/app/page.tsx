@@ -20,7 +20,7 @@ export default function HomePage() {
       <NavPill />
 
       {/* Main content - 6 sections optimisées pour la conversion */}
-      <main id="main-content" className="relative">
+      <main id="main-content" className="relative overflow-x-hidden">
         {/* 1. HERO - Hook + CTA immédiat */}
         <Hero />
 

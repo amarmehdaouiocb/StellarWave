@@ -228,7 +228,7 @@ export function Services() {
         </motion.div>
 
         {/* Carousel Container */}
-        <div className="relative">
+        <div className="relative overflow-hidden">
           {/* Navigation Arrows */}
           <motion.button
             onClick={() => scroll("left")}
@@ -241,7 +241,6 @@ export function Services() {
             style={{
               background: "rgba(255, 255, 255, 0.95)",
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-              transform: "translateX(-50%) translateY(-50%)",
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -261,7 +260,6 @@ export function Services() {
             style={{
               background: "rgba(255, 255, 255, 0.95)",
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-              transform: "translateX(50%) translateY(-50%)",
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
