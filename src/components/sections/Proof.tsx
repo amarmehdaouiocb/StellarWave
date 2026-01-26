@@ -294,21 +294,23 @@ export function Proof() {
             {duplicatedLogos.map((logo, index) => (
               <div
                 key={`${logo.name}-${index}`}
-                className="flex-shrink-0 flex items-center gap-2 opacity-40 hover:opacity-80 transition-opacity"
+                className="flex-shrink-0 flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity"
               >
                 <div
-                  className="h-8 w-8 rounded-lg flex items-center justify-center"
+                  className="h-10 w-10 rounded-lg flex items-center justify-center overflow-hidden bg-white"
                   style={{
-                    background: "linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%)",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06)",
                   }}
                 >
-                  <span className="text-xs font-bold" style={{ color: "#3b82f6" }}>
-                    {logo.name.charAt(0)}
-                  </span>
+                  <img
+                    src={logo.logo}
+                    alt={logo.name}
+                    className="h-7 w-7 object-contain"
+                  />
                 </div>
                 <span
                   className="text-sm font-medium whitespace-nowrap"
-                  style={{ color: "rgba(17, 17, 17, 0.6)" }}
+                  style={{ color: "rgba(17, 17, 17, 0.7)" }}
                 >
                   {logo.name}
                 </span>
@@ -343,12 +345,13 @@ export function Proof() {
               {trustedLogos.slice(0, 3).map((logo, i) => (
                 <div
                   key={i}
-                  className="h-8 w-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold"
-                  style={{
-                    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                  }}
+                  className="h-8 w-8 rounded-full border-2 border-white flex items-center justify-center overflow-hidden bg-white"
                 >
-                  {logo.name.charAt(0)}
+                  <img
+                    src={logo.logo}
+                    alt={logo.name}
+                    className="h-5 w-5 object-contain"
+                  />
                 </div>
               ))}
             </div>

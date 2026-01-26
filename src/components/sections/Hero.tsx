@@ -249,13 +249,17 @@ export function Hero() {
               {trustedLogos.slice(0, 3).map((logo, i) => (
                 <div
                   key={i}
-                  className="h-11 w-11 rounded-full border-[3px] border-white/20 flex items-center justify-center text-white text-xs font-bold"
+                  className="h-11 w-11 rounded-full border-[3px] border-white/20 flex items-center justify-center overflow-hidden"
                   style={{
-                    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                    boxShadow: "0 4px 12px rgba(59, 130, 246, 0.35)",
+                    background: "white",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
                   }}
                 >
-                  {logo.name.charAt(0)}
+                  <img
+                    src={logo.logo}
+                    alt={logo.name}
+                    className="h-7 w-7 object-contain"
+                  />
                 </div>
               ))}
             </div>
