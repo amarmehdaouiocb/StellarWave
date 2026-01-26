@@ -8,8 +8,7 @@ import {
   Briefcase,
   Kanban,
   Package,
-  Cloud,
-  Question,
+  ArrowsClockwise,
   EnvelopeSimple,
   List,
 } from "@phosphor-icons/react";
@@ -21,10 +20,9 @@ import { fadeInLeft, navPillIndicator } from "@/lib/animations";
 const navItems = [
   { id: "hero", label: "Accueil", icon: House, href: "#hero" },
   { id: "services", label: "Services", icon: Briefcase, href: "#services" },
-  { id: "projects", label: "Projets", icon: Kanban, href: "#projects" },
+  { id: "proof", label: "Réalisations", icon: Kanban, href: "#proof" },
+  { id: "process", label: "Process", icon: ArrowsClockwise, href: "#process" },
   { id: "offers", label: "Offres", icon: Package, href: "#offers" },
-  { id: "cloud", label: "Cloud", icon: Cloud, href: "#cloud" },
-  { id: "faq", label: "FAQ", icon: Question, href: "#faq" },
   { id: "contact", label: "Contact", icon: EnvelopeSimple, href: "#contact" },
 ];
 

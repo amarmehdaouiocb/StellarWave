@@ -9,9 +9,9 @@ import { navPillIndicator } from "@/lib/animations";
 
 const navTabs = [
   { id: "services", label: "Services" },
-  { id: "projects", label: "Réalisations" },
-  { id: "offers", label: "Offres" },
+  { id: "proof", label: "Réalisations" },
   { id: "process", label: "Process" },
+  { id: "offers", label: "Offres" },
   { id: "contact", label: "Contact" },
 ];
 

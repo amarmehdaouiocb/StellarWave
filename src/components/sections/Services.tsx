@@ -1,17 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   RocketLaunch,
   Globe,
   Stack,
   DeviceMobile,
   Cloud,
+  CaretLeft,
+  CaretRight,
 } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
-import SparklesIcon from "@/components/ui/sparkles-icon";
 import { cn } from "@/lib/utils";
-import { services, type IconName } from "@/config/brand";
+import { services } from "@/config/brand";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
+import { CTAButton } from "@/components/shared/CTAButton";
+import { fadeInUp, easings } from "@/lib/animations";
 
 // Icon map for looking up Phosphor icons by name
 const iconMap: Record<string, React.ElementType> = {
@@ -21,152 +26,105 @@ const iconMap: Record<string, React.ElementType> = {
   DeviceMobile,
   Cloud,
 };
-import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { CTAButton } from "@/components/shared/CTAButton";
-import {
-  staggerContainer,
-  staggerItemBlur,
-  fadeInUp,
-  easings,
-} from "@/lib/animations";
 
-// Icon component - Light theme
-function ServiceIcon({
-  icon: Icon,
-  isHighlighted,
-}: {
-  icon: React.ElementType;
-  isHighlighted?: boolean;
-}) {
-  return (
-    <div
-      className={cn(
-        "flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300",
-        isHighlighted
-          ? "bg-[var(--electric-blue)]"
-          : "bg-[var(--electric-blue)]/10 group-hover:bg-[var(--electric-blue)]/15"
-      )}
-    >
-      <Icon
-        weight="duotone"
-        className={cn(
-          "h-7 w-7",
-          isHighlighted ? "text-white" : "text-[var(--electric-blue)]"
-        )}
-      />
-    </div>
-  );
-}
-
-// Service card - Light theme with white cards and soft shadows
+// Service card - Uniform dark premium style
 function ServiceCard({
   service,
   index,
-  isHighlighted,
-  className,
 }: {
   service: (typeof services)[number];
   index: number;
-  isHighlighted: boolean;
-  className?: string;
 }) {
   const Icon = iconMap[service.iconName] || RocketLaunch;
 
   return (
     <motion.div
-      variants={staggerItemBlur}
-      className={cn("group", className)}
+      className="group relative flex-shrink-0"
+      style={{ width: "380px" }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5, ease: easings.smooth }}
     >
       <div
-        className={cn(
-          "h-full flex flex-col",
-          "bg-white rounded-3xl p-8",
-          "border transition-all duration-300",
-          isHighlighted
-            ? "border-[var(--electric-blue)]/30"
-            : "border-[oklch(0_0_0_/_6%)] hover:border-[var(--electric-blue)]/20"
-        )}
+        className="h-full flex flex-col relative overflow-hidden"
         style={{
-          boxShadow: isHighlighted
-            ? "0 8px 30px -4px oklch(0.55 0.25 255 / 12%), 0 24px 60px -12px oklch(0.2 0.01 250 / 10%)"
-            : "0 4px 20px -4px oklch(0.2 0.01 250 / 8%), 0 12px 40px -8px oklch(0.2 0.01 250 / 6%)",
+          background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+          borderRadius: "var(--card-radius-xl)",
+          padding: "32px",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+          minHeight: "420px",
+          transition: "transform 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out",
         }}
       >
+        {/* Inner glow */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            borderRadius: "inherit",
+            background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59, 130, 246, 0.20) 0%, transparent 60%)",
+          }}
+        />
+
+        {/* Subtle border glow on hover */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            borderRadius: "inherit",
+            border: "1px solid rgba(59, 130, 246, 0.3)",
+          }}
+        />
+
         {/* Content */}
-        <div className="flex flex-col h-full">
-          {/* Header with icon and badge */}
-          <div className="flex items-start justify-between mb-6">
-            <ServiceIcon icon={Icon} isHighlighted={isHighlighted} />
-            {isHighlighted && (
-              <motion.div
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <SparklesIcon size={14} className="text-[var(--electric-blue)]" />
-                <span className="text-xs font-medium text-[var(--electric-blue)]">
-                  Populaire
-                </span>
-              </motion.div>
-            )}
+        <div className="flex flex-col h-full relative z-10">
+          {/* Icon */}
+          <div
+            className="flex h-14 w-14 items-center justify-center rounded-2xl mb-6 transition-all duration-300 group-hover:scale-110"
+            style={{
+              background: "rgba(59, 130, 246, 0.15)",
+              border: "1px solid rgba(59, 130, 246, 0.20)",
+            }}
+          >
+            <Icon weight="duotone" className="h-7 w-7 text-[#60a5fa]" />
           </div>
 
           {/* Title */}
           <h3
-            className={cn(
-              "text-xl font-semibold mb-3 transition-colors duration-300",
-              isHighlighted
-                ? "text-[var(--electric-blue)]"
-                : "text-[var(--accent-dark)] group-hover:text-[var(--electric-blue)]"
-            )}
+            className="text-xl font-semibold mb-3 text-white transition-colors duration-300"
           >
             {service.title}
           </h3>
 
           {/* Description */}
-          <p className="text-[var(--neutral-500)] mb-6 flex-grow leading-relaxed">
+          <p
+            className="mb-6 flex-grow leading-relaxed text-[15px]"
+            style={{ color: "rgba(255, 255, 255, 0.65)" }}
+          >
             {service.description}
           </p>
 
-          {/* Features with animated bullets */}
+          {/* Features */}
           <ul className="space-y-2.5 mb-6">
             {service.features.map((feature, featureIndex) => (
-              <motion.li
+              <li
                 key={featureIndex}
-                className="flex items-center gap-3 text-sm text-[var(--neutral-500)]"
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: featureIndex * 0.1 }}
-                viewport={{ once: true }}
+                className="flex items-center gap-3 text-sm"
+                style={{ color: "rgba(255, 255, 255, 0.75)" }}
               >
-                <motion.span
-                  className={cn(
-                    "h-1.5 w-1.5 rounded-full flex-shrink-0",
-                    isHighlighted
-                      ? "bg-[var(--electric-blue)]"
-                      : "bg-[var(--neutral-400)] group-hover:bg-[var(--electric-blue)]"
-                  )}
-                  whileHover={{ scale: 1.5 }}
-                  transition={{ type: "spring", stiffness: 500 }}
+                <span
+                  className="h-1.5 w-1.5 rounded-full flex-shrink-0"
+                  style={{ background: "#3b82f6" }}
                 />
-                <span className="group-hover:text-[var(--neutral-600)] transition-colors">
-                  {feature}
-                </span>
-              </motion.li>
+                <span>{feature}</span>
+              </li>
             ))}
           </ul>
 
           {/* CTA */}
           <motion.a
             href="#contact"
-            className={cn(
-              "inline-flex items-center gap-2 text-sm font-medium mt-auto",
-              "transition-all duration-300",
-              isHighlighted
-                ? "text-[var(--electric-blue)]"
-                : "text-[var(--neutral-500)] hover:text-[var(--electric-blue)]"
-            )}
+            className="inline-flex items-center gap-2 text-sm font-semibold mt-auto text-[#60a5fa] group-hover:text-white transition-colors duration-300"
             whileHover={{ x: 4 }}
           >
             {service.cta}
@@ -179,10 +137,50 @@ function ServiceCard({
 }
 
 export function Services() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Check scroll position
+  const checkScrollPosition = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  };
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    checkScrollPosition();
+    carousel.addEventListener("scroll", checkScrollPosition);
+    window.addEventListener("resize", checkScrollPosition);
+
+    return () => {
+      carousel.removeEventListener("scroll", checkScrollPosition);
+      window.removeEventListener("resize", checkScrollPosition);
+    };
+  }, []);
+
+  const scroll = (direction: "left" | "right") => {
+    if (!carouselRef.current) return;
+    const scrollAmount = 400;
+    carouselRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <AnimatedSection id="services" className="section-padding bg-[var(--background)]">
+    <AnimatedSection
+      id="services"
+      className="section-padding overflow-hidden"
+      style={{ backgroundColor: "var(--apple-bg)" }}
+    >
       <div className="container-wide">
-        {/* Header with enhanced styling */}
+        {/* Header */}
         <motion.div
           className="text-center max-w-3xl mx-auto mb-16"
           variants={fadeInUp}
@@ -191,55 +189,154 @@ export function Services() {
           viewport={{ once: true }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] text-sm font-medium text-[var(--neutral-600)] mb-6"
+            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+              background: "rgba(255, 255, 255, 0.80)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.60)",
+              boxShadow: "var(--shadow-apple-sm)",
+              color: "rgba(17, 17, 17, 0.6)",
             }}
           >
             Nos expertises
           </motion.span>
-          <h2 className="text-display-mega text-[var(--accent-dark)] mb-6">
-            Des solutions{" "}
-            <span className="text-gradient-hero">sur mesure</span> pour
-            chaque besoin
+
+          <h2
+            className="mb-6"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.5rem, 6vw, 4rem)",
+              lineHeight: "1.05",
+              letterSpacing: "-0.03em",
+            }}
+          >
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Des solutions </span>
+            <span style={{ color: "#111111", fontWeight: 600 }}>sur mesure</span>
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}> pour chaque besoin</span>
           </h2>
-          <p className="text-lg text-[var(--neutral-500)] leading-relaxed">
+          <p
+            className="text-lg leading-relaxed"
+            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+          >
             Du prototypage rapide au déploiement en production, nous couvrons
             l&apos;ensemble du cycle de vie de vos produits digitaux.
           </p>
         </motion.div>
 
-        {/* Bento grid layout */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {services.map((service, index) => {
-            const isHighlighted = index === 2; // Web Apps is highlighted
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          <motion.button
+            onClick={() => scroll("left")}
+            className={cn(
+              "absolute left-0 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
+              canScrollLeft
+                ? "opacity-100 cursor-pointer"
+                : "opacity-0 pointer-events-none"
+            )}
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
+              transform: "translateX(-50%) translateY(-50%)",
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Défiler vers la gauche"
+          >
+            <CaretLeft className="h-5 w-5 text-[#111111]" weight="bold" />
+          </motion.button>
 
-            // Bento layout: highlighted card spans 2 columns on large screens
-            const gridClass = isHighlighted
-              ? "md:col-span-2 lg:col-span-2 lg:row-span-1"
-              : "";
+          <motion.button
+            onClick={() => scroll("right")}
+            className={cn(
+              "absolute right-0 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
+              canScrollRight
+                ? "opacity-100 cursor-pointer"
+                : "opacity-0 pointer-events-none"
+            )}
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
+              transform: "translateX(50%) translateY(-50%)",
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Défiler vers la droite"
+          >
+            <CaretRight className="h-5 w-5 text-[#111111]" weight="bold" />
+          </motion.button>
 
-            return (
-              <ServiceCard
+          {/* Gradient Masks */}
+          <div
+            className={cn(
+              "absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none transition-opacity duration-300",
+              canScrollLeft ? "opacity-100" : "opacity-0"
+            )}
+            style={{
+              background: "linear-gradient(to right, var(--apple-bg) 0%, transparent 100%)",
+            }}
+          />
+          <div
+            className={cn(
+              "absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none transition-opacity duration-300",
+              canScrollRight ? "opacity-100" : "opacity-0"
+            )}
+            style={{
+              background: "linear-gradient(to left, var(--apple-bg) 0%, transparent 100%)",
+            }}
+          />
+
+          {/* Scrollable Carousel */}
+          <div
+            ref={carouselRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 pt-2 px-2 -mx-2 cursor-grab active:cursor-grabbing"
+            style={{
+              scrollSnapType: "x mandatory",
+              scrollPaddingLeft: "16px",
+              scrollPaddingRight: "16px",
+              WebkitOverflowScrolling: "touch",
+            }}
+            onMouseDown={() => setIsDragging(true)}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
+          >
+            {services.map((service, index) => (
+              <div
                 key={service.id}
-                service={service}
-                index={index}
-                isHighlighted={isHighlighted}
-                className={gridClass}
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <ServiceCard service={service} index={index} />
+              </div>
+            ))}
+          </div>
+
+          {/* Scroll Indicator Dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (!carouselRef.current) return;
+                  const cardWidth = 380 + 24; // card width + gap
+                  carouselRef.current.scrollTo({
+                    left: index * cardWidth,
+                    behavior: "smooth",
+                  });
+                }}
+                className="h-2 rounded-full transition-all duration-300 hover:bg-[#3b82f6]"
+                style={{
+                  width: "24px",
+                  background: "rgba(59, 130, 246, 0.3)",
+                }}
+                aria-label={`Aller à la carte ${index + 1}`}
               />
-            );
-          })}
-        </motion.div>
+            ))}
+          </div>
+        </div>
 
         {/* Bottom CTA */}
         <motion.div
@@ -258,7 +355,7 @@ export function Services() {
             icon={<ArrowNarrowRightIcon size={20} />}
             href="#contact"
           >
-            Demander une estimation
+            Demander un devis
           </CTAButton>
         </motion.div>
       </div>

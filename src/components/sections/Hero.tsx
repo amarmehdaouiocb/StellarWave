@@ -9,6 +9,7 @@ import { brand, heroMetrics, heroSlides, heroTrustBadges, trustedLogos } from "@
 import { Check, ShieldCheck, Lightning, Star } from "@phosphor-icons/react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { easings } from "@/lib/animations";
+import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
 
 // Animated counter component for KPIs
 function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: string }) {
@@ -65,6 +66,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: strin
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
@@ -85,48 +87,95 @@ export function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-screen overflow-hidden bg-[var(--background)]"
+      className="relative min-h-screen overflow-hidden"
+      style={{ background: "linear-gradient(145deg, #0a0a14 0%, #0f0f23 50%, #0a0a14 100%)" }}
     >
-      {/* Background - Clean light gradient */}
+      {/* Interactive Particle Network Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.985_0.003_250)] via-white to-[oklch(0.985_0.003_250)]" />
+        <ParticleNetwork
+          particleCount={80}
+          particleColor="rgba(59, 130, 246, 0.8)"
+          lineColor="rgba(59, 130, 246, 0.15)"
+          maxDistance={160}
+          speed={0.3}
+          mouseRadius={180}
+          mouseForce={0.02}
+        />
       </div>
 
+      {/* Subtle blue glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 30% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%)",
+        }}
+      />
+
+      {/* Bottom fade to next section */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, var(--apple-bg) 0%, transparent 100%)",
+        }}
+      />
+
       {/* Content */}
-      <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 pt-32 lg:pt-40 pb-24">
+      <div className="relative z-10 container-wide pt-32 lg:pt-40 pb-24">
         <div className="max-w-6xl mx-auto">
-          {/* MEGA Title - Monumentale */}
+          {/* Editorial Title Section */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: easings.smooth }}
-            className="mb-6"
+            className="mb-8"
           >
-            {/* Eyebrow badge */}
+            {/* Eyebrow badge - Glass style on dark */}
             <motion.div
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] mb-8"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
               style={{
-                boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 6%)",
+                background: "rgba(255, 255, 255, 0.12)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1px solid rgba(255, 255, 255, 0.20)",
+                boxShadow: "0 4px 24px rgba(0, 0, 0, 0.15)",
               }}
             >
-              <span className="text-sm font-medium text-[var(--neutral-600)]">
+              <span className="text-sm font-medium text-white/80">
                 {brand.tagline}
               </span>
             </motion.div>
 
-            {/* MEGA Title */}
-            <h1 className="text-mega text-[var(--accent-dark)] leading-[0.85] tracking-[-0.05em] mb-4">
-              <span className="block">STELLAR</span>
-              <span className="block text-gradient-hero">WAVE</span>
+            {/* Editorial MEGA Title - Two-tone style on dark */}
+            <h1
+              className="mb-6"
+              style={{
+                fontFamily: "var(--font-display)",
+                letterSpacing: "-0.04em",
+                lineHeight: "0.92"
+              }}
+            >
+              <span
+                className="block text-[clamp(3.5rem,12vw,8rem)] font-semibold"
+                style={{ color: "rgba(255, 255, 255, 0.4)" }}
+              >
+                STELLAR
+              </span>
+              <span
+                className="block text-[clamp(3.5rem,12vw,8rem)] font-bold text-white"
+              >
+                WAVE
+              </span>
             </h1>
 
             {/* Subtitle - Under the MEGA title */}
             <motion.p
-              className="text-xl sm:text-2xl lg:text-3xl font-light text-[var(--neutral-500)] max-w-2xl leading-relaxed"
+              className="text-xl sm:text-2xl lg:text-[1.75rem] font-light max-w-2xl text-white/70"
+              style={{ lineHeight: "1.4" }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
@@ -154,13 +203,13 @@ export function Hero() {
               variant="secondary"
               size="lg"
               icon={<ArrowNarrowRightIcon size={20} />}
-              href="#lead-magnet"
+              href="#contact"
             >
-              Obtenir un audit gratuit
+              Demander un devis
             </CTAButton>
           </motion.div>
 
-          {/* Trust badges - Clean light style */}
+          {/* Trust badges - On dark background */}
           <motion.div
             className="flex flex-wrap items-center gap-4 sm:gap-6 mb-12"
             initial={{ opacity: 0, y: 20 }}
@@ -172,32 +221,38 @@ export function Hero() {
               return (
                 <div
                   key={index}
-                  className="flex items-center gap-2 text-sm text-[var(--neutral-500)]"
+                  className="flex items-center gap-2 text-sm text-white/60"
                 >
-                  <IconComponent className="h-4 w-4 text-[var(--electric-blue)]" weight="bold" />
+                  <IconComponent className="h-4 w-4 text-[#3b82f6]" weight="bold" />
                   <span>{badge.text}</span>
                 </div>
               );
             })}
           </motion.div>
 
-          {/* Social Proof - Light card */}
+          {/* Social Proof - Glass card on dark */}
           <motion.div
-            className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-[oklch(0_0_0_/_8%)] mb-12 max-w-md"
+            className="flex items-center gap-5 p-6 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
             style={{
-              boxShadow: "0 4px 12px oklch(0.2 0.01 250 / 5%), 0 16px 48px oklch(0.2 0.01 250 / 8%)",
+              background: "rgba(255, 255, 255, 0.08)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              borderRadius: "var(--card-radius-xl)",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
             }}
           >
-            <div className="flex -space-x-2">
+            <div className="flex -space-x-3">
               {trustedLogos.slice(0, 3).map((logo, i) => (
                 <div
                   key={i}
-                  className="h-10 w-10 rounded-full border-2 border-white bg-[var(--electric-blue)] flex items-center justify-center text-white text-xs font-bold"
+                  className="h-11 w-11 rounded-full border-[3px] border-white/20 flex items-center justify-center text-white text-xs font-bold"
                   style={{
-                    boxShadow: "0 2px 8px oklch(0.55 0.25 255 / 20%)",
+                    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+                    boxShadow: "0 4px 12px rgba(59, 130, 246, 0.35)",
                   }}
                 >
                   {logo.name.charAt(0)}
@@ -205,21 +260,21 @@ export function Hero() {
               ))}
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-1 mb-1">
+              <div className="flex items-center gap-1 mb-1.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 text-[var(--electric-blue)]" weight="fill" />
+                  <Star key={i} className="h-4 w-4 text-[#FFB800]" weight="fill" />
                 ))}
-                <span className="ml-2 text-sm font-semibold text-[var(--accent-dark)]">5.0</span>
+                <span className="ml-2 text-sm font-semibold text-white">5.0</span>
               </div>
-              <p className="text-sm text-[var(--neutral-500)]">
-                <span className="text-[var(--accent-dark)] font-medium">{trustedLogos.length}+ entreprises</span> nous font déjà confiance
+              <p className="text-sm text-white/60">
+                <span className="font-semibold text-white">{trustedLogos.length}+ entreprises</span> nous font déjà confiance
               </p>
             </div>
           </motion.div>
 
-          {/* KPI Row - Clean white cards */}
+          {/* KPI Row - Glass cards on dark */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
@@ -227,24 +282,31 @@ export function Hero() {
             {heroMetrics.map((metric, index) => (
               <motion.div
                 key={index}
-                className={cn(
-                  "text-center p-5 md:p-6 rounded-2xl",
-                  "bg-white border border-[oklch(0_0_0_/_8%)]",
-                  "hover:border-[var(--electric-blue)]/30",
-                  "transition-all duration-300"
-                )}
+                className="text-center p-5 md:p-6 transition-all duration-300"
                 style={{
-                  boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%), 0 8px 24px oklch(0.2 0.01 250 / 6%)",
+                  background: "rgba(255, 255, 255, 0.06)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  borderRadius: "var(--card-radius-xl)",
+                  border: "1px solid rgba(255, 255, 255, 0.10)",
                 }}
                 whileHover={{
                   y: -4,
-                  boxShadow: "0 8px 32px oklch(0.2 0.01 250 / 8%), 0 32px 80px oklch(0.2 0.01 250 / 12%)",
+                  background: "rgba(255, 255, 255, 0.10)",
                 }}
               >
-                <div className="text-3xl sm:text-4xl font-bold text-gradient-hero mb-2">
+                <div
+                  className="text-2xl sm:text-3xl font-bold mb-1"
+                  style={{
+                    backgroundImage: "linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent"
+                  }}
+                >
                   <AnimatedCounter value={metric.value} />
                 </div>
-                <div className="text-sm text-[var(--neutral-500)] uppercase tracking-wider">
+                <div className="text-xs uppercase tracking-wider font-medium text-white/50">
                   {metric.label}
                 </div>
               </motion.div>
@@ -261,8 +323,8 @@ export function Hero() {
               className={cn(
                 "h-3 rounded-full transition-all duration-300",
                 currentSlide === index
-                  ? "w-10 bg-[var(--electric-blue)]"
-                  : "w-3 bg-[var(--neutral-300)] hover:bg-[var(--neutral-400)]"
+                  ? "w-10 bg-white"
+                  : "w-3 bg-white/30 hover:bg-white/50"
               )}
               aria-label={`Aller à la slide ${index + 1}`}
             />
@@ -272,12 +334,15 @@ export function Hero() {
 
       {/* Scroll indicator - Simple arrow */}
       <motion.a
-        href="#trust"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[var(--neutral-400)] hover:text-[var(--electric-blue)] transition-colors"
+        href="#services"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 hover:text-white transition-colors"
         aria-label="Défiler vers le bas"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
+        animate={{ opacity: 1, y: [0, 8, 0] }}
+        transition={{
+          opacity: { delay: 1, duration: 0.6 },
+          y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
+        }}
       >
         <ArrowDown className="h-6 w-6" />
       </motion.a>

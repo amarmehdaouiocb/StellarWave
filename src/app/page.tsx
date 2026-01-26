@@ -1,25 +1,13 @@
 import { SidebarGlass, NavPill, Footer } from "@/components/layout";
 import {
   Hero,
-  TrustBanner,
-  ProjectsCarousel,
   Services,
-  WhyUs,
-  CaseStudies,
-  ProofCards,
-  Process,
-  Offers,
-  LeadMagnet,
-  EstimateForm,
-  FAQ,
+  Proof,
+  ProcessSimple,
+  OffersWithFAQ,
+  Contact,
 } from "@/components/sections";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
-
-// New "WOW" sections
-import { MosaicAZ } from "@/components/sections/MosaicAZ";
-import { FullBleedCaseStudy } from "@/components/sections/FullBleedCaseStudy";
-import { FullBleedCloud } from "@/components/sections/FullBleedCloud";
-import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function HomePage() {
   return (
@@ -31,72 +19,25 @@ export default function HomePage() {
       <SidebarGlass />
       <NavPill />
 
-      {/* Main content */}
+      {/* Main content - 6 sections optimisées pour la conversion */}
       <main id="main-content" className="relative">
-        {/* ============================================
-            SECTION 1: HERO (100vh - Cinematic)
-            ============================================ */}
+        {/* 1. HERO - Hook + CTA immédiat */}
         <Hero />
 
-        {/* Trust banner - Client logos */}
-        <TrustBanner />
-
-        {/* ============================================
-            SECTION 2: MOSAIC "Le Digital de A à Z"
-            Grid with saturated power cards
-            ============================================ */}
-        <MosaicAZ />
-
-        {/* ============================================
-            SECTION 3: FULL-BLEED CASE STUDY (100vh)
-            Big statement + floating mockup
-            ============================================ */}
-        <FullBleedCaseStudy />
-
-        {/* ============================================
-            SECTION 4: SERVICES (Cards grid)
-            ============================================ */}
+        {/* 2. SERVICES - Nos expertises */}
         <Services />
 
-        {/* Why us / Differentiation */}
-        <WhyUs />
+        {/* 3. PROOF - Crédibilité (métriques + logos + case studies) */}
+        <Proof />
 
-        {/* ============================================
-            SECTION 5: FULL-BLEED CLOUD (100vh)
-            Monoline wireframe + cloud cards
-            ============================================ */}
-        <FullBleedCloud />
+        {/* 4. PROCESS - Transparence (3 étapes) */}
+        <ProcessSimple />
 
-        {/* ============================================
-            SECTION 6: RÉALISATIONS (Grid + Filters)
-            ============================================ */}
-        <ProjectsCarousel />
+        {/* 5. OFFERS - Pricing + FAQ intégrée */}
+        <OffersWithFAQ />
 
-        {/* Case studies - Detailed */}
-        <CaseStudies />
-
-        {/* Proof - Before/After metrics */}
-        <ProofCards />
-
-        {/* Process - 4 steps */}
-        <Process />
-
-        {/* Pricing offers */}
-        <Offers />
-
-        {/* Lead magnet - Mini audit form */}
-        <LeadMagnet />
-
-        {/* Main contact form */}
-        <EstimateForm />
-
-        {/* FAQ */}
-        <FAQ />
-
-        {/* ============================================
-            SECTION 7: FINAL CTA (Simple, Énorme)
-            ============================================ */}
-        <FinalCTA />
+        {/* 6. CONTACT - Formulaire de devis qualifié */}
+        <Contact />
       </main>
 
       {/* Footer */}
