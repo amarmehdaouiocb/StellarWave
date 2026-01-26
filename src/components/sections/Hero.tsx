@@ -147,7 +147,7 @@ export function Hero() {
               className="mb-6"
               style={{
                 fontFamily: "var(--font-body)",
-                letterSpacing: "-0.04em",
+                letterSpacing: "0.1em",
                 lineHeight: "0.92"
               }}
             >
