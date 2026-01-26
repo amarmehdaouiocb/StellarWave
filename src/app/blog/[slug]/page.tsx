@@ -168,19 +168,59 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Content */}
           <div
             className="prose prose-invert prose-lg max-w-none
-              prose-headings:font-bold prose-headings:text-foreground
-              prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6
-              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-              prose-p:text-muted-foreground prose-p:leading-relaxed
-              prose-a:text-[var(--ember-amber)] prose-a:no-underline hover:prose-a:underline
+
+              /* === HEADINGS === */
+              prose-headings:font-bold prose-headings:text-foreground prose-headings:tracking-tight
+              prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-white/10
+              prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-[var(--ember-amber)]
+              prose-h4:text-lg prose-h4:mt-8 prose-h4:mb-3 prose-h4:text-foreground/90
+
+              /* === PARAGRAPHS & TEXT === */
+              prose-p:text-muted-foreground prose-p:leading-[1.8] prose-p:mb-6
+              prose-lead:text-xl prose-lead:text-foreground/80 prose-lead:leading-relaxed
+              prose-a:text-[var(--ember-amber)] prose-a:no-underline prose-a:font-medium prose-a:transition-all
+              hover:prose-a:underline hover:prose-a:text-[var(--ember-coral)]
               prose-strong:text-foreground prose-strong:font-semibold
-              prose-ul:text-muted-foreground prose-ol:text-muted-foreground
-              prose-li:marker:text-[var(--ember-amber)]
-              prose-code:text-[var(--ember-amber)] prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-              prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10
-              prose-table:text-sm
-              prose-th:text-foreground prose-th:font-semibold prose-th:bg-white/5 prose-th:px-4 prose-th:py-2
-              prose-td:text-muted-foreground prose-td:px-4 prose-td:py-2 prose-td:border-t prose-td:border-white/10"
+              prose-em:text-foreground/90 prose-em:italic
+
+              /* === LISTS === */
+              prose-ul:text-muted-foreground prose-ul:my-6 prose-ul:pl-0
+              prose-ol:text-muted-foreground prose-ol:my-6 prose-ol:pl-0
+              prose-li:my-2 prose-li:pl-2
+              prose-li:marker:text-[var(--ember-amber)] prose-li:marker:font-bold
+
+              /* === BLOCKQUOTES === */
+              prose-blockquote:border-l-4 prose-blockquote:border-[var(--ember-amber)]
+              prose-blockquote:bg-gradient-to-r prose-blockquote:from-white/5 prose-blockquote:to-transparent
+              prose-blockquote:pl-6 prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:my-8
+              prose-blockquote:rounded-r-lg prose-blockquote:italic
+              prose-blockquote:text-foreground/80 prose-blockquote:not-italic
+              prose-blockquote:font-medium prose-blockquote:text-lg
+
+              /* === CODE === */
+              prose-code:text-[var(--ember-amber)] prose-code:bg-white/5
+              prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-sm
+              prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+              prose-pre:bg-[#0d0d0f] prose-pre:border prose-pre:border-white/10
+              prose-pre:rounded-xl prose-pre:my-8 prose-pre:shadow-xl prose-pre:shadow-black/20
+              prose-pre:overflow-x-auto prose-pre:scrollbar-thin prose-pre:scrollbar-thumb-white/10
+
+              /* === TABLES === */
+              prose-table:my-8 prose-table:w-full prose-table:text-sm prose-table:overflow-hidden
+              prose-table:rounded-xl prose-table:border prose-table:border-white/10
+              prose-thead:bg-white/5 prose-thead:border-b prose-thead:border-white/10
+              prose-th:text-foreground prose-th:font-semibold prose-th:px-4 prose-th:py-3 prose-th:text-left
+              prose-th:first:rounded-tl-xl prose-th:last:rounded-tr-xl
+              prose-tbody:divide-y prose-tbody:divide-white/5
+              prose-td:text-muted-foreground prose-td:px-4 prose-td:py-3
+              prose-tr:transition-colors hover:prose-tr:bg-white/[0.02]
+
+              /* === HORIZONTAL RULE === */
+              prose-hr:border-white/10 prose-hr:my-12
+
+              /* === IMAGES === */
+              prose-img:rounded-xl prose-img:shadow-xl prose-img:shadow-black/30 prose-img:my-8
+              prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-muted-foreground prose-figcaption:mt-3"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
