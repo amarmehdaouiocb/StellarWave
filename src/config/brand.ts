@@ -21,7 +21,7 @@ export const brand = {
     "Studio digital premium. Landing pages, applications web & mobile, architecture cloud. Exécution industrielle, résultats mesurables.",
   calendlyUrl: "https://calendly.com/stellarwave/discovery",
   contactEmail: "contact@stellarwave.fr",
-  phone: "+33 1 23 45 67 89",
+  phone: "+33 6 25 05 97 32",
   address: "Paris, France",
   socials: {
     linkedin: "https://linkedin.com/company/stellarwave",

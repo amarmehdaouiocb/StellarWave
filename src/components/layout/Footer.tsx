@@ -13,13 +13,12 @@ const footerLinks = {
     { label: "Sites Web", href: "#services" },
     { label: "Applications Web", href: "#services" },
     { label: "Apps Mobile", href: "#services" },
-    { label: "Architecture Cloud", href: "#cloud" },
+    { label: "Architecture Cloud", href: "#services" },
   ],
   company: [
-    { label: "À propos", href: "#why-us" },
-    { label: "Réalisations", href: "#projects" },
+    { label: "Réalisations", href: "#proof" },
     { label: "Process", href: "#process" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Offres", href: "#offers" },
     { label: "Contact", href: "#contact" },
   ],
   legal: [
