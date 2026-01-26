@@ -258,7 +258,7 @@ export function Hero() {
                   <img
                     src={logo.logo}
                     alt={logo.name}
-                    className="h-7 w-7 object-contain"
+                    className={`h-7 w-7 object-contain ${logo.name === "OnMangeQuoi" ? "rounded-full" : ""}`}
                   />
                 </div>
               ))}

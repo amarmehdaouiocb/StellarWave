@@ -143,7 +143,7 @@ function CaseStudyMini({
               <img
                 src={study.image}
                 alt={study.client}
-                className="h-6 w-6 object-contain"
+                className={`h-6 w-6 object-contain ${study.client === "OnMangeQuoi" ? "rounded-full" : ""}`}
               />
             </div>
           </div>
@@ -320,7 +320,7 @@ export function Proof() {
                   <img
                     src={logo.logo}
                     alt={logo.name}
-                    className="h-7 w-7 object-contain"
+                    className={`h-7 w-7 object-contain ${logo.name === "OnMangeQuoi" ? "rounded-full" : ""}`}
                   />
                 </div>
                 <span
@@ -365,7 +365,7 @@ export function Proof() {
                   <img
                     src={logo.logo}
                     alt={logo.name}
-                    className="h-5 w-5 object-contain"
+                    className={`h-5 w-5 object-contain ${logo.name === "OnMangeQuoi" ? "rounded-full" : ""}`}
                   />
                 </div>
               ))}
