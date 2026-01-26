@@ -1,16 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
 import "./globals.css";
 import { brand, seoKeywords } from "@/config/brand";
-
-// Premium font - Outfit (geometric, contemporary, tech-forward)
-// Full weight range for extreme contrast typography
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+import {
+  clashDisplay,
+  cabinetGrotesk,
+  outfit,
+  getFontVariables,
+} from "@/lib/fonts";
+import { GoogleAnalytics } from "@/components/analytics";
 
 // Metadata
 export const metadata: Metadata = {
@@ -175,8 +172,9 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body
-        className={`${outfit.variable} font-sans antialiased`}
+        className={`${getFontVariables()} ${outfit.variable} font-sans antialiased`}
       >
+        <GoogleAnalytics />
         {/* Skip to main content for accessibility */}
         <a
           href="#main-content"

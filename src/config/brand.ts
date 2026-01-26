@@ -20,7 +20,7 @@ export const brand = {
   description:
     "Studio digital premium. Landing pages, applications web & mobile, architecture cloud. Exécution industrielle, résultats mesurables.",
   calendlyUrl: "https://calendly.com/stellarwave/discovery",
-  contactEmail: "contact@stellarwave.studio",
+  contactEmail: "contact@stellarwave.fr",
   phone: "+33 1 23 45 67 89",
   address: "Paris, France",
   socials: {
@@ -28,7 +28,7 @@ export const brand = {
     twitter: "https://twitter.com/stellarwave",
     github: "https://github.com/stellarwave",
   },
-  siteUrl: "https://stellarwave.studio",
+  siteUrl: "https://stellarwave.fr",
 } as const;
 
 export const heroMetrics = [
@@ -57,12 +57,10 @@ export const heroSlides = [
 ] as const;
 
 export const trustedLogos = [
-  { name: "TechCorp", logo: "/logos/techcorp.svg" },
-  { name: "InnovateLab", logo: "/logos/innovatelab.svg" },
-  { name: "DigitalFirst", logo: "/logos/digitalfirst.svg" },
-  { name: "CloudScale", logo: "/logos/cloudscale.svg" },
-  { name: "DataFlow", logo: "/logos/dataflow.svg" },
-  { name: "SecureNet", logo: "/logos/securenet.svg" },
+  { name: "Fidelya", logo: "/projects/fidelya.png" },
+  { name: "BoatAcademy", logo: "/projects/boatacademy.png" },
+  { name: "OnMangeQuoi", logo: "/projects/onmangequoi.png" },
+  { name: "RA Bâtiment", logo: "/projects/ra-batiment.svg" },
 ] as const;
 
 export const services = [
@@ -138,48 +136,63 @@ export const whyUs = [
 
 export const caseStudies = [
   {
-    id: "ecommerce-boost",
-    client: "E-commerce Fashion",
-    industry: "Retail",
-    image: "/cases/ecommerce.jpg",
+    id: "fidelya",
+    client: "Fidelya",
+    industry: "Restauration",
+    image: "/projects/fidelya.png",
     context:
-      "Site e-commerce legacy avec temps de chargement > 8s et taux de conversion de 0.8%.",
+      "Besoin d'un CRM complet pour restaurants avec gestion de la fidélité client, caisse web et portail membres.",
     action:
-      "Refonte complète Next.js, optimisation images, CDN global, checkout simplifié.",
+      "Développement React + Supabase, système de points/visites/cashback, caisse offline-first, accès QR code sans mot de passe.",
     results: [
-      { metric: "Temps de chargement", before: "8.2s", after: "1.4s" },
-      { metric: "Taux de conversion", before: "0.8%", after: "3.2%" },
-      { metric: "CA mensuel", before: "45K€", after: "142K€" },
+      { metric: "Modules", before: "-", after: "CRM + Caisse + Portail" },
+      { metric: "Authentification", before: "-", after: "QR Code passwordless" },
+      { metric: "Mode offline", before: "Non", after: "Oui" },
     ],
   },
   {
-    id: "saas-scale",
-    client: "SaaS B2B",
-    industry: "Tech",
-    image: "/cases/saas.jpg",
+    id: "boatacademy",
+    client: "BoatAcademy",
+    industry: "Éducation nautique",
+    image: "/projects/boatacademy.png",
     context:
-      "Application monolithique avec problèmes de scalabilité et coûts cloud explosifs.",
+      "Plateforme SaaS pour auto-écoles nautiques : gestion des élèves, cours et paiements.",
     action:
-      "Migration microservices, containerisation Kubernetes, optimisation FinOps.",
+      "Monorepo Turbo avec admin Next.js + app mobile Expo, backend Supabase, paiements Stripe.",
     results: [
-      { metric: "Coûts cloud", before: "12K€/mois", after: "4.5K€/mois" },
-      { metric: "Uptime", before: "99.2%", after: "99.99%" },
-      { metric: "Temps de déploiement", before: "4h", after: "12min" },
+      { metric: "Plateformes", before: "-", after: "Web + iOS + Android" },
+      { metric: "Architecture", before: "-", after: "Monorepo Turbo" },
+      { metric: "Paiements", before: "-", after: "Stripe intégré" },
     ],
   },
   {
-    id: "startup-launch",
-    client: "Startup HealthTech",
-    industry: "Santé",
-    image: "/cases/health.jpg",
+    id: "onmangequoi",
+    client: "OnMangeQuoi",
+    industry: "Food & Directory",
+    image: "/projects/onmangequoi.png",
     context:
-      "MVP à construire en 8 semaines pour lever des fonds. Contraintes RGPD et HDS.",
+      "Annuaire alimentaire avec formulaire d'inscription pour restaurants et dashboard admin.",
     action:
-      "Architecture serverless, hébergement HDS, app React Native, dashboard admin.",
+      "PWA React avec support offline, onboarding public, gestion des profils et menus.",
     results: [
-      { metric: "Délai de livraison", before: "Estimé 6 mois", after: "7 semaines" },
-      { metric: "Levée de fonds", before: "-", after: "1.2M€" },
-      { metric: "Utilisateurs M+3", before: "-", after: "8 500" },
+      { metric: "Type", before: "-", after: "PWA offline-first" },
+      { metric: "Fonctionnalités", before: "-", after: "Onboarding + Admin" },
+      { metric: "Service workers", before: "-", after: "Workbox intégré" },
+    ],
+  },
+  {
+    id: "ra-batiment",
+    client: "RA Bâtiment",
+    industry: "BTP / Artisan",
+    image: "/projects/ra-batiment.svg",
+    context:
+      "Site vitrine premium pour artisan en rénovation/construction en Île-de-France.",
+    action:
+      "Next.js 16 avec animations Framer Motion, portfolio avant/après, formulaire de devis, SEO optimisé.",
+    results: [
+      { metric: "Lighthouse", before: "-", after: "95+" },
+      { metric: "Animations", before: "-", after: "Framer Motion" },
+      { metric: "SEO", before: "-", after: "Schemas structurés" },
     ],
   },
 ] as const;

@@ -55,7 +55,7 @@ export function EstimateForm() {
   });
 
   const onSubmit = async (data: EstimateFormData) => {
-    // Anti-spam validation
+    // Anti-spam validation (also done server-side)
     const { isBot, reason } = validateAntiSpam({
       website: data.website,
       _timestamp: formTimestamp,
@@ -68,11 +68,25 @@ export function EstimateForm() {
       return;
     }
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    console.log("Estimate form submitted:", data);
-    router.push("/merci");
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Form submission error:", errorData);
+        // Still redirect to not reveal errors to users
+      }
+
+      router.push("/merci");
+    } catch (error) {
+      console.error("Form submission error:", error);
+      // Still redirect on error to provide consistent UX
+      router.push("/merci");
+    }
   };
 
   return (
