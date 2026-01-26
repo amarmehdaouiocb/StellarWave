@@ -1,50 +1,47 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { CaretLeft, CaretRight, ArrowSquareOut } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
-import { caseStudies } from "@/config/brand";
-import { AnimatedSection, AnimatedItem } from "@/components/shared/AnimatedSection";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { GlassCard } from "@/components/shared/GlassCard";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
+import { fadeInUp } from "@/lib/animations";
 
-// Mock projects data (would come from CMS in production)
+// Real projects data
 const projects = [
   {
-    id: "project-1",
-    title: "Refonte E-commerce Premium",
-    category: "E-commerce",
-    image: "/projects/project-1.jpg",
-    description: "Plateforme e-commerce haute performance avec +300% de conversion",
+    id: "fidelya",
+    title: "Fidelya",
+    category: "SaaS / CRM",
+    image: "/projects/fidelya.png",
+    description: "CRM restaurant avec fidélité client, caisse web offline-first et portail membres QR code.",
+    tech: ["React", "TypeScript", "Supabase", "TanStack Query"],
   },
   {
-    id: "project-2",
-    title: "Dashboard SaaS Analytics",
-    category: "Web App",
-    image: "/projects/project-2.jpg",
-    description: "Interface de data visualisation en temps réel",
+    id: "boatacademy",
+    title: "BoatAcademy",
+    category: "SaaS / Mobile",
+    image: "/projects/boatacademy.png",
+    description: "Plateforme SaaS pour auto-écoles nautiques avec admin web et app mobile élève.",
+    tech: ["Next.js", "Expo", "Turbo", "Supabase", "Stripe"],
   },
   {
-    id: "project-3",
-    title: "App Mobile HealthTech",
-    category: "Mobile",
-    image: "/projects/project-3.jpg",
-    description: "Application iOS/Android pour le suivi médical",
+    id: "onmangequoi",
+    title: "OnMangeQuoi",
+    category: "PWA",
+    image: "/projects/onmangequoi.png",
+    description: "Annuaire alimentaire PWA avec onboarding restaurants et dashboard admin.",
+    tech: ["React", "Vite", "Supabase", "Workbox"],
   },
   {
-    id: "project-4",
-    title: "Landing Page Fintech",
-    category: "Landing Page",
-    image: "/projects/project-4.jpg",
-    description: "Page de conversion avec 12% de taux de conversion",
-  },
-  {
-    id: "project-5",
-    title: "Infrastructure Cloud Migration",
-    category: "Cloud",
-    image: "/projects/project-5.jpg",
-    description: "Migration AWS avec -60% de coûts d'infrastructure",
+    id: "ra-batiment",
+    title: "RA Bâtiment",
+    category: "Site Vitrine",
+    image: "/projects/ra-batiment.svg",
+    description: "Site premium pour artisan BTP avec portfolio avant/après et formulaire de devis.",
+    tech: ["Next.js 16", "React 19", "Framer Motion", "Tailwind v4"],
   },
 ];
 
@@ -142,13 +139,24 @@ export function ProjectsCarousel() {
               transition={{ delay: index * 0.1 }}
             >
               <GlassCard className="h-full group cursor-pointer">
-                {/* Image placeholder */}
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-white/5 to-white/10">
-                  {/* Placeholder gradient */}
-                  <div className="absolute inset-0 aurora-gradient opacity-20" />
+                {/* Project logo */}
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center p-6">
+                  {/* Background gradient */}
+                  <div className="absolute inset-0 aurora-gradient opacity-10" />
+
+                  {/* Logo */}
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <Image
+                      src={project.image}
+                      alt={`Logo ${project.title}`}
+                      width={200}
+                      height={150}
+                      className="object-contain max-h-24 w-auto drop-shadow-lg"
+                    />
+                  </div>
 
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
                     <div className="flex items-center gap-2 text-white font-medium">
                       <span>Voir le projet</span>
                       <ArrowSquareOut className="h-4 w-4" weight="bold" />
@@ -156,7 +164,7 @@ export function ProjectsCarousel() {
                   </div>
 
                   {/* Category badge */}
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-4 left-4 z-10">
                     <span className="px-3 py-1 rounded-full text-xs font-medium glass">
                       {project.category}
                     </span>
@@ -167,9 +175,21 @@ export function ProjectsCarousel() {
                 <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-gradient transition-all duration-300">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-3">
                   {project.description}
                 </p>
+
+                {/* Tech stack */}
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded text-[10px] font-medium bg-white/5 text-muted-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </GlassCard>
             </motion.div>
           ))}

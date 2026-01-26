@@ -5,7 +5,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CalendarDots } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
 import { cn } from "@/lib/utils";
-import { brand, heroMetrics, heroSlides } from "@/config/brand";
+import { brand, heroMetrics, heroSlides, heroTrustBadges, trustedLogos } from "@/config/brand";
+import { Check, ShieldCheck, Lightning, Star } from "@phosphor-icons/react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import {
   NoiseOverlay,
@@ -309,8 +310,8 @@ export function Hero() {
             </p>
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-16">
+          {/* CTAs - Un seul CTA principal, répété */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <CTAButton
               variant="primary"
               size="lg"
@@ -318,16 +319,58 @@ export function Hero() {
               href={brand.calendlyUrl}
               className="shadow-glow-amber"
             >
-              Réserver un appel
+              Réserver un appel découverte
             </CTAButton>
             <CTAButton
               variant="secondary"
               size="lg"
               icon={<ArrowNarrowRightIcon size={20} />}
-              href="#contact"
+              href="#lead-magnet"
             >
-              Recevoir une estimation
+              Obtenir un audit gratuit
             </CTAButton>
+          </div>
+
+          {/* Trust badges - Objection killers */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-10">
+            {heroTrustBadges.map((badge, index) => {
+              const IconComponent = badge.icon === "Check" ? Check : badge.icon === "ShieldCheck" ? ShieldCheck : Lightning;
+              return (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 text-sm text-muted-foreground"
+                >
+                  <IconComponent className="h-4 w-4 text-[var(--ember-teal)]" weight="bold" />
+                  <span>{badge.text}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Social Proof - Micro testimonial */}
+          <div className="flex items-center gap-4 p-4 rounded-xl glass-highlight mb-10">
+            <div className="flex -space-x-2">
+              {/* Avatars simulés des clients */}
+              {trustedLogos.slice(0, 3).map((logo, i) => (
+                <div
+                  key={i}
+                  className="h-10 w-10 rounded-full border-2 border-background bg-gradient-to-br from-[var(--ember-amber)] to-[var(--ember-coral)] flex items-center justify-center text-primary-foreground text-xs font-bold"
+                >
+                  {logo.name.charAt(0)}
+                </div>
+              ))}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-1 mb-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 text-[var(--ember-amber)]" weight="fill" />
+                ))}
+                <span className="ml-2 text-sm font-semibold text-foreground">5.0</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                <span className="text-foreground font-medium">{trustedLogos.length}+ entreprises</span> nous font déjà confiance
+              </p>
+            </div>
           </div>
 
           {/* KPI Row */}

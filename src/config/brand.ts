@@ -32,26 +32,33 @@ export const brand = {
 } as const;
 
 export const heroMetrics = [
-  { value: "50+", label: "Projets livrés" },
-  { value: "98%", label: "Clients satisfaits" },
-  { value: "<48h", label: "Temps de réponse" },
-  { value: "10+", label: "Années d'expertise" },
+  { value: "4.8%", label: "Taux de conversion moyen" },
+  { value: "-65%", label: "Coûts cloud réduits" },
+  { value: "98+", label: "Score Lighthouse" },
+  { value: "<48h", label: "Délai de réponse" },
+] as const;
+
+// Trust badges for hero - objection killers
+export const heroTrustBadges = [
+  { text: "Premier appel gratuit", icon: "Check" },
+  { text: "Sans engagement", icon: "ShieldCheck" },
+  { text: "Résultats sous 30 jours", icon: "Lightning" },
 ] as const;
 
 export const heroSlides = [
   {
-    title: "Transformez vos idées en produits digitaux d'exception",
-    subtitle: "Du concept au déploiement, nous créons des expériences qui convertissent.",
+    title: "Multipliez vos conversions par 3 en 30 jours",
+    subtitle: "Landing pages qui convertissent à 4.8%, apps qui fidélisent, cloud qui réduit vos coûts de 65%.",
     image: "/hero-1.jpg",
   },
   {
-    title: "Architecture Cloud sur mesure",
-    subtitle: "Audit, optimisation et construction d'infrastructures scalables et sécurisées.",
+    title: "Réduisez vos coûts cloud de 65%",
+    subtitle: "Audit FinOps complet. Résultats visibles en 30 jours. ROI garanti dès le premier mois.",
     image: "/hero-2.jpg",
   },
   {
-    title: "Performance & Conversion",
-    subtitle: "Chaque milliseconde compte. Chaque pixel convertit.",
+    title: "De 45 à 98 en Lighthouse",
+    subtitle: "Performance qui convertit. Chaque milliseconde gagnée = leads qualifiés en plus.",
     image: "/hero-3.jpg",
   },
 ] as const;

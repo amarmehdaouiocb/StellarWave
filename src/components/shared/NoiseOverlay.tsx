@@ -63,14 +63,21 @@ export function GradientOverlay({
 }
 
 // Vignette effect for cinematic look
-export function VignetteOverlay({ className }: { className?: string }) {
+interface VignetteOverlayProps {
+  className?: string;
+  intensity?: number;
+}
+
+export function VignetteOverlay({
+  className,
+  intensity = 0.7,
+}: VignetteOverlayProps) {
   return (
     <div
-      className={cn(
-        "pointer-events-none absolute inset-0",
-        "bg-[radial-gradient(ellipse_at_center,transparent_0%,oklch(0.08_0.01_270/70%)_100%)]",
-        className
-      )}
+      className={cn("pointer-events-none absolute inset-0", className)}
+      style={{
+        background: `radial-gradient(ellipse at center, transparent 0%, oklch(0.08 0.01 270 / ${intensity * 100}%) 100%)`,
+      }}
       aria-hidden="true"
     />
   );

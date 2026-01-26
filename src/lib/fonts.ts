@@ -3,85 +3,113 @@
  *
  * Primary: Clash Display (display/headlines)
  * Secondary: Cabinet Grotesk (body/UI)
+ * Fallback: Outfit (Google Fonts)
  *
- * Fallback: Outfit (Google Fonts) until premium fonts are installed
- *
- * @see /public/fonts/README.md for installation instructions
+ * @see /public/fonts/README.md for font sources
  */
 
 import localFont from "next/font/local";
 import { Outfit } from "next/font/google";
 
-// Check if premium fonts exist (for conditional loading)
-const PREMIUM_FONTS_INSTALLED = false; // Set to true after adding .woff2 files
-
 /**
  * Clash Display - Premium Display Font
  * Geometric, bold, high-impact headlines
- *
- * To enable:
- * 1. Download from https://www.fontshare.com/fonts/clash-display
- * 2. Place .woff2 files in /public/fonts/
- * 3. Set PREMIUM_FONTS_INSTALLED = true
+ * Source: https://www.fontshare.com/fonts/clash-display
  */
-export const clashDisplay = PREMIUM_FONTS_INSTALLED
-  ? localFont({
-      src: [
-        {
-          path: "../../public/fonts/ClashDisplay-Medium.woff2",
-          weight: "500",
-          style: "normal",
-        },
-        {
-          path: "../../public/fonts/ClashDisplay-Semibold.woff2",
-          weight: "600",
-          style: "normal",
-        },
-        {
-          path: "../../public/fonts/ClashDisplay-Bold.woff2",
-          weight: "700",
-          style: "normal",
-        },
-      ],
-      variable: "--font-display",
-      display: "swap",
-      preload: true,
-    })
-  : null;
+export const clashDisplay = localFont({
+  src: [
+    {
+      path: "../../public/fonts/ClashDisplay-Extralight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-display",
+  display: "swap",
+  preload: true,
+});
 
 /**
  * Cabinet Grotesk - Premium Body Font
  * Clean, readable, modern sans-serif
+ * Source: https://www.fontshare.com/fonts/cabinet-grotesk
  */
-export const cabinetGrotesk = PREMIUM_FONTS_INSTALLED
-  ? localFont({
-      src: [
-        {
-          path: "../../public/fonts/CabinetGrotesk-Regular.woff2",
-          weight: "400",
-          style: "normal",
-        },
-        {
-          path: "../../public/fonts/CabinetGrotesk-Medium.woff2",
-          weight: "500",
-          style: "normal",
-        },
-        {
-          path: "../../public/fonts/CabinetGrotesk-Bold.woff2",
-          weight: "700",
-          style: "normal",
-        },
-      ],
-      variable: "--font-body",
-      display: "swap",
-      preload: true,
-    })
-  : null;
+export const cabinetGrotesk = localFont({
+  src: [
+    {
+      path: "../../public/fonts/CabinetGrotesk-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Extralight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Extrabold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/CabinetGrotesk-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-body",
+  display: "swap",
+  preload: true,
+});
 
 /**
  * Outfit - Fallback Font (Google Fonts)
- * Used until premium fonts are installed
- * Geometric, contemporary, works well for both display and body
+ * Geometric, contemporary, works as fallback
  */
 export const outfit = Outfit({
   subsets: ["latin"],
@@ -94,10 +122,7 @@ export const outfit = Outfit({
  * Get font class names for the body element
  */
 export function getFontVariables(): string {
-  if (PREMIUM_FONTS_INSTALLED && clashDisplay && cabinetGrotesk) {
-    return `${clashDisplay.variable} ${cabinetGrotesk.variable}`;
-  }
-  return outfit.variable;
+  return `${clashDisplay.variable} ${cabinetGrotesk.variable}`;
 }
 
 /**
@@ -105,12 +130,8 @@ export function getFontVariables(): string {
  * These can be referenced in Tailwind and CSS
  */
 export const fontVariables = {
-  display: PREMIUM_FONTS_INSTALLED
-    ? "var(--font-display)"
-    : "var(--font-outfit)",
-  body: PREMIUM_FONTS_INSTALLED
-    ? "var(--font-body)"
-    : "var(--font-outfit)",
+  display: "var(--font-display)",
+  body: "var(--font-body)",
   fallback:
     "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif",
 } as const;

@@ -67,8 +67,8 @@ export function FinalCTA() {
             Discutons de votre projet. Premier appel gratuit, sans engagement.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          {/* CTA Buttons - Même CTA principal qu'en hero */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
             <CTAButton
               variant="primary"
               size="xl"
@@ -76,32 +76,32 @@ export function FinalCTA() {
               icon={<CalendarDots weight="duotone" className="h-6 w-6" />}
               className="shadow-glow-amber"
             >
-              Réserver un appel
+              Réserver un appel découverte
             </CTAButton>
 
             <CTAButton
               variant="secondary"
               size="xl"
-              href="#contact"
+              href="#lead-magnet"
               icon={<Envelope weight="duotone" className="h-6 w-6" />}
             >
-              Nous contacter
+              Obtenir un audit gratuit
             </CTAButton>
           </div>
 
-          {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              <span>Réponse sous 24h</span>
+          {/* Trust indicators - Objection killers agrandis */}
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            <div className="flex items-center gap-3 px-4 py-2 rounded-full glass">
+              <div className="w-3 h-3 rounded-full bg-[var(--ember-teal)] animate-pulse" />
+              <span className="text-foreground font-medium">Premier appel gratuit</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              <span>Devis gratuit</span>
+            <div className="flex items-center gap-3 px-4 py-2 rounded-full glass">
+              <div className="w-3 h-3 rounded-full bg-[var(--ember-teal)] animate-pulse" />
+              <span className="text-foreground font-medium">Sans engagement</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              <span>Sans engagement</span>
+            <div className="flex items-center gap-3 px-4 py-2 rounded-full glass">
+              <div className="w-3 h-3 rounded-full bg-[var(--ember-teal)] animate-pulse" />
+              <span className="text-foreground font-medium">Résultats sous 30 jours</span>
             </div>
           </div>
         </motion.div>
