@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { useEffect, useState, useMemo } from "react";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
+
+// Force dynamic rendering to avoid build-time errors
+export const dynamic = "force-dynamic";
 
 // Types
 type Response = {
@@ -68,11 +71,13 @@ const serviceLabels: Record<string, string> = {
   aucun: "Aucun intérêt",
 };
 
-// Supabase client (public pour le dashboard)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Lazy Supabase client initialization
+function getSupabaseClient(): SupabaseClient | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key);
+}
 
 export default function CabinetReadyDashboard() {
   const [responses, setResponses] = useState<Response[]>([]);
@@ -80,9 +85,19 @@ export default function CabinetReadyDashboard() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>("all");
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [configError, setConfigError] = useState(false);
+
+  // Lazy init Supabase client
+  const supabase = useMemo(() => getSupabaseClient(), []);
 
   // Fetch data
   const fetchData = async () => {
+    if (!supabase) {
+      setConfigError(true);
+      setLoading(false);
+      return;
+    }
+
     const { data, error } = await supabase
       .from("cabinet_ready_responses")
       .select("*")
@@ -161,6 +176,8 @@ export default function CabinetReadyDashboard() {
   useEffect(() => {
     fetchData();
 
+    if (!supabase) return;
+
     // Real-time subscription
     const channel = supabase
       .channel("cabinet_ready_changes")
@@ -176,7 +193,7 @@ export default function CabinetReadyDashboard() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [supabase]);
 
   // Filter responses
   const filteredResponses =
@@ -196,6 +213,17 @@ export default function CabinetReadyDashboard() {
       <div className="dashboard-loading">
         <div className="loader"></div>
         <p>Chargement des données...</p>
+      </div>
+    );
+  }
+
+  if (configError) {
+    return (
+      <div className="dashboard-loading">
+        <p style={{ color: "#ef4444" }}>⚠️ Configuration Supabase manquante</p>
+        <p style={{ opacity: 0.7, fontSize: 14 }}>
+          Vérifiez les variables d&apos;environnement NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY
+        </p>
       </div>
     );
   }
