@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resend, emailConfig } from "@/lib/resend";
 import { z } from "zod";
+import { CabinetReadyNotificationEmail } from "@/emails/cabinet-ready-notification";
 
 // CORS headers pour permettre les requêtes cross-origin
 const corsHeaders = {
@@ -83,56 +84,30 @@ export async function POST(request: NextRequest) {
 
     const data = result.data;
 
-    // Construire le contenu de l'email en texte
-    const emailContent = `
-📋 NOUVELLE RÉPONSE - CABINET READY
+    // Préparer les données pour le template email
+    const emailData = {
+      prenom: data.prenom,
+      email: data.email,
+      rdv: data.rdv,
+      poste: data.poste,
+      collaborateurs: data.collaborateurs,
+      clients: data.clients,
+      preparation: data.preparation,
+      outils: data.outils,
+      logiciel: data.logiciel,
+      frustrations: data.frustrations,
+      tempsPasse: data["temps-passe"],
+      services: data.services,
+      projetAutre: data["projet-autre"],
+    };
 
-═══════════════════════════════════════
-👤 CONTACT
-═══════════════════════════════════════
-Prénom: ${data.prenom}
-Email: ${data.email}
-Disponible pour un échange: ${rdvLabels[data.rdv] || data.rdv}
-
-═══════════════════════════════════════
-🏢 CABINET
-═══════════════════════════════════════
-Poste: ${posteLabels[data.poste] || data.poste}
-Collaborateurs: ${data.collaborateurs}
-Clients en portefeuille: ${data.clients}
-
-═══════════════════════════════════════
-📊 PRÉPARATION FACTURATION ÉLECTRONIQUE
-═══════════════════════════════════════
-État: ${preparationLabels[data.preparation] || data.preparation}
-Outil actuel: ${outilsLabels[data.outils] || data.outils}
-Logiciel comptable: ${data.logiciel || "Non renseigné"}
-
-═══════════════════════════════════════
-😤 FRUSTRATIONS
-═══════════════════════════════════════
-${data.frustrations || "Aucune sélectionnée"}
-
-Temps passé/semaine: ${data["temps-passe"] || "Non renseigné"}
-
-═══════════════════════════════════════
-🚀 SERVICES AGENCE (UPSELL)
-═══════════════════════════════════════
-Services intéressés: ${data.services || "Aucun"}
-Projet particulier: ${data["projet-autre"] || "Non renseigné"}
-
-═══════════════════════════════════════
-📅 Date: ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
-═══════════════════════════════════════
-`;
-
-    // Envoyer l'email
+    // Envoyer l'email avec le template React
     const emailResult = await resend.emails.send({
       from: emailConfig.from,
       to: "amar@stellarwave.fr",
       replyTo: data.email,
-      subject: `[Cabinet Ready] ${data.prenom} - ${posteLabels[data.poste] || data.poste} (${data.collaborateurs} collab.)`,
-      text: emailContent,
+      subject: `[Cabinet Ready] ${data.prenom} — ${posteLabels[data.poste] || data.poste} (${data.collaborateurs} collab.)`,
+      react: CabinetReadyNotificationEmail(emailData),
     });
 
     if (emailResult.error) {
