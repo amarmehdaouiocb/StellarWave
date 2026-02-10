@@ -1,0 +1,4721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stratégies de monétisation — RTX 5090 + Claude Code Max 20x</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Bricolage+Grotesque:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg-deep: #07060a;
+    --bg-surface: #0f0e14;
+    --bg-card: #16151e;
+    --bg-elevated: #1e1d28;
+    --border: #2a2935;
+    --border-subtle: #1e1d28;
+    --text-primary: #eae8e4;
+    --text-secondary: #9d99a8;
+    --text-muted: #6b6778;
+    --amber: #f59e0b;
+    --amber-dim: #b27308;
+    --amber-glow: rgba(245, 158, 11, 0.12);
+    --coral: #ef6c4a;
+    --coral-dim: rgba(239, 108, 74, 0.15);
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45, 212, 191, 0.12);
+    --violet: #a78bfa;
+    --violet-dim: rgba(167, 139, 250, 0.10);
+    --rose: #f472b6;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 11px;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+  }
+
+  /* ─── COVER PAGE ─── */
+  .cover-page {
+    page-break-after: always;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--bg-deep);
+    position: relative;
+    overflow: hidden;
+    padding: 60px;
+  }
+
+  .cover-page::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 80%, rgba(239, 108, 74, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: var(--amber-glow);
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title .highlight {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--coral) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cover-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.7;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .cover-meta-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .cover-meta-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+
+  .cover-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amber), var(--coral));
+    border-radius: 2px;
+    margin: 30px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── TOC PAGE ─── */
+  .toc-page {
+    page-break-after: always;
+    padding: 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .toc-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+  }
+
+  .toc-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--amber), var(--coral));
+    border-radius: 3px;
+    margin-top: 12px;
+  }
+
+  .toc-list {
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+
+  .toc-item {
+    counter-increment: toc-counter;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: all 0.2s;
+  }
+
+  .toc-number {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--amber);
+    min-width: 36px;
+    opacity: 0.7;
+  }
+
+  .toc-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .toc-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .toc-item-main .toc-number {
+    color: var(--coral);
+    opacity: 1;
+  }
+
+  .toc-item-main .toc-label {
+    font-size: 17px;
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .content {
+    padding: 50px 55px;
+    max-width: 100%;
+  }
+
+  /* ─── HEADINGS ─── */
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin: 60px 0 20px 0;
+    page-break-before: always;
+    padding-top: 20px;
+    line-height: 1.2;
+  }
+
+  h1:first-child {
+    page-break-before: avoid;
+    margin-top: 0;
+  }
+
+  h1::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--amber), var(--coral));
+    border-radius: 3px;
+    margin-top: 14px;
+  }
+
+  h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 40px 0 14px 0;
+    letter-spacing: -0.02em;
+    page-break-after: avoid;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-subtle);
+    line-height: 1.3;
+  }
+
+  h2::before {
+    content: '//';
+    color: var(--amber);
+    margin-right: 10px;
+    font-weight: 800;
+    opacity: 0.6;
+  }
+
+  h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--amber);
+    margin: 28px 0 10px 0;
+    letter-spacing: 0.01em;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--violet);
+    margin: 20px 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── TEXT ─── */
+  p {
+    margin: 0 0 12px 0;
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    line-height: 1.75;
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  a {
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid var(--amber-dim);
+  }
+
+  blockquote {
+    border-left: 3px solid var(--amber);
+    background: var(--amber-glow);
+    padding: 14px 20px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  blockquote p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 35px 0;
+  }
+
+  /* ─── LISTS ─── */
+  ul, ol {
+    margin: 8px 0 14px 0;
+    padding-left: 22px;
+  }
+
+  li {
+    margin: 4px 0;
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    line-height: 1.7;
+  }
+
+  li::marker {
+    color: var(--amber);
+  }
+
+  /* ─── TABLES ─── */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px 0;
+    font-size: 10.5px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+
+  thead {
+    background: linear-gradient(135deg, var(--bg-elevated) 0%, rgba(245, 158, 11, 0.06) 100%);
+  }
+
+  th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 9px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  tbody tr:hover {
+    background: var(--amber-glow);
+  }
+
+  /* ─── CODE BLOCKS ─── */
+  pre {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    overflow-x: auto;
+    margin: 14px 0 18px 0;
+    font-size: 10px;
+    line-height: 1.7;
+    page-break-inside: avoid;
+  }
+
+  pre code {
+    font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+    color: var(--text-secondary);
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: 10px;
+    border-radius: 0;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+    background: var(--bg-elevated);
+    color: var(--amber);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  /* ─── SPECIAL MARKERS IN CODE ─── */
+  pre code .comment { color: var(--text-muted); }
+
+  /* ─── PRINT / PDF ─── */
+  @media print {
+    body {
+      background: var(--bg-deep) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .cover-page {
+      height: 100vh;
+    }
+
+    h1, h2, h3 {
+      page-break-after: avoid;
+    }
+
+    pre, table, blockquote {
+      page-break-inside: avoid;
+    }
+
+    .no-break {
+      page-break-inside: avoid;
+    }
+  }
+
+  /* ─── FOOTER ─── */
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 55px;
+    font-size: 8px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-deep);
+  }
+
+  /* ─── SECTION MARKERS ─── */
+  .section-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .chip-amber {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  .chip-coral {
+    background: var(--coral-dim);
+    color: var(--coral);
+    border: 1px solid rgba(239, 108, 74, 0.2);
+  }
+
+  .chip-teal {
+    background: var(--teal-dim);
+    color: var(--teal);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+  }
+
+  .chip-violet {
+    background: var(--violet-dim);
+    color: var(--violet);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+  }
+
+  /* ─── NICHE NAV GRID ─── */
+  .niche-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 20px 0 30px 0;
+    page-break-inside: avoid;
+  }
+
+  .niche-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .niche-nav-item:hover {
+    background: var(--amber-glow);
+    border-color: var(--amber);
+  }
+
+  .niche-nav-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--amber);
+    min-width: 24px;
+  }
+
+  .niche-nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .niche-nav-sub {
+    font-size: 8.5px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ─── ANCHOR TARGETS ─── */
+  a[id] {
+    scroll-margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════ COVER PAGE ═══════ -->
+<div class="cover-page">
+  <div class="cover-badge">&#9670; Document stratégique privé</div>
+  <h1 class="cover-title" style="page-break-before: avoid;">
+    Stratégies de<br>
+    <span class="highlight">Monétisation</span>
+  </h1>
+  <div class="cover-line"></div>
+  <p class="cover-subtitle">
+    6 stratégies de monétisation + deep dive AI fine-tunée pour professionnels (avocats, médecins, experts-comptables). Workflows détaillés, business models et projections financières.
+  </p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Hardware</span>
+      <span class="cover-meta-value">RTX 5090</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Software</span>
+      <span class="cover-meta-value">Claude Code Max 20x</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Horizon</span>
+      <span class="cover-meta-value">12 mois</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Potentiel</span>
+      <span class="cover-meta-value">40k+/mois</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TOC PAGE ═══════ -->
+<div class="toc-page">
+  <div class="toc-title">Sommaire</div>
+  <div class="toc-list">
+    <div class="toc-item">
+      <span class="toc-number">01</span>
+      <div>
+        <div class="toc-label">Agence dev AI-augmentée</div>
+        <div class="toc-desc">Cash flow immédiat, marge 90%+, scalable</div>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-number">02</span>
+      <div>
+        <div class="toc-label">Templates & micro-produits</div>
+        <div class="toc-desc">Revenus semi-passifs, marketplaces</div>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-number">03</span>
+      <div>
+        <div class="toc-label">SaaS bootstrappé à la chaîne</div>
+        <div class="toc-desc">Stratégie shotgun, MRR croissant</div>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-number">04</span>
+      <div>
+        <div class="toc-label">Services AI sur mesure</div>
+        <div class="toc-desc">Inference locale, coût marginal nul</div>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-number">05</span>
+      <div>
+        <div class="toc-label">Formation & contenu</div>
+        <div class="toc-desc">Audience, cours, coaching, communauté</div>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-number">06</span>
+      <div>
+        <div class="toc-label">Produit AI vertical avec moat</div>
+        <div class="toc-desc">Fine-tuning, données propriétaires, moonshot</div>
+      </div>
+    </div>
+    <div class="toc-item toc-item-main">
+      <span class="toc-number">&#9733;</span>
+      <div>
+        <div class="toc-label">Workflow complet — Agence dev AI-augmentée</div>
+        <div class="toc-desc">Phase 0 à 4, de la préparation au scale — le plan d'action détaillé</div>
+      </div>
+    </div>
+    <div class="toc-item toc-item-main" style="margin-top:8px;">
+      <span class="toc-number" style="color:var(--teal);">&#9670;</span>
+      <div>
+        <div class="toc-label">Deep Dive — AI fine-tunée pour professionnels</div>
+        <div class="toc-desc">8 niches avec PRD, features P0/P1/P2, conversion, projections 24 mois</div>
+      </div>
+    </div>
+    <div class="toc-item toc-item-main" style="margin-top:4px;">
+      <span class="toc-number" style="color:var(--violet);">&#9881;</span>
+      <div>
+        <div class="toc-label">Architecture technique — RAG-first, fine-tuning later</div>
+        <div class="toc-desc">Pipeline RAG, pgvector, Légifrance API, vLLM sur RTX 5090</div>
+      </div>
+    </div>
+    <div class="toc-item toc-item-main" style="margin-top:4px;">
+      <span class="toc-number" style="color:var(--rose);">&#9654;</span>
+      <div>
+        <div class="toc-label">Guide de démarrage — Coder JurisAI avec Opus 4.6</div>
+        <div class="toc-desc">Plan d'exécution 4 semaines, prompts Claude Code jour par jour</div>
+      </div>
+    </div>
+
+    <!-- Niche navigation grid -->
+    <div class="niche-nav" style="margin-top:16px;">
+      <a href="#prd-niche-1" class="niche-nav-item">
+        <span class="niche-nav-num">N1</span>
+        <div><div class="niche-nav-label">Assistant juridique</div><div class="niche-nav-sub">Avocats — TOP PICK</div></div>
+      </a>
+      <a href="#prd-niche-2" class="niche-nav-item">
+        <span class="niche-nav-num">N2</span>
+        <div><div class="niche-nav-label">Codage médical</div><div class="niche-nav-sub">CCAM / Facturation</div></div>
+      </a>
+      <a href="#prd-niche-3" class="niche-nav-item">
+        <span class="niche-nav-num">N3</span>
+        <div><div class="niche-nav-label">Rédaction médicale</div><div class="niche-nav-sub">Dictée → Compte-rendu</div></div>
+      </a>
+      <a href="#prd-niche-4" class="niche-nav-item">
+        <span class="niche-nav-num">N4</span>
+        <div><div class="niche-nav-label">Saisie comptable</div><div class="niche-nav-sub">OCR + Catégorisation</div></div>
+      </a>
+      <a href="#prd-niche-5" class="niche-nav-item">
+        <span class="niche-nav-num">N5</span>
+        <div><div class="niche-nav-label">Assistant notarial</div><div class="niche-nav-sub">Actes + Conformité</div></div>
+      </a>
+      <a href="#prd-niche-6" class="niche-nav-item">
+        <span class="niche-nav-num">N6</span>
+        <div><div class="niche-nav-label">Veille réglementaire</div><div class="niche-nav-sub">Cross-niche</div></div>
+      </a>
+      <a href="#prd-niche-7" class="niche-nav-item">
+        <span class="niche-nav-num">N7</span>
+        <div><div class="niche-nav-label">Due diligence</div><div class="niche-nav-sub">M&A / Data rooms</div></div>
+      </a>
+      <a href="#prd-niche-8" class="niche-nav-item">
+        <span class="niche-nav-num">N8</span>
+        <div><div class="niche-nav-label">Gestion RH / Paie</div><div class="niche-nav-sub">Cabinets comptables</div></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MAIN CONTENT ═══════ -->
+<div class="content">
+<h1>Stratégies de monétisation — RTX 5090 + Claude Code Max 20x</h1>
+<blockquote>
+<p>Document de stratégie personnelle. Combinaison : RTX 5090 (inference locale, rendu, fine-tuning) + Claude Code Max 20x (développement AI-augmenté massif).</p>
+</blockquote>
+<hr>
+<h2>Table des matières</h2>
+<ol>
+<li><a href="#1-agence-dev-ai-augment%C3%A9e">Agence dev AI-augmentée</a></li>
+<li><a href="#2-templates--micro-produits">Templates &amp; micro-produits</a></li>
+<li><a href="#3-saas-bootstrapp%C3%A9-%C3%A0-la-cha%C3%AEne">SaaS bootstrappé à la chaîne</a></li>
+<li><a href="#4-services-ai-sur-mesure">Services AI sur mesure</a></li>
+<li><a href="#5-formation--contenu">Formation &amp; contenu</a></li>
+<li><a href="#6-produit-ai-vertical-avec-moat">Produit AI vertical avec moat</a></li>
+<li><a href="#workflow-complet--agence-dev-ai-augment%C3%A9e">WORKFLOW COMPLET — Agence dev AI-augmentée</a></li>
+</ol>
+<hr>
+<h2>1. Agence dev AI-augmentée</h2>
+<h3>Concept</h3>
+<p>Tu vends du développement web/SaaS au tarif marché, mais tu livres 10-20x plus vite grâce à Claude Code. Le client paie pour la valeur livrée, pas pour le temps passé.</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Prospection (jour 1-7)
+├── Créer un profil Malt, Upwork, LinkedIn optimisé
+│   └── Positionnement : &quot;Développeur fullstack — livraison rapide, qualité premium&quot;
+│   └── PAS de mention &quot;AI&quot; — tu vends du résultat, pas l&#39;outil
+├── Publier 3-5 projets portfolio (faits avec Claude Code en 1-2 jours chacun)
+│   └── Landing page SaaS
+│   └── Dashboard admin
+│   └── App mobile-first
+│   └── Intégration API complexe
+│   └── Site e-commerce headless
+├── Fixer les tarifs
+│   └── Landing page : 2 000-4 000 €
+│   └── MVP SaaS : 5 000-15 000 €
+│   └── Dashboard/app : 3 000-8 000 €
+│   └── Intégration API : 1 500-5 000 €
+└── Répondre à 5-10 appels d&#39;offres/jour
+
+PHASE 2 — Exécution (par projet)
+├── Jour 0 : Appel découverte (30 min)
+│   └── Comprendre le besoin exact
+│   └── Identifier les contraintes techniques
+│   └── Proposer un devis + délai (diviser ton estimation réelle par 2)
+├── Jour 1 : Setup + Architecture
+│   └── Claude Code : scaffold du projet complet
+│   └── Claude Code : composants UI de base
+│   └── Claude Code : routes API + schéma DB
+│   └── RTX 5090 : si features AI → setup inference locale pour prototype
+├── Jour 2-3 : Développement core
+│   └── Claude Code : implémenter toutes les features
+│   └── Claude Code : tests + error handling
+│   └── Claude Code : responsive + polish
+├── Jour 4 : QA + Livraison
+│   └── Review manuelle du code généré
+│   └── Tests manuels des parcours critiques
+│   └── Déploiement (Vercel/Railway/VPS)
+│   └── Livraison client avec démo
+└── Jour 5-7 : Buffer retours client + ajustements
+
+PHASE 3 — Scale (mois 2+)
+├── Augmenter les prix progressivement (+20% tous les 2 mois)
+├── Créer des templates internes réutilisables
+│   └── Starter SaaS (auth + billing + dashboard)
+│   └── Starter landing page
+│   └── Starter e-commerce
+├── Embaucher un VA pour la prospection/admin
+└── Viser 3-4 projets simultanés
+</code></pre>
+<h3>Chiffres estimés</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Projets/mois</th>
+<th>CA moyen/projet</th>
+<th>CA mensuel</th>
+<th>Coût (Claude + infra)</th>
+<th>Net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+<td>3 000 €</td>
+<td>6 000 €</td>
+<td>200 €</td>
+<td>5 800 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+<td>4 000 €</td>
+<td>16 000 €</td>
+<td>200 €</td>
+<td>15 800 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>5</td>
+<td>5 000 €</td>
+<td>25 000 €</td>
+<td>300 €</td>
+<td>24 700 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>6</td>
+<td>7 000 €</td>
+<td>42 000 €</td>
+<td>400 €</td>
+<td>41 600 €</td>
+</tr>
+</tbody></table>
+<h3>Outils</h3>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude Code Max 20x</td>
+<td>Développement principal</td>
+</tr>
+<tr>
+<td>Vercel / Railway</td>
+<td>Déploiement rapide</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td>Facturation</td>
+</tr>
+<tr>
+<td>Malt / Upwork / LinkedIn</td>
+<td>Prospection</td>
+</tr>
+<tr>
+<td>Notion</td>
+<td>Gestion projets clients</td>
+</tr>
+<tr>
+<td>Loom</td>
+<td>Démos async aux clients</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>2. Templates &amp; micro-produits</h2>
+<h3>Concept</h3>
+<p>Créer des templates/starters premium vendus en one-shot sur des marketplaces. Revenus semi-passifs après la création initiale.</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Étude de marché (jour 1-3)
+├── Analyser les bestsellers sur :
+│   └── Gumroad (filtrer &quot;SaaS template&quot;, &quot;Next.js starter&quot;)
+│   └── Lemon Squeezy
+│   └── ThemeForest (tendances)
+│   └── IndieHackers (demandes récurrentes)
+├── Identifier 5 niches sous-servies
+│   └── Exemple : &quot;SaaS starter avec multi-tenancy&quot;
+│   └── Exemple : &quot;Dashboard analytics temps réel&quot;
+│   └── Exemple : &quot;Template email marketing avec Resend&quot;
+│   └── Exemple : &quot;Landing page AI SaaS&quot;
+│   └── Exemple : &quot;Admin panel avec RBAC&quot;
+└── Valider la demande (recherche keywords, posts Reddit/Twitter)
+
+PHASE 2 — Production (jour 4-14, par template)
+├── Jour 1 : Architecture + Design system
+│   └── Claude Code : scaffold complet Next.js/Tailwind
+│   └── Définir la proposition de valeur unique
+├── Jour 2-3 : Développement
+│   └── Claude Code : toutes les features
+│   └── Claude Code : documentation inline
+│   └── Claude Code : README détaillé
+├── Jour 4 : Polish
+│   └── Review manuelle qualité
+│   └── Screenshots + vidéo démo (RTX 5090 pour rendu rapide)
+│   └── Écrire la page de vente
+└── Jour 5 : Publication
+    └── Publier sur Gumroad/Lemon Squeezy
+    └── Post Twitter/Reddit/IndieHackers
+    └── Envoyer à 3-5 newsletters dev
+
+PHASE 3 — Itération continue
+├── Publier 1 nouveau template par semaine
+├── Mettre à jour les templates populaires
+├── Créer des bundles (3-5 templates = prix réduit)
+└── Collecter les emails → newsletter → upsell
+</code></pre>
+<h3>Pricing</h3>
+<table>
+<thead>
+<tr>
+<th>Produit</th>
+<th>Prix</th>
+<th>Volume estimé/mois</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Template landing page</td>
+<td>29-49 €</td>
+<td>20-50 ventes</td>
+</tr>
+<tr>
+<td>SaaS starter kit</td>
+<td>79-149 €</td>
+<td>10-30 ventes</td>
+</tr>
+<tr>
+<td>Bundle complet</td>
+<td>199-299 €</td>
+<td>5-15 ventes</td>
+</tr>
+<tr>
+<td>Template + setup call</td>
+<td>499 €</td>
+<td>2-5 ventes</td>
+</tr>
+</tbody></table>
+<h3>Chiffres estimés</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Templates publiés</th>
+<th>CA mensuel</th>
+<th>Net (après frais plateforme)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>4</td>
+<td>500-1 500 €</td>
+<td>400-1 200 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>12</td>
+<td>2 000-5 000 €</td>
+<td>1 600-4 000 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>20+</td>
+<td>4 000-10 000 €</td>
+<td>3 200-8 000 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>30+</td>
+<td>6 000-15 000 €</td>
+<td>4 800-12 000 €</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. SaaS bootstrappé à la chaîne</h2>
+<h3>Concept</h3>
+<p>Lancer rapidement plusieurs micro-SaaS (1-2 semaines par produit), valider avec du trafic réel, doubler sur ceux qui marchent, abandonner les autres.</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Idéation (jour 1-2)
+├── Trouver 10 idées de micro-SaaS
+│   └── Sources : Reddit (r/SaaS, r/Entrepreneur), Twitter, ProductHunt
+│   └── Pattern : &quot;Je fais X manuellement, ça me prend Y heures&quot;
+│   └── Pattern : &quot;Il n&#39;existe pas de bon outil pour Z&quot;
+│   └── Pattern : wrapper autour d&#39;une API existante
+├── Filtrer avec la grille ICE (Impact / Confidence / Ease)
+│   └── Impact : le problème est-il douloureux ? (1-10)
+│   └── Confidence : les gens paieraient-ils ? (1-10)
+│   └── Ease : faisable en 1-2 semaines avec Claude Code ? (1-10)
+└── Sélectionner les 3 meilleures idées
+
+PHASE 2 — Build rapide (jour 3-12, par SaaS)
+├── Jour 1 : Landing page + waitlist
+│   └── Claude Code : landing page complète
+│   └── Formulaire email (Resend / ConvertKit)
+│   └── Partager sur Twitter/Reddit/IndieHackers
+│   └── Objectif : 50+ signups en 48h = feu vert
+├── Jour 2-3 : MVP core feature
+│   └── Claude Code : auth (NextAuth/Clerk)
+│   └── Claude Code : feature principale (1 seule, bien faite)
+│   └── Claude Code : billing (Stripe, plan gratuit + payant)
+├── Jour 4-5 : Polish + Launch
+│   └── Claude Code : onboarding flow
+│   └── Claude Code : emails transactionnels
+│   └── Lancer sur ProductHunt
+│   └── Posts Reddit/Twitter/HackerNews
+├── Jour 6-10 : Itération
+│   └── Écouter les retours utilisateurs
+│   └── Claude Code : fix bugs + top 3 feature requests
+│   └── A/B test pricing
+└── Jour 11-14 : Décision
+    └── &gt; 10 paying users → DOUBLER (passer en mode scale)
+    └── &gt; 50 free users, 0 payants → pivoter pricing/feature
+    └── &lt; 10 free users → ABANDONNER, passer au suivant
+
+PHASE 3 — Scale (pour les SaaS validés)
+├── Claude Code : features avancées
+├── RTX 5090 : ajouter des features AI (le différenciateur)
+│   └── Inference locale → pas de coût API pour toi
+│   └── Exemples : résumé automatique, classification, extraction
+├── SEO + Content marketing (Claude Code pour générer les articles)
+├── Intégrations (Zapier, Slack, etc.)
+└── Viser 100+ MRR avant d&#39;investir plus
+</code></pre>
+<h3>Exemples de micro-SaaS rapides à builder</h3>
+<table>
+<thead>
+<tr>
+<th>Idée</th>
+<th>Feature core</th>
+<th>AI angle (RTX 5090)</th>
+<th>Pricing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Invoice generator</td>
+<td>Créer/envoyer des factures</td>
+<td>OCR extraction automatique</td>
+<td>9 €/mois</td>
+</tr>
+<tr>
+<td>Meeting notes</td>
+<td>Enregistrer + résumer</td>
+<td>Whisper transcription locale</td>
+<td>12 €/mois</td>
+</tr>
+<tr>
+<td>Social media scheduler</td>
+<td>Planifier des posts</td>
+<td>Génération de captions AI</td>
+<td>15 €/mois</td>
+</tr>
+<tr>
+<td>Competitor tracker</td>
+<td>Surveiller des sites</td>
+<td>Analyse sémantique des changements</td>
+<td>19 €/mois</td>
+</tr>
+<tr>
+<td>Email warmup tool</td>
+<td>Améliorer délivrabilité</td>
+<td>Score de qualité AI</td>
+<td>29 €/mois</td>
+</tr>
+</tbody></table>
+<h3>Chiffres estimés (pour 1 SaaS qui marche sur 5 lancés)</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>MRR</th>
+<th>Coût infra</th>
+<th>Net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0-200 €</td>
+<td>50 €</td>
+<td>-50 à 150 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>500-2 000 €</td>
+<td>100 €</td>
+<td>400-1 900 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2 000-5 000 €</td>
+<td>200 €</td>
+<td>1 800-4 800 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>5 000-15 000 €</td>
+<td>500 €</td>
+<td>4 500-14 500 €</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. Services AI sur mesure</h2>
+<h3>Concept</h3>
+<p>Utiliser la RTX 5090 pour faire tourner des modèles AI en local et vendre l&#39;accès comme service (API, chatbot, transcription, etc.). Coût marginal quasi nul.</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Setup infrastructure (jour 1-5)
+├── RTX 5090 : installer les modèles
+│   └── LLM : Llama 3.1 70B (Q4 quantized) ou Mistral Large
+│   └── STT : Whisper Large v3
+│   └── TTS : Bark / XTTS v2
+│   └── Vision : LLaVA / Florence 2
+│   └── Images : Stable Diffusion XL / Flux
+├── Exposer via API
+│   └── Option 1 : vLLM + FastAPI (plus performant)
+│   └── Option 2 : Ollama + API wrapper
+│   └── Tunnel : Cloudflare Tunnel ou Tailscale
+├── Claude Code : construire le dashboard de monitoring
+│   └── Usage par client
+│   └── Quotas
+│   └── Billing automatique
+└── Claude Code : documentation API (auto-générée)
+
+PHASE 2 — Packager les services (jour 6-14)
+├── Service 1 : Transcription audio/vidéo
+│   └── Upload fichier → Whisper → texte + timestamps
+│   └── Pricing : 0.01 €/minute (vs 0.006 $/min OpenAI)
+│   └── Avantage : données restent en France, RGPD
+├── Service 2 : Chatbot personnalisé
+│   └── RAG sur les documents du client
+│   └── Llama/Mistral en backend
+│   └── Widget intégrable
+│   └── Pricing : 49-199 €/mois selon volume
+├── Service 3 : Génération d&#39;images
+│   └── API simple : prompt → image
+│   └── Fine-tuning sur le branding du client (LoRA)
+│   └── Pricing : 0.02 €/image
+├── Service 4 : Extraction de données
+│   └── PDF/images → données structurées
+│   └── Florence 2 + LLM pour comprendre le contexte
+│   └── Pricing : 0.05 €/document
+└── Service 5 : API LLM privée
+    └── Pour les entreprises qui veulent de l&#39;AI sans envoyer
+    │   leurs données chez OpenAI
+    └── Llama/Mistral en backend
+    └── Pricing : 199-999 €/mois (accès dédié)
+
+PHASE 3 — Commercialisation
+├── Site vitrine (Claude Code, 1 jour)
+├── Démarchage direct : agences web, PME, startups
+│   └── Angle : &quot;AI privée, données en France, RGPD compliant&quot;
+├── Partenariats : intégrateurs, ESN, agences marketing
+├── Content marketing : articles sur l&#39;AI privée/souveraine
+└── Upsell : du service API → au SaaS clé en main
+</code></pre>
+<h3>Capacité RTX 5090</h3>
+<table>
+<thead>
+<tr>
+<th>Modèle</th>
+<th>Tokens/sec (estimé)</th>
+<th>Requêtes/jour</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Llama 3.1 70B Q4</td>
+<td>~40-60 tok/s</td>
+<td>~5 000</td>
+</tr>
+<tr>
+<td>Mistral 7B</td>
+<td>~120-150 tok/s</td>
+<td>~20 000</td>
+</tr>
+<tr>
+<td>Whisper Large v3</td>
+<td>~30x temps réel</td>
+<td>~700 heures audio/jour</td>
+</tr>
+<tr>
+<td>SDXL</td>
+<td>~2-3 sec/image</td>
+<td>~30 000 images/jour</td>
+</tr>
+</tbody></table>
+<h3>Chiffres estimés</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Clients</th>
+<th>CA mensuel</th>
+<th>Coût (électricité + infra)</th>
+<th>Net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2-5</td>
+<td>500-2 000 €</td>
+<td>100 €</td>
+<td>400-1 900 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10-20</td>
+<td>3 000-8 000 €</td>
+<td>150 €</td>
+<td>2 850-7 850 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>20-50</td>
+<td>8 000-20 000 €</td>
+<td>200 €</td>
+<td>7 800-19 800 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>50-100</td>
+<td>20 000-50 000 €</td>
+<td>300 €</td>
+<td>19 700-49 700 €</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>5. Formation &amp; contenu</h2>
+<h3>Concept</h3>
+<p>Créer des cours et du contenu éducatif sur le développement AI-augmenté. Monétiser via des plateformes de cours, YouTube, et du consulting.</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Construire l&#39;audience (mois 1-3)
+├── YouTube (2 vidéos/semaine)
+│   └── Format : &quot;Je build X en Y minutes avec AI&quot;
+│   └── RTX 5090 : rendu vidéo rapide (DaVinci Resolve / Remotion)
+│   └── Claude Code : scripts, code des tutos
+│   └── Exemples de vidéos :
+│       ├── &quot;Je build un SaaS complet en 4h avec Claude Code&quot;
+│       ├── &quot;Landing page qui convertit en 30 min&quot;
+│       ├── &quot;De 0 à deployed : app full-stack en live&quot;
+│       ├── &quot;RTX 5090 : faire tourner Llama 70B en local&quot;
+│       └── &quot;Je remplace 5 outils SaaS avec du self-hosted AI&quot;
+├── Twitter/X (1-3 posts/jour)
+│   └── Tips dev, threads &quot;how I built X&quot;
+│   └── Screenshots de code, before/after
+│   └── Claude Code : générer les threads
+├── Newsletter (1/semaine)
+│   └── Recap des meilleurs tips
+│   └── Projet de la semaine
+│   └── Outils recommandés (affiliation)
+└── Blog/SEO (2 articles/mois)
+    └── Claude Code : rédiger + optimiser SEO
+    └── Tutoriels longs format
+
+PHASE 2 — Monétiser (mois 3-6)
+├── Cours en ligne
+│   └── Cours 1 : &quot;Développement AI-augmenté : de junior à 10x dev&quot; (199-499 €)
+│   └── Cours 2 : &quot;Lancer un micro-SaaS en 2 semaines&quot; (149-299 €)
+│   └── Cours 3 : &quot;Self-hosted AI avec une RTX&quot; (99-199 €)
+│   └── Plateforme : Gumroad ou propre site (Claude Code)
+├── Coaching 1:1
+│   └── 150-300 €/h
+│   └── 5-10 sessions/mois
+├── Affiliation
+│   └── Vercel, Railway, Clerk, Resend, etc.
+│   └── 10-30% de commission récurrente
+├── Sponsors YouTube
+│   └── À partir de 10k abonnés : 500-2 000 €/vidéo
+└── Communauté payante (Discord/Slack)
+    └── 19-49 €/mois
+    └── Accès aux projets sources, Q&amp;A, workshops mensuels
+
+PHASE 3 — Scale (mois 6-12)
+├── Cohort-based course (live, 4-6 semaines, 999-2 499 €)
+├── Embaucher un monteur vidéo
+├── Repurpose content : YouTube → TikTok, shorts, clips
+└── Écrire un ebook/guide complet
+</code></pre>
+<h3>Chiffres estimés</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Abonnés YT</th>
+<th>CA mensuel</th>
+<th>Sources</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>100-500</td>
+<td>0-500 €</td>
+<td>Affiliation</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1 000-3 000</td>
+<td>1 000-3 000 €</td>
+<td>Cours + affiliation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>5 000-10 000</td>
+<td>5 000-15 000 €</td>
+<td>Cours + sponsors + coaching</td>
+</tr>
+<tr>
+<td>12</td>
+<td>15 000-30 000</td>
+<td>15 000-40 000 €</td>
+<td>Tout combiné</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>6. Produit AI vertical avec moat</h2>
+<h3>Concept</h3>
+<p>Construire un produit SaaS spécialisé dans une niche verticale, avec un avantage compétitif AI difficile à reproduire (données propriétaires, modèles fine-tunés, workflow spécifique).</p>
+<h3>Workflow précis</h3>
+<pre><code>PHASE 1 — Recherche de niche (semaine 1-2)
+├── Critères de sélection
+│   └── Marché B2B (willingness to pay plus élevée)
+│   └── Processus actuellement manuel ou mal outillé
+│   └── Données spécifiques au domaine (= moat)
+│   └── Réglementation qui favorise le local/privé (RGPD)
+├── Niches prometteuses
+│   └── Comptabilité freelance AI (OCR factures + catégorisation auto)
+│   └── Rédaction juridique assistée (contrats, CGV, RGPD)
+│   └── Analyse immobilière (estimation prix, détection opportunités)
+│   └── Recrutement technique (screening CV + matching AI)
+│   └── Gestion de chantier BTP (planning AI + suivi photo)
+│   └── Veille réglementaire (extraction + résumé des JO/textes)
+├── Validation
+│   └── 20-30 interviews utilisateurs potentiels
+│   └── &quot;Combien payez-vous aujourd&#39;hui pour résoudre ce problème ?&quot;
+│   └── &quot;Que feriez-vous avec 10h de plus par semaine ?&quot;
+└── Sélectionner LA niche
+
+PHASE 2 — MVP (semaine 3-6)
+├── Semaine 3 : Architecture
+│   └── Claude Code : setup projet complet
+│   └── Définir le data model
+│   └── Choisir les modèles AI (Llama, Whisper, Florence selon besoin)
+│   └── RTX 5090 : tester les modèles sur des données réelles du domaine
+├── Semaine 4-5 : Build
+│   └── Claude Code : app complète (Next.js + Supabase)
+│   └── Claude Code : intégrations métier (API comptable, API immo, etc.)
+│   └── RTX 5090 : pipeline AI (extraction, classification, génération)
+│   └── Claude Code : tests + monitoring
+├── Semaine 6 : Beta
+│   └── 10-20 beta testers (issus des interviews)
+│   └── Feedback loop serré (Slack/Discord dédié)
+│   └── Itérer quotidiennement avec Claude Code
+└── Gate : 5+ utilisateurs qui reviennent sans qu&#39;on les relance = GO
+
+PHASE 3 — Fine-tuning &amp; moat (mois 2-3)
+├── RTX 5090 : fine-tuner les modèles sur les données du domaine
+│   └── LoRA/QLoRA pour efficacité mémoire
+│   └── Données collectées via les beta testers (avec consentement)
+│   └── Objectif : surpasser les modèles généralistes sur TA niche
+├── Construire le dataset propriétaire
+│   └── Chaque utilisation enrichit le modèle
+│   └── Effet réseau : plus d&#39;utilisateurs = meilleur modèle = plus d&#39;utilisateurs
+├── Claude Code : features avancées basées sur le feedback
+└── Documenter les métriques (précision, temps gagné, satisfaction)
+
+PHASE 4 — Go-to-market (mois 3-6)
+├── Pricing
+│   └── Freemium : usage limité gratuit
+│   └── Pro : 29-99 €/mois (selon la niche)
+│   └── Enterprise : 299-999 €/mois (features avancées, support, SLA)
+├── Distribution
+│   └── SEO (Claude Code : contenu optimisé)
+│   └── Partenariats avec des acteurs du domaine
+│   └── Présence sur les salons/événements de la niche
+│   └── Bouche à oreille (le produit est le marketing)
+├── Sales
+│   └── Démo personnalisée (Loom ou live)
+│   └── Onboarding white-glove pour les 50 premiers clients
+│   └── Case studies avec les early adopters
+└── Objectif mois 6 : 50-100 clients payants, 5-15k MRR
+
+PHASE 5 — Scale (mois 6-12)
+├── Lever si nécessaire (ou rester bootstrappé)
+├── Migrer l&#39;inference vers le cloud si la demande dépasse la RTX
+│   └── Mais garder le fine-tuning en local (contrôle)
+├── Embaucher : 1 dev, 1 sales/customer success
+├── Intégrations (Zapier, API ouverte, webhooks)
+└── Expansion : features adjacentes, nouveau marché géographique
+</code></pre>
+<h3>Chiffres estimés</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Clients payants</th>
+<th>MRR</th>
+<th>Coût</th>
+<th>Net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1-2</td>
+<td>0 (beta)</td>
+<td>0 €</td>
+<td>200 €</td>
+<td>-200 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10-20</td>
+<td>500-2 000 €</td>
+<td>300 €</td>
+<td>200-1 700 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>50-100</td>
+<td>5 000-15 000 €</td>
+<td>1 000 €</td>
+<td>4 000-14 000 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>200-500</td>
+<td>20 000-50 000 €</td>
+<td>3 000 €</td>
+<td>17 000-47 000 €</td>
+</tr>
+<tr>
+<td>24</td>
+<td>500-2 000</td>
+<td>50 000-200 000 €</td>
+<td>10 000 €</td>
+<td>40 000-190 000 €</td>
+</tr>
+</tbody></table>
+<hr>
+<hr>
+<h1>WORKFLOW COMPLET — Agence dev AI-augmentée</h1>
+<blockquote>
+<p>C&#39;est la stratégie la plus rentable à court terme car elle génère du cash immédiat avec un investissement minimal. Elle finance ensuite les autres stratégies (SaaS, produit AI).</p>
+</blockquote>
+<hr>
+<h2>Pourquoi c&#39;est le meilleur point de départ</h2>
+<table>
+<thead>
+<tr>
+<th>Critère</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Temps jusqu&#39;au premier euro</td>
+<td>1-2 semaines</td>
+</tr>
+<tr>
+<td>Investissement initial</td>
+<td>~200 €/mois (Claude Code)</td>
+</tr>
+<tr>
+<td>Risque</td>
+<td>Très faible (pas de produit à maintenir)</td>
+</tr>
+<tr>
+<td>Scalabilité</td>
+<td>Moyenne (limitée par ton temps, mais marge élevée)</td>
+</tr>
+<tr>
+<td>Cash flow</td>
+<td>Immédiat et prévisible</td>
+</tr>
+<tr>
+<td>Apprentissage</td>
+<td>Maximum (tu découvres plein de stacks/domaines)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Phase 0 — Préparation (jour 1-3)</h2>
+<h3>0.1 Stack de base à maîtriser</h3>
+<p>Tu n&#39;as pas besoin de tout connaître — Claude Code comble les lacunes. Mais tu dois être fluent sur :</p>
+<pre><code>MUST KNOW (tu guides Claude Code) :
+├── Next.js (App Router) — 80% des projets clients
+├── Tailwind CSS — styling rapide
+├── Supabase ou PostgreSQL — base de données
+├── Stripe — paiements
+├── Vercel — déploiement
+└── Git — versionning
+
+NICE TO KNOW (Claude Code gère, tu supervises) :
+├── React Native / Expo — apps mobiles
+├── tRPC / GraphQL — API complexes
+├── Redis / queues — background jobs
+├── Docker — déploiement custom
+└── AWS / GCP — infra lourde
+</code></pre>
+<h3>0.2 Créer ton environnement de travail</h3>
+<pre><code>Templates internes (à construire une fois, réutiliser toujours) :
+├── starter-saas/
+│   ├── Next.js 16 + Tailwind 4
+│   ├── Auth (NextAuth ou Clerk)
+│   ├── Stripe billing
+│   ├── Dashboard layout
+│   ├── Email transactionnel (Resend)
+│   └── Landing page template
+├── starter-landing/
+│   ├── Next.js + Tailwind
+│   ├── Sections modulaires
+│   ├── Formulaire contact
+│   ├── SEO optimisé
+│   └── Analytics (GA4 / Plausible)
+├── starter-api/
+│   ├── Next.js API routes ou Hono
+│   ├── Validation Zod
+│   ├── Rate limiting
+│   ├── Auth middleware
+│   └── Error handling standardisé
+└── starter-admin/
+    ├── Dashboard avec sidebar
+    ├── CRUD générique
+    ├── Filtres / recherche / pagination
+    ├── Charts (Recharts)
+    └── Export CSV/PDF
+</code></pre>
+<p><strong>Action</strong> : Utiliser Claude Code pour générer ces 4 starters en 2-3 jours. Ils te feront gagner 1-2 jours par projet client.</p>
+<h3>0.3 Outils business</h3>
+<table>
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Outil</th>
+<th>Coût</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Facturation</td>
+<td>Stripe / Tiime</td>
+<td>Gratuit - 15 €/mois</td>
+</tr>
+<tr>
+<td>Contrats</td>
+<td>Bonsai / template maison</td>
+<td>Gratuit - 19 €/mois</td>
+</tr>
+<tr>
+<td>Gestion projet</td>
+<td>Notion</td>
+<td>Gratuit</td>
+</tr>
+<tr>
+<td>Communication client</td>
+<td>Slack / Discord</td>
+<td>Gratuit</td>
+</tr>
+<tr>
+<td>Démos async</td>
+<td>Loom</td>
+<td>Gratuit</td>
+</tr>
+<tr>
+<td>Prospection</td>
+<td>Malt + LinkedIn</td>
+<td>Gratuit - 30 €/mois</td>
+</tr>
+<tr>
+<td>Email pro</td>
+<td>Google Workspace</td>
+<td>6 €/mois</td>
+</tr>
+<tr>
+<td>Domaine</td>
+<td>ton-agence.com</td>
+<td>10 €/an</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Phase 1 — Positionnement &amp; présence (jour 3-7)</h2>
+<h3>1.1 Positionnement</h3>
+<p><strong>NE PAS dire</strong> : &quot;Je suis développeur freelance&quot;
+<strong>DIRE</strong> : &quot;Je suis un studio de développement spécialisé en [niche]&quot;</p>
+<p>Niches rentables pour le dev AI-augmenté :</p>
+<table>
+<thead>
+<tr>
+<th>Niche</th>
+<th>TJM moyen</th>
+<th>Demande</th>
+<th>Complexité perçue (= marge)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SaaS MVP pour startups</td>
+<td>600-1 000 €/j</td>
+<td>Très haute</td>
+<td>Haute</td>
+</tr>
+<tr>
+<td>E-commerce headless</td>
+<td>500-800 €/j</td>
+<td>Haute</td>
+<td>Moyenne</td>
+</tr>
+<tr>
+<td>Dashboards / admin panels</td>
+<td>500-700 €/j</td>
+<td>Haute</td>
+<td>Moyenne</td>
+</tr>
+<tr>
+<td>Landing pages premium</td>
+<td>400-600 €/j</td>
+<td>Très haute</td>
+<td>Basse (mais volume)</td>
+</tr>
+<tr>
+<td>Intégrations API/automations</td>
+<td>500-900 €/j</td>
+<td>Haute</td>
+<td>Haute</td>
+</tr>
+<tr>
+<td>Apps avec AI intégrée</td>
+<td>700-1 200 €/j</td>
+<td>Croissante</td>
+<td>Très haute</td>
+</tr>
+</tbody></table>
+<p><strong>Recommandation</strong> : commencer par &quot;SaaS MVP pour startups&quot; + &quot;Landing pages premium&quot; — ça couvre du petit et du gros projet.</p>
+<h3>1.2 Profils en ligne</h3>
+<h4>Malt (marché français)</h4>
+<pre><code>Titre : Développeur Fullstack Senior — MVP SaaS &amp; Apps Web sur mesure
+Sous-titre : Next.js, React, Node.js — Livraison rapide, qualité production
+
+Bio :
+Je conçois et développe des applications web et SaaS de A à Z.
+Mon approche : comprendre votre besoin métier, proposer une architecture
+simple et efficace, livrer rapidement un produit fini et maintenable.
+
+Spécialisations :
+• MVP SaaS (auth, billing, dashboard, API)
+• Landing pages haute conversion
+• Dashboards et back-offices
+• Intégrations API et automations
+• Applications avec intelligence artificielle
+
+Stack : Next.js, React, TypeScript, Tailwind CSS, Supabase, Stripe, Vercel
+
+TJM : 600-800 € (ajuster selon marché local)
+</code></pre>
+<h4>LinkedIn</h4>
+<pre><code>Headline : Founder @ [Ton Studio] — Je transforme vos idées en produits web
+
+À propos :
+J&#39;aide les startups et PME à lancer leurs produits web rapidement.
+
+→ Vous avez une idée de SaaS ? Je la transforme en MVP fonctionnel en 1-3 semaines.
+→ Vous voulez une landing page qui convertit ? C&#39;est livré en 3-5 jours.
+→ Vous avez besoin d&#39;un dashboard custom ? Pareil.
+
+Mon secret : un process de développement ultra-optimisé qui me permet
+de livrer en fraction du temps habituel, sans sacrifier la qualité.
+
+Parlons de votre projet → [lien calendly]
+</code></pre>
+<h3>1.3 Portfolio (Claude Code, 2 jours)</h3>
+<p>Construire 5 projets vitrine avec Claude Code :</p>
+<pre><code>Projet 1 : &quot;NexBoard&quot; — Dashboard SaaS analytics
+├── Auth + multi-tenant
+├── Charts temps réel
+├── Export CSV
+└── Screenshots + démo Loom
+
+Projet 2 : &quot;LaunchKit&quot; — Landing page startup
+├── Hero animé
+├── Pricing table
+├── Testimonials
+├── CTA optimisé
+└── Score Lighthouse 95+
+
+Projet 3 : &quot;InvoiceFlow&quot; — App de facturation
+├── Création/envoi de factures
+├── Suivi paiements
+├── Dashboard résumé
+└── Intégration Stripe
+
+Projet 4 : &quot;ChatWidget&quot; — Widget chatbot intégrable
+├── Interface conversationnelle
+├── Configuration sans code
+├── Analytics des conversations
+└── Démo interactive
+
+Projet 5 : &quot;DataSync&quot; — Intégration API
+├── Connecteurs multiples (Stripe, Slack, etc.)
+├── Logs temps réel
+├── Retry + error handling
+└── Documentation API auto-générée
+</code></pre>
+<p><strong>Chaque projet</strong> : déployé sur Vercel, code sur GitHub (public ou partiel), Loom de 2 min, screenshots dans le portfolio.</p>
+<hr>
+<h2>Phase 2 — Prospection (continu, 1-2h/jour)</h2>
+<h3>2.1 Canaux de prospection</h3>
+<pre><code>Canal 1 : Malt (passif — les clients viennent à toi)
+├── Optimiser le profil chaque semaine
+├── Répondre aux missions dans l&#39;heure
+├── Accepter les petits projets au début (pour les avis)
+└── Objectif : 4-5 étoiles, 10+ avis → flux entrant constant
+
+Canal 2 : LinkedIn (semi-actif)
+├── Poster 3-5x/semaine
+│   ├── Lundi : insight technique (&quot;Comment j&#39;ai réduit le temps de chargement de X de 80%&quot;)
+│   ├── Mercredi : case study rapide (&quot;Ce SaaS, je l&#39;ai livré en 5 jours&quot;)
+│   ├── Vendredi : behind the scenes (&quot;Mon setup dev en 2026&quot;)
+│   └── Bonus : répondre aux posts de startups qui cherchent des devs
+├── Contacter 5-10 fondateurs de startups/semaine
+│   └── Message : &quot;J&#39;ai vu que vous lancez [X]. Votre site/app est super.
+│       Si vous avez besoin de dev ponctuellement, je serais ravi d&#39;échanger.&quot;
+│   └── PAS de pitch agressif. Juste ouvrir la porte.
+└── Objectif : 2-3 calls/semaine à partir du mois 2
+
+Canal 3 : Réseau direct (le plus rentable long terme)
+├── Participer à 1-2 meetups/mois (tech, startup)
+├── Rejoindre des communautés (Discord, Slack de startups)
+├── Proposer de l&#39;aide gratuite ponctuellement (code review, conseil archi)
+└── Le bouche à oreille est le canal #1 au bout de 6 mois
+
+Canal 4 : Cold outreach ciblé (actif)
+├── Identifier des startups early-stage (ProductHunt, AngelList, Twitter)
+├── Trouver le fondateur sur LinkedIn
+├── Message personnalisé basé sur LEUR produit
+│   └── &quot;J&#39;ai testé [votre produit]. L&#39;UX est top. J&#39;ai remarqué que [point
+│       technique]. Si vous cherchez un dev fullstack pour accélérer, je peux aider.&quot;
+└── Objectif : 1-2% de taux de conversion → 5-10 contacts/semaine = 1 projet/mois
+</code></pre>
+<h3>2.2 Qualification des leads</h3>
+<p>Grille de qualification rapide (5 min) :</p>
+<pre><code>Budget :
+├── &lt; 1 000 € → Refuser poliment (sauf si stratégique)
+├── 1 000-3 000 € → Petit projet, livrable en 2-5 jours
+├── 3 000-10 000 € → Projet moyen, 1-3 semaines
+├── 10 000-30 000 € → Gros projet, 1-2 mois
+└── &gt; 30 000 € → Engagement long terme
+
+Complexité technique :
+├── Landing page / site vitrine → Facile, Claude Code gère à 90%
+├── CRUD app / dashboard → Moyen, Claude Code gère à 80%
+├── SaaS avec billing → Moyen+, Claude Code gère à 75%
+├── App temps réel / WebSocket → Complexe, Claude Code gère à 60%
+└── Système distribué / infra lourde → Très complexe, évaluer si rentable
+
+Red flags (fuir) :
+├── &quot;On a pas de budget mais on peut faire du revenue share&quot;
+├── &quot;On a besoin de ça pour hier&quot;
+├── &quot;Notre précédent dev est parti et on comprend pas le code&quot;
+│   └── (sauf si tu es payé grassement pour ça)
+├── Pas de décisionnaire identifié
+└── Changements de spec constants sans process
+</code></pre>
+<h3>2.3 Process de vente</h3>
+<pre><code>Étape 1 : Premier contact (message/email)
+├── Répondre en &lt; 4h
+├── Poser 3 questions :
+│   ├── &quot;Quel est le problème que vous cherchez à résoudre ?&quot;
+│   ├── &quot;Avez-vous un budget et un délai en tête ?&quot;
+│   └── &quot;Avez-vous des maquettes/specs ou c&#39;est à définir ensemble ?&quot;
+└── Proposer un call de 20 min
+
+Étape 2 : Call découverte (20-30 min)
+├── 80% écoute, 20% questions
+├── Comprendre le VRAI besoin (pas ce qu&#39;ils PENSENT vouloir)
+├── Identifier les contraintes (budget, délai, technique)
+├── Montrer 1-2 projets similaires du portfolio
+└── &quot;Je vous envoie une proposition sous 24h&quot;
+
+Étape 3 : Proposition (Claude Code aide à la rédiger)
+├── Résumé du besoin (1 paragraphe — prouve que tu as compris)
+├── Solution proposée (architecture simplifiée, stack)
+├── Périmètre précis
+│   ├── ✅ Inclus : feature 1, feature 2, feature 3
+│   └── ❌ Exclus : feature X, feature Y (pour éviter le scope creep)
+├── Planning (jalons clairs)
+│   ├── Semaine 1 : setup + pages principales
+│   ├── Semaine 2 : features core
+│   └── Semaine 3 : polish + livraison
+├── Tarif
+│   └── Option A : forfait fixe (recommandé pour les petits projets)
+│   └── Option B : TJM (pour les projets longs/évolutifs)
+├── Conditions
+│   └── 30-50% à la signature
+│   └── 50% à mi-parcours ou livraison
+│   └── Révisions incluses (1-2 tours)
+└── CTA : &quot;Répondez OK pour démarrer&quot;
+
+Étape 4 : Signature + démarrage
+├── Facture d&#39;acompte (Stripe)
+├── Créer un canal Slack/Discord dédié
+├── Partager un board Notion (suivi du projet)
+└── Commencer immédiatement (l&#39;effet &quot;wow&quot; du démarrage rapide)
+</code></pre>
+<hr>
+<h2>Phase 3 — Exécution d&#39;un projet type (le workflow quotidien)</h2>
+<h3>3.1 Jour 0 — Setup (2-4h)</h3>
+<pre><code class="language-bash"># 1. Créer le projet depuis un starter
+cp -r starters/starter-saas client-project-name
+cd client-project-name
+git init &amp;&amp; git add . &amp;&amp; git commit -m &quot;init: from saas starter&quot;
+
+# 2. Configurer l&#39;environnement
+# Claude Code : setup env vars, DB, auth provider
+
+# 3. Déployer le squelette
+# Vercel / Railway → le client a un URL de preview dès jour 0
+
+# 4. Partager l&#39;URL au client
+# &quot;Voici le projet initialisé. Je commence le développement demain matin.&quot;
+# → Effet WOW : le client voit un truc déployé en quelques heures
+</code></pre>
+<h3>3.2 Jour 1-2 — Core development (sessions de 3-4h)</h3>
+<pre><code>Session de travail type avec Claude Code :
+
+08:00 - Revue des specs du jour
+        └── Ouvrir la spec, identifier les 3-5 tasks
+        └── Prioriser : ce qui a le plus d&#39;impact visuel d&#39;abord
+
+08:15 - Claude Code : batch 1 (features principales)
+        └── &quot;Crée le composant X avec les specs suivantes : ...&quot;
+        └── &quot;Ajoute la route API pour Y avec validation Zod&quot;
+        └── &quot;Implémente le formulaire Z avec ces champs : ...&quot;
+        └── Paralléliser : lancer 2-3 tâches Claude Code en même temps
+
+09:30 - Review + ajustements
+        └── Tester manuellement chaque feature
+        └── Identifier les edge cases
+        └── Claude Code : fix les bugs trouvés
+
+10:00 - Claude Code : batch 2 (intégrations, polish)
+        └── Intégration DB
+        └── Emails transactionnels
+        └── Loading states, error handling
+        └── Responsive
+
+11:00 - Déployer la preview
+        └── git push → Vercel déploie auto
+        └── Envoyer l&#39;URL au client
+
+11:15 - Passer au projet suivant ou pause
+</code></pre>
+<h3>3.3 Jour 3 — Polish &amp; QA (2-3h)</h3>
+<pre><code>Checklist de qualité (à suivre pour CHAQUE projet) :
+
+Performance :
+├── Lighthouse score &gt; 90
+├── Core Web Vitals dans le vert
+├── Images optimisées (WebP, lazy loading)
+└── Bundle &lt; 200kb first load
+
+Responsive :
+├── Mobile (375px)
+├── Tablet (768px)
+├── Desktop (1280px+)
+└── Tester sur un vrai device
+
+Accessibilité :
+├── Navigation clavier
+├── Contraste suffisant
+├── Alt text sur les images
+└── aria-labels sur les éléments interactifs
+
+SEO (si pertinent) :
+├── Meta tags (title, description, OG)
+├── Sitemap
+├── Schema.org markup
+└── robots.txt
+
+Sécurité :
+├── Validation côté serveur (Zod)
+├── Rate limiting sur les API
+├── CORS configuré
+├── Pas de secrets exposés
+└── Headers de sécurité (CSP, HSTS)
+</code></pre>
+<h3>3.4 Jour 4 — Livraison</h3>
+<pre><code>1. Déploiement final
+   └── Vérifier les env vars de production
+   └── DNS configuré (si domaine custom)
+   └── SSL actif
+   └── Monitoring basique (Vercel analytics ou Sentry)
+
+2. Documentation (Claude Code la génère)
+   └── README technique
+   └── Guide d&#39;utilisation (si admin panel)
+   └── Variables d&#39;environnement documentées
+   └── Process de déploiement
+
+3. Handoff au client
+   └── Loom de 5-10 min : tour du produit
+   └── Accès au repo Git
+   └── Accès au dashboard Vercel/hébergement
+   └── Facture finale
+
+4. Follow-up (J+3)
+   └── &quot;Comment se passe la prise en main ?&quot;
+   └── Résoudre les derniers points
+   └── Demander un avis/témoignage
+</code></pre>
+<hr>
+<h2>Phase 4 — Scale (mois 3+)</h2>
+<h3>4.1 Augmenter les prix</h3>
+<pre><code>Stratégie de pricing progressif :
+
+Mois 1-2 : Prix d&#39;entrée (construire le portfolio + avis)
+├── Landing page : 1 500-2 500 €
+├── App web : 3 000-5 000 €
+└── MVP SaaS : 5 000-8 000 €
+
+Mois 3-6 : Prix marché (tu as des avis + portfolio solide)
+├── Landing page : 2 500-4 000 €
+├── App web : 5 000-10 000 €
+└── MVP SaaS : 8 000-15 000 €
+
+Mois 6-12 : Prix premium (tu es reconnu, flux entrant)
+├── Landing page : 4 000-6 000 €
+├── App web : 8 000-15 000 €
+└── MVP SaaS : 15 000-30 000 €
+
+Règle : augmenter de 20% quand tu refuses des projets par manque de temps
+</code></pre>
+<h3>4.2 Optimiser ton temps</h3>
+<pre><code>Temps par projet avec Claude Code vs sans :
+
+                        Sans AI      Avec Claude Code Max
+Landing page            3-5 jours    0.5-1 jour
+App CRUD                2-3 semaines 3-5 jours
+MVP SaaS                1-2 mois     1-3 semaines
+Dashboard complexe      2-4 semaines 5-10 jours
+
+Ça veut dire :
+├── Tu peux gérer 3-5 projets en parallèle
+├── Ou tu livres plus vite et tu augmentes les prix
+├── Ou les deux
+</code></pre>
+<h3>4.3 Créer des assets réutilisables</h3>
+<pre><code>À chaque projet, extraire et généraliser :
+
+1. Composants UI
+   └── Formulaires, modals, tables, charts
+   └── → Bibliothèque interne qui s&#39;enrichit
+
+2. Patterns backend
+   └── Auth flows, billing, email, webhooks
+   └── → Starters de plus en plus complets
+
+3. Automations
+   └── Scripts de setup projet
+   └── Templates de proposition commerciale
+   └── Templates d&#39;email client
+   └── → Process de plus en plus rapide
+
+4. Documentation
+   └── Checklists de qualité
+   └── Guides de déploiement
+   └── → Délégable à terme
+</code></pre>
+<h3>4.4 Transition vers les autres stratégies</h3>
+<pre><code>L&#39;agence finance les projets à long terme :
+
+Mois 1-3 : 100% agence (cash flow)
+Mois 3-6 : 80% agence + 20% templates/SaaS (revenus passifs)
+Mois 6-9 : 60% agence + 20% SaaS + 20% contenu
+Mois 9-12 : 40% agence + 30% SaaS + 20% contenu + 10% produit AI
+
+L&#39;objectif final :
+├── L&#39;agence génère du cash prévisible
+├── Les templates génèrent des revenus passifs
+├── Le SaaS génère du MRR croissant
+├── Le contenu génère de l&#39;audience (qui alimente tout le reste)
+└── Le produit AI est le moonshot à long terme
+</code></pre>
+<hr>
+<h2>Résumé : Plan d&#39;action semaine par semaine</h2>
+<table>
+<thead>
+<tr>
+<th>Semaine</th>
+<th>Action</th>
+<th>Objectif</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Setup outils + starters + profils en ligne</td>
+<td>Être prêt</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Portfolio (5 projets) + premières candidatures Malt</td>
+<td>Premier contact client</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Prospection active + premiers calls</td>
+<td>Signer le 1er projet</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Livrer le 1er projet</td>
+<td>Premier revenu + premier avis</td>
+</tr>
+<tr>
+<td>5-8</td>
+<td>2-3 projets en parallèle + optimiser le process</td>
+<td>Cash flow régulier</td>
+</tr>
+<tr>
+<td>9-12</td>
+<td>Augmenter les prix + commencer les templates</td>
+<td>Diversification</td>
+</tr>
+<tr>
+<td>13-16</td>
+<td>Lancer le 1er micro-SaaS</td>
+<td>Début de MRR</td>
+</tr>
+<tr>
+<td>17-24</td>
+<td>Scale agence + SaaS + contenu</td>
+<td>Multiples sources de revenus</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>KPIs à suivre</h2>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Cible mois 1</th>
+<th>Cible mois 6</th>
+<th>Cible mois 12</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Projets livrés</td>
+<td>2</td>
+<td>5/mois</td>
+<td>6/mois</td>
+</tr>
+<tr>
+<td>CA mensuel</td>
+<td>5 000 €</td>
+<td>25 000 €</td>
+<td>40 000+ €</td>
+</tr>
+<tr>
+<td>Taux de marge</td>
+<td>90%+</td>
+<td>85%+</td>
+<td>80%+</td>
+</tr>
+<tr>
+<td>Avis clients</td>
+<td>2</td>
+<td>15+</td>
+<td>30+</td>
+</tr>
+<tr>
+<td>Taux de closing</td>
+<td>20%</td>
+<td>40%</td>
+<td>50%+</td>
+</tr>
+<tr>
+<td>Projets récurrents</td>
+<td>0</td>
+<td>2-3</td>
+<td>5+</td>
+</tr>
+<tr>
+<td>Templates vendus</td>
+<td>0</td>
+<td>50/mois</td>
+<td>200/mois</td>
+</tr>
+<tr>
+<td>MRR SaaS</td>
+<td>0</td>
+<td>2 000 €</td>
+<td>10 000 €</td>
+</tr>
+</tbody></table>
+<hr>
+<hr>
+<h1>DEEP DIVE — AI fine-tunée pour professionnels (avocats, médecins, experts-comptables)</h1>
+<blockquote>
+<p>Cette section détaille comment construire et vendre un service d&#39;intelligence artificielle spécialisée à des professionnels réglementés. C&#39;est le &quot;moonshot&quot; à plus fort potentiel de revenus récurrents du document.</p>
+</blockquote>
+<hr>
+<h2>Pourquoi ce marché est une mine d&#39;or</h2>
+<h3>Le problème des professionnels</h3>
+<p>Les avocats, médecins et experts-comptables partagent un problème commun : <strong>80% de leur temps est consacré à des tâches répétitives à faible valeur ajoutée</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Profession</th>
+<th>Tâches chronophages</th>
+<th>Temps perdu/semaine</th>
+<th>Valeur horaire</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Avocat</td>
+<td>Rédaction de conclusions, recherche jurisp., contrats types, courriers</td>
+<td>15-25h</td>
+<td>150-400 €/h</td>
+</tr>
+<tr>
+<td>Médecin généraliste</td>
+<td>Comptes-rendus, courriers confrères, codage CCAM/NGAP, certificats</td>
+<td>10-15h</td>
+<td>60-120 €/h (consult.)</td>
+</tr>
+<tr>
+<td>Médecin spécialiste</td>
+<td>Comptes-rendus opératoires, dictées médicales, protocoles</td>
+<td>10-20h</td>
+<td>100-300 €/h</td>
+</tr>
+<tr>
+<td>Expert-comptable</td>
+<td>Saisie/catégorisation, liasses fiscales, lettres de mission, rapports</td>
+<td>15-25h</td>
+<td>80-200 €/h</td>
+</tr>
+<tr>
+<td>Notaire</td>
+<td>Actes types, recherches cadastrales, formalités, courriers</td>
+<td>15-20h</td>
+<td>150-350 €/h</td>
+</tr>
+</tbody></table>
+<h3>Pourquoi ils paieraient TOI plutôt que ChatGPT</h3>
+<table>
+<thead>
+<tr>
+<th>ChatGPT / GPT-4 généraliste</th>
+<th>TON service fine-tuné</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Réponses génériques, souvent fausses en droit FR</td>
+<td>Entraîné sur du droit français réel, jurisprudence à jour</td>
+</tr>
+<tr>
+<td>Données envoyées aux USA (violation secret pro)</td>
+<td>Inference locale, données en France, RGPD compliant</td>
+</tr>
+<tr>
+<td>Pas de templates métier</td>
+<td>Templates pré-remplis par spécialité</td>
+</tr>
+<tr>
+<td>L&#39;utilisateur doit savoir prompter</td>
+<td>Interface métier, pas besoin de prompt</td>
+</tr>
+<tr>
+<td>Pas de traçabilité</td>
+<td>Audit trail complet (obligatoire pour les pros)</td>
+</tr>
+<tr>
+<td>Hallucinations non détectées</td>
+<td>RAG sur sources vérifiées + citations systématiques</td>
+</tr>
+</tbody></table>
+<h3>Chiffres du marché français</h3>
+<table>
+<thead>
+<tr>
+<th>Profession</th>
+<th>Nombre en France</th>
+<th>Budget IT moyen/an</th>
+<th>Marché adressable (1% pénétration)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Avocats</td>
+<td>73 000</td>
+<td>2 000-8 000 €</td>
+<td>73M-584M €</td>
+</tr>
+<tr>
+<td>Médecins</td>
+<td>230 000</td>
+<td>1 000-4 000 €</td>
+<td>230M-920M €</td>
+</tr>
+<tr>
+<td>Experts-comptables</td>
+<td>21 000</td>
+<td>3 000-10 000 €</td>
+<td>63M-210M €</td>
+</tr>
+<tr>
+<td>Notaires</td>
+<td>17 000</td>
+<td>5 000-15 000 €</td>
+<td>85M-255M €</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>341 000</strong></td>
+<td></td>
+<td><strong>451M-1,97Md €</strong></td>
+</tr>
+</tbody></table>
+<p>Même avec 0.1% de pénétration, c&#39;est un business à 7 chiffres.</p>
+<hr>
+<h2>Les 8 niches les plus pertinentes (classées par potentiel)</h2>
+<h3>Niche 1 : Assistant juridique pour avocats — ⭐ TOP PICK</h3>
+<p><strong>Douleur</strong> : Un avocat passe 60% de son temps à rédiger (conclusions, contrats, mises en demeure). C&#39;est répétitif, chronophage, et les juniors coûtent cher.</p>
+<pre><code>Use cases :
+├── Rédaction de conclusions (à partir d&#39;un résumé des faits)
+├── Recherche de jurisprudence (avec citations exactes)
+├── Génération de contrats types personnalisés
+├── Mises en demeure et courriers types
+├── Résumé de pièces (documents adverses volumineux)
+├── Veille juridique automatisée par spécialité
+└── Analyse de risques sur un dossier
+</code></pre>
+<p><strong>Pourquoi c&#39;est le #1</strong> :</p>
+<ul>
+<li>TJM avocat = 150-400 €/h → chaque heure gagnée a une énorme valeur</li>
+<li>Le secret professionnel IMPOSE une solution privée → avantage concurrentiel massif</li>
+<li>Le droit FR est une niche mal servie par les outils US</li>
+<li>Les cabinets de 2-20 avocats sont les plus réceptifs (pas assez gros pour un outil interne, assez gros pour payer)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>149-499 €/mois par utilisateur</td>
+</tr>
+<tr>
+<td>Coût d&#39;acquisition client</td>
+<td>200-500 € (cycle court, douleur forte)</td>
+</tr>
+<tr>
+<td>LTV estimée</td>
+<td>3 600-12 000 € (24 mois rétention moyenne)</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>73 000 avocats × 299 €/mois = 262M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 2 : Codage et facturation médicale automatisée</h3>
+<p><strong>Douleur</strong> : Les médecins perdent 1-2h/jour sur la facturation, le codage CCAM/NGAP, et les refus CPAM. Beaucoup sous-codent (= perte de revenus).</p>
+<pre><code>Use cases :
+├── Codage CCAM automatique à partir du compte-rendu
+├── Vérification de cohérence (acte vs diagnostic)
+├── Détection de sous-codage (revenus perdus)
+├── Génération automatique des ententes préalables
+├── Suivi des rejets CPAM + correction automatique
+└── Reporting mensuel revenus par acte
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>79-199 €/mois</td>
+</tr>
+<tr>
+<td>Gain moyen pour le médecin</td>
+<td>500-2 000 €/mois (récupération sous-codage)</td>
+</tr>
+<tr>
+<td>ROI client</td>
+<td>3-10x → vente facile</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>120 000 médecins libéraux × 149 €/mois = 214M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 3 : Rédaction médicale assistée (comptes-rendus)</h3>
+<p><strong>Douleur</strong> : Les médecins dictent ou tapent des comptes-rendus pendant des heures. Les secrétaires médicales sont débordées ou absentes.</p>
+<pre><code>Use cases :
+├── Transcription audio → compte-rendu structuré (Whisper + LLM)
+├── Génération de courriers aux confrères
+├── Comptes-rendus opératoires standardisés
+├── Certificats médicaux types
+├── Lettres d&#39;adressage spécialiste
+└── Résumé de dossier patient pour transmission
+</code></pre>
+<p><strong>Stack technique</strong> :</p>
+<ul>
+<li>Whisper Large v3 (RTX 5090) pour la transcription</li>
+<li>LLM fine-tuné sur la terminologie médicale FR pour la structuration</li>
+<li>RAG sur les référentiels HAS pour la conformité</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>99-249 €/mois</td>
+</tr>
+<tr>
+<td>Temps gagné</td>
+<td>5-10h/semaine</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>230 000 médecins × 149 €/mois = 411M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 4 : Saisie comptable intelligente</h3>
+<p><strong>Douleur</strong> : Les experts-comptables passent un temps fou sur la saisie, la catégorisation, et les rapprochements bancaires. Les outils actuels (type Dext) sont limités.</p>
+<pre><code>Use cases :
+├── OCR factures + catégorisation automatique (plan comptable)
+├── Rapprochement bancaire intelligent
+├── Détection d&#39;anomalies (doublons, montants incohérents)
+├── Génération automatique des écritures comptables
+├── Pré-remplissage liasses fiscales
+├── Lettres de mission personnalisées
+└── Rapports de gestion mensuels automatiques
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>99-399 €/mois par cabinet</td>
+</tr>
+<tr>
+<td>Gain productivité</td>
+<td>30-50% sur la saisie</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>21 000 cabinets × 249 €/mois = 63M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 5 : Assistant notarial</h3>
+<p><strong>Douleur</strong> : Rédaction d&#39;actes répétitifs, recherches cadastrales, formalités administratives.</p>
+<pre><code>Use cases :
+├── Génération d&#39;actes types (vente, donation, succession)
+├── Pré-remplissage à partir des pièces du dossier
+├── Vérification de conformité légale
+├── Calcul automatique des droits et frais
+├── Courriers de formalités
+└── Résumé de dossier client
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>199-599 €/mois</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>17 000 notaires × 399 €/mois = 81M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 6 : Veille réglementaire automatisée</h3>
+<p><strong>Douleur</strong> : Toutes les professions réglementées doivent suivre les évolutions légales. C&#39;est un cauchemar permanent.</p>
+<pre><code>Use cases :
+├── Extraction quotidienne JO / Légifrance / EUR-Lex
+├── Résumé des textes pertinents par spécialité
+├── Alerte impact sur les dossiers en cours
+├── Historique des modifications législatives
+├── Comparaison ancien texte / nouveau texte
+└── Newsletter automatique personnalisée
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>49-149 €/mois</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>Cross-niche, 50 000+ pros × 99 €/mois = 59M €/an</td>
+</tr>
+</tbody></table>
+<h3>Niche 7 : Due diligence et analyse de contrats</h3>
+<p><strong>Douleur</strong> : Lors de fusions, acquisitions ou audits, analyser des centaines de contrats manuellement.</p>
+<pre><code>Use cases :
+├── Extraction des clauses clés (pénalités, résiliation, exclusivité)
+├── Détection de clauses à risque
+├── Comparaison de contrats (matrice de synthèse)
+├── Résumé exécutif de data room
+├── Identification des manquements réglementaires
+└── Timeline des obligations contractuelles
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>499-1 999 €/mois (ou au projet : 2 000-10 000 €)</td>
+</tr>
+<tr>
+<td>Clients</td>
+<td>Cabinets d&#39;avocats M&amp;A, Big 4, fonds d&#39;investissement</td>
+</tr>
+</tbody></table>
+<h3>Niche 8 : Gestion RH et paie automatisée (cabinets comptables)</h3>
+<p><strong>Douleur</strong> : La paie est un enfer de complexité réglementaire FR. Les conventions collectives changent tout le temps.</p>
+<pre><code>Use cases :
+├── Vérification bulletins de paie vs convention collective
+├── Alerte changement réglementaire paie
+├── Rédaction contrats de travail conformes
+├── Calcul automatique des provisions (CP, RTT, primes)
+├── Courriers RH types (licenciement, avertissement, attestations)
+└── Simulation coût employeur
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prix cible</td>
+<td>149-399 €/mois par cabinet</td>
+</tr>
+<tr>
+<td>TAM France</td>
+<td>15 000 cabinets avec pôle social × 249 €/mois = 45M €/an</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>PRD &amp; Features par niche — fiches détaillées</h2>
+<blockquote>
+<p>Chaque niche est détaillée avec : persona cible, features par priorité (P0 = MVP jour 1, P1 = mois 2-3, P2 = mois 4-6), métriques de succès, et stratégie de conversion spécifique.</p>
+</blockquote>
+<hr>
+<p><a id="prd-niche-1"></a></p>
+<h3>PRD Niche 1 : Assistant juridique pour avocats — JurisAI</h3>
+<p><strong>Persona principal</strong> : Maître Sophie D., 38 ans, avocate en droit du travail dans un cabinet de 5 personnes à Lyon. Elle facture 250 €/h mais passe 15h/semaine à rédiger des conclusions et chercher de la jurisprudence. Elle utilise ChatGPT en cachette mais n&#39;ose pas y mettre de données confidentielles.</p>
+<p><strong>Problème</strong> : La rédaction juridique est le goulot d&#39;étranglement. Un avocat qui rédige 2x plus vite prend 2x plus de dossiers.</p>
+<p><strong>Proposition de valeur</strong> : &quot;Rédigez vos conclusions en 20 min au lieu de 4h. Vos données restent en France.&quot;</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP (semaine 1-6) — LE STRICT MINIMUM POUR CONVERTIR
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Générateur de conclusions                                │
+│    └── Input : résumé des faits (texte libre ou formulaire) │
+│    └── Output : conclusions structurées (visa, discussion,  │
+│        dispositif) avec références légales                  │
+│    └── Export Word (.docx) formaté selon les usages         │
+│    └── CRITIQUE : c&#39;est la feature qui vend le produit      │
+│                                                             │
+│ 2. Recherche de jurisprudence RAG                           │
+│    └── Question en langage naturel                          │
+│    └── Résultats avec : juridiction, date, n° d&#39;arrêt,     │
+│        extraits pertinents, lien Légifrance                 │
+│    └── Base : Légifrance open data + DILA                   │
+│    └── CRITIQUE : sans citations vérifiables = pas crédible │
+│                                                             │
+│ 3. Templates de courriers juridiques                        │
+│    └── 10-15 templates de base :                            │
+│        ├── Mise en demeure                                  │
+│        ├── Assignation                                      │
+│        ├── Requête                                          │
+│        ├── Courrier adverse                                 │
+│        ├── Courrier client                                  │
+│        └── Lettre de saisine                                │
+│    └── Personnalisation par champs (parties, dates, faits)  │
+│                                                             │
+│ 4. Auth + Sécurité de base                                  │
+│    └── Login email/password + MFA                           │
+│    └── Chiffrement des données au repos                     │
+│    └── Isolation par cabinet (multi-tenant)                 │
+│    └── Page /securite avec certifications                   │
+│                                                             │
+│ 5. Dashboard personnel                                      │
+│    └── Documents récents                                    │
+│    └── Crédits/usage restant                                │
+│    └── Accès rapide aux templates                           │
+└─────────────────────────────────────────────────────────────┘
+
+P1 — Growth (mois 2-3) — CE QUI FIDÉLISE
+├── 6. Résumé de pièces adverses
+│   └── Upload PDF (pièces, jugements) → résumé structuré
+│   └── Extraction des arguments clés de l&#39;adversaire
+│   └── Suggestion de contre-arguments
+├── 7. Analyse de risques sur un dossier
+│   └── Input : faits + prétentions
+│   └── Output : probabilité de succès, points forts/faibles
+│   └── Basé sur la jurisprudence similaire (RAG)
+├── 8. Historique et versioning
+│   └── Toutes les générations sauvegardées
+│   └── Comparaison de versions
+│   └── Favoris et modèles personnels
+├── 9. Collaboration cabinet
+│   └── Partage de documents entre associés
+│   └── Commentaires internes
+│   └── Rôles (associé, collaborateur, stagiaire)
+└── 10. Intégration email
+    └── Envoi direct de courriers depuis l&#39;app
+    └── Suivi des envois
+
+P2 — Scale (mois 4-6) — CE QUI DIFFÉRENCIE
+├── 11. Veille juridique personnalisée
+│   └── Alertes par spécialité (nouveaux textes, jurisprudence)
+│   └── Résumé hebdomadaire automatique
+├── 12. Dictée vocale → document structuré
+│   └── Whisper (RTX 5090) → transcription → mise en forme
+│   └── Le must pour les avocats en déplacement
+├── 13. Intégration RPVA / e-barreau
+│   └── Dépôt direct des conclusions
+│   └── Suivi des calendriers de procédure
+├── 14. API pour intégration logiciels métier
+│   └── Connecteurs Jarvis, Secib, Kleos
+│   └── Documentation développeur
+├── 15. Analytics cabinet
+│   └── Temps gagné par avocat
+│   └── Types de documents les plus générés
+│   └── ROI mesurable (pour justifier le renouvellement)
+└── 16. Mode on-premise
+    └── Installation sur serveurs du cabinet
+    └── Pour les gros cabinets (50+ avocats)
+    └── Premium : 2 499 €/mois
+</code></pre>
+<h4>Métriques de succès MVP</h4>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Cible J30</th>
+<th>Cible J90</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Conclusions générées/user/semaine</td>
+<td>3+</td>
+<td>5+</td>
+</tr>
+<tr>
+<td>Temps moyen de rédaction (avant/après)</td>
+<td>-60%</td>
+<td>-75%</td>
+</tr>
+<tr>
+<td>NPS</td>
+<td>&gt; 30</td>
+<td>&gt; 50</td>
+</tr>
+<tr>
+<td>Rétention M1</td>
+<td>&gt; 70%</td>
+<td>&gt; 80%</td>
+</tr>
+<tr>
+<td>Taux de conversion trial → payant</td>
+<td>&gt; 15%</td>
+<td>&gt; 25%</td>
+</tr>
+</tbody></table>
+<h4>Conversion — Funnel spécifique avocats</h4>
+<pre><code>ÉTAPE 1 : ACQUISITION (comment ils découvrent le produit)
+├── LinkedIn : contenu ciblé avocats (posts, articles)
+│   └── &quot;Comment j&#39;ai réduit mes conclusions de 4h à 20 min&quot;
+│   └── &quot;Les 5 erreurs des avocats qui utilisent ChatGPT&quot;
+│   └── Ciblage : titre &quot;avocat&quot; + France + cabinet &lt; 50
+├── SEO : articles optimisés
+│   └── &quot;logiciel rédaction juridique&quot;
+│   └── &quot;IA pour avocats&quot;
+│   └── &quot;assistant juridique intelligence artificielle&quot;
+│   └── &quot;alternative ChatGPT avocat RGPD&quot;
+├── Partenariats barreaux
+│   └── Présentation lors des formations continues
+│   └── Article dans la gazette du barreau local
+└── Recommandation (le canal #1 à terme)
+    └── Les avocats parlent entre eux
+    └── Programme de parrainage : 1 mois offert
+
+ÉTAPE 2 : LANDING PAGE (ce qui convertit en inscription)
+├── Hero : &quot;Rédigez vos conclusions en 20 min. Vos données restent en France.&quot;
+├── Démo interactive live (le visiteur tape un résumé → voit le résultat)
+│   └── CRITIQUE : la démo vaut 1000 mots
+│   └── Limiter à 1 génération gratuite (teaser)
+├── Preuves :
+│   ├── Témoignages de 3-5 avocats beta testers (avec photo + nom + barreau)
+│   ├── &quot;Données hébergées en France — chiffrement AES-256&quot;
+│   ├── Badge RGPD + logo hébergeur FR
+│   └── Chiffre clé : &quot;4h → 20 min&quot; / &quot;75% de temps gagné&quot;
+├── Pricing transparent
+│   └── Solo : 149 €/mois (1 utilisateur)
+│   └── Cabinet : 399 €/mois (5 utilisateurs)
+│   └── Enterprise : sur devis
+│   └── &quot;14 jours d&#39;essai gratuit, sans CB&quot;
+└── CTA : &quot;Essayer gratuitement&quot; (pas &quot;Demander une démo&quot;)
+    └── Le self-serve convertit 3-5x mieux que le formulaire de démo
+
+ÉTAPE 3 : ONBOARDING (les 10 premières minutes = tout se joue)
+├── Minute 0-1 : Inscription (email + mot de passe, rien d&#39;autre)
+├── Minute 1-3 : Choix de la spécialité
+│   └── &quot;Quelle est votre spécialité principale ?&quot;
+│   └── Droit du travail / Droit pénal / Droit des affaires / etc.
+│   └── Personnalise immédiatement les templates
+├── Minute 3-5 : Premier document généré (LE MOMENT AHA)
+│   └── Template pré-rempli avec un cas exemple
+│   └── L&#39;utilisateur clique &quot;Générer&quot; → voit le résultat en 30 sec
+│   └── Effet WOW : &quot;ça marche vraiment, c&#39;est pertinent&quot;
+├── Minute 5-10 : Son propre cas
+│   └── Prompt : &quot;Essayez avec un de vos dossiers en cours&quot;
+│   └── Zone de texte pour coller son résumé des faits
+│   └── Génération personnalisée
+└── Follow-up J+1 : Email
+    └── &quot;Voici votre premier document. Voici 3 choses à essayer ensuite :&quot;
+    └── Lien vers les templates les plus populaires
+    └── Lien vers la recherche de jurisprudence
+
+ÉTAPE 4 : ACTIVATION (trial → usage régulier)
+├── Emails de nurturing (J+1, J+3, J+7, J+14)
+│   └── J+1 : &quot;3 astuces pour des conclusions parfaites&quot;
+│   └── J+3 : &quot;Avez-vous essayé la recherche de jurisprudence ?&quot;
+│   └── J+7 : &quot;Maître X a gagné 12h cette semaine avec JurisAI&quot;
+│   └── J+14 : &quot;Votre essai se termine dans 2 jours&quot;
+├── In-app prompts
+│   └── Badge &quot;Nouveau&quot; sur les features non essayées
+│   └── Checklist d&#39;onboarding (3/5 tâches complétées)
+│   └── Compteur de temps gagné (gamification légère)
+└── Support proactif
+    └── Chat live pendant le trial
+    └── Call de 10 min offert à J+3 si pas d&#39;usage
+
+ÉTAPE 5 : CONVERSION (trial → payant)
+├── Soft paywall à J+14
+│   └── &quot;Votre essai gratuit est terminé. Vous avez généré 12 documents
+│       et économisé environ 8h. Continuez pour 149 €/mois.&quot;
+│   └── Résumé personnalisé de l&#39;usage pendant le trial
+│   └── Montrer le ROI : &quot;8h × 250 €/h = 2 000 € de valeur, pour 149 €&quot;
+├── Réductions early adopter
+│   └── -20% si paiement annuel
+│   └── -10% pour les 100 premiers inscrits
+├── Call de closing pour les cabinets (&gt; 3 users)
+│   └── Démo personnalisée 20 min
+│   └── Offre Cabinet sur mesure
+└── Garantie satisfait ou remboursé 30 jours
+    └── Réduit le risque perçu à zéro
+</code></pre>
+<hr>
+<p><a id="prd-niche-2"></a></p>
+<h3>PRD Niche 2 : Codage médical — CodAI Santé</h3>
+<p><strong>Persona</strong> : Dr. Marc L., 52 ans, chirurgien orthopédiste libéral. Il opère 8-10 patients/jour mais sous-code systématiquement ses actes par manque de temps. Il perd ~1 500 €/mois en revenus non-facturés.</p>
+<p><strong>Proposition de valeur</strong> : &quot;Ne perdez plus un euro. CodAI code vos actes automatiquement et détecte le sous-codage.&quot;</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Codage CCAM automatique
+│   └── Input : compte-rendu opératoire ou description acte (texte)
+│   └── Output : codes CCAM correspondants + libellés + tarifs
+│   └── Suggestions multiples si ambiguïté (le médecin valide)
+│   └── Base : nomenclature CCAM officielle (Ameli)
+├── 2. Détection de sous-codage
+│   └── Analyse des actes sur 1-3 mois (import fichier ou saisie)
+│   └── Détecte les actes qui auraient pu être codés différemment
+│   └── Calcul du manque à gagner estimé
+│   └── C&#39;EST LA FEATURE QUI VEND : &quot;Vous perdez 1 500 €/mois&quot;
+├── 3. Vérification cohérence acte/diagnostic
+│   └── Alerte si le code ne correspond pas au diagnostic CIM-10
+│   └── Prévient les rejets CPAM avant envoi
+├── 4. Dashboard revenus
+│   └── Vue mensuelle des actes codés
+│   └── Comparaison vs mois précédent
+│   └── Alertes sur les anomalies
+└── 5. Auth + Sécurité HDS
+    └── Hébergement certifié HDS (obligatoire données de santé)
+    └── MFA, chiffrement, audit trail
+
+P1 — Growth (mois 2-3)
+├── 6. Ententes préalables automatiques
+│   └── Génération du formulaire pré-rempli
+│   └── Suivi des réponses CPAM
+├── 7. Suivi des rejets CPAM + correction
+│   └── Import des retours CPAM
+│   └── Analyse du motif de rejet
+│   └── Proposition de correction
+├── 8. Intégration logiciels de cabinet
+│   └── Connecteurs : Doctolib, Weda, Hellodoc, Maiia
+│   └── Import automatique des consultations
+└── 9. Reporting avancé
+    └── Revenus par type d&#39;acte
+    └── Taux de rejet par motif
+    └── Benchmark vs moyenne spécialité
+
+P2 — Scale (mois 4-6)
+├── 10. Mode multi-praticien (clinique/centre de santé)
+├── 11. Prédiction de revenus mensuels
+├── 12. Formation en ligne codage CCAM (upsell)
+└── 13. API pour éditeurs de logiciels médicaux
+</code></pre>
+<h4>Conversion spécifique médecins</h4>
+<pre><code>HOOK PRINCIPAL : l&#39;audit gratuit de sous-codage
+├── Le médecin upload 3 mois de relevés CPAM (ou saisit ses actes)
+├── L&#39;outil analyse et affiche : &quot;Vous perdez ~X €/mois en sous-codage&quot;
+├── C&#39;est GRATUIT et IMMÉDIAT → acquisition virale
+├── Pour voir les corrections détaillées → inscription trial
+└── ROI évident : &quot;79 €/mois pour récupérer 1 500 €/mois&quot;
+
+CANAUX :
+├── Congrès médicaux (stand + démo live de l&#39;audit)
+├── Groupes Facebook médecins libéraux (très actifs)
+├── Partenariats avec les URPS (unions régionales)
+├── Bouche à oreille entre confrères (le canal #1)
+└── YouTube : &quot;Médecins : combien perdez-vous en sous-codage ?&quot;
+</code></pre>
+<hr>
+<p><a id="prd-niche-3"></a></p>
+<h3>PRD Niche 3 : Rédaction médicale — DictAI Med</h3>
+<p><strong>Persona</strong> : Dr. Isabelle R., 45 ans, médecin généraliste, 30 patients/jour. Elle dicte ses comptes-rendus sur un dictaphone, sa secrétaire les tape le lendemain. Retard permanent de 2-3 jours sur les courriers.</p>
+<p><strong>Proposition de valeur</strong> : &quot;Dictez, c&#39;est rédigé. Comptes-rendus structurés en temps réel.&quot;</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Dictée vocale → compte-rendu structuré
+│   └── Enregistrement audio dans l&#39;app (web ou mobile)
+│   └── Whisper Large v3 (RTX 5090) → transcription
+│   └── LLM fine-tuné → structuration en sections médicales
+│   └── (Motif, Examen, Diagnostic, Traitement, Suivi)
+│   └── Terminologie médicale correcte automatiquement
+├── 2. Templates par spécialité
+│   └── Consultation généraliste
+│   └── Compte-rendu opératoire
+│   └── Courrier au spécialiste / au généraliste
+│   └── Certificat médical
+│   └── Lettre d&#39;adressage
+├── 3. Export et envoi
+│   └── Export PDF/Word avec en-tête du cabinet
+│   └── Envoi par email (intégration Resend)
+│   └── Copie auto dans le dossier patient
+└── 4. Sécurité HDS
+    └── Audio et texte chiffrés
+    └── Suppression audio après transcription (option)
+    └── Hébergement HDS certifié
+
+P1 — Growth
+├── 5. Résumé de dossier patient
+│   └── Upload de documents passés → résumé synthétique
+├── 6. Traduction médicale (patient étranger)
+├── 7. App mobile (enregistrement hors connexion)
+├── 8. Intégration DMP/logiciels de cabinet
+└── 9. Modèles personnalisables par praticien
+
+P2 — Scale
+├── 10. Transcription de consultations en temps réel
+│   └── Le médecin parle au patient, l&#39;app structure le CR en live
+├── 11. Aide au diagnostic différentiel
+├── 12. Multi-langues (arabe, turc, chinois → français)
+└── 13. Mode hôpital (multi-service)
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : test gratuit en 30 secondes
+├── Page d&#39;accueil : bouton micro &quot;Dictez un compte-rendu&quot;
+├── L&#39;utilisateur dicte 30 sec → voit le CR structuré instantanément
+├── Pas besoin d&#39;inscription pour tester
+├── Effet WOW immédiat → inscription pour sauvegarder
+└── Cible : &quot;Essayez maintenant, pas de CB requise&quot;
+</code></pre>
+<hr>
+<p><a id="prd-niche-4"></a></p>
+<h3>PRD Niche 4 : Saisie comptable — ComptAI</h3>
+<p><strong>Persona</strong> : Laurent M., 42 ans, expert-comptable, cabinet de 8 collaborateurs, 200 dossiers clients. Ses collaborateurs passent 60% de leur temps sur la saisie. Il perd des clients à cause des délais.</p>
+<p><strong>Proposition de valeur</strong> : &quot;Divisez par 3 le temps de saisie. Vos collaborateurs se concentrent sur le conseil.&quot;</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. OCR factures + catégorisation automatique
+│   └── Upload photo/PDF de facture
+│   └── Extraction : fournisseur, montant HT/TTC, TVA, date
+│   └── Catégorisation sur le plan comptable du client
+│   └── Apprentissage par client (s&#39;améliore avec l&#39;usage)
+├── 2. Génération d&#39;écritures comptables
+│   └── Écriture pré-remplie à partir de la facture OCR
+│   └── Validation en 1 clic
+│   └── Export FEC compatible
+├── 3. Rapprochement bancaire intelligent
+│   └── Import relevés (CSV/OFX)
+│   └── Matching automatique factures ↔ mouvements
+│   └── Suggestions pour les non-matchés
+├── 4. Dashboard dossiers
+│   └── Vue par client
+│   └── Avancement saisie
+│   └── Alertes retard
+└── 5. Multi-dossiers / multi-collaborateurs
+
+P1 — Growth
+├── 6. Détection d&#39;anomalies
+│   └── Doublons, montants incohérents, TVA erronée
+├── 7. Lettrage automatique
+├── 8. Rapports de gestion automatiques
+│   └── Tableaux de bord mensuels par client
+│   └── Export PDF personnalisé
+├── 9. Intégration logiciels comptables
+│   └── Connecteurs : Sage, Cegid, ACD, Pennylane
+└── 10. Import bancaire automatique (open banking)
+
+P2 — Scale
+├── 11. Pré-remplissage liasses fiscales
+├── 12. Lettres de mission personnalisées
+├── 13. Prévisionnel de trésorerie AI
+└── 14. Portail client (dépôt de pièces)
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : audit de productivité gratuit
+├── Formulaire : nombre de dossiers, collaborateurs, logiciel actuel
+├── Résultat instantané : &quot;Vous pourriez gagner X heures/mois&quot;
+├── Comparaison avant/après avec chiffres personnalisés
+└── CTA : &quot;Testez sur 5 dossiers gratuitement pendant 30 jours&quot;
+</code></pre>
+<hr>
+<p><a id="prd-niche-5"></a></p>
+<h3>PRD Niche 5 : Assistant notarial — NotarIA</h3>
+<p><strong>Persona</strong> : Me. Claire V., 50 ans, notaire associée, étude de 4 notaires + 10 collaborateurs. La rédaction d&#39;actes types prend un temps fou malgré les modèles Word existants.</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Génération d&#39;actes types
+│   └── Vente immobilière, donation, succession, PACS, SCI
+│   └── Input : formulaire structuré (parties, biens, conditions)
+│   └── Output : acte complet avec clauses standard + personnalisées
+│   └── Références légales automatiques
+├── 2. Pré-remplissage intelligent
+│   └── Upload des pièces (titre propriété, cadastre, diagnostics)
+│   └── Extraction automatique des infos → injection dans l&#39;acte
+├── 3. Calcul droits et frais
+│   └── Calcul automatique des frais de notaire
+│   └── Droits d&#39;enregistrement, taxes, émoluments
+│   └── Simulation pour le client
+└── 4. Export + signature
+    └── Export Word/PDF conforme
+    └── Compatible avec les logiciels notariaux
+
+P1 — Growth
+├── 5. Vérification conformité
+│   └── Check automatique des clauses obligatoires
+│   └── Alerte si clause manquante ou obsolète
+├── 6. Résumé de dossier
+├── 7. Courriers de formalités automatiques
+├── 8. Gestion des délais légaux (alertes)
+└── 9. Base de clauses personnalisées par étude
+
+P2 — Scale
+├── 10. Intégration MICEN / Télé@ctes
+├── 11. Recherches cadastrales automatisées
+├── 12. Espace client (suivi du dossier en ligne)
+└── 13. Mode multi-étude
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : démo sur un acte réel
+├── Webinaire mensuel : &quot;Rédigez un acte de vente en 5 min avec l&#39;IA&quot;
+├── Invitation via Chambre des Notaires + LinkedIn
+├── Démo live avec un cas concret
+├── Offre exclusive participants : 2 mois offerts
+└── Follow-up individuel post-webinaire
+</code></pre>
+<hr>
+<p><a id="prd-niche-6"></a></p>
+<h3>PRD Niche 6 : Veille réglementaire — VeillAI</h3>
+<p><strong>Persona</strong> : Tout professionnel réglementé qui doit suivre les évolutions légales. Cross-niche.</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Extraction automatique JO + Légifrance
+│   └── Crawl quotidien des nouveaux textes
+│   └── Filtrage par mots-clés et domaine
+├── 2. Résumé AI des textes pertinents
+│   └── Chaque texte résumé en 3-5 lignes
+│   └── Impact potentiel identifié
+│   └── Lien vers le texte original
+├── 3. Newsletter personnalisée
+│   └── Email quotidien ou hebdomadaire
+│   └── Personnalisé par spécialité
+└── 4. Dashboard de veille
+    └── Timeline des modifications
+    └── Recherche dans l&#39;historique
+    └── Favoris / alertes personnalisées
+
+P1 — Growth
+├── 5. Comparaison ancien/nouveau texte (diff visuel)
+├── 6. Alerte impact sur les dossiers en cours
+├── 7. Veille européenne (EUR-Lex)
+├── 8. Intégration Slack/Teams (notifications)
+└── 9. Rapport mensuel PDF automatique
+
+P2 — Scale
+├── 10. Prédiction de tendances réglementaires
+├── 11. Base de connaissances collaborative
+├── 12. API pour intégration dans d&#39;autres outils
+└── 13. Version anglaise (expansion internationale)
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : freemium fort
+├── Plan gratuit : 1 domaine de veille, newsletter hebdo
+├── L&#39;utilisateur s&#39;habitue → veut plus de domaines + quotidien
+├── Upgrade naturel → 49 €/mois pour le plan complet
+└── Viralité : &quot;Partager cette veille avec un collègue&quot; → acquisition
+</code></pre>
+<hr>
+<p><a id="prd-niche-7"></a></p>
+<h3>PRD Niche 7 : Due diligence — DiligenceAI</h3>
+<p><strong>Persona</strong> : Alexandre P., 35 ans, avocat M&amp;A dans un cabinet mid-size. Il passe 3 semaines à analyser une data room de 500+ documents lors d&#39;une acquisition.</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Upload et ingestion de data room
+│   └── Upload batch (ZIP, dossier, drag &amp; drop)
+│   └── OCR automatique si PDF scannés
+│   └── Indexation et classification par type de document
+├── 2. Extraction de clauses clés
+│   └── Pour chaque contrat : parties, durée, montant,
+│       clause de résiliation, pénalités, exclusivité,
+│       changement de contrôle, non-concurrence
+│   └── Matrice de synthèse exportable Excel
+├── 3. Détection de risques
+│   └── Clauses inhabituelles ou défavorables
+│   └── Incohérences entre documents
+│   └── Documents manquants par rapport à la checklist type
+├── 4. Résumé exécutif automatique
+│   └── Synthèse globale de la data room
+│   └── Points clés pour le client
+│   └── Alertes hiérarchisées (critique/majeur/mineur)
+└── 5. Export rapport de due diligence
+    └── PDF structuré professionnel
+    └── Annexes avec les extraits sources
+    └── Prêt à envoyer au client
+
+P1 — Growth
+├── 6. Comparaison de contrats (versions, fournisseurs)
+├── 7. Timeline des obligations contractuelles
+├── 8. Q&amp;A sur la data room (chatbot RAG)
+├── 9. Collaboration (annotations, commentaires)
+└── 10. Templates de rapports personnalisables
+
+P2 — Scale
+├── 11. Intégration plateformes VDR (Intralinks, Datasite)
+├── 12. Scoring de qualité de la data room
+├── 13. Mode multi-deal simultané
+└── 14. Benchmark clauses vs marché
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : pricing au projet (pas d&#39;abonnement)
+├── &quot;Analysez votre data room pour 2 000-5 000 €&quot;
+├── Beaucoup plus facile à vendre qu&#39;un abonnement pour du M&amp;A ponctuel
+├── Upsell vers abonnement pour les repeat buyers
+├── Démo gratuite : upload 10 documents → voir l&#39;extraction
+└── Référence : &quot;3 semaines de travail junior → 2 heures avec DiligenceAI&quot;
+</code></pre>
+<hr>
+<p><a id="prd-niche-8"></a></p>
+<h3>PRD Niche 8 : Gestion RH et paie — PaieAI</h3>
+<p><strong>Persona</strong> : Nathalie T., 48 ans, responsable pôle social dans un cabinet comptable. Elle gère 300 bulletins de paie/mois avec 2 collaboratrices. Les conventions collectives changent sans arrêt et les erreurs coûtent cher.</p>
+<h4>Features par priorité</h4>
+<pre><code>P0 — MVP
+├── 1. Vérification bulletins de paie
+│   └── Upload bulletin PDF → analyse automatique
+│   └── Check vs convention collective applicable
+│   └── Détection d&#39;erreurs : taux, primes, ancienneté, congés
+│   └── Rapport d&#39;anomalies avec corrections suggérées
+├── 2. Veille conventions collectives
+│   └── Alerte automatique changement de convention
+│   └── Résumé des impacts sur les bulletins
+│   └── Checklist des modifications à appliquer
+├── 3. Génération contrats de travail
+│   └── Input : poste, convention, durée, rémunération
+│   └── Output : contrat conforme complet
+│   └── Clauses adaptées à la convention collective
+├── 4. Simulation coût employeur
+│   └── Charges patronales détaillées
+│   └── Coût total par salarié
+│   └── Simulation augmentation / prime
+└── 5. Courriers RH types
+    └── Avertissement, licenciement, attestation, avenant
+    └── Conformes au Code du travail + convention
+
+P1 — Growth
+├── 6. Calcul provisions automatique (CP, RTT, 13e mois)
+├── 7. Tableau de bord social par client
+├── 8. Intégration Silae, PayFit, Sage Paie
+├── 9. Gestion des DSN (anomalies, corrections)
+└── 10. Base de connaissances paie (FAQ par convention)
+
+P2 — Scale
+├── 11. Prédiction de la masse salariale
+├── 12. Audit social automatisé
+├── 13. Portail salarié (bulletins, attestations)
+└── 14. Mode multi-cabinet
+</code></pre>
+<h4>Conversion spécifique</h4>
+<pre><code>HOOK : audit de conformité gratuit
+├── Upload de 5 bulletins + convention applicable
+├── Analyse automatique → &quot;3 erreurs détectées sur 5 bulletins&quot;
+├── Impact financier : &quot;Risque de redressement URSSAF : X €&quot;
+├── Pour voir le détail → inscription trial
+└── Peur du redressement = levier de conversion puissant
+</code></pre>
+<hr>
+<h2>PLAYBOOK CONVERSION UNIVERSEL — Applicable à toutes les niches</h2>
+<blockquote>
+<p>Ce playbook détaille les mécanismes psychologiques et les tactiques opérationnelles pour maximiser la conversion à chaque étape du funnel. Il s&#39;applique à n&#39;importe quelle niche pro.</p>
+</blockquote>
+<h3>Principe #1 : Démontrer le ROI avant de demander la CB</h3>
+<pre><code>LA RÈGLE D&#39;OR :
+Le prospect doit VOIR la valeur AVANT de payer.
+
+MAUVAIS funnel (taux de conversion : 1-3%)
+Pub → Landing → &quot;Demander une démo&quot; → Call sales → Démo → Trial → Payant
+       ❌ Trop de friction, cycle trop long
+
+BON funnel (taux de conversion : 8-15%)
+Pub → Landing avec démo live intégrée → Inscription gratuite → Moment Aha
+      en &lt; 5 min → Usage trial 14j → Paywall avec ROI personnalisé → Payant
+       ✅ Le prospect se convainc lui-même
+</code></pre>
+<h3>Principe #2 : Le &quot;Moment Aha&quot; doit arriver en &lt; 5 minutes</h3>
+<pre><code>Pour chaque niche, le Moment Aha c&#39;est :
+
+Niche 1 (Avocats)    → Voir ses conclusions rédigées à partir de son résumé
+Niche 2 (Codage)     → Voir le montant qu&#39;il perd en sous-codage
+Niche 3 (Rédaction)  → Dicter 30 sec et voir le CR structuré
+Niche 4 (Comptable)  → Photographier une facture et voir l&#39;écriture comptable
+Niche 5 (Notaire)    → Remplir un formulaire et voir l&#39;acte généré
+Niche 6 (Veille)     → Recevoir son premier résumé personnalisé
+Niche 7 (Due dilig.) → Uploader 10 docs et voir la matrice d&#39;extraction
+Niche 8 (Paie)       → Voir les erreurs dans ses propres bulletins
+
+RÈGLE : Si le Moment Aha prend plus de 5 min → tu perds 80% des prospects.
+Optimiser ce moment est la chose la PLUS IMPORTANTE du produit.
+</code></pre>
+<h3>Principe #3 : La landing page qui convertit</h3>
+<pre><code>STRUCTURE OPTIMALE (testée, prouvée) :
+
+ABOVE THE FOLD (0 scroll)
+┌─────────────────────────────────────────────┐
+│  Logo                          [Connexion]  │
+│                                             │
+│  Badge : &quot;Utilisé par 200+ [profession]s&quot;   │
+│                                             │
+│  HEADLINE (1 phrase, bénéfice principal)     │
+│  &quot;Rédigez vos [document] en [X] min         │
+│   au lieu de [Y] heures&quot;                    │
+│                                             │
+│  SOUS-TITRE (1 phrase, réassurance)          │
+│  &quot;Vos données restent en France.            │
+│   Conforme RGPD.&quot;                           │
+│                                             │
+│  [CTA PRINCIPAL : Essayer gratuitement]     │
+│  &quot;14 jours gratuits — sans carte bancaire&quot;  │
+│                                             │
+│  ─── ou ───                                 │
+│                                             │
+│  [DÉMO INTERACTIVE LIVE]                     │
+│  Zone où le visiteur peut tester en 1 clic  │
+│  (sans inscription)                          │
+│                                             │
+│  Logos clients / badges sécurité             │
+└─────────────────────────────────────────────┘
+
+SECTION 2 : Le problème (empathie)
+├── &quot;Vous passez [X]h par semaine sur [tâche]&quot;
+├── &quot;Pendant ce temps, vous ne faites pas [activité à haute valeur]&quot;
+└── &quot;Et si vous pouviez récupérer ce temps ?&quot;
+
+SECTION 3 : La solution (3 features clés)
+├── Feature 1 : [la plus impressionnante] + screenshot/gif
+├── Feature 2 : [la plus utile au quotidien] + screenshot/gif
+├── Feature 3 : [le différenciateur] + screenshot/gif
+└── Chaque feature = 1 titre + 2 lignes + 1 visuel
+
+SECTION 4 : Preuve sociale
+├── 3-5 témoignages avec photo + nom + titre + entreprise
+│   └── Format : &quot;Avant [problème]. Maintenant [résultat]. Chiffre clé.&quot;
+├── Logos des cabinets/entreprises clients
+├── Chiffres : &quot;X documents générés&quot; / &quot;Y heures gagnées&quot;
+└── Note moyenne (étoiles) si disponible
+
+SECTION 5 : Sécurité et conformité
+├── &quot;Vos données ne quittent jamais la France&quot;
+├── Logos : RGPD, chiffrement AES-256, hébergeur FR
+├── Lien vers la page /securite détaillée
+└── Pour les médecins : badge HDS
+
+SECTION 6 : Pricing
+├── 2-3 plans clairement différenciés
+├── Plan recommandé mis en avant visuellement
+├── Toggle mensuel / annuel (montrer l&#39;économie)
+├── Feature comparison table
+├── FAQ sous le pricing (objections courantes)
+│   ├── &quot;Mes données sont-elles en sécurité ?&quot;
+│   ├── &quot;Puis-je annuler à tout moment ?&quot;
+│   ├── &quot;L&#39;IA fait-elle des erreurs ?&quot;
+│   ├── &quot;Faut-il une formation ?&quot;
+│   └── &quot;Est-ce compatible avec mon logiciel actuel ?&quot;
+└── CTA répété : [Essayer gratuitement]
+
+SECTION 7 : Footer CTA
+├── Rappel du bénéfice principal
+├── CTA final
+└── &quot;Des questions ? Contactez-nous : email / tel&quot;
+</code></pre>
+<h3>Principe #4 : Le pricing qui convertit</h3>
+<pre><code>PSYCHOLOGIE DU PRICING POUR LES PROS
+
+1. ANCHORING (ancrage)
+   └── Montrer le coût SANS l&#39;outil d&#39;abord
+   └── &quot;Un collaborateur junior coûte 2 500 €/mois&quot;
+   └── &quot;Notre outil fait le même travail pour 149 €/mois&quot;
+   └── Le prix paraît dérisoire en comparaison
+
+2. ROI EXPLICITE
+   └── Calculateur de ROI sur la landing page
+   └── Input : nombre d&#39;heures sur [tâche], taux horaire
+   └── Output : &quot;Vous économisez X €/mois, soit Yx le prix de l&#39;outil&quot;
+   └── Le prospect se convainc avec SES propres chiffres
+
+3. PLANS CROISSANTS (bon/meilleur/premium)
+   └── Solo : pour tester et adopter (individuel)
+   └── Cabinet : le plan que tu VEUX vendre (5-10 users, meilleure marge)
+   └── Enterprise : pour les gros (signal de crédibilité)
+   └── Mettre &quot;POPULAIRE&quot; sur le plan Cabinet
+
+4. ANNUEL vs MENSUEL
+   └── Toujours proposer les deux
+   └── Annuel = -20% → afficher &quot;Économisez X €/an&quot;
+   └── Le mensuel rassure les indécis
+   └── Le switch annuel augmente la LTV de 30-40%
+
+5. TRIAL SANS CB
+   └── &quot;14 jours gratuits, sans carte bancaire&quot;
+   └── Convertit 2-3x mieux qu&#39;un trial avec CB
+   └── Tu perds des tire-au-flanc mais tu gagnes plus de vrais clients
+   └── Le soft paywall à J14 convertit 15-25% des trialists actifs
+
+6. GARANTIE SATISFAIT OU REMBOURSÉ
+   └── 30 jours de garantie après le paiement
+   └── Réduit le risque perçu à zéro
+   └── Taux de remboursement réel : &lt; 5% (si le produit est bon)
+   └── Augmente le taux de conversion de 10-20%
+</code></pre>
+<h3>Principe #5 : Les métriques qui comptent (par étape)</h3>
+<pre><code>FUNNEL METRICS — CE QUE TU DOIS TRACKER
+
+Acquisition :
+├── Visiteurs uniques / mois
+├── Source de trafic (LinkedIn, SEO, referral, ads)
+├── Coût par visiteur (par canal)
+└── Taux de conversion visiteur → inscription : cible 5-10%
+
+Activation :
+├── Time to Aha (temps entre inscription et Moment Aha) : cible &lt; 5 min
+├── Taux de complétion onboarding : cible &gt; 60%
+├── Actions J1 (a-t-il créé un document ?) : cible &gt; 50%
+└── Actions J7 (est-il revenu ?) : cible &gt; 40%
+
+Conversion :
+├── Taux trial → payant : cible 15-25%
+├── ARPU (average revenue per user) : dépend de la niche
+├── Revenue par canal d&#39;acquisition
+└── Cycle de vente moyen : cible &lt; 14 jours (solo), &lt; 30 jours (cabinet)
+
+Rétention :
+├── Churn mensuel : cible &lt; 3-5%
+├── NPS : cible &gt; 40
+├── Documents générés/user/mois (usage = rétention)
+├── DAU/MAU ratio : cible &gt; 30%
+└── Expansion revenue (upsell) : cible 10-20% du MRR
+
+Referral :
+├── Taux de parrainage : cible 10-15% des users réfèrent
+├── K-factor : cible &gt; 0.3 (chaque user ramène 0.3 nouveau user)
+└── Source &quot;bouche à oreille&quot; dans les inscriptions
+</code></pre>
+<h3>Principe #6 : L&#39;email séquence qui convertit les trials</h3>
+<pre><code>SÉQUENCE D&#39;EMAILS PENDANT LE TRIAL (14 jours)
+
+J+0 (immédiat) : Bienvenue
+├── Sujet : &quot;Bienvenue sur [Produit] — voici votre 1er pas&quot;
+├── Contenu : lien direct vers le Moment Aha
+├── CTA : &quot;Créer votre premier [document]&quot;
+└── Ton : chaleureux, pas vendeur
+
+J+1 : Astuce #1
+├── Sujet : &quot;Astuce : comment obtenir de meilleurs résultats&quot;
+├── Contenu : 1 tip concret pour améliorer les outputs
+├── Exemple : &quot;Ajoutez les articles de loi dans votre résumé
+│   pour des citations plus précises&quot;
+└── CTA : &quot;Essayer maintenant&quot;
+
+J+3 : Feature discovery
+├── Sujet : &quot;Avez-vous essayé [feature #2] ?&quot;
+├── Contenu : présentation de la 2e feature clé
+├── Inclure un GIF/vidéo de 15 sec
+└── CTA : &quot;Découvrir [feature]&quot;
+
+J+5 : Preuve sociale
+├── Sujet : &quot;Comment Me. [Nom] gagne 10h/semaine avec [Produit]&quot;
+├── Contenu : témoignage client détaillé
+├── Chiffres concrets : avant/après
+└── CTA : &quot;Obtenir les mêmes résultats&quot;
+
+J+7 : Check-in
+├── Sujet : &quot;Comment se passe votre essai ?&quot;
+├── Contenu : court, personnel
+├── Proposer un call de 10 min si besoin d&#39;aide
+└── Répondre directement à cet email (pas de no-reply)
+
+J+10 : Urgence douce
+├── Sujet : &quot;Il vous reste 4 jours d&#39;essai gratuit&quot;
+├── Contenu : résumé de l&#39;usage pendant le trial
+│   └── &quot;Vous avez créé X documents et gagné ~Y heures&quot;
+├── ROI personnalisé : &quot;Y heures × votre taux horaire = Z €&quot;
+└── CTA : &quot;Continuer pour seulement [prix] €/mois&quot;
+
+J+13 : Dernière chance
+├── Sujet : &quot;Votre essai se termine demain&quot;
+├── Contenu : offre spéciale -20% si souscription annuelle
+├── Rappel de la valeur : &quot;Ne perdez pas accès à vos documents&quot;
+└── CTA : &quot;Souscrire maintenant (-20%)&quot;
+
+J+14 : Expiration
+├── Sujet : &quot;Votre essai est terminé — mais vos données sont conservées&quot;
+├── Contenu : rassurer (rien n&#39;est perdu)
+├── Offre de dernière minute : -10% supplémentaire
+└── &quot;Répondez à cet email si vous avez des questions&quot;
+
+J+21 (winback) : Relance
+├── Sujet : &quot;Nous avons ajouté [nouvelle feature] depuis votre essai&quot;
+├── Contenu : ce qui a changé / amélioré
+├── Offre de réessai : 7 jours supplémentaires gratuits
+└── CTA : &quot;Réactiver mon essai&quot;
+</code></pre>
+<hr>
+<h2>Réalisation de A à Z — Guide complet</h2>
+<h3>Phase 1 : Validation (semaine 1-4)</h3>
+<pre><code>SEMAINE 1-2 : Recherche terrain
+├── Choisir 1 niche (recommandation : Niche 1 — avocats)
+├── Identifier 30-50 professionnels cibles
+│   └── LinkedIn (filtrer par profession + ville + taille cabinet)
+│   └── Annuaires professionnels (CNB pour avocats, CNOM pour médecins)
+│   └── Réseau personnel
+├── Contacter pour des interviews (15-20 min)
+│   └── Script : &quot;Je développe un outil AI pour [profession].
+│       J&#39;aimerais comprendre vos défis quotidiens. 15 min de votre temps ?&quot;
+│   └── Objectif : 10-15 interviews minimum
+├── Questions clés :
+│   ├── &quot;Quelle tâche vous prend le plus de temps au quotidien ?&quot;
+│   ├── &quot;Combien de temps passez-vous sur [tâche spécifique] par semaine ?&quot;
+│   ├── &quot;Avez-vous déjà essayé des outils AI ? Pourquoi ça n&#39;a pas marché ?&quot;
+│   ├── &quot;Si un outil pouvait faire X en 2 min au lieu de 2h, combien paieriez-vous ?&quot;
+│   └── &quot;Quelles sont vos contraintes de confidentialité ?&quot;
+└── Documenter les patterns (quels problèmes reviennent le plus)
+
+SEMAINE 3-4 : Validation quantitative
+├── Créer une landing page (Claude Code, 1 jour)
+│   └── Headline : &quot;[Profession] : gagnez [X]h par semaine grâce à l&#39;IA&quot;
+│   └── Explication du produit (3-5 features clés)
+│   └── Vidéo démo (mockup, 2 min)
+│   └── Formulaire inscription beta (email + infos cabinet)
+│   └── Pricing indicatif (pour tester la willingness to pay)
+├── Acquisition de trafic
+│   └── LinkedIn ads ciblées (budget : 500-1 000 €)
+│   └── Posts LinkedIn organiques (3-5 posts/semaine)
+│   └── Groupes Facebook/LinkedIn de la profession
+│   └── Cold emails personnalisés (50-100)
+├── Gate de validation
+│   └── ✅ 50+ inscriptions beta → GO
+│   └── ⚠️ 20-50 inscriptions → ajuster le positionnement
+│   └── ❌ &lt; 20 inscriptions → pivoter de niche
+└── Livrable : liste de 10-20 beta testers engagés
+</code></pre>
+<h3>Phase 2 : Dataset et fine-tuning (semaine 5-8)</h3>
+<pre><code>SEMAINE 5-6 : Collecte de données
+├── Sources de données (selon la niche)
+│   ├── AVOCATS :
+│   │   ├── Légifrance API (textes de loi, jurisprudence — gratuit, public)
+│   │   ├── DILA open data (Journal Officiel — gratuit)
+│   │   ├── Doctrine.fr (jurisprudence — partenariat ou scraping légal)
+│   │   ├── Conclusions et actes anonymisés (fournis par beta testers)
+│   │   └── Manuels et traités juridiques (domaine public ou licence)
+│   ├── MÉDECINS :
+│   │   ├── HAS (recommandations, référentiels — gratuit, public)
+│   │   ├── CCAM / NGAP (nomenclature — Ameli open data)
+│   │   ├── Vidal / BDPM (médicaments — API publique)
+│   │   ├── Comptes-rendus anonymisés (fournis par beta testers)
+│   │   └── Terminologie SNOMED CT / CIM-10
+│   └── COMPTABLES :
+│       ├── Plan comptable général (public)
+│       ├── BOFiP (doctrine fiscale — gratuit)
+│       ├── Conventions collectives (Légifrance)
+│       └── Écritures comptables anonymisées (beta testers)
+├── Préparation du dataset
+│   └── Format : instruction / input / output (alpaca-style)
+│   └── Exemples pour avocats :
+│       ├── instruction: &quot;Rédige des conclusions en réponse&quot;
+│       │   input: &quot;[résumé des faits + arguments adverses]&quot;
+│       │   output: &quot;[conclusions structurées avec visa des textes]&quot;
+│       ├── instruction: &quot;Trouve la jurisprudence applicable&quot;
+│       │   input: &quot;[question juridique]&quot;
+│       │   output: &quot;[arrêts pertinents avec références exactes]&quot;
+│       └── instruction: &quot;Rédige une mise en demeure&quot;
+│           input: &quot;[contexte + demande]&quot;
+│           output: &quot;[lettre formatée]&quot;
+│   └── Volume cible : 2 000-5 000 exemples de qualité
+│   └── Qualité &gt; quantité : chaque exemple vérifié par un pro
+└── Nettoyage et anonymisation
+    └── Supprimer toute donnée personnelle
+    └── Remplacer noms/adresses par des placeholders
+    └── Vérifier la conformité RGPD du dataset
+
+SEMAINE 7-8 : Fine-tuning sur RTX 5090
+├── Modèle de base recommandé
+│   └── Llama 3.1 8B Instruct → meilleur rapport qualité/VRAM
+│   └── Alternative : Mistral 7B v0.3 (bon en français)
+│   └── Si besoin de plus de capacité : Llama 3.1 70B en QLoRA 4-bit
+├── Configuration fine-tuning (QLoRA)
+│   └── Framework : Unsloth (2x plus rapide, économise VRAM)
+│   └── Quantization : 4-bit (QLoRA)
+│   └── LoRA rank : 64-128
+│   └── Learning rate : 1e-4 à 2e-4
+│   └── Epochs : 3-5
+│   └── Batch size : 4-8 (RTX 5090 32 Go le permet)
+│   └── Temps estimé : 2-6h pour 3000 exemples sur 8B
+├── Setup technique
+│   └── Python 3.11 + CUDA 12.x
+│   └── pip install unsloth transformers datasets peft
+│   └── Script de training (voir ci-dessous)
+├── Évaluation
+│   └── Métriques automatiques (perplexity, BLEU, ROUGE)
+│   └── Évaluation humaine : 50 exemples jugés par des pros
+│   └── Comparaison : modèle fine-tuné vs GPT-4 vs modèle de base
+│   └── Objectif : battre GPT-4 sur 70%+ des cas de la niche
+├── Itération
+│   └── Si résultats insuffisants → ajouter des exemples ciblés
+│   └── Si hallucinations → ajouter du RAG (phase suivante)
+│   └── Si trop lent → optimiser avec vLLM ou TensorRT-LLM
+└── Livrable : modèle fine-tuné (.gguf ou adapters LoRA)
+</code></pre>
+<h3>Phase 3 : Construction du produit (semaine 9-14)</h3>
+<pre><code>SEMAINE 9-10 : Architecture technique
+├── Stack recommandée
+│   ├── Frontend : Next.js 16 + Tailwind (Claude Code)
+│   ├── Backend : Next.js API routes + tRPC
+│   ├── Base de données : Supabase (PostgreSQL + Auth + Storage)
+│   ├── Inference AI : vLLM ou Ollama sur RTX 5090
+│   ├── RAG : LangChain + pgvector (embeddings dans Supabase)
+│   ├── File processing : LlamaParse ou Docling (extraction PDF)
+│   ├── Recherche : Typesense ou Meilisearch (recherche full-text)
+│   ├── Auth : Supabase Auth (SSO pour cabinets)
+│   └── Billing : Stripe (abonnements mensuels)
+├── Architecture globale
+│   └── Client (Next.js) → API (Next.js) → Queue (BullMQ/Redis)
+│       → Worker (vLLM sur RTX 5090) → Résultat → Client
+│   └── Le RAG enrichit chaque requête avec du contexte vérifié
+│   └── Audit trail : chaque requête/réponse est loguée
+└── Sécurité (CRITIQUE pour les pros)
+    ├── Chiffrement end-to-end (TLS 1.3)
+    ├── Données stockées chiffrées au repos (AES-256)
+    ├── Authentification forte (MFA obligatoire)
+    ├── Isolation des données par cabinet (multi-tenancy stricte)
+    ├── Hébergement France (ou on-premise)
+    ├── Logs d&#39;audit immutables
+    ├── Conformité RGPD documentée
+    ├── PIA (Privacy Impact Assessment) réalisé
+    └── Si santé : hébergement HDS certifié (OVH, Scaleway)
+
+SEMAINE 11-12 : Développement des features core
+├── Claude Code : développement rapide de toute l&#39;app
+├── Features MVP (OBLIGATOIRES pour le lancement)
+│   ├── 1. Authentification + onboarding
+│   │   └── Inscription, login, MFA, profil cabinet
+│   │   └── Choix de la spécialité (pour personnaliser les templates)
+│   ├── 2. Interface de rédaction assistée
+│   │   └── Éditeur de texte riche (TipTap ou Plate)
+│   │   └── Panel AI latéral (suggestions, reformulations)
+│   │   └── Templates par type de document
+│   │   └── Historique des générations
+│   ├── 3. Moteur RAG (recherche dans les sources)
+│   │   └── Upload de documents de référence (lois, jurisprudence, interne)
+│   │   └── Recherche sémantique dans la base
+│   │   └── Citations automatiques avec sources
+│   │   └── Détection d&#39;hallucinations (cross-check avec les sources)
+│   ├── 4. Génération de documents
+│   │   └── Input structuré (formulaire adapté au type de doc)
+│   │   └── Génération en streaming (effet machine à écrire)
+│   │   └── Export Word/PDF
+│   │   └── Historique + versioning
+│   ├── 5. Dashboard utilisateur
+│   │   └── Documents récents
+│   │   └── Statistiques d&#39;utilisation
+│   │   └── Crédits restants / plan actuel
+│   └── 6. Admin cabinet
+│       └── Gestion des utilisateurs
+│       └── Paramétrage des templates
+│       └── Logs d&#39;activité
+└── Features V2 (post-lancement, mois 2-4)
+    ├── 7. Transcription audio → document (Whisper + LLM)
+    ├── 8. Analyse de documents uploadés (extraction, résumé)
+    ├── 9. Intégration outils métier (RPVA pour avocats, logiciels de cabinet)
+    ├── 10. Mode collaboration (plusieurs utilisateurs sur un doc)
+    ├── 11. API pour intégration dans des outils tiers
+    └── 12. App mobile (consultation hors bureau)
+
+SEMAINE 13-14 : Beta privée
+├── Inviter les 10-20 beta testers de la phase 1
+├── Onboarding individuel (call de 15 min + démo)
+├── Slack/Discord privé pour le feedback
+├── Itérer quotidiennement (Claude Code)
+│   └── Fix bugs en priorité
+│   └── Top 3 feature requests
+│   └── Ajuster les prompts/templates selon les retours
+├── Métriques à suivre
+│   └── NPS (Net Promoter Score) → viser &gt; 40
+│   └── Rétention J7 et J30
+│   └── Documents générés/utilisateur/semaine
+│   └── Taux de satisfaction par type de document
+└── Gate : 5+ utilisateurs qui reviennent SANS relance = GO pour le lancement
+</code></pre>
+<h3>Phase 4 : Go-to-market (mois 4-6)</h3>
+<pre><code>MOIS 4 : Lancement officiel
+├── Site web professionnel
+│   └── Claude Code : site complet en 2-3 jours
+│   └── Positionnement : &quot;L&#39;assistant AI privé des [avocats/médecins]&quot;
+│   └── Pages clés :
+│       ├── Home : problème → solution → preuve sociale → CTA
+│       ├── Features : tour des fonctionnalités avec démos
+│       ├── Sécurité : page dédiée (RGPD, chiffrement, HDS)
+│       ├── Pricing : plans clairs
+│       ├── Blog : articles SEO
+│       └── Démo : formulaire ou vidéo Loom
+├── Lancement beta publique
+│   └── Accès sur inscription (créer de la rareté)
+│   └── Annonce LinkedIn (post personnel + campagne ads)
+│   └── Email aux contacts de la phase validation
+│   └── PR : contacter LegalTech Magazine, Le Monde du Droit, etc.
+└── Premiers clients payants
+    └── Convertir les beta testers en payants
+    └── Objectif : 10-20 clients payants en fin de mois 4
+
+MOIS 5-6 : Acquisition
+├── Canal 1 : SEO / Content marketing
+│   └── Articles optimisés : &quot;Comment l&#39;AI transforme [profession]&quot;
+│   └── Guides pratiques : &quot;Automatiser [tâche] avec l&#39;IA&quot;
+│   └── Comparatifs : &quot;ChatGPT vs [ton produit] pour les avocats&quot;
+│   └── Claude Code : générer 2-4 articles/semaine
+├── Canal 2 : LinkedIn (le canal #1 pour les pros)
+│   └── Posts 3-5x/semaine
+│   └── Cas clients / témoignages
+│   └── Webinaires mensuels (démo live, 30 min)
+│   └── LinkedIn Ads ciblées (budget : 1 000-3 000 €/mois)
+├── Canal 3 : Partenariats
+│   └── Barreaux et ordres professionnels
+│   └── Éditeurs de logiciels métier (intégration)
+│   └── Formations professionnelles (présentation dans les CFC, etc.)
+│   └── Influenceurs du secteur (LegalTech, MedTech)
+├── Canal 4 : Sales directes
+│   └── Liste de 200-500 cabinets cibles
+│   └── Séquence email personnalisée (3-5 emails)
+│   └── Démo live 20 min + follow-up
+│   └── Objectif : 5-10% de conversion
+├── Canal 5 : Événements
+│   └── Salons LegalTech / HealthTech / Salon des Experts-Comptables
+│   └── Meetups professionnels locaux
+│   └── Webinaires co-organisés avec des partenaires
+└── Objectif mois 6 : 50-100 clients payants
+</code></pre>
+<h3>Phase 5 : Scale et moat (mois 7-12+)</h3>
+<pre><code>INFRASTRUCTURE
+├── Migrer progressivement vers le cloud
+│   └── RTX 5090 locale pour le dev + fine-tuning
+│   └── Cloud (Scaleway GPU, OVH AI) pour la production
+│   └── Garder une option on-premise pour les gros clients
+├── Haute disponibilité
+│   └── Load balancer + auto-scaling
+│   └── Backup automatisé
+│   └── SLA 99.9% pour le plan Enterprise
+└── Monitoring
+    └── Uptime, latence, qualité des réponses
+    └── Alertes automatiques
+
+MOAT (avantage concurrentiel durable)
+├── 1. Données propriétaires
+│   └── Chaque utilisation enrichit ta base de connaissances
+│   └── Plus de clients = meilleur modèle = plus de clients (flywheel)
+│   └── Personne ne peut reproduire ton dataset
+├── 2. Fine-tuning spécialisé
+│   └── Modèle entraîné sur des milliers d&#39;exemples réels du domaine
+│   └── Itération continue : re-fine-tuning mensuel avec les nouvelles données
+│   └── RTX 5090 : coût de fine-tuning quasi nul
+├── 3. Intégrations métier
+│   └── Connecté aux outils de la profession (difficilement remplaçable)
+│   └── Plus le client intègre, plus le switching cost augmente
+├── 4. Conformité réglementaire
+│   └── Certifications (HDS pour la santé, etc.)
+│   └── Coûteux et long à obtenir → barrière à l&#39;entrée
+└── 5. Communauté et réseau
+    └── Base d&#39;utilisateurs fidèles
+    └── Partenariats avec les institutions
+    └── Réputation dans le secteur
+
+EXPANSION
+├── Nouvelles spécialités au sein de la même profession
+│   └── Avocat droit du travail → droit des affaires → droit de la famille
+├── Nouvelles professions adjacentes
+│   └── Avocats → Notaires → Huissiers → Experts-comptables
+├── Nouveaux marchés géographiques
+│   └── Belgique, Suisse, Luxembourg (droit civil similaire)
+│   └── Canada (Québec — droit civil francophone)
+├── Upsell
+│   └── Plan basique → Pro → Enterprise
+│   └── Add-ons : transcription, API, on-premise
+│   └── Services : formation, consulting, personnalisation
+└── Embauche
+    └── Mois 6-9 : 1 dev fullstack + 1 sales/customer success
+    └── Mois 9-12 : 1 ML engineer + 1 account manager
+    └── Mois 12+ : équipe complète selon les revenus
+</code></pre>
+<hr>
+<h2>Modèle économique détaillé</h2>
+<h3>Plans tarifaires (exemple pour la niche avocats)</h3>
+<table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Prix/mois</th>
+<th>Cible</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Solo</strong></td>
+<td>149 €/mois</td>
+<td>Avocat indépendant</td>
+<td>1 utilisateur, 100 docs/mois, templates de base, support email</td>
+</tr>
+<tr>
+<td><strong>Cabinet</strong></td>
+<td>399 €/mois</td>
+<td>Cabinet 2-10 avocats</td>
+<td>5 utilisateurs, 500 docs/mois, templates avancés, RAG personnalisé, support prioritaire</td>
+</tr>
+<tr>
+<td><strong>Enterprise</strong></td>
+<td>999 €/mois</td>
+<td>Cabinet 10-50+ avocats</td>
+<td>Utilisateurs illimités, docs illimités, SSO, API, SLA 99.9%, account manager dédié</td>
+</tr>
+<tr>
+<td><strong>On-premise</strong></td>
+<td>2 499 €/mois</td>
+<td>Grands cabinets, institutions</td>
+<td>Installation sur serveurs client, personnalisation complète, formation sur site</td>
+</tr>
+</tbody></table>
+<h3>Structure de coûts</h3>
+<pre><code>Coûts fixes mensuels :
+├── Claude Code Max 20x : 200 €
+├── Hébergement cloud (Scaleway/OVH) : 200-800 € (selon volume)
+├── Supabase Pro : 25 €
+├── Domaine + Email : 15 €
+├── Outils (Stripe, Resend, monitoring) : 50-100 €
+├── Électricité RTX 5090 : 30-50 €
+└── Total fixe : ~520-1 190 €/mois
+
+Coûts variables :
+├── Inference GPU cloud : ~0.02-0.05 €/requête (si cloud)
+├── Inference locale RTX 5090 : ~0 € (déjà payé)
+├── Stockage documents : ~0.01 €/Go/mois
+└── Support client : 0 € (toi au début) → 2 500 €/mois (1 CSM à mi-temps)
+
+Coûts d&#39;acquisition :
+├── LinkedIn Ads : 1 000-3 000 €/mois
+├── Contenu/SEO : 0 € (Claude Code)
+├── Événements : 500-1 000 €/trimestre
+└── Total acquisition : 1 000-4 000 €/mois
+</code></pre>
+<h3>Métriques unitaires</h3>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Valeur cible</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ARPU (Average Revenue Per User)</td>
+<td>250-350 €/mois</td>
+</tr>
+<tr>
+<td>CAC (Customer Acquisition Cost)</td>
+<td>300-800 €</td>
+</tr>
+<tr>
+<td>LTV (Lifetime Value)</td>
+<td>6 000-12 000 € (24 mois × ARPU)</td>
+</tr>
+<tr>
+<td>LTV/CAC ratio</td>
+<td>8-15x (excellent, cible &gt; 3x)</td>
+</tr>
+<tr>
+<td>Churn mensuel</td>
+<td>&lt; 3% (les pros sont fidèles si l&#39;outil marche)</td>
+</tr>
+<tr>
+<td>Marge brute</td>
+<td>85-92% (SaaS pur, inference locale)</td>
+</tr>
+<tr>
+<td>Payback period</td>
+<td>1-3 mois (CAC récupéré rapidement)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Projections de rentabilité — 24 mois</h2>
+<h3>Scénario conservateur</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Clients</th>
+<th>ARPU</th>
+<th>MRR</th>
+<th>Coûts</th>
+<th>Résultat net</th>
+<th>MRR cumulé</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1-2</td>
+<td>0 (beta)</td>
+<td>—</td>
+<td>0 €</td>
+<td>1 500 €</td>
+<td>-1 500 €</td>
+<td>0 €</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>200 €</td>
+<td>2 000 €</td>
+<td>2 000 €</td>
+<td>0 €</td>
+<td>2 000 €</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>220 €</td>
+<td>4 400 €</td>
+<td>2 500 €</td>
+<td>1 900 €</td>
+<td>4 400 €</td>
+</tr>
+<tr>
+<td>5</td>
+<td>35</td>
+<td>240 €</td>
+<td>8 400 €</td>
+<td>3 000 €</td>
+<td>5 400 €</td>
+<td>8 400 €</td>
+</tr>
+<tr>
+<td>6</td>
+<td>55</td>
+<td>260 €</td>
+<td>14 300 €</td>
+<td>4 000 €</td>
+<td>10 300 €</td>
+<td>14 300 €</td>
+</tr>
+<tr>
+<td>9</td>
+<td>120</td>
+<td>280 €</td>
+<td>33 600 €</td>
+<td>8 000 €</td>
+<td>25 600 €</td>
+<td>33 600 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>200</td>
+<td>300 €</td>
+<td>60 000 €</td>
+<td>15 000 €</td>
+<td>45 000 €</td>
+<td>60 000 €</td>
+</tr>
+<tr>
+<td>18</td>
+<td>400</td>
+<td>320 €</td>
+<td>128 000 €</td>
+<td>30 000 €</td>
+<td>98 000 €</td>
+<td>128 000 €</td>
+</tr>
+<tr>
+<td>24</td>
+<td>700</td>
+<td>350 €</td>
+<td>245 000 €</td>
+<td>50 000 €</td>
+<td>195 000 €</td>
+<td>245 000 €</td>
+</tr>
+</tbody></table>
+<h3>Scénario optimiste (product-market fit fort)</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Clients</th>
+<th>MRR</th>
+<th>Résultat net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6</td>
+<td>100</td>
+<td>30 000 €</td>
+<td>22 000 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>400</td>
+<td>120 000 €</td>
+<td>90 000 €</td>
+</tr>
+<tr>
+<td>18</td>
+<td>1 000</td>
+<td>320 000 €</td>
+<td>240 000 €</td>
+</tr>
+<tr>
+<td>24</td>
+<td>2 000</td>
+<td>700 000 €</td>
+<td>500 000 €</td>
+</tr>
+</tbody></table>
+<h3>Scénario pessimiste (pivot nécessaire)</h3>
+<table>
+<thead>
+<tr>
+<th>Mois</th>
+<th>Clients</th>
+<th>MRR</th>
+<th>Résultat net</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6</td>
+<td>20</td>
+<td>4 000 €</td>
+<td>-500 €</td>
+</tr>
+<tr>
+<td>12</td>
+<td>60</td>
+<td>15 000 €</td>
+<td>5 000 €</td>
+</tr>
+<tr>
+<td>18</td>
+<td>100</td>
+<td>28 000 €</td>
+<td>12 000 €</td>
+</tr>
+<tr>
+<td>24</td>
+<td>150</td>
+<td>45 000 €</td>
+<td>20 000 €</td>
+</tr>
+</tbody></table>
+<h3>Seuil de rentabilité</h3>
+<pre><code>Point mort mensuel (breakeven) :
+├── Coûts fixes : ~1 000 €/mois (début)
+├── ARPU moyen : 250 €/mois
+├── Marge brute : 90%
+├── Breakeven = 1 000 / (250 × 0.90) = 5 clients payants
+└── → Atteignable dès le mois 3
+
+Point mort avec 1 salarié :
+├── Coûts fixes + salaire : ~5 000 €/mois
+├── Breakeven = 5 000 / 225 = 23 clients
+└── → Atteignable vers le mois 5-6
+
+Point mort avec équipe complète (4 personnes) :
+├── Coûts totaux : ~20 000 €/mois
+├── Breakeven = 20 000 / 225 = 89 clients
+└── → Atteignable vers le mois 8-10
+</code></pre>
+<hr>
+<h2>Risques et mitigations</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Probabilité</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Réglementation IA restrictive (EU AI Act)</td>
+<td>Moyenne</td>
+<td>Élevé</td>
+<td>Se positionner comme &quot;conforme&quot; dès le départ, veille active</td>
+</tr>
+<tr>
+<td>Concurrence des GAFAM (GPT-5 pour avocats)</td>
+<td>Élevée</td>
+<td>Moyen</td>
+<td>Moat = données FR + intégrations métier + RGPD + relation client</td>
+</tr>
+<tr>
+<td>Difficulté à obtenir des datasets de qualité</td>
+<td>Élevée</td>
+<td>Élevé</td>
+<td>Partenariats avec des cabinets, commencer avec du RAG sur données publiques</td>
+</tr>
+<tr>
+<td>Cycle de vente B2B trop long</td>
+<td>Moyenne</td>
+<td>Moyen</td>
+<td>Freemium + self-serve pour les solos, sales dédié pour les cabinets</td>
+</tr>
+<tr>
+<td>Hallucinations AI (erreurs juridiques/médicales)</td>
+<td>Élevée</td>
+<td>Critique</td>
+<td>RAG obligatoire, citations systématiques, disclaimer, human-in-the-loop</td>
+</tr>
+<tr>
+<td>Hébergement HDS (santé) coûteux</td>
+<td>Faible</td>
+<td>Moyen</td>
+<td>Commencer par les avocats (pas de HDS requis), santé en V2</td>
+</tr>
+<tr>
+<td>RTX 5090 insuffisante pour le scale</td>
+<td>Moyenne</td>
+<td>Faible</td>
+<td>Migration cloud progressive, la RTX reste pour le fine-tuning</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Checklist de lancement</h2>
+<pre><code>PRÉ-REQUIS TECHNIQUES :
+☐ RTX 5090 installée et fonctionnelle
+☐ CUDA + Python + Unsloth configurés
+☐ Modèle de base téléchargé (Llama 3.1 8B)
+☐ vLLM ou Ollama fonctionnel
+☐ Dataset de 2000+ exemples collecté et nettoyé
+☐ Fine-tuning réalisé et évalué
+☐ RAG pipeline opérationnel (embeddings + pgvector)
+☐ App Next.js déployée (Vercel ou VPS FR)
+☐ Supabase configuré (auth, DB, storage)
+☐ Stripe billing configuré
+☐ Chiffrement E2E implémenté
+☐ Audit trail fonctionnel
+
+PRÉ-REQUIS BUSINESS :
+☐ 10+ interviews professionnels réalisées
+☐ Landing page live avec inscriptions beta
+☐ 50+ inscriptions beta collectées
+☐ 10-20 beta testers actifs
+☐ NPS beta &gt; 40
+☐ Pricing validé par les beta testers
+☐ Site web professionnel en ligne
+☐ CGV / mentions légales / politique de confidentialité
+☐ Statut juridique créé (SAS recommandé)
+☐ Compte Stripe opérationnel
+☐ LinkedIn professionnel optimisé
+☐ 5+ articles SEO publiés
+
+PRÉ-REQUIS RÉGLEMENTAIRES :
+☐ RGPD : registre des traitements
+☐ RGPD : PIA réalisé
+☐ RGPD : DPO désigné (ou référent)
+☐ Si santé : hébergement HDS
+☐ Mentions &quot;outil d&#39;aide, pas de conseil juridique/médical&quot;
+☐ Conditions d&#39;utilisation claires sur les limitations de l&#39;IA
+</code></pre>
+<hr>
+<hr>
+<h1>ARCHITECTURE TECHNIQUE — RAG-first, fine-tuning later</h1>
+<blockquote>
+<p>Le fine-tuning N&#39;EST PAS un prérequis pour lancer la Niche 1 (assistant juridique). Cette section explique pourquoi, et quelle architecture adopter pour un MVP rapide et efficace.</p>
+</blockquote>
+<hr>
+<h2>Pourquoi le RAG bat le fine-tuning pour le juridique</h2>
+<h3>Le problème du fine-tuning pour les avocats</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Fine-tuning</th>
+<th>RAG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Citations jurisprudence</td>
+<td>Hallucine des n° d&#39;arrêt inventés</td>
+<td>Cite UNIQUEMENT ce qui est dans la base → vérifiable</td>
+</tr>
+<tr>
+<td>Mise à jour des lois</td>
+<td>Snapshot figé = obsolète en semaines</td>
+<td>Mise à jour de la base = toujours à jour</td>
+</tr>
+<tr>
+<td>Données d&#39;entraînement</td>
+<td>Besoin de 2000-5000 exemples confidentiels</td>
+<td>Besoin de sources publiques (Légifrance)</td>
+</tr>
+<tr>
+<td>Temps de mise en place</td>
+<td>4-6 semaines (collecte + training + éval)</td>
+<td>1-2 semaines (scraping + embeddings)</td>
+</tr>
+<tr>
+<td>Coût</td>
+<td>Temps + compute GPU</td>
+<td>Quasi gratuit (données publiques)</td>
+</tr>
+<tr>
+<td>Risque juridique</td>
+<td>Le modèle peut reproduire des données client</td>
+<td>Le modèle ne stocke rien, il consulte</td>
+</tr>
+</tbody></table>
+<p><strong>Le point critique</strong> : un avocat qui cite un arrêt de la Cour de cassation qui N&#39;EXISTE PAS devant un juge, c&#39;est une faute professionnelle. Le RAG élimine ce risque. Le fine-tuning ne peut pas le garantir.</p>
+<h3>Ce que chaque couche apporte</h3>
+<pre><code>COUCHE 1 : LLM de base (Llama 3.1 70B sur RTX 5090)
+└── Ce qu&#39;il sait déjà :
+    ├── Écrire en français juridique correct
+    ├── Structurer un raisonnement juridique
+    ├── Comprendre les concepts de droit
+    └── Reformuler, résumer, synthétiser
+└── Ce qu&#39;il ne sait PAS :
+    ├── Les arrêts récents (coupure de connaissances)
+    ├── Les références exactes (il hallucine)
+    └── Les spécificités de votre client
+
+COUCHE 2 : System prompt + few-shot
+└── Ce que ça ajoute :
+    ├── Le format exact des conclusions (visa, discussion, dispositif)
+    ├── Les conventions de rédaction par juridiction
+    ├── Le ton et le style attendus
+    ├── La règle &quot;cite uniquement les sources fournies&quot;
+    └── 2-3 exemples de documents parfaitement rédigés
+└── Coût : 0 € — juste du prompt engineering
+
+COUCHE 3 : RAG (Retrieval Augmented Generation)
+└── Ce que ça ajoute :
+    ├── Jurisprudence exacte avec n° d&#39;arrêt, date, juridiction
+    ├── Articles de loi à jour (codes civil, travail, pénal, etc.)
+    ├── Doctrine et commentaires
+    ├── Documents internes du cabinet (si uploadés)
+    └── TOUT est vérifiable et traçable
+└── Coût : stockage embeddings (~10 €/mois Supabase)
+
+RÉSULTAT : 90-95% de la qualité d&#39;un fine-tuning, en 1/4 du temps.
+</code></pre>
+<h3>L&#39;architecture technique détaillée</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                         FRONTEND                                │
+│  Next.js 16 + Tailwind 4                                       │
+│  ├── /app (page principale)                                     │
+│  │   ├── Dashboard : documents récents, stats                   │
+│  │   ├── Éditeur : rédaction assistée (TipTap)                  │
+│  │   ├── Recherche : recherche jurisprudence                    │
+│  │   └── Templates : choix du type de document                  │
+│  ├── /app/api (routes API)                                      │
+│  └── Auth : Supabase Auth (email + MFA)                         │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      BACKEND API                                │
+│  Next.js API Routes + tRPC                                      │
+│                                                                 │
+│  POST /api/generate                                             │
+│  ├── 1. Recevoir : { type, specialite, faits, instructions }    │
+│  ├── 2. RECHERCHE RAG                                           │
+│  │   ├── Transformer la requête en embedding (nomic-embed-text) │
+│  │   ├── Chercher dans pgvector (Supabase)                      │
+│  │   │   ├── Table : jurisprudence (500k+ arrêts)               │
+│  │   │   ├── Table : codes_loi (tous les codes FR)              │
+│  │   │   ├── Table : doctrine (commentaires, manuels)           │
+│  │   │   └── Table : cabinet_docs (documents du client)         │
+│  │   ├── Reranker (cross-encoder) pour trier par pertinence     │
+│  │   └── Retourner top 15-20 extraits avec métadonnées          │
+│  ├── 3. CONSTRUCTION DU PROMPT                                  │
+│  │   ├── System prompt : rôle + format + règles                 │
+│  │   ├── Few-shot : 2 exemples du même type de document         │
+│  │   ├── Sources RAG : les 15-20 extraits trouvés               │
+│  │   ├── Instruction : &quot;Cite UNIQUEMENT les sources ci-dessus&quot;  │
+│  │   └── Input utilisateur : résumé des faits                   │
+│  ├── 4. APPEL LLM (streaming)                                   │
+│  │   ├── vLLM sur RTX 5090 (Llama 3.1 70B Q4)                  │
+│  │   ├── Streaming SSE → le texte apparaît en temps réel        │
+│  │   └── Temperature : 0.3 (peu créatif, factuel)               │
+│  ├── 5. POST-PROCESSING                                         │
+│  │   ├── Vérifier chaque citation : existe dans la base ?       │
+│  │   ├── Marquer les passages non-sourcés (⚠️)                  │
+│  │   ├── Ajouter les liens Légifrance                           │
+│  │   └── Formater pour l&#39;export                                 │
+│  └── 6. EXPORT                                                  │
+│      ├── Word (.docx) avec en-tête du cabinet                   │
+│      ├── PDF                                                    │
+│      └── Copie dans l&#39;historique                                │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    INFRASTRUCTURE AI                             │
+│                                                                 │
+│  RTX 5090 (32 Go VRAM)                                          │
+│  ├── vLLM : Llama 3.1 70B (Q4_K_M) — ~35 Go avec KV cache     │
+│  │   └── Note : ça tient juste en 32 Go avec quantification     │
+│  │   └── Alternative : Llama 3.1 8B (plus rapide, moins bon)    │
+│  │   └── Alternative : Mistral Large v2 (excellent en français) │
+│  ├── Ollama : nomic-embed-text (embeddings pour RAG)            │
+│  └── Whisper Large v3 (si feature dictée vocale activée)        │
+│                                                                 │
+│  Supabase (cloud)                                               │
+│  ├── PostgreSQL + pgvector (stockage embeddings)                │
+│  ├── Auth (gestion utilisateurs)                                │
+│  ├── Storage (documents uploadés)                               │
+│  └── Realtime (notifications)                                   │
+│                                                                 │
+│  Redis (optionnel, pour la queue)                                │
+│  └── BullMQ : queue de jobs pour les générations longues        │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Pipeline de données RAG — Légifrance</h3>
+<pre><code>ÉTAPE 1 : Récupérer les données (1 fois + mises à jour hebdo)
+├── API Légifrance (PISTE) — gratuit, clé API requise
+│   └── https://api.piste.gouv.fr/
+│   └── Endpoints : /consult/code, /consult/juri, /search
+│   └── Limites : 2000 requêtes/jour (suffisant)
+├── DILA Open Data
+│   └── Dump complet des codes en XML/JSON
+│   └── Jurisprudence : Cour de cassation, Conseil d&#39;État, CA
+│   └── ~2M de décisions disponibles
+├── EUR-Lex (droit européen, optionnel)
+└── Script Node.js/Python pour l&#39;extraction
+
+ÉTAPE 2 : Découper en chunks
+├── Chaque décision → découper en sections
+│   └── Faits, Moyens, Motivation, Dispositif
+│   └── Taille cible : 500-1000 tokens par chunk
+│   └── Overlap de 100 tokens entre chunks
+├── Chaque article de loi → 1 chunk
+│   └── Avec métadonnées : code, livre, titre, chapitre, article
+├── Enrichir avec les métadonnées
+│   └── Juridiction, date, n° de pourvoi/décision
+│   └── Mots-clés, domaine de droit
+│   └── Textes cités (articles de loi référencés)
+└── Volume estimé : 2-5M de chunks
+
+ÉTAPE 3 : Générer les embeddings
+├── Modèle : nomic-embed-text (Ollama, RTX 5090)
+│   └── 768 dimensions, bon en français
+│   └── ~3000 chunks/minute sur RTX 5090
+│   └── 2M chunks = ~11h (une nuit)
+├── Alternative : text-embedding-3-small (OpenAI)
+│   └── Meilleure qualité, mais coût API
+│   └── 2M chunks × 0.02 $/1M tokens ≈ 5-10 $
+└── Stocker dans Supabase pgvector
+
+ÉTAPE 4 : Index et recherche
+├── Index HNSW sur pgvector (recherche rapide)
+├── Requête : embedding de la question → top 20 plus proches
+├── Reranking : cross-encoder pour affiner (optionnel mais recommandé)
+│   └── BAAI/bge-reranker-base (tourne sur RTX 5090)
+│   └── Prend les top 20 → retrie les top 5-10
+└── Résultat : les 5-10 extraits les plus pertinents avec sources
+
+ÉTAPE 5 : Mise à jour continue
+├── Cron job hebdomadaire : nouveaux arrêts + modifications législatives
+├── Embeddings incrémentaux (seulement les nouveaux documents)
+├── Notification aux utilisateurs : &quot;Nouveau texte dans votre domaine&quot;
+└── Coût marginal : quasi nul
+</code></pre>
+<h3>Quand introduire le fine-tuning (roadmap)</h3>
+<pre><code>MOIS 1-3 : RAG ONLY ← ON EST ICI
+├── Llama 3.1 70B (ou 8B) + RAG + system prompts
+├── Qualité : 85-90% du potentiel max
+├── Avantage : rapide à builder, facile à itérer
+└── Focus : valider le product-market fit
+
+MOIS 4-6 : RAG + FINE-TUNING LÉGER
+├── Collecter 500-1000 exemples réels (avec accord clients)
+│   └── Documents générés + corrections manuelles de l&#39;avocat
+│   └── = dataset &quot;gold standard&quot; de ce que le modèle DEVRAIT produire
+├── Fine-tuner Llama 3.1 8B en QLoRA
+│   └── Le 8B fine-tuné remplace le 70B pour les tâches simples
+│   └── = 4-8x plus rapide, même qualité sur le domaine
+│   └── Le 70B reste en backup pour les cas complexes
+├── Qualité : 92-95% du potentiel max
+└── Avantage : meilleure latence, coûts réduits
+
+MOIS 7-12 : RAG + FINE-TUNING SPÉCIALISÉ
+├── Un adapter LoRA par spécialité juridique
+│   └── Adapter &quot;droit-travail&quot; (entraîné sur conclusions prud&#39;hommes)
+│   └── Adapter &quot;droit-penal&quot; (entraîné sur conclusions correctionnelles)
+│   └── Adapter &quot;droit-affaires&quot; (entraîné sur assignations commerciales)
+│   └── etc.
+├── Hot-swap : le bon adapter est chargé selon la spécialité de l&#39;avocat
+├── Qualité : 95-98% du potentiel max
+└── Avantage : qualité spécialisée imbattable = MOAT technique
+
+JAMAIS : Fine-tuning SANS RAG
+├── Le fine-tuning seul ne résout pas les hallucinations
+├── Le RAG reste TOUJOURS nécessaire pour les citations
+└── Les deux sont complémentaires, pas exclusifs
+</code></pre>
+<hr>
+<hr>
+<h1>GUIDE DE DÉMARRAGE — Coder JurisAI avec Claude Code Opus 4.6</h1>
+<blockquote>
+<p>Ce guide est un plan d&#39;exécution pas à pas pour construire le MVP de JurisAI (Niche 1 : assistant juridique pour avocats) en utilisant Claude Code Max 20x avec le modèle Opus 4.6. Durée cible : 4 semaines.</p>
+</blockquote>
+<hr>
+<h2>Pourquoi Opus 4.6 est le copilote idéal pour ce projet</h2>
+<table>
+<thead>
+<tr>
+<th>Capacité Opus 4.6</th>
+<th>Application directe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Raisonnement complexe</td>
+<td>Architecure RAG, prompt engineering, edge cases juridiques</td>
+</tr>
+<tr>
+<td>Code fullstack</td>
+<td>Next.js + tRPC + Supabase + vLLM — tout le stack</td>
+</tr>
+<tr>
+<td>Contexte massif</td>
+<td>Peut ingérer des specs longues, des schémas DB, des prompts système entiers</td>
+</tr>
+<tr>
+<td>Itération rapide</td>
+<td>Claude Code Max 20x = pas de rate limit, itérations continues</td>
+</tr>
+<tr>
+<td>Qualité production</td>
+<td>Code typé, testé, documenté dès la première génération</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Semaine 1 : Fondations (jours 1-5)</h2>
+<h3>Jour 1 : Setup du projet</h3>
+<pre><code>COMMANDES CLAUDE CODE — Jour 1
+
+# 1. Créer le projet
+Prompt : &quot;Crée un projet Next.js 16 avec App Router, Tailwind CSS 4,
+TypeScript strict, Supabase (auth + DB + storage), tRPC, et Resend
+pour les emails. Structure en features modulaires.&quot;
+
+# 2. Configurer Supabase
+Prompt : &quot;Configure Supabase avec :
+- Auth email + MFA
+- Tables : users, cabinets, documents, generations, templates
+- pgvector extension activée
+- RLS policies : chaque cabinet ne voit que ses données
+- Types TypeScript auto-générés&quot;
+
+# 3. Configurer le thème
+Prompt : &quot;Crée un design system dark premium pour une app juridique.
+Couleurs : bleu nuit profond (#0a1628), or (#c9a84c) pour les accents,
+texte clair. Typographie : serif pour les headings (Playfair Display),
+sans-serif pour le body (DM Sans). Composants de base : Button, Input,
+Card, Modal, Sidebar, TopBar.&quot;
+</code></pre>
+<p><strong>Ce que Claude Code Opus 4.6 produit en ~2h</strong> :</p>
+<ul>
+<li>Projet Next.js complet bootstrappé</li>
+<li>Schéma DB avec pgvector</li>
+<li>Auth flow (login, register, MFA)</li>
+<li>Design system avec composants de base</li>
+<li>Layout app (sidebar + topbar + main)</li>
+</ul>
+<h3>Jour 2 : Pipeline RAG</h3>
+<pre><code>COMMANDES CLAUDE CODE — Jour 2
+
+# 1. Script d&#39;ingestion Légifrance
+Prompt : &quot;Crée un script Node.js qui :
+1. Se connecte à l&#39;API PISTE (Légifrance)
+2. Récupère les articles des codes principaux (civil, travail, pénal,
+   commerce, procédure civile)
+3. Récupère les arrêts de la Cour de cassation des 5 dernières années
+4. Découpe chaque document en chunks de 500-800 tokens avec overlap 100
+5. Génère les embeddings via Ollama (nomic-embed-text)
+6. Stocke dans Supabase pgvector
+7. Ajoute les métadonnées : juridiction, date, n° pourvoi, mots-clés
+Inclus un mode &#39;update&#39; qui ne traite que les nouveaux documents.&quot;
+
+# 2. API de recherche RAG
+Prompt : &quot;Crée une route tRPC &#39;search.query&#39; qui :
+1. Prend une question en langage naturel
+2. Génère l&#39;embedding de la question
+3. Cherche les 20 plus proches dans pgvector (cosine similarity)
+4. Retourne les résultats avec : texte, source, date, lien Légifrance
+Ajoute un reranker optionnel (cross-encoder) pour affiner.&quot;
+
+# 3. Test du pipeline
+Prompt : &quot;Écris un test qui :
+1. Ingère 100 arrêts de la Cour de cassation (droit du travail)
+2. Pose 5 questions juridiques types
+3. Vérifie que les résultats sont pertinents
+4. Affiche les sources trouvées&quot;
+</code></pre>
+<p><strong>Ce que Claude Code produit</strong> :</p>
+<ul>
+<li>Script d&#39;ingestion complet (Légifrance → chunks → embeddings → pgvector)</li>
+<li>Route de recherche RAG avec reranking</li>
+<li>Tests fonctionnels</li>
+<li>Le pipeline tourne sur ta RTX 5090 via Ollama</li>
+</ul>
+<h3>Jour 3 : Moteur de génération</h3>
+<pre><code>COMMANDES CLAUDE CODE — Jour 3
+
+# 1. Connecteur vLLM
+Prompt : &quot;Crée un module qui se connecte à vLLM (local, port 8000)
+pour envoyer des requêtes à Llama 3.1 70B. Support du streaming SSE.
+Gestion des erreurs et retry. Timeout configurable.&quot;
+
+# 2. System prompts par type de document
+Prompt : &quot;Crée un fichier de configuration avec les system prompts
+pour les types de documents juridiques suivants :
+- Conclusions au fond (TGI/TJ)
+- Conclusions en référé
+- Mise en demeure
+- Contrat type
+- Courrier à l&#39;adversaire
+- Requête
+Chaque prompt doit :
+- Définir le rôle (assistant juridique expert en droit [spécialité])
+- Imposer la structure du document (visa, discussion, dispositif...)
+- Imposer de ne citer QUE les sources fournies en contexte
+- Inclure 1-2 exemples few-shot de documents bien rédigés
+- Spécifier le ton (professionnel, précis, sans familiarité)&quot;
+
+# 3. Route de génération
+Prompt : &quot;Crée la route tRPC &#39;generate.document&#39; qui :
+1. Reçoit : { type, specialite, faits, instructions_specifiques }
+2. Fait une recherche RAG avec les faits comme query
+3. Construit le prompt complet (system + few-shot + RAG + user input)
+4. Appelle vLLM en streaming
+5. Post-process : vérifie les citations, ajoute les liens
+6. Sauvegarde le document dans la DB
+7. Retourne le stream au client&quot;
+</code></pre>
+<h3>Jour 4-5 : Interface utilisateur core</h3>
+<pre><code>COMMANDES CLAUDE CODE — Jour 4-5
+
+# 1. Page Dashboard
+Prompt : &quot;Crée la page dashboard avec :
+- Liste des documents récents (type, date, aperçu)
+- Stats : documents ce mois, temps estimé gagné
+- Accès rapide : &#39;Nouveau document&#39; avec choix du type
+- Sidebar : navigation (Dashboard, Documents, Recherche, Templates)
+Design dark premium, juridique, professionnel.&quot;
+
+# 2. Page de génération de document
+Prompt : &quot;Crée la page de génération avec :
+- Étape 1 : choix du type de document (cards visuelles)
+- Étape 2 : formulaire adapté au type
+  └── Conclusions : résumé des faits, prétentions, arguments
+  └── Mise en demeure : destinataire, objet, demande, délai
+  └── Contrat : type, parties, objet, durée, conditions
+- Étape 3 : génération en streaming (le texte apparaît en temps réel)
+- Étape 4 : édition (TipTap editor riche)
+- Actions : copier, exporter Word, exporter PDF, sauvegarder
+Animations smooth, loading states, error handling.&quot;
+
+# 3. Page de recherche jurisprudence
+Prompt : &quot;Crée la page de recherche avec :
+- Barre de recherche en langage naturel
+- Filtres : juridiction, date, domaine de droit
+- Résultats : carte par arrêt avec juridiction, date, n° pourvoi,
+  extrait pertinent surligné, lien Légifrance
+- Pagination + infinite scroll
+- Action : &#39;Utiliser dans un document&#39; → injecte dans l&#39;éditeur&quot;
+
+# 4. Page Sécurité (CRITIQUE pour la conversion)
+Prompt : &quot;Crée une page /securite qui détaille :
+- Où sont hébergées les données (France, datacenter spécifique)
+- Chiffrement (AES-256 au repos, TLS 1.3 en transit)
+- Multi-tenancy stricte (isolation par cabinet)
+- Audit trail (chaque action loguée)
+- MFA disponible
+- Politique de rétention des données
+- Contact DPO
+- Conformité RGPD détaillée
+Design sobre, rassurant, professionnel. Badges visuels.&quot;
+</code></pre>
+<hr>
+<h2>Semaine 2 : Features essentielles (jours 6-10)</h2>
+<h3>Jour 6-7 : Templates et export</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+# 1. Système de templates
+Prompt : &quot;Crée un système de templates de documents juridiques.
+Chaque template a :
+- Un nom, une description, un type (conclusions, contrat, courrier...)
+- Des champs dynamiques ({{ partie_1 }}, {{ date }}, {{ objet }})
+- Un system prompt spécialisé
+- 1-2 exemples few-shot intégrés
+Crée 10 templates de base pour le droit du travail :
+conclusions prud&#39;homales, mise en demeure employeur, contrat de travail CDI,
+lettre de licenciement, saisine CPH, attestation, etc.
+Interface : galerie de templates avec preview et &#39;Utiliser&#39;.&quot;
+
+# 2. Export Word (.docx)
+Prompt : &quot;Crée un module d&#39;export Word qui :
+- Prend le contenu généré (markdown/HTML)
+- Le convertit en .docx avec mise en forme professionnelle
+- Ajoute un en-tête personnalisable (logo + adresse du cabinet)
+- Numérote les pages
+- Utilise des styles juridiques (police : Garamond 12, interligne 1.5)
+Utilise docx.js (npm docx).&quot;
+
+# 3. Export PDF
+Prompt : &quot;Ajoute l&#39;export PDF en utilisant le même template que Word.
+Utilise puppeteer ou react-pdf.&quot;
+</code></pre>
+<h3>Jour 8-9 : Auth, billing, onboarding</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+# 1. Flow d&#39;inscription optimisé
+Prompt : &quot;Crée le flow d&#39;inscription :
+1. Email + mot de passe (pas de champs inutiles)
+2. Vérification email
+3. Choix de la spécialité (droit du travail, pénal, etc.)
+4. Nom du cabinet (optionnel)
+5. Onboarding : tutorial interactif en 3 étapes
+   - Étape 1 : &#39;Voici comment générer vos conclusions&#39; (guidé)
+   - Étape 2 : &#39;Essayez avec un cas exemple&#39; (pré-rempli)
+   - Étape 3 : &#39;Essayez avec votre propre dossier&#39; (zone libre)
+Le Moment Aha doit arriver avant la fin de l&#39;étape 2 (&lt; 3 min).&quot;
+
+# 2. Stripe billing
+Prompt : &quot;Intègre Stripe avec 3 plans :
+- Solo : 149 €/mois (1 user, 100 docs/mois)
+- Cabinet : 399 €/mois (5 users, 500 docs/mois)
+- Enterprise : 999 €/mois (illimité)
+Toggle mensuel/annuel (-20%).
+Trial gratuit 14 jours sans CB.
+Webhooks Stripe pour gérer les événements.
+Page /pricing avec comparaison des plans.&quot;
+
+# 3. Emails transactionnels
+Prompt : &quot;Configure Resend avec les templates React Email :
+- Welcome email (après inscription)
+- Document généré (résumé + lien)
+- Séquence trial : J+1, J+3, J+7, J+10, J+13, J+14
+- Facture (après paiement)
+- Winback J+21 (après expiration trial)
+Chaque email : design sobre, professionnel, responsive.&quot;
+</code></pre>
+<h3>Jour 10 : Résumé de pièces + upload</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+Prompt : &quot;Crée une feature &#39;Analyser des pièces&#39; qui :
+1. Upload de PDF (drag &amp; drop, multi-fichiers)
+2. Extraction du texte (pdf-parse ou LlamaParse)
+3. Résumé automatique de chaque pièce (LLM)
+4. Extraction des arguments clés
+5. Suggestion de contre-arguments
+6. Interface : liste des pièces avec résumé + détails expandable
+7. Action : &#39;Utiliser dans les conclusions&#39; → injecte le contexte
+Limiter à 50 pages par pièce et 10 pièces par dossier.&quot;
+</code></pre>
+<hr>
+<h2>Semaine 3 : Polish et landing page (jours 11-15)</h2>
+<h3>Jour 11-12 : QA et polish</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+# 1. Tests E2E
+Prompt : &quot;Écris des tests Playwright pour les parcours critiques :
+- Inscription → onboarding → première génération
+- Génération de conclusions (les 3 types principaux)
+- Recherche de jurisprudence
+- Export Word et PDF
+- Upload et analyse de pièces
+- Paiement Stripe (mode test)&quot;
+
+# 2. Responsive + accessibilité
+Prompt : &quot;Vérifie et corrige le responsive sur mobile et tablette.
+L&#39;app doit être utilisable sur iPad (beaucoup d&#39;avocats en audience).
+Vérifie l&#39;accessibilité : navigation clavier, contraste, aria-labels.&quot;
+
+# 3. Performance
+Prompt : &quot;Optimise les performances :
+- Lazy loading des pages
+- Streaming SSE optimisé (pas de buffering)
+- Images optimisées
+- Bundle splitting
+Cible : Lighthouse &gt; 90 sur toutes les métriques.&quot;
+</code></pre>
+<h3>Jour 13-14 : Landing page conversion</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+Prompt : &quot;Crée la landing page de JurisAI selon cette structure :
+
+HERO :
+- Badge : &#39;Utilisé par les cabinets les plus exigeants&#39;
+- Titre : &#39;Rédigez vos conclusions en 20 minutes au lieu de 4 heures&#39;
+- Sous-titre : &#39;L&#39;assistant juridique AI qui respecte le secret
+  professionnel. Vos données restent en France.&#39;
+- CTA : &#39;Essayer gratuitement — 14 jours, sans CB&#39;
+- Démo interactive : zone de texte où le visiteur peut tester
+  UNE génération sans inscription
+
+SECTION PROBLÈME :
+&#39;Vous passez 60% de votre temps à rédiger. Pendant ce temps,
+vos dossiers s&#39;accumulent.&#39;
+
+SECTION SOLUTION (3 features) :
+1. Conclusions automatiques — &#39;De 4h à 20 min&#39; + GIF démo
+2. Jurisprudence vérifiée — &#39;Citations exactes, jamais d&#39;hallucination&#39;
+3. Secret professionnel — &#39;Chiffrement AES-256, hébergement France&#39;
+
+SECTION PREUVE SOCIALE :
+3-5 témoignages (on mettra les vrais plus tard, utiliser des
+placeholders réalistes pour le moment)
+
+SECTION SÉCURITÉ :
+Badges RGPD, chiffrement, hébergement FR, audit trail
+
+SECTION PRICING :
+3 plans (Solo 149€, Cabinet 399€, Enterprise sur devis)
+Toggle mensuel/annuel
+
+FAQ :
+6 questions/réponses sur la sécurité, la qualité, la compatibilité
+
+FOOTER CTA :
+Rappel du bénéfice + CTA final
+
+Design : dark premium, tons bleu nuit + or, professionnel.
+Animations d&#39;entrée subtiles (Framer Motion).
+Score Lighthouse &gt; 95.&quot;
+</code></pre>
+<h3>Jour 15 : Déploiement</h3>
+<pre><code>COMMANDES CLAUDE CODE
+
+# 1. Déploiement
+Prompt : &quot;Configure le déploiement :
+- Frontend : Vercel (ou VPS FR si on veut tout en France)
+- vLLM : tourne en local sur la RTX 5090
+- Tunnel : Cloudflare Tunnel pour exposer vLLM
+- Supabase : déjà en cloud
+- Variables d&#39;environnement : documenter toutes les env vars
+- Domaine : jurisai.fr (ou similaire)
+- SSL : automatique via Vercel/Cloudflare&quot;
+
+# 2. Monitoring
+Prompt : &quot;Configure le monitoring :
+- Sentry pour les erreurs
+- Vercel Analytics pour le trafic
+- Custom metrics : documents générés, latence, satisfaction
+- Alertes : si vLLM down, si latence &gt; 10s, si erreur rate &gt; 5%&quot;
+</code></pre>
+<hr>
+<h2>Semaine 4 : Beta et itération (jours 16-20)</h2>
+<h3>Jour 16-17 : Ingestion des données</h3>
+<pre><code>EXÉCUTION (pas Claude Code, exécution directe)
+
+# 1. Lancer vLLM sur RTX 5090
+vllm serve meta-llama/Llama-3.1-70B-Instruct \
+  --quantization awq \
+  --max-model-len 8192 \
+  --port 8000
+
+# 2. Lancer Ollama pour les embeddings
+ollama serve
+ollama pull nomic-embed-text
+
+# 3. Lancer le script d&#39;ingestion
+node scripts/ingest-legifrance.mjs --codes civil,travail,penal \
+  --jurisprudence cass,ce --years 5
+
+# 4. Vérifier
+# → X arrêts ingérés
+# → Y articles de loi
+# → Z chunks dans pgvector
+# → Tester 5 requêtes de recherche
+</code></pre>
+<h3>Jour 18-19 : Tests avec vrais avocats</h3>
+<pre><code>PROCESS BETA
+├── Inviter 5-10 beta testers (avocats contactés en phase validation)
+├── Call individuel de 15 min : onboarding + démo
+├── Leur demander de tester avec un VRAI dossier
+├── Collecter le feedback :
+│   ├── La qualité des conclusions est-elle suffisante ?
+│   ├── Les citations sont-elles correctes ?
+│   ├── Le format est-il conforme à leurs habitudes ?
+│   ├── Qu&#39;est-ce qui manque ?
+│   └── Paieraient-ils 149 €/mois pour ça ?
+└── Itérer avec Claude Code (fix les problèmes en temps réel)
+</code></pre>
+<h3>Jour 20 : Ajustements et lancement soft</h3>
+<pre><code>COMMANDES CLAUDE CODE — ajustements post-feedback
+
+# Les prompts ici dépendent du feedback réel.
+# Exemples typiques :
+
+Prompt : &quot;Le format des conclusions ne correspond pas aux usages
+du Tribunal judiciaire de Paris. Modifie le template &#39;conclusions_fond&#39;
+pour utiliser la structure : I. Rappel des faits, II. Discussion,
+III. Par ces motifs...&quot;
+
+Prompt : &quot;Les avocats veulent pouvoir ajouter leurs propres modèles
+de phrases récurrentes. Ajoute un système de &#39;snippets&#39; personnalisés
+que l&#39;utilisateur peut créer et insérer dans l&#39;éditeur.&quot;
+
+Prompt : &quot;La latence de génération est trop longue (15 sec).
+Passe le modèle en Llama 3.1 8B pour les mises en demeure et
+courriers (documents simples), garde le 70B pour les conclusions.&quot;
+</code></pre>
+<hr>
+<h2>Récapitulatif — Les 20 jours</h2>
+<table>
+<thead>
+<tr>
+<th>Jour</th>
+<th>Livrable</th>
+<th>Effort Claude Code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Projet bootstrappé, DB, auth, design system</td>
+<td>~3h de prompting</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Pipeline RAG complet (Légifrance → pgvector)</td>
+<td>~3h</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Moteur de génération (vLLM + prompts + post-processing)</td>
+<td>~3h</td>
+</tr>
+<tr>
+<td>4-5</td>
+<td>UI core (dashboard, génération, recherche, sécurité)</td>
+<td>~5h</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>Templates juridiques + export Word/PDF</td>
+<td>~4h</td>
+</tr>
+<tr>
+<td>8-9</td>
+<td>Auth, Stripe billing, onboarding, emails</td>
+<td>~4h</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Upload et analyse de pièces</td>
+<td>~2h</td>
+</tr>
+<tr>
+<td>11-12</td>
+<td>Tests, responsive, accessibilité, performance</td>
+<td>~4h</td>
+</tr>
+<tr>
+<td>13-14</td>
+<td>Landing page conversion</td>
+<td>~4h</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Déploiement + monitoring</td>
+<td>~2h</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>Ingestion données + configuration vLLM</td>
+<td>~3h (exécution)</td>
+</tr>
+<tr>
+<td>18-19</td>
+<td>Beta tests avec vrais avocats</td>
+<td>~2h (itérations)</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Ajustements + lancement</td>
+<td>~2h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>MVP complet prêt pour les premiers clients</strong></td>
+<td><strong>~41h de travail</strong></td>
+</tr>
+</tbody></table>
+<p><strong>41 heures de travail réel sur 20 jours ouvrés = ~2h/jour en moyenne.</strong>
+Le reste du temps : prospection, interviews clients, contenu LinkedIn.</p>
+<hr>
+<h2>Commandes essentielles pour le dev quotidien</h2>
+<pre><code class="language-bash"># Lancer l&#39;environnement de dev
+cd /c/Users/amarm/SaaS/JurisAI
+
+# Terminal 1 : Next.js
+npm run dev
+
+# Terminal 2 : vLLM (RTX 5090)
+vllm serve meta-llama/Llama-3.1-70B-Instruct --quantization awq --port 8000
+
+# Terminal 3 : Ollama (embeddings)
+ollama serve
+
+# Terminal 4 : Claude Code
+# → C&#39;est ici que tout se passe
+# → Opus 4.6, Max 20x, pas de rate limit
+# → Itérer en continu
+
+# Workflow type avec Claude Code :
+# 1. Décrire la feature en détail (contexte + specs + contraintes)
+# 2. Claude Code génère le code
+# 3. Tester manuellement
+# 4. Si bug → décrire le bug → Claude Code fix
+# 5. Commit + push → Vercel déploie
+# 6. Répéter
+</code></pre>
+<h3>Tips pour maximiser Opus 4.6</h3>
+<pre><code>1. CONTEXTE RICHE
+   └── Plus tu donnes de contexte, meilleur est le résultat
+   └── Inclure : specs, schéma DB, exemples, contraintes, design tokens
+   └── Opus 4.6 gère des prompts de 10 000+ tokens sans problème
+
+2. ITÉRER VITE
+   └── Claude Code Max 20x = pas de rate limit
+   └── Ne pas chercher la perfection au premier prompt
+   └── Générer → tester → affiner → générer → tester
+   └── 5 itérations rapides &gt; 1 prompt parfait
+
+3. PARALLÉLISER
+   └── Lancer plusieurs agents Claude Code en parallèle
+   └── Agent 1 : feature frontend
+   └── Agent 2 : feature backend
+   └── Agent 3 : tests
+   └── = 3x plus rapide
+
+4. UTILISER LES SKILLS
+   └── /commit pour les commits propres
+   └── /epct pour les features complexes (Explore-Plan-Code-Test)
+   └── frontend-design pour l&#39;UI (obligatoire par convention)
+
+5. SAUVEGARDER LES BONS PROMPTS
+   └── Quand un prompt donne un excellent résultat
+   └── Le sauvegarder dans un fichier prompts/
+   └── Le réutiliser comme template pour les features similaires
+</code></pre>
+
+</div>
+
+</body>
+</html>

@@ -1,15 +1,28 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-// Client pour le serveur (avec service_role key)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+// Client lazy pour le serveur (avec service_role key)
+let supabaseAdminInstance: SupabaseClient | null = null;
 
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-});
+export const getSupabaseAdmin = (): SupabaseClient | null => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceKey) {
+    console.warn("⚠️ Supabase non configuré - les données ne seront pas sauvegardées");
+    return null;
+  }
+
+  if (!supabaseAdminInstance) {
+    supabaseAdminInstance = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
+  }
+
+  return supabaseAdminInstance;
+};
 
 // Types pour la table cabinet_ready_responses
 export type CabinetReadyResponse = {

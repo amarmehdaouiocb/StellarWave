@@ -13,11 +13,17 @@ export function TrustBanner() {
   return (
     <AnimatedSection
       id="trust"
-      className="py-16 border-y border-[oklch(0_0_0_/_8%)] overflow-hidden bg-[var(--background)]"
+      className="py-20 overflow-hidden"
+      style={{
+        backgroundColor: "var(--apple-bg)",
+        borderTop: "1px solid rgba(17, 17, 17, 0.06)",
+        borderBottom: "1px solid rgba(17, 17, 17, 0.06)"
+      }}
     >
       <div className="container-wide">
         <motion.p
-          className="text-center text-sm uppercase tracking-widest text-[var(--neutral-500)] mb-8"
+          className="text-center text-sm uppercase tracking-widest mb-10"
+          style={{ color: "rgba(17, 17, 17, 0.4)", letterSpacing: "0.15em" }}
           variants={fadeInUp}
         >
           Ils nous font confiance
@@ -26,20 +32,26 @@ export function TrustBanner() {
 
       {/* Infinite scroll logos */}
       <div className="relative">
-        {/* Gradient masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-10" />
+        {/* Gradient masks - Apple style */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-40 z-10"
+          style={{ background: "linear-gradient(to right, var(--apple-bg), transparent)" }}
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-40 z-10"
+          style={{ background: "linear-gradient(to left, var(--apple-bg), transparent)" }}
+        />
 
         <motion.div
-          className="flex items-center gap-16"
+          className="flex items-center gap-20"
           animate={{
-            x: [0, -50 * trustedLogos.length],
+            x: [0, -60 * trustedLogos.length],
           }}
           transition={{
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 30,
+              duration: 35,
               ease: "linear",
             },
           }}
@@ -49,14 +61,29 @@ export function TrustBanner() {
               key={`${logo.name}-${index}`}
               className={cn(
                 "flex-shrink-0 flex items-center justify-center",
-                "h-12 px-8",
-                "opacity-40 hover:opacity-100 transition-opacity duration-300"
+                "h-14 px-6",
+                "opacity-30 hover:opacity-80 transition-opacity duration-300"
               )}
             >
               {/* Placeholder logo - In production, use actual logos */}
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-lg bg-[var(--neutral-200)]" />
-                <span className="text-lg font-semibold text-[var(--neutral-500)] whitespace-nowrap">
+                <div
+                  className="h-9 w-9 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)"
+                  }}
+                >
+                  <span
+                    className="text-sm font-bold"
+                    style={{ color: "#667eea" }}
+                  >
+                    {logo.name.charAt(0)}
+                  </span>
+                </div>
+                <span
+                  className="text-lg font-medium whitespace-nowrap"
+                  style={{ color: "rgba(17, 17, 17, 0.6)" }}
+                >
                   {logo.name}
                 </span>
               </div>

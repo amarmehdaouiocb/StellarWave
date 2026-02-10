@@ -1,0 +1,10 @@
+export { NavMarqo } from "./NavMarqo";
+export { HeroMarqo } from "./HeroMarqo";
+export { FeaturesIntro } from "./FeaturesIntro";
+export { FeatureCards } from "./FeatureCards";
+export { ProcessMarqo } from "./ProcessMarqo";
+export { SocialProof } from "./SocialProof";
+export { FAQMarqo } from "./FAQMarqo";
+export { CTABanner } from "./CTABanner";
+export { Newsletter } from "./Newsletter";
+export { FooterMarqo } from "./FooterMarqo";

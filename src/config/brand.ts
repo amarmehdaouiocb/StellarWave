@@ -67,7 +67,7 @@ export const trustedLogos = [
   { name: "Fidelya", logo: "/projects/fidelya.png" },
   { name: "BoatAcademy", logo: "/projects/boatacademy.png" },
   { name: "OnMangeQuoi", logo: "/projects/onmangequoi.png" },
-  { name: "RA Bâtiment", logo: "/projects/ra-batiment.svg" },
+  { name: "RA Bâtiment", logo: "/projects/ra-batiment-dark.svg" },
 ] as const;
 
 export const services = [

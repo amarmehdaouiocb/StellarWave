@@ -16,25 +16,7 @@ import { fadeInUp, easings } from "@/lib/animations";
 const stepIcons = [MagnifyingGlass, Palette, Code, RocketLaunch];
 const stepAnimatedIcons = [MagnifierIcon, PaletteIcon, CodeIcon, RocketIcon];
 
-// Step icon component
-function StepIcon({ index }: { index: number }) {
-  const Icon = stepIcons[index];
-  const AnimatedIconComponent = stepAnimatedIcons[index];
-
-  return (
-    <div
-      className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--electric-blue)] mb-6"
-    >
-      {AnimatedIconComponent ? (
-        <AnimatedIconComponent size={24} color="white" />
-      ) : (
-        <Icon weight="duotone" className="h-6 w-6 text-white" />
-      )}
-    </div>
-  );
-}
-
-// Process step card - Light theme
+// Process step card - Apple-like XL cards with alternating styles
 function ProcessCard({
   step,
   index,
@@ -44,6 +26,11 @@ function ProcessCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const Icon = stepIcons[index];
+  const AnimatedIconComponent = stepAnimatedIcons[index];
+
+  // Alternate: cards 1 and 3 are dark, 0 and 2 are light
+  const isDark = index === 1 || index === 3;
 
   return (
     <motion.div
@@ -55,66 +42,139 @@ function ProcessCard({
         delay: index * 0.15,
         ease: easings.smooth,
       }}
+      className="relative"
     >
-      {/* Step icon */}
-      <StepIcon index={index} />
+      {/* Step number - Big editorial */}
+      <div
+        className="absolute -top-6 left-8 text-[5rem] font-bold pointer-events-none select-none"
+        style={{
+          fontFamily: "var(--font-display)",
+          letterSpacing: "-0.05em",
+          lineHeight: "1",
+          color: isDark ? "rgba(255,255,255,0.08)" : "rgba(17,17,17,0.04)"
+        }}
+      >
+        {String(index + 1).padStart(2, "0")}
+      </div>
 
       {/* Card */}
       <div
-        className={cn(
-          "bg-white rounded-3xl p-8",
-          "border border-[oklch(0_0_0_/_6%)]",
-          "transition-all duration-300",
-          "hover:border-[var(--electric-blue)]/20",
-          "group"
-        )}
+        className="relative overflow-hidden group"
         style={{
-          boxShadow: "0 4px 20px -4px oklch(0.2 0.01 250 / 8%), 0 12px 40px -8px oklch(0.2 0.01 250 / 6%)",
+          background: isDark
+            ? "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)"
+            : "white",
+          borderRadius: "var(--card-radius-xl)",
+          padding: "36px",
+          border: isDark
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid rgba(255, 255, 255, 0.40)",
+          boxShadow: "var(--shadow-apple-lg)",
+          transition: "transform 300ms ease-out, box-shadow 300ms ease-out",
         }}
       >
-        {/* Duration badge */}
-        <span
-          className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium bg-[var(--electric-blue)]/5 text-[var(--electric-blue)] mb-4 border border-[var(--electric-blue)]/10"
-        >
-          {step.duration}
-        </span>
+        {/* Dark card inner glow */}
+        {isDark && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              borderRadius: "inherit",
+              background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%)"
+            }}
+          />
+        )}
 
-        {/* Title */}
-        <h3 className="text-xl font-semibold text-[var(--accent-dark)] mb-3 group-hover:text-[var(--electric-blue)] transition-colors duration-300">
-          {step.title}
-        </h3>
+        {/* Content */}
+        <div className="relative z-10">
+          {/* Icon */}
+          <div
+            className="flex h-14 w-14 items-center justify-center rounded-2xl mb-6"
+            style={{
+              background: isDark
+                ? "rgba(99, 102, 241, 0.20)"
+                : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            }}
+          >
+            {AnimatedIconComponent ? (
+              <AnimatedIconComponent size={24} color="white" />
+            ) : (
+              <Icon weight="duotone" className="h-6 w-6 text-white" />
+            )}
+          </div>
 
-        {/* Description */}
-        <p className="text-[var(--neutral-500)] mb-6 leading-relaxed">
-          {step.description}
-        </p>
-
-        {/* Deliverables */}
-        <div className="border-t border-[oklch(0_0_0_/_8%)] pt-4 mt-auto">
-          <span className="text-xs uppercase tracking-[0.15em] text-[var(--neutral-400)] mb-3 block font-medium">
-            Livrables
+          {/* Duration badge - Glass style */}
+          <span
+            className="inline-flex px-4 py-2 rounded-full text-xs font-medium mb-5"
+            style={{
+              background: isDark ? "rgba(255,255,255,0.10)" : "rgba(102, 126, 234, 0.08)",
+              backdropFilter: isDark ? "blur(20px)" : "none",
+              border: isDark ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(102, 126, 234, 0.15)",
+              color: isDark ? "white" : "#667eea"
+            }}
+          >
+            {step.duration}
           </span>
-          <ul className="space-y-2.5">
-            {step.deliverables.map((deliverable, deliverableIndex) => (
-              <motion.li
-                key={deliverableIndex}
-                className="flex items-center gap-3 text-sm text-[var(--neutral-500)] group/item"
-                initial={{ opacity: 0, x: -10 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: index * 0.2 + 0.4 + deliverableIndex * 0.1 }}
-              >
-                <motion.div
-                  className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--electric-blue)]/10 group-hover/item:bg-[var(--electric-blue)]/20 transition-colors"
-                  whileHover={{ scale: 1.2 }}
+
+          {/* Title */}
+          <h3
+            className="text-2xl font-semibold mb-4 transition-colors duration-300"
+            style={{ color: isDark ? "white" : "#111111" }}
+          >
+            {step.title}
+          </h3>
+
+          {/* Description */}
+          <p
+            className="mb-8 leading-relaxed text-[15px]"
+            style={{ color: isDark ? "rgba(255,255,255,0.7)" : "rgba(17,17,17,0.6)" }}
+          >
+            {step.description}
+          </p>
+
+          {/* Deliverables */}
+          <div
+            className="pt-5 mt-auto"
+            style={{
+              borderTop: isDark
+                ? "1px solid rgba(255,255,255,0.10)"
+                : "1px solid rgba(17,17,17,0.08)"
+            }}
+          >
+            <span
+              className="text-xs uppercase tracking-[0.15em] mb-4 block font-medium"
+              style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(17,17,17,0.4)" }}
+            >
+              Livrables
+            </span>
+            <ul className="space-y-3">
+              {step.deliverables.map((deliverable, deliverableIndex) => (
+                <motion.li
+                  key={deliverableIndex}
+                  className="flex items-center gap-3 text-sm"
+                  style={{ color: isDark ? "rgba(255,255,255,0.8)" : "rgba(17,17,17,0.6)" }}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: index * 0.2 + 0.4 + deliverableIndex * 0.1 }}
                 >
-                  <CheckCircle weight="duotone" className="h-3 w-3 text-[var(--electric-blue)]" />
-                </motion.div>
-                <span className="group-hover/item:text-[var(--neutral-600)] transition-colors">
-                  {deliverable}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
+                  <div
+                    className="flex h-5 w-5 items-center justify-center rounded-full flex-shrink-0"
+                    style={{
+                      background: isDark
+                        ? "rgba(99, 102, 241, 0.25)"
+                        : "rgba(102, 126, 234, 0.12)"
+                    }}
+                  >
+                    <CheckCircle
+                      weight="duotone"
+                      className="h-3 w-3"
+                      style={{ color: isDark ? "rgba(99, 102, 241, 0.9)" : "#667eea" }}
+                    />
+                  </div>
+                  <span>{deliverable}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -123,9 +183,13 @@ function ProcessCard({
 
 export function Process() {
   return (
-    <AnimatedSection id="process" className="section-padding bg-[var(--background)]">
+    <AnimatedSection
+      id="process"
+      className="section-padding"
+      style={{ backgroundColor: "var(--apple-bg)" }}
+    >
       <div className="container-wide">
-        {/* Header */}
+        {/* Editorial Header */}
         <motion.div
           className="text-center max-w-3xl mx-auto mb-20"
           variants={fadeInUp}
@@ -134,21 +198,38 @@ export function Process() {
           viewport={{ once: true }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] text-sm font-medium text-[var(--neutral-600)] mb-6"
+            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+              background: "rgba(255, 255, 255, 0.80)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.60)",
+              boxShadow: "var(--shadow-apple-sm)",
+              color: "rgba(17, 17, 17, 0.6)"
             }}
           >
             Notre méthode
           </motion.span>
-          <h2 className="text-display-mega text-[var(--accent-dark)] mb-6">
-            Un process <span className="text-gradient-hero">éprouvé</span>
+          {/* Editorial two-tone title */}
+          <h2
+            className="mb-6"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.5rem, 6vw, 4rem)",
+              lineHeight: "1.05",
+              letterSpacing: "-0.03em"
+            }}
+          >
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Un process </span>
+            <span style={{ color: "#111111", fontWeight: 600 }}>éprouvé</span>
           </h2>
-          <p className="text-lg text-[var(--neutral-500)] leading-relaxed">
+          <p
+            className="text-lg leading-relaxed"
+            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+          >
             Une méthodologie structurée pour des projets livrés à temps, dans le
             budget, avec la qualité attendue.
           </p>
@@ -156,48 +237,62 @@ export function Process() {
 
         {/* Steps grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {processSteps.map((step, index) => (
-              <ProcessCard key={step.step} step={step} index={index} />
-            ))}
+          {processSteps.map((step, index) => (
+            <ProcessCard key={step.step} step={step} index={index} />
+          ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Dark card style */}
         <motion.div
-          className="text-center mt-20 p-8 md:p-10 rounded-3xl bg-white border border-[oklch(0_0_0_/_8%)] relative overflow-hidden"
+          className="text-center mt-20 relative overflow-hidden"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           style={{
-            boxShadow: "0 4px 12px oklch(0.2 0.01 250 / 5%), 0 16px 48px oklch(0.2 0.01 250 / 8%)",
+            background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+            borderRadius: "var(--card-radius-2xl)",
+            padding: "48px 36px",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "var(--shadow-apple-xl)",
           }}
         >
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--electric-blue)]/3 via-transparent to-[var(--electric-blue)]/3" />
+          {/* Inner glow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              borderRadius: "inherit",
+              background: "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%)"
+            }}
+          />
 
           <div className="relative z-10">
-            <p className="text-lg md:text-xl text-[var(--accent-dark)] mb-2 font-medium">
+            <p
+              className="text-xl md:text-2xl mb-3 font-semibold"
+              style={{ color: "white" }}
+            >
               Prêt à démarrer votre projet ?
             </p>
-            <p className="text-[var(--neutral-500)] mb-8 max-w-md mx-auto">
+            <p
+              className="mb-10 max-w-md mx-auto"
+              style={{ color: "rgba(255,255,255,0.6)" }}
+            >
               Réservez un appel découverte de 30 minutes pour discuter de vos
               besoins.
             </p>
             <motion.a
               href="#contact"
-              className={cn(
-                "inline-flex items-center gap-3 px-8 py-4 rounded-2xl",
-                "bg-[var(--electric-blue)]",
-                "text-white font-semibold text-lg",
-                "transition-all duration-300"
-              )}
+              className="inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg"
               style={{
-                boxShadow: "0 4px 12px oklch(0.55 0.25 255 / 20%)",
+                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                borderRadius: "16px",
+                color: "white",
+                boxShadow: "0 8px 24px rgba(102, 126, 234, 0.35)",
               }}
               whileHover={{
                 scale: 1.02,
                 y: -2,
-                boxShadow: "0 8px 24px oklch(0.55 0.25 255 / 30%)",
+                boxShadow: "0 12px 32px rgba(102, 126, 234, 0.45)",
               }}
               whileTap={{ scale: 0.98 }}
             >

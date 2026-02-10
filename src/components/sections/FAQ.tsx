@@ -9,7 +9,7 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { fadeInUp, staggerContainer, staggerItemBlur, easings } from "@/lib/animations";
 import { ChatCircle, Plus, Minus, Question } from "@phosphor-icons/react";
 
-// Premium accordion item - Light theme
+// Premium accordion item - Apple-like XL cards
 function FAQItem({
   faq,
   index,
@@ -27,17 +27,16 @@ function FAQItem({
       className="group"
     >
       <motion.div
-        className={cn(
-          "rounded-3xl overflow-hidden transition-all duration-500",
-          "bg-white border",
-          isOpen
-            ? "border-[var(--electric-blue)]/30"
-            : "border-[oklch(0_0_0_/_6%)] hover:border-[var(--electric-blue)]/20"
-        )}
+        className="overflow-hidden transition-all duration-300"
         style={{
+          background: "white",
+          borderRadius: "var(--card-radius-xl)",
+          border: isOpen
+            ? "1px solid rgba(102, 126, 234, 0.25)"
+            : "1px solid rgba(255, 255, 255, 0.40)",
           boxShadow: isOpen
-            ? "0 8px 30px -4px oklch(0.55 0.25 255 / 10%), 0 20px 60px -12px oklch(0.2 0.01 250 / 8%)"
-            : "0 4px 20px -4px oklch(0.2 0.01 250 / 8%), 0 12px 40px -8px oklch(0.2 0.01 250 / 6%)",
+            ? "var(--shadow-apple-lg)"
+            : "var(--shadow-apple-md)",
         }}
         layout
       >
@@ -46,14 +45,15 @@ function FAQItem({
           onClick={onToggle}
           className="w-full text-left px-8 py-6 flex items-center gap-4"
         >
-          {/* Number indicator */}
+          {/* Number indicator - Gradient style */}
           <div
-            className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-xl flex-shrink-0 transition-all duration-300",
-              isOpen
-                ? "bg-[var(--electric-blue)] text-white"
-                : "bg-[var(--neutral-100)] text-[var(--neutral-500)] group-hover:bg-[var(--electric-blue)]/10 group-hover:text-[var(--electric-blue)]"
-            )}
+            className="flex h-10 w-10 items-center justify-center rounded-xl flex-shrink-0 transition-all duration-300"
+            style={{
+              background: isOpen
+                ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                : "rgba(102, 126, 234, 0.08)",
+              color: isOpen ? "white" : "#667eea"
+            }}
           >
             <span className="text-sm font-bold">
               {(index + 1).toString().padStart(2, "0")}
@@ -62,24 +62,21 @@ function FAQItem({
 
           {/* Question text */}
           <span
-            className={cn(
-              "flex-1 text-lg font-medium transition-colors duration-300",
-              isOpen
-                ? "text-[var(--electric-blue)]"
-                : "text-[var(--accent-dark)] group-hover:text-[var(--electric-blue)]"
-            )}
+            className="flex-1 text-lg font-medium transition-colors duration-300"
+            style={{
+              color: isOpen ? "#667eea" : "#111111"
+            }}
           >
             {faq.question}
           </span>
 
           {/* Toggle icon */}
           <motion.div
-            className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300",
-              isOpen
-                ? "bg-[var(--electric-blue)]/15 text-[var(--electric-blue)]"
-                : "bg-[var(--neutral-100)] text-[var(--neutral-500)]"
-            )}
+            className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300"
+            style={{
+              background: isOpen ? "rgba(102, 126, 234, 0.12)" : "rgba(17, 17, 17, 0.04)",
+              color: isOpen ? "#667eea" : "rgba(17, 17, 17, 0.4)"
+            }}
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3, ease: easings.smooth }}
           >
@@ -105,7 +102,8 @@ function FAQItem({
             >
               <div className="px-8 pb-8 pl-24">
                 <motion.p
-                  className="text-[var(--neutral-500)] leading-relaxed"
+                  className="leading-relaxed text-[15px]"
+                  style={{ color: "rgba(17, 17, 17, 0.6)" }}
                   initial={{ y: -10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.3 }}
@@ -129,7 +127,11 @@ export function FAQ() {
   };
 
   return (
-    <AnimatedSection id="faq" className="section-padding bg-[var(--background)]">
+    <AnimatedSection
+      id="faq"
+      className="section-padding"
+      style={{ backgroundColor: "var(--apple-bg)" }}
+    >
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
           {/* Left column - Header */}
@@ -141,47 +143,84 @@ export function FAQ() {
             viewport={{ once: true }}
           >
             <div className="sticky top-32">
-              {/* Badge */}
+              {/* Badge - Glass style */}
               <motion.span
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] text-sm font-medium text-[var(--neutral-600)] mb-6"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium mb-8"
                 initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: easings.smooth }}
                 style={{
-                  boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+                  background: "rgba(255, 255, 255, 0.80)",
+                  backdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255, 255, 255, 0.60)",
+                  boxShadow: "var(--shadow-apple-sm)",
+                  color: "rgba(17, 17, 17, 0.6)"
                 }}
               >
-                <Question className="h-4 w-4 text-[var(--electric-blue)]" weight="duotone" />
+                <Question className="h-4 w-4" style={{ color: "#667eea" }} weight="duotone" />
                 FAQ
               </motion.span>
 
-              <h2 className="text-display-mega text-[var(--accent-dark)] mb-6">
-                Questions{" "}
-                <span className="text-gradient-hero">fréquentes</span>
+              {/* Editorial two-tone title */}
+              <h2
+                className="mb-6"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(2rem, 5vw, 3rem)",
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.03em"
+                }}
+              >
+                <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Questions </span>
+                <span style={{ color: "#111111", fontWeight: 600 }}>fréquentes</span>
               </h2>
-              <p className="text-[var(--neutral-500)] mb-8 leading-relaxed">
+              <p
+                className="mb-8 leading-relaxed"
+                style={{ color: "rgba(17, 17, 17, 0.6)" }}
+              >
                 Vous avez d&apos;autres questions ? N&apos;hésitez pas à nous
                 contacter directement.
               </p>
 
-              {/* Stats */}
+              {/* Stats - Glass panel */}
               <div
-                className="flex items-center gap-6 mb-8 p-4 rounded-xl bg-white border border-[oklch(0_0_0_/_8%)]"
+                className="flex items-center gap-6 mb-8 p-5 rounded-2xl"
                 style={{
-                  boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+                  background: "rgba(255, 255, 255, 0.80)",
+                  backdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255, 255, 255, 0.60)",
+                  boxShadow: "var(--shadow-apple-md)",
                 }}
               >
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gradient-hero">
+                  <div
+                    className="text-2xl font-bold"
+                    style={{
+                      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent"
+                    }}
+                  >
                     {faqs.length}
                   </div>
-                  <div className="text-xs text-[var(--neutral-500)]">Questions</div>
+                  <div className="text-xs" style={{ color: "rgba(17, 17, 17, 0.5)" }}>Questions</div>
                 </div>
-                <div className="h-10 w-px bg-[var(--neutral-200)]" />
+                <div className="h-10 w-px" style={{ background: "rgba(17, 17, 17, 0.1)" }} />
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gradient-hero">&lt;24h</div>
-                  <div className="text-xs text-[var(--neutral-500)]">Réponse</div>
+                  <div
+                    className="text-2xl font-bold"
+                    style={{
+                      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent"
+                    }}
+                  >
+                    &lt;24h
+                  </div>
+                  <div className="text-xs" style={{ color: "rgba(17, 17, 17, 0.5)" }}>Réponse</div>
                 </div>
               </div>
 

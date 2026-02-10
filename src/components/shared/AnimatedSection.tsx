@@ -17,6 +17,7 @@ interface AnimatedSectionProps {
   delay?: number;
   id?: string;
   as?: "section" | "div" | "article" | "aside";
+  style?: React.CSSProperties;
 }
 
 export function AnimatedSection({
@@ -27,6 +28,7 @@ export function AnimatedSection({
   delay = 0,
   id,
   as = "section",
+  style,
 }: AnimatedSectionProps) {
   const prefersReducedMotion = useReducedMotion();
   const Component = motion[as];
@@ -45,6 +47,7 @@ export function AnimatedSection({
     <Component
       id={id}
       className={cn(className)}
+      style={style}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}

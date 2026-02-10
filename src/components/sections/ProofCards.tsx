@@ -2,10 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { proofMetrics } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { GlassCard } from "@/components/shared/GlassCard";
 import { staggerContainer, staggerItem, fadeInUp } from "@/lib/animations";
 
 // Animated counter component
@@ -58,31 +56,56 @@ export function ProofCards() {
     <AnimatedSection
       id="proof"
       className="section-padding relative overflow-hidden"
+      style={{ backgroundColor: "var(--apple-bg)" }}
     >
-      {/* Background accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[var(--ember-amber)] opacity-5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[var(--ember-rose)] opacity-5 blur-[120px] rounded-full" />
-      </div>
-
-      <div className="relative container-wide lg:pl-64">
-        {/* Header */}
+      <div className="relative container-wide">
+        {/* Editorial Header */}
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-20"
           variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-muted-foreground mb-6">
+          <motion.span
+            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{
+              background: "rgba(255, 255, 255, 0.80)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.60)",
+              boxShadow: "var(--shadow-apple-sm)",
+              color: "rgba(17, 17, 17, 0.6)"
+            }}
+          >
             Avant / Après
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            L&apos;impact <span className="text-gradient">mesurable</span> de notre travail
+          </motion.span>
+          {/* Editorial two-tone title */}
+          <h2
+            className="mb-6"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.5rem, 6vw, 4rem)",
+              lineHeight: "1.05",
+              letterSpacing: "-0.03em"
+            }}
+          >
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>L&apos;impact </span>
+            <span style={{ color: "#111111", fontWeight: 600 }}>mesurable</span>
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}> de notre travail</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p
+            className="text-lg leading-relaxed"
+            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+          >
             Des améliorations concrètes sur les métriques qui comptent pour votre business.
           </p>
         </motion.div>
 
-        {/* Proof cards grid */}
+        {/* Proof cards grid - Apple-like XL cards */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={staggerContainer}
@@ -98,25 +121,55 @@ export function ProofCards() {
 
             return (
               <motion.div key={index} variants={staggerItem}>
-                <GlassCard className="text-center h-full" glow={index === 0 ? "cyan" : "none"}>
+                <div
+                  className="text-center h-full p-8"
+                  style={{
+                    background: "white",
+                    borderRadius: "var(--card-radius-xl)",
+                    border: "1px solid rgba(255, 255, 255, 0.40)",
+                    boxShadow: "var(--shadow-apple-lg)",
+                  }}
+                >
                   {/* Before/After comparison */}
                   <div className="mb-6">
                     <div className="flex items-center justify-center gap-4 mb-2">
                       <div className="text-center">
-                        <span className="text-sm text-muted-foreground block mb-1">
+                        <span
+                          className="text-sm block mb-1"
+                          style={{ color: "rgba(17, 17, 17, 0.5)" }}
+                        >
                           Avant
                         </span>
-                        <span className="text-xl font-semibold text-muted-foreground line-through">
+                        <span
+                          className="text-xl font-semibold line-through"
+                          style={{ color: "rgba(17, 17, 17, 0.35)" }}
+                        >
                           {metric.before}
                           {metric.suffix}
                         </span>
                       </div>
-                      <div className="text-2xl text-muted-foreground">→</div>
+                      <div
+                        className="text-2xl"
+                        style={{ color: "rgba(17, 17, 17, 0.2)" }}
+                      >
+                        →
+                      </div>
                       <div className="text-center">
-                        <span className="text-sm text-muted-foreground block mb-1">
+                        <span
+                          className="text-sm block mb-1"
+                          style={{ color: "rgba(17, 17, 17, 0.5)" }}
+                        >
                           Après
                         </span>
-                        <span className="text-xl font-bold text-gradient">
+                        <span
+                          className="text-xl font-bold"
+                          style={{
+                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                          }}
+                        >
                           <AnimatedCounter
                             value={metric.after}
                             suffix={metric.suffix}
@@ -129,25 +182,32 @@ export function ProofCards() {
 
                   {/* Improvement badge */}
                   <div
-                    className={cn(
-                      "inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold mb-4",
-                      isInverse
-                        ? "bg-[var(--ember-rose)]/20 text-[var(--ember-rose)]"
-                        : "bg-[var(--ember-amber)]/20 text-[var(--ember-amber)]"
-                    )}
+                    className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full text-sm font-semibold mb-4"
+                    style={{
+                      background: isInverse
+                        ? "rgba(244, 114, 182, 0.12)"
+                        : "rgba(102, 126, 234, 0.12)",
+                      color: isInverse ? "#f472b6" : "#667eea"
+                    }}
                   >
                     {isInverse ? "-" : "+"}
                     {Math.abs(Math.round(improvement))}%
                   </div>
 
                   {/* Label */}
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                  <h3
+                    className="text-lg font-semibold mb-2"
+                    style={{ color: "#111111" }}
+                  >
                     {metric.label}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p
+                    className="text-sm"
+                    style={{ color: "rgba(17, 17, 17, 0.6)" }}
+                  >
                     {metric.description}
                   </p>
-                </GlassCard>
+                </div>
               </motion.div>
             );
           })}
@@ -155,7 +215,8 @@ export function ProofCards() {
 
         {/* Bottom note */}
         <motion.p
-          className="text-center text-sm text-muted-foreground mt-8"
+          className="text-center text-sm mt-10"
+          style={{ color: "rgba(17, 17, 17, 0.4)" }}
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"

@@ -69,6 +69,43 @@
   --radius: 0.75rem;
 
   /* ================================================
+     APPLE-LIKE PREMIUM TOKENS
+     ================================================ */
+
+  /* Apple-style background */
+  --apple-bg: #F5F5F7;
+  --apple-bg-alt: #FBFBFD;
+
+  /* Card XL radius (28px) */
+  --card-radius-xl: 28px;
+  --card-radius-2xl: 32px;
+
+  /* Ultra-diffuse shadows (Apple style) */
+  --shadow-apple-sm: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --shadow-apple-md: 0 8px 40px rgba(0, 0, 0, 0.06);
+  --shadow-apple-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+  --shadow-apple-xl: 0 32px 80px rgba(0, 0, 0, 0.10);
+
+  /* Dark card gradients */
+  --dark-card-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  --dark-card-gradient-alt: linear-gradient(145deg, #0d1b2a 0%, #1b263b 100%);
+
+  /* Glassmorphism tokens */
+  --glass-white-10: rgba(255, 255, 255, 0.10);
+  --glass-white-20: rgba(255, 255, 255, 0.20);
+  --glass-black-10: rgba(0, 0, 0, 0.10);
+  --glass-black-20: rgba(0, 0, 0, 0.20);
+
+  /* Section spacing */
+  --section-padding-sm: 48px;
+  --section-padding-md: 72px;
+  --section-padding-lg: 96px;
+
+  /* Container widths */
+  --container-max: 1280px;
+  --container-narrow: 960px;
+
+  /* ================================================
      STELLAR MACRO - LIGHT PREMIUM THEME
      Tech Editorial avec Bleu Électrique
      ================================================ */
@@ -986,18 +1023,111 @@
     @apply bg-white/10 text-white;
   }
 
-  /* Section spacing */
+  /* Section spacing - Apple-like generous */
   .section-padding {
-    @apply py-20 md:py-28 lg:py-32;
+    padding-top: var(--section-padding-md);
+    padding-bottom: var(--section-padding-md);
   }
 
-  /* Container width */
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: var(--section-padding-lg);
+      padding-bottom: var(--section-padding-lg);
+    }
+  }
+
+  /* Container width - Apple 1280px max */
   .container-narrow {
-    @apply max-w-4xl mx-auto px-4 sm:px-6;
+    max-width: var(--container-narrow);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* ================================================
+     APPLE-LIKE CARD SYSTEM
+     ================================================ */
+
+  /* Card XL - Light (default) */
+  .card-xl {
+    background: white;
+    border-radius: var(--card-radius-xl);
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    box-shadow: var(--shadow-apple-lg);
+    transition: transform 300ms ease-out, box-shadow 300ms ease-out;
+  }
+
+  .card-xl:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-apple-xl);
+  }
+
+  /* Card XL - Dark variant */
+  .card-xl-dark {
+    background: var(--dark-card-gradient);
+    border-radius: var(--card-radius-xl);
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-apple-lg);
+    color: white;
+    transition: transform 300ms ease-out, box-shadow 300ms ease-out;
+  }
+
+  .card-xl-dark:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-apple-xl);
+  }
+
+  /* Card XL - with inner glow (for dark cards) */
+  .card-xl-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(99, 102, 241, 0.15) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Glass panel - for stats, badges inside cards */
+  .glass-panel {
+    background: var(--glass-white-10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-white-20);
+    border-radius: 16px;
+    padding: 16px 20px;
+  }
+
+  .glass-panel-dark {
+    background: var(--glass-black-20);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-white-10);
+    border-radius: 16px;
+    padding: 16px 20px;
+  }
+
+  /* Apple-style background */
+  .bg-apple {
+    background-color: var(--apple-bg);
+  }
+
+  .bg-apple-alt {
+    background-color: var(--apple-bg-alt);
   }
 
   /* Hide scrollbar but keep functionality */
@@ -1366,6 +1496,19 @@
   .card-premium:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-4px);
+  }
+}
+
+/* ================================================
+   V2 - LOGO CAROUSEL SCROLL ANIMATION
+   ================================================ */
+
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
   }
 }
 

@@ -3,12 +3,11 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, TrendUp, TrendDown } from "@phosphor-icons/react";
-import { cn } from "@/lib/utils";
 import { caseStudies } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { staggerContainer, staggerItem, fadeInUp, easings } from "@/lib/animations";
 
-// Case study card - Light theme
+// Case study card - Apple-like XL cards
 function CaseStudyCard({
   study,
   index,
@@ -26,29 +25,35 @@ function CaseStudyCard({
       className="group"
     >
       <motion.div
-        className={cn(
-          "h-full flex flex-col relative overflow-hidden",
-          "bg-white rounded-3xl",
-          "border border-[oklch(0_0_0_/_6%)]",
-          "transition-all duration-300",
-          "hover:border-[var(--electric-blue)]/20",
-          "cursor-pointer"
-        )}
+        className="h-full flex flex-col relative overflow-hidden cursor-pointer"
         style={{
-          boxShadow: "0 4px 20px -4px oklch(0.2 0.01 250 / 8%), 0 12px 40px -8px oklch(0.2 0.01 250 / 6%)",
+          background: "white",
+          borderRadius: "var(--card-radius-xl)",
+          border: "1px solid rgba(255, 255, 255, 0.40)",
+          boxShadow: "var(--shadow-apple-lg)",
+          transition: "transform 300ms ease-out, box-shadow 300ms ease-out",
         }}
         whileHover={{
           y: -4,
-          boxShadow: "0 8px 30px -4px oklch(0.2 0.01 250 / 12%), 0 20px 60px -12px oklch(0.2 0.01 250 / 10%)",
+          boxShadow: "var(--shadow-apple-xl)",
         }}
       >
         {/* Image placeholder */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-[var(--neutral-100)]">
-
-          {/* Industry badge */}
+        <div
+          className="relative aspect-[16/10] overflow-hidden"
+          style={{ background: "linear-gradient(135deg, #f5f5f7 0%, #e5e5ea 100%)" }}
+        >
+          {/* Industry badge - Glass style */}
           <div className="absolute top-4 left-4 z-10">
             <motion.span
-              className="px-3 py-1.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-[var(--accent-dark)] border border-[oklch(0_0_0_/_8%)]"
+              className="px-4 py-2 rounded-full text-xs font-medium"
+              style={{
+                background: "rgba(255, 255, 255, 0.85)",
+                backdropFilter: "blur(20px)",
+                border: "1px solid rgba(255, 255, 255, 0.60)",
+                boxShadow: "var(--shadow-apple-sm)",
+                color: "#111111"
+              }}
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: index * 0.1 + 0.2 }}
@@ -57,8 +62,13 @@ function CaseStudyCard({
             </motion.span>
           </div>
 
-          {/* Hover overlay */}
-          <div className="absolute inset-0 bg-[var(--electric-blue)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          {/* Hover overlay - Gradient */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            style={{
+              background: "linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%)"
+            }}
+          >
             <motion.div
               className="flex items-center gap-2 text-white font-medium"
               initial={{ opacity: 0, y: 10 }}
@@ -72,34 +82,55 @@ function CaseStudyCard({
 
         {/* Content */}
         <div className="p-8 flex-grow relative z-10">
-          <h3 className="text-xl font-semibold text-[var(--accent-dark)] mb-4 group-hover:text-[var(--electric-blue)] transition-colors">
+          <h3
+            className="text-xl font-semibold mb-4 transition-colors duration-300"
+            style={{ color: "#111111" }}
+          >
             {study.client}
           </h3>
 
           {/* Context */}
           <div className="mb-4">
-            <span className="text-xs uppercase tracking-[0.15em] text-[var(--neutral-400)] font-medium">
+            <span
+              className="text-xs uppercase tracking-[0.15em] font-medium"
+              style={{ color: "rgba(17, 17, 17, 0.4)" }}
+            >
               Contexte
             </span>
-            <p className="text-sm text-[var(--neutral-500)] mt-1">
+            <p
+              className="text-sm mt-1"
+              style={{ color: "rgba(17, 17, 17, 0.6)" }}
+            >
               {study.context}
             </p>
           </div>
 
           {/* Action */}
           <div className="mb-6">
-            <span className="text-xs uppercase tracking-[0.15em] text-[var(--neutral-400)] font-medium">
+            <span
+              className="text-xs uppercase tracking-[0.15em] font-medium"
+              style={{ color: "rgba(17, 17, 17, 0.4)" }}
+            >
               Notre action
             </span>
-            <p className="text-sm text-[var(--neutral-500)] mt-1">
+            <p
+              className="text-sm mt-1"
+              style={{ color: "rgba(17, 17, 17, 0.6)" }}
+            >
               {study.action}
             </p>
           </div>
         </div>
 
         {/* Results */}
-        <div className="px-8 pb-8 pt-5 border-t border-[oklch(0_0_0_/_6%)]">
-          <span className="text-xs uppercase tracking-[0.15em] text-[var(--neutral-400)] mb-3 block font-medium">
+        <div
+          className="px-8 pb-8 pt-5"
+          style={{ borderTop: "1px solid rgba(17, 17, 17, 0.06)" }}
+        >
+          <span
+            className="text-xs uppercase tracking-[0.15em] mb-3 block font-medium"
+            style={{ color: "rgba(17, 17, 17, 0.4)" }}
+          >
             Résultats
           </span>
           <div className="space-y-3">
@@ -118,20 +149,22 @@ function CaseStudyCard({
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: index * 0.1 + resultIndex * 0.1 + 0.3 }}
                 >
-                  <span className="text-sm text-[var(--neutral-500)]">
+                  <span
+                    className="text-sm"
+                    style={{ color: "rgba(17, 17, 17, 0.6)" }}
+                  >
                     {result.metric}
                   </span>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm text-[var(--neutral-400)] line-through">
+                    <span
+                      className="text-sm line-through"
+                      style={{ color: "rgba(17, 17, 17, 0.35)" }}
+                    >
                       {result.before}
                     </span>
                     <span
-                      className={cn(
-                        "text-sm font-semibold flex items-center gap-1",
-                        isPositive
-                          ? "text-[var(--electric-blue)]"
-                          : "text-[var(--electric-blue-dark)]"
-                      )}
+                      className="text-sm font-semibold flex items-center gap-1"
+                      style={{ color: "#667eea" }}
                     >
                       {result.after}
                       {isPositive ? (
@@ -155,33 +188,51 @@ export function CaseStudies() {
   return (
     <AnimatedSection
       id="case-studies"
-      className="section-padding bg-[var(--background)]"
+      className="section-padding"
+      style={{ backgroundColor: "var(--apple-bg)" }}
     >
       <div className="container-wide">
-        {/* Header */}
+        {/* Editorial Header */}
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-20"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full bg-white border border-[oklch(0_0_0_/_8%)] text-sm font-medium text-[var(--neutral-600)] mb-6"
+            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              boxShadow: "0 2px 8px oklch(0.2 0.01 250 / 4%)",
+              background: "rgba(255, 255, 255, 0.80)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.60)",
+              boxShadow: "var(--shadow-apple-sm)",
+              color: "rgba(17, 17, 17, 0.6)"
             }}
           >
             Études de cas
           </motion.span>
-          <h2 className="text-display-mega text-[var(--accent-dark)] mb-6">
-            Des résultats <span className="text-gradient-hero">mesurables</span>
+          {/* Editorial two-tone title */}
+          <h2
+            className="mb-6"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.5rem, 6vw, 4rem)",
+              lineHeight: "1.05",
+              letterSpacing: "-0.03em"
+            }}
+          >
+            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Des résultats </span>
+            <span style={{ color: "#111111", fontWeight: 600 }}>mesurables</span>
           </h2>
-          <p className="text-lg text-[var(--neutral-500)] leading-relaxed">
+          <p
+            className="text-lg leading-relaxed"
+            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+          >
             Chaque projet est une histoire de transformation. Découvrez comment
             nous avons aidé nos clients à atteindre leurs objectifs.
           </p>

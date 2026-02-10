@@ -1,0 +1,219 @@
+/* ─── CAROUSEL / TABS SYSTEM ─── */
+.carousel-section {
+  margin: 40px 0 50px 0;
+  position: relative;
+}
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.carousel-header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.carousel-header-icon.amber { background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); }
+.carousel-header-icon.teal { background: var(--teal-dim); border: 1px solid rgba(45,212,191,0.25); color: var(--teal); }
+.carousel-header-icon.rose { background: rgba(244,114,182,0.1); border: 1px solid rgba(244,114,182,0.25); color: var(--rose); }
+
+.carousel-header-text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.carousel-header-count {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.carousel-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.carousel-tabs::-webkit-scrollbar { display: none; }
+
+.carousel-tab {
+  padding: 10px 18px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-tab:hover {
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.03);
+}
+
+.carousel-tab.active {
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, var(--amber), var(--coral));
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(245,158,11,0.25);
+}
+
+.carousel-tab.active.teal-active {
+  background: linear-gradient(135deg, var(--teal), #0d9488);
+  box-shadow: 0 2px 12px rgba(45,212,191,0.25);
+}
+
+.carousel-tab.active.rose-active {
+  background: linear-gradient(135deg, var(--rose), #ec4899);
+  box-shadow: 0 2px 12px rgba(244,114,182,0.25);
+}
+
+.carousel-tab-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.7;
+}
+
+.carousel-tab.active .carousel-tab-num {
+  opacity: 1;
+}
+
+.carousel-panel {
+  display: none;
+  animation: panelFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-panel.active {
+  display: block;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── NAVIGATION ARROWS ─── */
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.carousel-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-nav-btn:hover {
+  background: var(--amber-glow);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-nav-btn:disabled:hover {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.carousel-progress {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+/* ─── BACK TO TOP FLOATING BTN ─── */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--amber), var(--coral));
+  border: none;
+  color: var(--bg-deep);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  box-shadow: 0 6px 28px rgba(245,158,11,0.45);
+  transform: translateY(-2px);
+}
+
+/* Print: show everything linearly */
+@media print {
+  .carousel-tabs, .carousel-nav, .carousel-header, .back-to-top { display: none !important; }
+  .carousel-panel { display: block !important; animation: none !important; }
+  .carousel-section { margin: 0; }
+}

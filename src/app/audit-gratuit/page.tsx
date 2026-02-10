@@ -305,8 +305,7 @@ export default function AuditGratuitPage() {
               className="lg:sticky lg:top-8"
             >
               <GlassCard
-                variant="gradient"
-                borderGlow
+                variant="elevated"
                 className="p-8"
               >
                 {isSuccess ? (
