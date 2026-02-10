@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resend, emailConfig } from "@/lib/resend";
+import { supabaseAdmin } from "@/lib/supabase";
 import { z } from "zod";
 import { CabinetReadyNotificationEmail } from "@/emails/cabinet-ready-notification";
 
@@ -83,6 +84,36 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
+
+    // Convertir les strings comma-separated en arrays pour Supabase
+    const frustrationsArray = data.frustrations?.split(", ").filter(Boolean) || null;
+    const servicesArray = data.services?.split(", ").filter(Boolean) || null;
+
+    // Sauvegarder dans Supabase
+    const { error: dbError } = await supabaseAdmin
+      .from("cabinet_ready_responses")
+      .insert({
+        prenom: data.prenom,
+        email: data.email,
+        rdv: data.rdv,
+        poste: data.poste,
+        collaborateurs: data.collaborateurs,
+        clients: data.clients,
+        preparation: data.preparation,
+        outils: data.outils,
+        logiciel: data.logiciel || null,
+        frustrations: frustrationsArray,
+        temps_passe: data["temps-passe"] || null,
+        services: servicesArray,
+        projet_autre: data["projet-autre"] || null,
+      });
+
+    if (dbError) {
+      console.error("[Cabinet Ready API] Supabase error:", dbError);
+      // On continue quand même pour envoyer l'email
+    } else {
+      console.log("[Cabinet Ready API] Saved to Supabase");
+    }
 
     // Préparer les données pour le template email
     const emailData = {
