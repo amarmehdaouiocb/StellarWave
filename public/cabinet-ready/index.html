@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabinet Ready — Pilotez la transition facturation électronique</title>
+    <meta name="description" content="Le cockpit unique pour piloter la migration facturation électronique de tout votre portefeuille clients. Septembre 2026 approche.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Refined navy & warm accent palette */
+            --navy-900: #0f172a;
+            --navy-800: #1e293b;
+            --navy-700: #334155;
+            --navy-600: #475569;
+            --navy-400: #94a3b8;
+            --navy-200: #e2e8f0;
+            --navy-100: #f1f5f9;
+            --navy-50: #f8fafc;
+
+            --amber-500: #f59e0b;
+            --amber-400: #fbbf24;
+            --amber-600: #d97706;
+
+            --emerald-500: #10b981;
+            --emerald-400: #34d399;
+
+            --coral-500: #ef6c4a;
+
+            --white: #ffffff;
+
+            /* Typography */
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 6rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--navy-50);
+            color: var(--navy-800);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utility classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .container--narrow {
+            max-width: 720px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(248, 250, 252, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--navy-200);
+            transition: all 0.3s ease;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            color: var(--navy-900);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--navy-900);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--navy-700);
+            transform: translateY(-1px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: calc(80px + var(--space-3xl)) 0 var(--space-4xl);
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                var(--navy-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(90deg, var(--navy-200) 1px, transparent 1px),
+                linear-gradient(var(--navy-200) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-xs) var(--space-md);
+            background: var(--white);
+            border: 1px solid var(--navy-200);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--navy-700);
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--coral-500);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--navy-900);
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.6s ease-out 0.1s backwards;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--amber-600);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--navy-600);
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+            animation: fadeInUp 0.6s ease-out 0.2s backwards;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            animation: fadeInUp 0.6s ease-out 0.3s backwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            background: var(--navy-900);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-700);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hero-note {
+            font-size: 0.85rem;
+            color: var(--navy-400);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== URGENCY BANNER ===== */
+        .urgency-banner {
+            background: var(--navy-900);
+            color: var(--white);
+            padding: var(--space-lg) 0;
+            text-align: center;
+        }
+
+        .urgency-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2xl);
+            flex-wrap: wrap;
+        }
+
+        .urgency-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .urgency-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--amber-400);
+            line-height: 1;
+        }
+
+        .urgency-label {
+            font-size: 0.85rem;
+            color: var(--navy-400);
+            margin-top: var(--space-xs);
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem {
+            padding: var(--space-4xl) 0;
+            background: var(--white);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--amber-600);
+            margin-bottom: var(--space-md);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--navy-900);
+            line-height: 1.2;
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.02em;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-2xl);
+        }
+
+        .problem-card {
+            padding: var(--space-xl);
+            background: var(--navy-50);
+            border-radius: 12px;
+            border: 1px solid var(--navy-200);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            border-color: var(--navy-300);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--coral-500);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            font-size: 1.5rem;
+        }
+
+        .problem-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: var(--space-sm);
+        }
+
+        .problem-card p {
+            color: var(--navy-600);
+            font-size: 0.95rem;
+        }
+
+        /* ===== SOLUTION SECTION ===== */
+        .solution {
+            padding: var(--space-4xl) 0;
+            background: var(--navy-50);
+        }
+
+        .solution-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--space-3xl);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-xl);
+        }
+
+        .feature-card {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--navy-200);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--amber-400);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.1);
+        }
+
+        .feature-number {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--amber-600);
+            margin-bottom: var(--space-md);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: var(--space-sm);
+        }
+
+        .feature-card p {
+            color: var(--navy-600);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--navy-100);
+            color: var(--navy-700);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        /* ===== QUESTIONNAIRE SECTION ===== */
+        .questionnaire {
+            padding: var(--space-4xl) 0;
+            background: var(--white);
+        }
+
+        .questionnaire-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto var(--space-3xl);
+        }
+
+        .questionnaire-header p {
+            color: var(--navy-600);
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--navy-50);
+            border-radius: 16px;
+            padding: var(--space-2xl);
+            border: 1px solid var(--navy-200);
+        }
+
+        .form-progress {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: var(--navy-200);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--amber-500);
+        }
+
+        .progress-step.completed {
+            background: var(--emerald-500);
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .form-question {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: var(--space-lg);
+            line-height: 1.3;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--navy-700);
+            margin-bottom: var(--space-sm);
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 1px solid var(--navy-300);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--navy-900);
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--amber-500);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .form-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--white);
+            border: 1px solid var(--navy-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .form-option:hover {
+            border-color: var(--navy-400);
+        }
+
+        .form-option.selected {
+            border-color: var(--amber-500);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .form-option input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--amber-500);
+        }
+
+        .form-option-label {
+            flex: 1;
+            font-size: 0.95rem;
+            color: var(--navy-800);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--white);
+            color: var(--navy-700);
+            border: 1px solid var(--navy-300);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy-100);
+        }
+
+        .btn-next {
+            flex: 2;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--navy-900);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-next:hover {
+            background: var(--navy-700);
+        }
+
+        .btn-next:disabled {
+            background: var(--navy-400);
+            cursor: not-allowed;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: var(--space-2xl);
+        }
+
+        .form-success.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--emerald-500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .form-success h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--navy-900);
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-success p {
+            color: var(--navy-600);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: var(--space-2xl) 0;
+            background: var(--navy-900);
+            color: var(--navy-400);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--amber-400);
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .urgency-content {
+                gap: var(--space-lg);
+            }
+
+            .urgency-number {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: var(--space-lg);
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+
+            .btn-secondary,
+            .btn-next {
+                flex: none;
+                width: 100%;
+            }
+
+            .header-cta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">CR</div>
+                <span class="logo-text">Cabinet Ready</span>
+            </a>
+            <a href="#questionnaire" class="header-cta">
+                Participer à l'étude
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Septembre 2026 — Facturation électronique obligatoire
+                </div>
+                <h1 class="hero-title">
+                    Pilotez la transition de <em>tout votre portefeuille</em> depuis un seul écran
+                </h1>
+                <p class="hero-subtitle">
+                    Cabinet Ready est le cockpit qui remplace vos 15 fichiers Excel par un tableau de bord unique. Suivez la readiness de chaque client, détectez les blocages, automatisez les relances.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#questionnaire" class="btn-primary">
+                        Participer à notre étude (3 min)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                    <p class="hero-note">Aidez-nous à construire l'outil qu'il vous faut</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgency Banner -->
+    <section class="urgency-banner">
+        <div class="container">
+            <div class="urgency-content">
+                <div class="urgency-stat">
+                    <span class="urgency-number">7</span>
+                    <span class="urgency-label">mois avant la deadline</span>
+                </div>
+                <div class="urgency-stat">
+                    <span class="urgency-number">7M</span>
+                    <span class="urgency-label">d'entreprises concernées</span>
+                </div>
+                <div class="urgency-stat">
+                    <span class="urgency-number">&lt;25%</span>
+                    <span class="urgency-label">des clients préparés*</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <span class="section-label">Le problème</span>
+            <h2 class="section-title">
+                Comment piloter la migration de 500 clients<br>avec des fichiers Excel ?
+            </h2>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📊</div>
+                    <h3>Visibilité floue</h3>
+                    <p>Impossible de savoir en 10 secondes combien de clients sont prêts, lesquels sont en retard, et pourquoi.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Détection tardive</h3>
+                    <p>Les anomalies (mandat manquant, flux bloqué) sont découvertes trop tard, parfois à quelques jours de la deadline.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📧</div>
+                    <h3>Relances manuelles</h3>
+                    <p>Chaque collaborateur envoie ses emails dans son coin. Pas de suivi, pas de templates, pas de traçabilité.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔥</div>
+                    <h3>Stress croissant</h3>
+                    <p>Plus la deadline approche, plus la charge de travail explose. Et les erreurs avec.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <div class="solution-header">
+                <span class="section-label">La solution</span>
+                <h2 class="section-title">Un cockpit unique pour tout votre portefeuille</h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-number">01</span>
+                    <h3>Dashboard readiness</h3>
+                    <p>Score de préparation par client (0-100). Vue globale du portefeuille. Filtres par statut, priorité, deadline.</p>
+                    <span class="feature-tag">Vue en temps réel</span>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-number">02</span>
+                    <h3>Détection automatique</h3>
+                    <p>Règles intelligentes qui remontent les anomalies : mandat manquant, flux bloqué +72h, statut incohérent.</p>
+                    <span class="feature-tag">Alertes proactives</span>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-number">03</span>
+                    <h3>Workflow d'incidents</h3>
+                    <p>Chaque problème devient un ticket assigné à un collaborateur, avec deadline et suivi jusqu'à résolution.</p>
+                    <span class="feature-tag">Rien ne passe à la trappe</span>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-number">04</span>
+                    <h3>Relances automatisées</h3>
+                    <p>Templates d'emails par type de blocage. Envoi en masse ou unitaire. Tracking des ouvertures et réponses.</p>
+                    <span class="feature-tag">Gain de temps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questionnaire Section -->
+    <section class="questionnaire" id="questionnaire">
+        <div class="container container--narrow">
+            <div class="questionnaire-header">
+                <span class="section-label">Votre avis compte</span>
+                <h2 class="section-title">Aidez-nous à construire l'outil qu'il vous faut</h2>
+                <p>3 minutes pour nous partager votre réalité terrain. Vos réponses façonneront directement le produit.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-progress">
+                    <div class="progress-step active" data-step="1"></div>
+                    <div class="progress-step" data-step="2"></div>
+                    <div class="progress-step" data-step="3"></div>
+                    <div class="progress-step" data-step="4"></div>
+                    <div class="progress-step" data-step="5"></div>
+                    <div class="progress-step" data-step="6"></div>
+                </div>
+
+                <form id="questionnaireForm">
+                    <!-- Step 1: Infos cabinet -->
+                    <div class="form-step active" data-step="1">
+                        <p class="form-question">Parlez-nous de votre cabinet</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Votre poste</label>
+                            <select class="form-select" name="poste" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="associe">Associé(e) / Dirigeant(e)</option>
+                                <option value="directeur">Directeur(trice) de cabinet</option>
+                                <option value="responsable-production">Responsable production</option>
+                                <option value="responsable-mission">Responsable de mission</option>
+                                <option value="collaborateur">Collaborateur(trice)</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nombre de collaborateurs</label>
+                            <select class="form-select" name="collaborateurs" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="1-5">1 à 5</option>
+                                <option value="6-15">6 à 15</option>
+                                <option value="16-30">16 à 30</option>
+                                <option value="31-50">31 à 50</option>
+                                <option value="50+">Plus de 50</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nombre de clients en portefeuille</label>
+                            <select class="form-select" name="clients" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="<100">Moins de 100</option>
+                                <option value="100-300">100 à 300</option>
+                                <option value="300-500">300 à 500</option>
+                                <option value="500-1000">500 à 1000</option>
+                                <option value="1000+">Plus de 1000</option>
+                            </select>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-next" onclick="nextStep()">
+                                Continuer →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: État de préparation -->
+                    <div class="form-step" data-step="2">
+                        <p class="form-question">Où en êtes-vous dans la préparation à la facturation électronique ?</p>
+
+                        <div class="form-options">
+                            <label class="form-option">
+                                <input type="radio" name="preparation" value="pas-commence" required>
+                                <span class="form-option-label">Pas encore commencé</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="preparation" value="reflexion">
+                                <span class="form-option-label">En réflexion / phase de cadrage</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="preparation" value="en-cours">
+                                <span class="form-option-label">En cours de déploiement</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="preparation" value="avance">
+                                <span class="form-option-label">Bien avancé (>50% des clients prêts)</span>
+                            </label>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
+                            <button type="button" class="btn-next" onclick="nextStep()">Continuer →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Outils actuels -->
+                    <div class="form-step" data-step="3">
+                        <p class="form-question">Comment suivez-vous l'avancement de la préparation de vos clients ?</p>
+
+                        <div class="form-options">
+                            <label class="form-option">
+                                <input type="radio" name="outils" value="excel" required>
+                                <span class="form-option-label">Fichier Excel / Google Sheets</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="outils" value="logiciel-comptable">
+                                <span class="form-option-label">Module du logiciel comptable (Pennylane, Cegid...)</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="outils" value="crm">
+                                <span class="form-option-label">CRM / outil de gestion interne</span>
+                            </label>
+                            <label class="form-option">
+                                <input type="radio" name="outils" value="rien">
+                                <span class="form-option-label">Pas d'outil dédié</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group" style="margin-top: var(--space-lg);">
+                            <label class="form-label">Quel logiciel comptable utilisez-vous principalement ?</label>
+                            <select class="form-select" name="logiciel">
+                                <option value="">Sélectionnez...</option>
+                                <option value="pennylane">Pennylane</option>
+                                <option value="cegid">Cegid</option>
+                                <option value="sage">Sage</option>
+                                <option value="acd">ACD</option>
+                                <option value="myunisoft">MyUnisoft</option>
+                                <option value="dext">Dext</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
+                            <button type="button" class="btn-next" onclick="nextStep()">Continuer →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Douleurs -->
+                    <div class="form-step" data-step="4">
+                        <p class="form-question">Qu'est-ce qui vous frustre le plus dans la gestion de cette transition ?</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Sélectionnez tout ce qui s'applique</label>
+                            <div class="form-options">
+                                <label class="form-option">
+                                    <input type="checkbox" name="frustrations" value="visibilite">
+                                    <span class="form-option-label">Manque de visibilité sur l'avancement global</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="frustrations" value="temps">
+                                    <span class="form-option-label">Trop de temps passé sur le suivi</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="frustrations" value="relances">
+                                    <span class="form-option-label">Relances clients chronophages</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="frustrations" value="anomalies">
+                                    <span class="form-option-label">Anomalies détectées trop tard</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="frustrations" value="coordination">
+                                    <span class="form-option-label">Coordination difficile avec l'équipe</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Combien de temps estimez-vous passer par semaine sur ce sujet ?</label>
+                            <select class="form-select" name="temps-passe">
+                                <option value="">Sélectionnez...</option>
+                                <option value="<2h">Moins de 2 heures</option>
+                                <option value="2-5h">2 à 5 heures</option>
+                                <option value="5-10h">5 à 10 heures</option>
+                                <option value="10h+">Plus de 10 heures</option>
+                            </select>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
+                            <button type="button" class="btn-next" onclick="nextStep()">Continuer →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Contact -->
+                    <div class="form-step" data-step="5">
+                        <p class="form-question">Dernière étape : comment vous recontacter ?</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Votre prénom</label>
+                            <input type="text" class="form-input" name="prenom" placeholder="Jean" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Votre email professionnel</label>
+                            <input type="email" class="form-input" name="email" placeholder="jean@cabinet.fr" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Seriez-vous disponible pour un échange de 20 min ?</label>
+                            <div class="form-options">
+                                <label class="form-option">
+                                    <input type="radio" name="rdv" value="oui" required>
+                                    <span class="form-option-label">Oui, avec plaisir</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="radio" name="rdv" value="peut-etre">
+                                    <span class="form-option-label">Peut-être, recontactez-moi</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="radio" name="rdv" value="non">
+                                    <span class="form-option-label">Non, mais tenez-moi informé(e)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
+                            <button type="button" class="btn-next" onclick="nextStep()">Continuer →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Upsell Agence -->
+                    <div class="form-step" data-step="6">
+                        <p class="form-question">En attendant Cabinet Ready, avez-vous d'autres besoins ?</p>
+
+                        <p style="color: var(--navy-600); font-size: 0.95rem; margin-bottom: var(--space-lg);">
+                            Notre équipe accompagne également les cabinets sur des projets IA, développement sur-mesure et transformation digitale.
+                        </p>
+
+                        <div class="form-group">
+                            <label class="form-label">Quels services pourraient vous intéresser ?</label>
+                            <div class="form-options">
+                                <label class="form-option">
+                                    <input type="checkbox" name="services" value="audit-preparation">
+                                    <span class="form-option-label">Audit de préparation facturation électronique</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="services" value="dev-sur-mesure">
+                                    <span class="form-option-label">Développement d'outils sur-mesure</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="services" value="ia-automatisation">
+                                    <span class="form-option-label">IA & Automatisation de processus</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="services" value="formation">
+                                    <span class="form-option-label">Formation / Accompagnement équipe</span>
+                                </label>
+                                <label class="form-option">
+                                    <input type="checkbox" name="services" value="aucun">
+                                    <span class="form-option-label">Pas pour le moment, merci</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Un projet ou besoin particulier à nous partager ? (optionnel)</label>
+                            <textarea class="form-textarea" name="projet-autre" placeholder="Ex: Automatiser les relances clients, intégrer l'IA dans notre workflow..."></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
+                            <button type="submit" class="btn-next">Envoyer mes réponses ✓</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Success Message -->
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">✓</div>
+                    <h3>Merci pour votre contribution !</h3>
+                    <p>Vos réponses nous sont précieuses. Nous vous recontacterons très bientôt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>* Source : <a href="https://blog.tiime.fr" target="_blank">Baromètre Tiime 2026</a> — Cabinet Ready © 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        function updateProgress() {
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Option selection styling
+        document.querySelectorAll('.form-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const input = this.querySelector('input');
+                if (input.type === 'radio') {
+                    this.closest('.form-options').querySelectorAll('.form-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                } else if (input.type === 'checkbox') {
+                    this.classList.toggle('selected');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('questionnaireForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            // Get all checked frustrations
+            const frustrations = [];
+            document.querySelectorAll('input[name="frustrations"]:checked').forEach(cb => {
+                frustrations.push(cb.value);
+            });
+            data.frustrations = frustrations.join(', ');
+
+            // Get all checked services (upsell)
+            const services = [];
+            document.querySelectorAll('input[name="services"]:checked').forEach(cb => {
+                services.push(cb.value);
+            });
+            data.services = services.join(', ');
+
+            // Add metadata
+            data._subject = `[Cabinet Ready] Nouvelle réponse de ${data.prenom || 'Anonyme'}`;
+            data._replyto = data.email;
+
+            try {
+                // Send to StellarWave API (même domaine)
+                const response = await fetch('/api/cabinet-ready', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+                    document.getElementById('formSuccess').classList.add('active');
+                    document.querySelector('.form-progress').style.display = 'none';
+                } else {
+                    throw new Error('Erreur serveur');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement à amar@stellarwave.fr');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
