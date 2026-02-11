@@ -306,3 +306,118 @@ Services one-shot:
 3. Quel SLA support vendre des le plan Pro?
 4. Faut-il inclure un portail client externe en P1 ou le garder en service managé?
 
+---
+
+## 22. Validation Marché - Questionnaire Cabinet Ready
+
+### 22.1 Méthodologie
+Avant développement, validation des hypothèses via:
+- **Questionnaire en ligne**: https://www.stellarwave.fr/cabinet-ready/
+- **Interviews qualitatives**: 25 min avec prospects qualifiés
+- **Prospection LinkedIn**: cabinets 6-50 collaborateurs
+
+### 22.2 Données collectées par le questionnaire
+
+#### Profil cabinet (validation ICP)
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Poste | Associé, Directeur, Resp. production, Resp. mission, Collaborateur | Qui est le décideur/influenceur |
+| Nb collaborateurs | 1-5, 6-10, 11-20, 21-50, 50+ | Segment prioritaire |
+| Nb clients | <100, 100-200, 200-500, 500-1000, 1000+ | Complexité portefeuille |
+
+#### État de préparation (validation du problème)
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Préparation FE | Pas commencé, Réflexion, En cours, Avancé | Maturité marché, urgence |
+| Outil actuel | Excel, Logiciel comptable, CRM, Rien | Concurrence, habitudes |
+| Logiciel comptable | Texte libre | Intégrations prioritaires |
+
+#### Points de douleur (validation proposition de valeur)
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Frustrations | Visibilité, Temps perdu, Relances, Anomalies tardives, Coordination | Features prioritaires |
+| Temps perdu/semaine | <2h, 2-5h, 5-10h, 10h+ | Quantification du problème |
+
+#### Willingness to pay (validation pricing)
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Budget mensuel | <50€, 50-100€, 100-200€, 200-500€, 500+€, Ne sait pas | Élasticité prix, positionnement |
+
+#### Intérêt services (upsell)
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Services agence | Audit, Dev sur-mesure, IA/Automation, Formation | Cross-sell potentiel |
+| Projet autre | Texte libre | Besoins non anticipés |
+
+#### Qualification lead
+| Question | Valeurs | Insight recherché |
+|----------|---------|-------------------|
+| Disponibilité RDV | Oui, Peut-être, Non | Conversion potentielle |
+
+### 22.3 Métriques de succès validation
+| Métrique | Objectif | Status |
+|----------|----------|--------|
+| Réponses questionnaire | 50+ | 🔄 En cours |
+| Interviews réalisées | 10-15 | 🔄 En cours |
+| Taux "Pas commencé" + "Réflexion" | >50% | À mesurer |
+| Taux frustrations ≥2 | >60% | À mesurer |
+| Budget 100€+/mois | >40% | À mesurer |
+| Taux RDV "Oui" | >20% | À mesurer |
+
+### 22.4 Hypothèses à valider
+
+#### Hypothèse 1: Le problème existe
+- **Test**: % répondants avec frustrations ≥2
+- **Seuil validation**: >60%
+- **Impact si invalidé**: Pivoter ou abandonner
+
+#### Hypothèse 2: Le timing est bon
+- **Test**: % "Pas commencé" ou "Réflexion"
+- **Seuil validation**: >50%
+- **Impact si invalidé**: Adapter messaging, attendre
+
+#### Hypothèse 3: Le pricing est viable
+- **Test**: % budget ≥100€/mois
+- **Seuil validation**: >40%
+- **Impact si invalidé**: Revoir pricing ou positionnement
+
+#### Hypothèse 4: L'ICP est correct
+- **Test**: Corrélation taille cabinet / frustrations / budget
+- **Seuil validation**: Signal clair sur segment
+- **Impact si invalidé**: Affiner persona cible
+
+### 22.5 Dashboard analytics
+- **URL**: https://www.stellarwave.fr/admin/cabinet-ready/
+- **Données temps réel**: Supabase + subscriptions
+- **Requêtes clés**: Voir `docs/supabase-setup.md`
+
+### 22.6 Insights collectés (à mettre à jour)
+
+> **Note**: Cette section sera enrichie au fur et à mesure des réponses.
+
+#### Répartition préparation
+```
+À compléter après N réponses
+```
+
+#### Top frustrations
+```
+À compléter après N réponses
+```
+
+#### Fourchettes budget
+```
+À compléter après N réponses
+```
+
+#### Logiciels comptables mentionnés
+```
+À compléter après N réponses
+```
+
+### 22.7 Décisions prises suite validation
+
+| Date | Insight | Décision | Impact PRD |
+|------|---------|----------|------------|
+| - | - | - | - |
+
