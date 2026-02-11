@@ -33,7 +33,7 @@ Objectif chiffré a J90:
 - `>=3 cas clients` publiables.
 
 ## Offre commerciale (a vendre des J1)
-Nom de travail: **Cabinet Ready 2026**.
+Nom de travail: **CabReady 2026**.
 
 ### Offre A - Audit readiness (2 semaines)
 - Livrable: diagnostic flux, ecarts process, plan de migration client par client.

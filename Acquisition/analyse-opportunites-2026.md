@@ -67,7 +67,7 @@ Entrer sur ce marché maintenant signifie :
 
 | Rang | Projet | TAM France | Concurrence | Verdict |
 |------|--------|------------|-------------|---------|
-| 🥇 | **Cabinet Ready Copilot** (Facturation électronique) | 68-228M €/an | **Faible** | ✅ **MEILLEURE OPPORTUNITÉ** |
+| 🥇 | **CabReady Copilot** (Facturation électronique) | 68-228M €/an | **Faible** | ✅ **MEILLEURE OPPORTUNITÉ** |
 | 🥈 | **Agence dev AI-augmentée** | N/A | Moyenne | ✅ **VALIDE** — Cash immédiat |
 | ⚠️ | **CodAI Santé** (micro-niche) | ~40M €/an | **Élevée (Nabla 70M$)** | ⚠️ **RISQUÉ** — Nabla domine |
 | ❌ | ~~JurisAI~~ | 262M €/an | **Très élevée** | ❌ **ABANDONNER** — Marché saturé |
@@ -251,7 +251,7 @@ Opportunité : ⚠️ MICRO-NICHE SEULEMENT
 
 ---
 
-## 3. Cabinet Ready Copilot — ✅ MEILLEURE OPPORTUNITÉ
+## 3. CabReady Copilot — ✅ MEILLEURE OPPORTUNITÉ
 
 ### 3.1 Le contexte réglementaire
 
@@ -435,7 +435,7 @@ PHASE 4 — Scale + Pivot prep (J91-J180)
 └── Objectif : 50k€+ MRR
 ```
 
-### 3.11 Verdict Cabinet Ready Copilot
+### 3.11 Verdict CabReady Copilot
 
 ```
 ✅ MEILLEURE OPPORTUNITÉ IDENTIFIÉE
@@ -458,7 +458,7 @@ Recommandation :
 └── Planifier le pivot "compliance continue" dès le départ
 ```
 
-### 3.12 Sources Cabinet Ready Copilot
+### 3.12 Sources CabReady Copilot
 
 - [economie.gouv.fr - Facturation électronique](https://www.economie.gouv.fr/tout-savoir-sur-la-facturation-electronique-pour-les-entreprises)
 - [Tiime - Baromètre préparation cabinets](https://blog.tiime.fr/ec/facturation-%C3%A9lectronique-o%C3%B9-en-sont-les-cabinets-dans-leur-pr%C3%A9paration)
@@ -526,7 +526,7 @@ Pennylane a levé >100M€ et domine le marché de la comptabilité automatisée
 
 ---
 
-## 6. Plan d'exécution RÉVISÉ (Cabinet Ready Copilot)
+## 6. Plan d'exécution RÉVISÉ (CabReady Copilot)
 
 ### Phase 1 : Validation marché (Semaines 1-2)
 
@@ -595,7 +595,7 @@ PRÉPARATION PIVOT (en parallèle)
 ### Ancien plan (Agence) — toujours valide en backup
 
 ```
-SI Cabinet Ready échoue en phase 1 (pas de validation marché) :
+SI CabReady échoue en phase 1 (pas de validation marché) :
 ├── Pivoter vers l'agence dev AI-augmentée
 ├── Objectif : 15-25k€/mois en freelance
 └── Réessayer un SaaS plus tard avec le cash accumulé
@@ -603,7 +603,7 @@ SI Cabinet Ready échoue en phase 1 (pas de validation marché) :
 
 ### Comparaison des deux approches
 
-| Critère | Cabinet Ready Copilot | Agence dev |
+| Critère | CabReady Copilot | Agence dev |
 |---------|----------------------|------------|
 | Time-to-revenue | 2 semaines (audits) | 2-4 semaines |
 | Potentiel MRR | 50-100k€/mois | 0€ (pas récurrent) |
@@ -642,7 +642,7 @@ Avant de valider une niche, TOUJOURS :
 
 ### Critères GO/NO-GO
 
-| Critère | Seuil | Cabinet Ready | CodAI | JurisAI |
+| Critère | Seuil | CabReady | CodAI | JurisAI |
 |---------|-------|---------------|-------|---------|
 | Concurrent à >10M€ valorisation | Non | ✅ Non | ❌ Nabla 70M$ | ❌ Doctrine 120M€ |
 | Partenariat institutionnel concurrent | Non | ✅ Non | ⚠️ Weda/Doctolib | ❌ Gouvernement FR |
@@ -659,15 +659,15 @@ Avant de valider une niche, TOUJOURS :
 
 | Projet | Potentiel initial | Potentiel révisé | Recommandation |
 |--------|-------------------|------------------|----------------|
-| **Cabinet Ready Copilot** | N/A (nouveau) | 🌟🌟🌟🌟🌟 | ✅ **PRIORITÉ #1** — Meilleure opportunité |
-| **Agence** | 🌟🌟🌟 | 🌟🌟🌟🌟 | ✅ **BACKUP** — Cash sécurisé si Cabinet Ready échoue |
+| **CabReady Copilot** | N/A (nouveau) | 🌟🌟🌟🌟🌟 | ✅ **PRIORITÉ #1** — Meilleure opportunité |
+| **Agence** | 🌟🌟🌟 | 🌟🌟🌟🌟 | ✅ **BACKUP** — Cash sécurisé si CabReady échoue |
 | **CodAI** | 🌟🌟🌟🌟 | 🌟🌟 | ⚠️ **RISQUÉ** — Nabla domine (70M$, 85k users) |
 | **JurisAI** | 🌟🌟🌟🌟🌟 | 🌟 | ❌ **ABANDONNER** — Marché saturé |
 
 ### La vraie formule
 
 ```
-Cabinet Ready Copilot (opportunité réglementaire)
+CabReady Copilot (opportunité réglementaire)
     + Validation rapide (2 semaines d'interviews)
     + MVP en 6-8 semaines
     + Préparation du pivot post-2027 dès le départ
@@ -732,11 +732,11 @@ SI GO :
 ---
 
 *Document mis à jour le 10 février 2026*
-*Analyses concurrentielles complètes effectuées (JurisAI + CodAI + Cabinet Ready Copilot)*
+*Analyses concurrentielles complètes effectuées (JurisAI + CodAI + CabReady Copilot)*
 
 ## Sources
 
-### Cabinet Ready Copilot (Facturation électronique)
+### CabReady Copilot (Facturation électronique)
 - [economie.gouv.fr - Facturation électronique](https://www.economie.gouv.fr/tout-savoir-sur-la-facturation-electronique-pour-les-entreprises)
 - [Tiime - Baromètre préparation cabinets](https://blog.tiime.fr/ec/facturation-%C3%A9lectronique-o%C3%B9-en-sont-les-cabinets-dans-leur-pr%C3%A9paration)
 - [Compta-Online - Chiffres profession comptable](https://www.compta-online.com/les-chiffres-de-expertise-comptable-en-france-ao861)

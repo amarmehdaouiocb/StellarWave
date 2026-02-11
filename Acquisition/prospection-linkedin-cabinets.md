@@ -1,4 +1,4 @@
-# Prospection LinkedIn — Cabinet Ready
+# Prospection LinkedIn — CabReady
 
 > **Objectif** : Obtenir 10-15 interviews de validation marché
 > **Cible** : Cabinets comptables français (6-50 collaborateurs)
