@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
 
@@ -80,6 +81,7 @@ function getSupabaseClient(): SupabaseClient | null {
 }
 
 export default function CabinetReadyDashboard() {
+  const router = useRouter();
   const [responses, setResponses] = useState<Response[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -631,6 +633,20 @@ export default function CabinetReadyDashboard() {
           background: var(--bg-card-hover);
         }
 
+        .leads-table tbody tr {
+          cursor: pointer;
+          transition: all 0.15s ease;
+        }
+
+        .leads-table tbody tr:hover {
+          transform: translateX(4px);
+        }
+
+        .leads-table tbody tr:hover td:first-child {
+          border-left: 3px solid var(--accent);
+          padding-left: calc(1.5rem - 3px);
+        }
+
         .leads-table tr:last-child td {
           border-bottom: none;
         }
@@ -1020,15 +1036,19 @@ export default function CabinetReadyDashboard() {
                     preparationLabels[r.preparation] || preparationLabels["pas-commence"];
 
                   return (
-                    <tr key={r.id} className={isHot ? "hot-lead" : ""}>
+                    <tr
+                      key={r.id}
+                      className={isHot ? "hot-lead" : ""}
+                      onClick={() => router.push(`/admin/cabinet-ready/${r.id}`)}
+                    >
                       <td>
                         <div className="lead-name">
                           {isHot && <span className="hot-indicator">🔥 </span>}
                           {r.prenom}
                         </div>
-                        <a href={`mailto:${r.email}`} className="lead-email">
+                        <span className="lead-email">
                           {r.email}
-                        </a>
+                        </span>
                       </td>
                       <td>{posteLabels[r.poste] || r.poste}</td>
                       <td>
