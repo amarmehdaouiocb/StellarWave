@@ -37,6 +37,7 @@ const cabinetReadySchema = z.object({
   // Step 6: Upsell
   services: z.string().optional(),
   "projet-autre": z.string().optional(),
+  budget: z.string().optional(),
 });
 
 // Mappings pour affichage lisible
@@ -108,6 +109,7 @@ export async function POST(request: NextRequest) {
           temps_passe: data["temps-passe"] || null,
           services: servicesArray,
           projet_autre: data["projet-autre"] || null,
+          budget: data.budget || null,
         });
 
       if (dbError) {
@@ -132,6 +134,7 @@ export async function POST(request: NextRequest) {
       tempsPasse: data["temps-passe"],
       services: data.services,
       projetAutre: data["projet-autre"],
+      budget: data.budget,
     };
 
     // Envoyer l'email avec le template React

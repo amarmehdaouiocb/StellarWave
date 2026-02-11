@@ -25,6 +25,7 @@ type Lead = {
   temps_passe: string | null;
   services: string[] | null;
   projet_autre: string | null;
+  budget: string | null;
   contacted_at?: string | null;
   notes?: string | null;
 };
@@ -96,6 +97,15 @@ const rdvLabels: Record<string, { label: string; color: string; icon: string }> 
   oui: { label: "Oui, avec plaisir", color: "#10b981", icon: "✅" },
   "peut-etre": { label: "Peut-être, recontactez-moi", color: "#f97316", icon: "🤔" },
   non: { label: "Non, mais tenez-moi informé(e)", color: "#64748b", icon: "📧" },
+};
+
+const budgetLabels: Record<string, { label: string; color: string }> = {
+  "<50": { label: "Moins de 50€/mois", color: "#64748b" },
+  "50-100": { label: "50 à 100€/mois", color: "#3b82f6" },
+  "100-200": { label: "100 à 200€/mois", color: "#8b5cf6" },
+  "200-500": { label: "200 à 500€/mois", color: "#10b981" },
+  "500+": { label: "Plus de 500€/mois", color: "#f59e0b" },
+  "ne-sait-pas": { label: "Ne sait pas encore", color: "#94a3b8" },
 };
 
 // Lazy Supabase client
@@ -814,6 +824,39 @@ export default function LeadDetailPage() {
           color: var(--rdv-color, var(--text-primary));
         }
 
+        /* Budget */
+        .budget-display {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.25rem;
+          background: var(--bg-secondary);
+          border-radius: 8px;
+          border: 2px solid var(--budget-color, var(--border));
+        }
+
+        .budget-icon {
+          font-size: 2rem;
+        }
+
+        .budget-content {
+          flex: 1;
+        }
+
+        .budget-label {
+          font-size: 0.7rem;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.25rem;
+        }
+
+        .budget-value {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--budget-color, var(--text-primary));
+        }
+
         /* Actions */
         .actions-list {
           display: flex;
@@ -1226,6 +1269,29 @@ export default function LeadDetailPage() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Budget */}
+            {lead.budget && (
+              <motion.div
+                className="detail-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18 }}
+              >
+                <div className="card-header">
+                  <h2 className="card-title">Budget Envisagé</h2>
+                </div>
+                <div className="card-body">
+                  <div className="budget-display" style={{ "--budget-color": budgetLabels[lead.budget]?.color || "#64748b" } as React.CSSProperties}>
+                    <span className="budget-icon">💰</span>
+                    <div className="budget-content">
+                      <div className="budget-label">Fourchette mensuelle</div>
+                      <div className="budget-value">{budgetLabels[lead.budget]?.label || lead.budget}</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Actions */}
             <motion.div

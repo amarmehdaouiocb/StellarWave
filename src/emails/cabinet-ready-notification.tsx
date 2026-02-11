@@ -33,6 +33,7 @@ export type CabinetReadyEmailData = {
   // Upsell
   services?: string;
   projetAutre?: string;
+  budget?: string;
 };
 
 // Labels avec emojis pour lisibilité
@@ -81,6 +82,15 @@ const serviceLabels: Record<string, string> = {
   aucun: "Pas pour le moment",
 };
 
+const budgetLabels: Record<string, string> = {
+  "<50": "💰 Moins de 50€/mois",
+  "50-100": "💰 50 à 100€/mois",
+  "100-200": "💰 100 à 200€/mois",
+  "200-500": "💰 200 à 500€/mois",
+  "500+": "💰 Plus de 500€/mois",
+  "ne-sait-pas": "🤷 Ne sait pas encore",
+};
+
 export function CabinetReadyNotificationEmail({
   prenom,
   email,
@@ -95,6 +105,7 @@ export function CabinetReadyNotificationEmail({
   tempsPasse,
   services,
   projetAutre,
+  budget,
 }: CabinetReadyEmailData) {
   const prepConfig = preparationConfig[preparation] || preparationConfig["pas-commence"];
   const rdvInfo = rdvConfig[rdv] || rdvConfig["non"];
@@ -250,6 +261,15 @@ export function CabinetReadyNotificationEmail({
               <Text style={sectionIcon}>📋</Text>
               <Heading as="h2" style={sectionTitle}>Services Agence</Heading>
               <Text style={noInterestText}>Pas d'intérêt pour le moment</Text>
+            </Section>
+          )}
+
+          {/* Budget Section */}
+          {budget && (
+            <Section style={budgetCard} className="mobile-padding">
+              <Text style={sectionIcon}>💰</Text>
+              <Heading as="h2" style={sectionTitle}>Budget Envisagé</Heading>
+              <Text style={budgetValue}>{budgetLabels[budget] || budget}</Text>
             </Section>
           )}
 
@@ -520,6 +540,20 @@ const noInterestText = {
   color: "#94a3b8",
   margin: "0",
   fontStyle: "italic" as const,
+};
+
+// Budget Section
+const budgetCard = {
+  padding: "28px 48px",
+  backgroundColor: "#ecfdf5",
+  borderBottom: "1px solid #a7f3d0",
+};
+
+const budgetValue = {
+  fontSize: "18px",
+  fontWeight: "700" as const,
+  color: "#047857",
+  margin: "0",
 };
 
 // Divider & Footer

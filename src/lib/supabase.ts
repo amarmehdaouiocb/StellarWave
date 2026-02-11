@@ -41,4 +41,5 @@ export type CabinetReadyResponse = {
   temps_passe?: string | null;
   services?: string[] | null;
   projet_autre?: string | null;
+  budget?: string | null;
 };
