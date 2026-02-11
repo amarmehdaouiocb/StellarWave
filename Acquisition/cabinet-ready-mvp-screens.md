@@ -1,4 +1,4 @@
-# Cabinet Ready — V1 MVP (8-10 écrans)
+# CabReady — V1 MVP (8-10 écrans)
 
 > **Philosophie** : Cockpit + Moteur d'exécution, pas un dashboard de scores.
 > **Objectif** : Livrer une mission, pas une app.
@@ -375,7 +375,7 @@
 │                                                             │
 │  Mapping des colonnes                                      │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │ Votre colonne        →    Champ Cabinet Ready       │   │
+│  │ Votre colonne        →    Champ CabReady       │   │
 │  │ ─────────────────────────────────────────────────── │   │
 │  │ "Raison sociale"     →    [Nom client ▼]           │   │
 │  │ "SIRET"              →    [SIRET ▼]                │   │

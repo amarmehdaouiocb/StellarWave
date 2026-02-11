@@ -1,7 +1,7 @@
 # PRD - Copilot Facturation Electronique (Cabinets Comptables)
 
 ## 1. Meta
-- Produit: `Cabinet Ready Copilot` (nom de travail)
+- Produit: `CabReady Copilot` (nom de travail)
 - Version PRD: `v1.0`
 - Date: `10 fevrier 2026`
 - Owner: `Founding team`
@@ -347,7 +347,7 @@ Services one-shot:
 
 ---
 
-## 22. Validation Marché - Questionnaire Cabinet Ready
+## 22. Validation Marché - Questionnaire CabReady
 
 ### 22.1 Méthodologie
 Avant développement, validation des hypothèses via:
