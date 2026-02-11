@@ -325,6 +325,80 @@
             margin-top: var(--space-xs);
         }
 
+        /* ===== TARGET AUDIENCE (Pour qui) ===== */
+        .target-audience {
+            padding: var(--space-lg) 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--navy-200);
+        }
+
+        .target-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .target-label {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy-700);
+            margin-right: var(--space-xs);
+        }
+
+        .target-chips {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .target-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--navy-50);
+            border: 1px solid var(--navy-200);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--navy-700);
+            transition: all 0.2s ease;
+        }
+
+        .target-chip:hover {
+            background: var(--navy-100);
+            border-color: var(--navy-300);
+        }
+
+        .target-chip-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .target-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .target-label {
+                margin-right: 0;
+                margin-bottom: var(--space-xs);
+            }
+
+            .target-chips {
+                gap: var(--space-xs);
+            }
+
+            .target-chip {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+        }
+
         /* ===== PROBLEM SECTION ===== */
         .problem {
             padding: var(--space-4xl) 0;
@@ -1173,6 +1247,33 @@
                 <div class="urgency-stat">
                     <span class="urgency-number">&lt;25%</span>
                     <span class="urgency-label">des clients préparés*</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="target-audience">
+        <div class="container">
+            <div class="target-content">
+                <span class="target-label">Pour qui ?</span>
+                <div class="target-chips">
+                    <span class="target-chip">
+                        <span class="target-chip-icon">👥</span>
+                        6 à 50+ collaborateurs
+                    </span>
+                    <span class="target-chip">
+                        <span class="target-chip-icon">📁</span>
+                        100 à 1000+ clients
+                    </span>
+                    <span class="target-chip">
+                        <span class="target-chip-icon">🔧</span>
+                        Multi-outils à coordonner
+                    </span>
+                    <span class="target-chip">
+                        <span class="target-chip-icon">⏰</span>
+                        Deadline 2026 à gérer
+                    </span>
                 </div>
             </div>
         </div>
