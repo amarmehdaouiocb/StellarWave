@@ -773,13 +773,13 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="hero-badge-dot"></span>
-                    Septembre 2026 — Facturation électronique obligatoire
+                    Sept. 2026 : réception obligatoire · Émission selon taille
                 </div>
                 <h1 class="hero-title">
                     Pilotez la transition de <em>tout votre portefeuille</em> depuis un seul écran
                 </h1>
                 <p class="hero-subtitle">
-                    Cabinet Ready est le cockpit qui remplace vos 15 fichiers Excel par un tableau de bord unique. Suivez la readiness de chaque client, détectez les blocages, automatisez les relances.
+                    Cabinet Ready est le cockpit qui remplace vos 15 fichiers Excel par un tableau de bord unique. Suivez le niveau de préparation de chaque client, détectez les blocages, automatisez les relances.
                 </p>
                 <div class="hero-cta-group">
                     <a href="#questionnaire" class="btn-primary">
@@ -799,8 +799,8 @@
         <div class="container">
             <div class="urgency-content">
                 <div class="urgency-stat">
-                    <span class="urgency-number">7</span>
-                    <span class="urgency-label">mois avant la deadline</span>
+                    <span class="urgency-number" id="countdown-days">J-XXX</span>
+                    <span class="urgency-label">avant l'échéance</span>
                 </div>
                 <div class="urgency-stat">
                     <span class="urgency-number">7M</span>
@@ -858,7 +858,7 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <span class="feature-number">01</span>
-                    <h3>Dashboard readiness</h3>
+                    <h3>Tableau de bord</h3>
                     <p>Score de préparation par client (0-100). Vue globale du portefeuille. Filtres par statut, priorité, deadline.</p>
                     <span class="feature-tag">Vue en temps réel</span>
                 </div>
@@ -900,7 +900,6 @@
                     <div class="progress-step" data-step="3"></div>
                     <div class="progress-step" data-step="4"></div>
                     <div class="progress-step" data-step="5"></div>
-                    <div class="progress-step" data-step="6"></div>
                 </div>
 
                 <form id="questionnaireForm">
@@ -1103,49 +1102,20 @@
                             </div>
                         </div>
 
-                        <div class="form-buttons">
-                            <button type="button" class="btn-secondary" onclick="prevStep()">← Retour</button>
-                            <button type="button" class="btn-next" onclick="nextStep()">Continuer →</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 6: Upsell Agence -->
-                    <div class="form-step" data-step="6">
-                        <p class="form-question">En attendant Cabinet Ready, avez-vous d'autres besoins ?</p>
-
-                        <p style="color: var(--navy-600); font-size: 0.95rem; margin-bottom: var(--space-lg);">
-                            Notre équipe accompagne également les cabinets sur des projets IA, développement sur-mesure et transformation digitale.
-                        </p>
-
-                        <div class="form-group">
-                            <label class="form-label">Quels services pourraient vous intéresser ?</label>
-                            <div class="form-options">
-                                <label class="form-option">
-                                    <input type="checkbox" name="services" value="audit-preparation">
-                                    <span class="form-option-label">Audit de préparation facturation électronique</span>
-                                </label>
-                                <label class="form-option">
-                                    <input type="checkbox" name="services" value="dev-sur-mesure">
-                                    <span class="form-option-label">Développement d'outils sur-mesure</span>
-                                </label>
-                                <label class="form-option">
-                                    <input type="checkbox" name="services" value="ia-automatisation">
-                                    <span class="form-option-label">IA & Automatisation de processus</span>
-                                </label>
-                                <label class="form-option">
-                                    <input type="checkbox" name="services" value="formation">
-                                    <span class="form-option-label">Formation / Accompagnement équipe</span>
-                                </label>
-                                <label class="form-option">
-                                    <input type="checkbox" name="services" value="aucun">
-                                    <span class="form-option-label">Pas pour le moment, merci</span>
-                                </label>
+                        <!-- Bloc RGPD -->
+                        <div class="form-trust" style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--white); border-radius: 8px; border: 1px solid var(--navy-200);">
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                                <span style="color: var(--emerald-500); font-size: 1.1rem;">🔒</span>
+                                <p style="font-size: 0.85rem; color: var(--navy-600); margin: 0;">
+                                    <strong style="color: var(--navy-800);">Confidentialité garantie</strong> — Vos réponses restent confidentielles et sont utilisées uniquement pour construire le produit.
+                                </p>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Un projet ou besoin particulier à nous partager ? (optionnel)</label>
-                            <textarea class="form-textarea" name="projet-autre" placeholder="Ex: Automatiser les relances clients, intégrer l'IA dans notre workflow..."></textarea>
+                            <div style="display: flex; align-items: flex-start; gap: var(--space-sm);">
+                                <span style="color: var(--emerald-500); font-size: 1.1rem;">✉️</span>
+                                <p style="font-size: 0.85rem; color: var(--navy-600); margin: 0;">
+                                    <strong style="color: var(--navy-800);">Zéro spam</strong> — 1 email de synthèse, désinscription en 1 clic.
+                                </p>
+                            </div>
                         </div>
 
                         <div class="form-buttons">
@@ -1155,11 +1125,53 @@
                     </div>
                 </form>
 
-                <!-- Success Message -->
+                <!-- Success Message with Upsell -->
                 <div class="form-success" id="formSuccess">
                     <div class="success-icon">✓</div>
                     <h3>Merci pour votre contribution !</h3>
-                    <p>Vos réponses nous sont précieuses. Nous vous recontacterons très bientôt.</p>
+                    <p style="margin-bottom: var(--space-xl);">Vos réponses nous sont précieuses. Nous vous recontacterons très bientôt.</p>
+
+                    <!-- Upsell Section -->
+                    <div class="upsell-section" style="text-align: left; background: var(--white); border-radius: 12px; padding: var(--space-xl); border: 1px solid var(--navy-200); margin-top: var(--space-lg);">
+                        <p style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--navy-900); margin-bottom: var(--space-sm);">
+                            En attendant Cabinet Ready...
+                        </p>
+                        <p style="color: var(--navy-600); font-size: 0.9rem; margin-bottom: var(--space-md);">
+                            Notre équipe accompagne les cabinets sur des projets IA, développement sur-mesure et transformation digitale.
+                        </p>
+
+                        <div class="upsell-options" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                            <label class="form-option" style="margin: 0;">
+                                <input type="checkbox" name="services-upsell" value="audit-preparation">
+                                <span class="form-option-label">Audit de préparation facturation électronique</span>
+                            </label>
+                            <label class="form-option" style="margin: 0;">
+                                <input type="checkbox" name="services-upsell" value="dev-sur-mesure">
+                                <span class="form-option-label">Développement d'outils sur-mesure</span>
+                            </label>
+                            <label class="form-option" style="margin: 0;">
+                                <input type="checkbox" name="services-upsell" value="ia-automatisation">
+                                <span class="form-option-label">IA & Automatisation de processus</span>
+                            </label>
+                            <label class="form-option" style="margin: 0;">
+                                <input type="checkbox" name="services-upsell" value="formation">
+                                <span class="form-option-label">Formation / Accompagnement équipe</span>
+                            </label>
+                        </div>
+
+                        <div style="margin-top: var(--space-lg);">
+                            <label class="form-label" style="margin-bottom: var(--space-sm);">Un projet particulier ? (optionnel)</label>
+                            <textarea class="form-textarea" id="projet-upsell" placeholder="Ex: Automatiser les relances clients, intégrer l'IA dans notre workflow..." style="min-height: 80px;"></textarea>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="submitUpsell()" style="width: 100%; margin-top: var(--space-md); justify-content: center;">
+                            Envoyer mes intérêts →
+                        </button>
+
+                        <p style="text-align: center; font-size: 0.8rem; color: var(--navy-400); margin-top: var(--space-sm);">
+                            Ou ignorez cette étape, vous avez déjà contribué 🙏
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1173,8 +1185,20 @@
     </footer>
 
     <script>
+        // Countdown dynamique
+        (function() {
+            const deadline = new Date('2026-09-01T00:00:00');
+            const today = new Date();
+            const diffTime = deadline - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const countdownEl = document.getElementById('countdown-days');
+            if (countdownEl && diffDays > 0) {
+                countdownEl.textContent = 'J-' + diffDays;
+            }
+        })();
+
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 5;
 
         function updateProgress() {
             document.querySelectorAll('.progress-step').forEach((step, index) => {
@@ -1241,12 +1265,8 @@
             });
             data.frustrations = frustrations.join(', ');
 
-            // Get all checked services (upsell)
-            const services = [];
-            document.querySelectorAll('input[name="services"]:checked').forEach(cb => {
-                services.push(cb.value);
-            });
-            data.services = services.join(', ');
+            // Services will be collected in upsell after success
+            data.services = '';
 
             // Add metadata
             data._subject = `[Cabinet Ready] Nouvelle réponse de ${data.prenom || 'Anonyme'}`;
@@ -1289,6 +1309,35 @@
                 }
             });
         });
+
+        // Upsell submission (post-form)
+        async function submitUpsell() {
+            const btn = document.querySelector('.upsell-section button');
+            const originalText = btn.textContent;
+            btn.textContent = 'Envoi...';
+            btn.disabled = true;
+
+            const services = [];
+            document.querySelectorAll('input[name="services-upsell"]:checked').forEach(cb => {
+                services.push(cb.value);
+            });
+            const projet = document.getElementById('projet-upsell').value;
+
+            if (services.length === 0 && !projet.trim()) {
+                // Rien sélectionné, on masque juste l'upsell
+                document.querySelector('.upsell-section').innerHTML = '<p style="text-align: center; color: var(--emerald-500); font-weight: 500;">✓ Pas de problème, merci encore !</p>';
+                return;
+            }
+
+            try {
+                // On pourrait envoyer à une API dédiée, pour l'instant on log
+                console.log('Upsell services:', services, 'Projet:', projet);
+                document.querySelector('.upsell-section').innerHTML = '<p style="text-align: center; color: var(--emerald-500); font-weight: 500;">✓ Merci ! Nous vous recontacterons.</p>';
+            } catch (error) {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
