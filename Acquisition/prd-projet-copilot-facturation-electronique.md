@@ -33,10 +33,49 @@ Impact:
 - perte de marge sur des taches non facturables.
 
 ## 4. Vision produit
-Construire un **copilot operationnel** qui transforme une migration chaotique en process pilotable, traçable et repetable.
+Construire un **cockpit + moteur d'exécution** qui transforme une migration chaotique en process pilotable, traçable et répétable.
 
-Le produit n'est pas un ERP comptable.  
-Le produit est une couche d'orchestration, de suivi readiness et de resolution d'anomalies.
+### 4.1 Positionnement stratégique
+
+**Ce que nous NE sommes PAS :**
+- Un "dashboard de scores" (gadget remplaçable par Excel)
+- Un outil de plus dans la stack cabinet
+- Une checklist glorifiée
+
+**Ce que nous SOMMES :**
+- Un **cockpit opérationnel** avec moteur d'exécution intégré
+- Une **mission clé en main** : "on vous met prêt et on prouve que vous êtes prêt"
+- Un **outil d'industrialisation** de l'accompagnement client
+
+### 4.2 Les 5 piliers "non-gadget"
+
+| Pilier | Description | Valeur différenciante |
+|--------|-------------|----------------------|
+| **1. Cartographie clients** | Segmentation (taille, risque, outil, volumétrie) | Vue portefeuille en 10 secondes |
+| **2. Playbooks** | Tâches + relances automatisées + templates multi-canal | Industrialise l'accompagnement |
+| **3. Audit trail** | Qui a fait quoi, quand, preuves jointes | Protection juridique du cabinet |
+| **4. Vue cabinet** | Charge restante, clients à risque, priorisation auto | Pilotage opérationnel quotidien |
+| **5. Agnostique outils** | Import CSV/Excel, pas de lock-in | Fonctionne avec tous les outils |
+
+### 4.3 Test "anti-gadget"
+
+En entretien prospect, signal positif :
+> "Je paierais pour que ça me fasse gagner du temps et que ça industrialise l'accompagnement. Je veux que ça pilote mes relances + me sorte une liste d'actions."
+
+Signal négatif (= gadget) :
+> "C'est joli, mais je peux le faire sur mon outil actuel / Excel."
+
+### 4.4 Positionnement concurrentiel
+
+| Concurrent | Approche | Notre différenciation |
+|------------|----------|----------------------|
+| **MyUnisoft** | Tableau de bord intégré à leur suite | Agnostique, focus exécution |
+| **Cegid** | Checklists cabinet | Automatisation + preuves |
+| **Sage** | Étapes d'accompagnement | Multi-tenant, multi-outils |
+| **Excel** | Manuel, dispersé | Orchestration + traçabilité |
+
+Le produit n'est pas un ERP comptable.
+Le produit est une **couche d'orchestration, d'exécution et de preuve**.
 
 ## 5. Objectifs et non-objectifs
 ## Objectifs business (J90)
