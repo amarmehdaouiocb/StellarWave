@@ -703,6 +703,370 @@
             color: var(--navy-600);
         }
 
+        /* ===== MOCK COCKPIT ===== */
+        .mock-section {
+            padding: var(--space-4xl) 0;
+            background: linear-gradient(180deg, var(--navy-50) 0%, var(--white) 100%);
+            overflow: hidden;
+        }
+
+        .mock-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto var(--space-3xl);
+        }
+
+        .mock-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            perspective: 1500px;
+        }
+
+        .mock-frame {
+            background: var(--navy-900);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 4px 6px rgba(15, 23, 42, 0.05),
+                0 10px 20px rgba(15, 23, 42, 0.08),
+                0 25px 50px rgba(15, 23, 42, 0.12),
+                0 50px 100px rgba(15, 23, 42, 0.15);
+            transform: rotateX(2deg) rotateY(-1deg);
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+        }
+
+        .mock-frame:hover {
+            transform: rotateX(0deg) rotateY(0deg) translateY(-8px);
+            box-shadow:
+                0 8px 12px rgba(15, 23, 42, 0.06),
+                0 20px 40px rgba(15, 23, 42, 0.1),
+                0 40px 80px rgba(15, 23, 42, 0.14),
+                0 60px 120px rgba(15, 23, 42, 0.18);
+        }
+
+        .mock-browser-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--navy-800);
+            border-bottom: 1px solid var(--navy-700);
+        }
+
+        .mock-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mock-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .mock-dot--red { background: #ff5f57; }
+        .mock-dot--yellow { background: #febc2e; }
+        .mock-dot--green { background: #28c840; }
+
+        .mock-url {
+            flex: 1;
+            background: var(--navy-700);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: var(--navy-400);
+            font-family: var(--font-body);
+        }
+
+        .mock-content {
+            background: var(--navy-50);
+            min-height: 420px;
+        }
+
+        /* Dashboard Header */
+        .dash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--white);
+            border-bottom: 1px solid var(--navy-200);
+        }
+
+        .dash-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .dash-logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dash-logo-text {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--navy-900);
+        }
+
+        .dash-cabinet {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 6px 12px;
+            background: var(--navy-100);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--navy-700);
+        }
+
+        /* KPIs Row */
+        .dash-kpis {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--white);
+        }
+
+        .dash-kpi {
+            padding: var(--space-md);
+            background: var(--navy-50);
+            border-radius: 10px;
+            border: 1px solid var(--navy-200);
+        }
+
+        .dash-kpi-label {
+            font-size: 0.75rem;
+            color: var(--navy-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .dash-kpi-value {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy-900);
+            line-height: 1;
+        }
+
+        .dash-kpi-value--success { color: var(--emerald-500); }
+        .dash-kpi-value--warning { color: var(--amber-600); }
+        .dash-kpi-value--danger { color: var(--coral-500); }
+
+        .dash-kpi-sub {
+            font-size: 0.8rem;
+            color: var(--navy-500);
+            margin-top: 4px;
+        }
+
+        /* Client List */
+        .dash-clients {
+            padding: 0 var(--space-lg) var(--space-lg);
+            background: var(--white);
+        }
+
+        .dash-clients-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        .dash-clients-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy-900);
+        }
+
+        .dash-clients-filter {
+            font-size: 0.75rem;
+            color: var(--navy-500);
+            padding: 4px 10px;
+            background: var(--navy-100);
+            border-radius: 4px;
+        }
+
+        .dash-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dash-table th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--navy-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--space-sm) var(--space-sm);
+            border-bottom: 1px solid var(--navy-200);
+        }
+
+        .dash-table td {
+            padding: var(--space-sm);
+            font-size: 0.85rem;
+            color: var(--navy-800);
+            border-bottom: 1px solid var(--navy-100);
+            vertical-align: middle;
+        }
+
+        .dash-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dash-client-name {
+            font-weight: 500;
+            color: var(--navy-900);
+        }
+
+        .dash-client-type {
+            font-size: 0.7rem;
+            color: var(--navy-500);
+        }
+
+        .dash-progress {
+            width: 80px;
+            height: 6px;
+            background: var(--navy-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .dash-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .dash-progress-bar--high { background: var(--emerald-500); }
+        .dash-progress-bar--medium { background: var(--amber-500); }
+        .dash-progress-bar--low { background: var(--coral-500); }
+
+        .dash-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .dash-status--ready {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--emerald-500);
+        }
+
+        .dash-status--progress {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--amber-600);
+        }
+
+        .dash-status--blocked {
+            background: rgba(239, 108, 74, 0.1);
+            color: var(--coral-500);
+        }
+
+        .dash-alert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 6px;
+            background: var(--coral-500);
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-left: var(--space-xs);
+            animation: pulse-alert 2s infinite;
+        }
+
+        @keyframes pulse-alert {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .dash-deadline {
+            font-size: 0.8rem;
+            color: var(--navy-600);
+        }
+
+        .dash-deadline--urgent {
+            color: var(--coral-500);
+            font-weight: 500;
+        }
+
+        /* Floating badge */
+        .mock-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--amber-500), var(--amber-600));
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mock-frame {
+                transform: none;
+                border-radius: 12px;
+            }
+
+            .mock-frame:hover {
+                transform: translateY(-4px);
+            }
+
+            .dash-kpis {
+                grid-template-columns: 1fr;
+                gap: var(--space-sm);
+            }
+
+            .dash-table th:nth-child(4),
+            .dash-table td:nth-child(4) {
+                display: none;
+            }
+
+            .dash-kpi-value {
+                font-size: 1.5rem;
+            }
+
+            .dash-header {
+                flex-direction: column;
+                gap: var(--space-sm);
+                align-items: flex-start;
+            }
+
+            .mock-badge {
+                top: -8px;
+                right: 10px;
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+
         /* ===== FOOTER ===== */
         footer {
             padding: var(--space-2xl) 0;
@@ -879,6 +1243,155 @@
                     <h3>Relances automatisées</h3>
                     <p>Templates d'emails par type de blocage. Envoi en masse ou unitaire. Tracking des ouvertures et réponses.</p>
                     <span class="feature-tag">Gain de temps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mock Cockpit Section -->
+    <section class="mock-section">
+        <div class="container">
+            <div class="mock-header">
+                <span class="section-label">Aperçu du produit</span>
+                <h2 class="section-title">Votre nouveau cockpit de pilotage</h2>
+            </div>
+
+            <div class="mock-container">
+                <div class="mock-badge">✨ Bientôt disponible</div>
+
+                <div class="mock-frame">
+                    <!-- Browser bar -->
+                    <div class="mock-browser-bar">
+                        <div class="mock-dots">
+                            <span class="mock-dot mock-dot--red"></span>
+                            <span class="mock-dot mock-dot--yellow"></span>
+                            <span class="mock-dot mock-dot--green"></span>
+                        </div>
+                        <div class="mock-url">app.cabinetready.fr/dashboard</div>
+                    </div>
+
+                    <!-- Dashboard content -->
+                    <div class="mock-content">
+                        <!-- Dashboard header -->
+                        <div class="dash-header">
+                            <div class="dash-logo">
+                                <div class="dash-logo-icon">CR</div>
+                                <span class="dash-logo-text">Cabinet Ready</span>
+                            </div>
+                            <div class="dash-cabinet">
+                                <span>📍</span>
+                                <span>Cabinet Dupont & Associés</span>
+                            </div>
+                        </div>
+
+                        <!-- KPIs -->
+                        <div class="dash-kpis">
+                            <div class="dash-kpi">
+                                <div class="dash-kpi-label">Score global</div>
+                                <div class="dash-kpi-value dash-kpi-value--warning">72%</div>
+                                <div class="dash-kpi-sub">+8% ce mois</div>
+                            </div>
+                            <div class="dash-kpi">
+                                <div class="dash-kpi-label">Clients prêts</div>
+                                <div class="dash-kpi-value dash-kpi-value--success">156</div>
+                                <div class="dash-kpi-sub">sur 320 clients</div>
+                            </div>
+                            <div class="dash-kpi">
+                                <div class="dash-kpi-label">Alertes actives</div>
+                                <div class="dash-kpi-value dash-kpi-value--danger">12</div>
+                                <div class="dash-kpi-sub">3 critiques</div>
+                            </div>
+                        </div>
+
+                        <!-- Client list -->
+                        <div class="dash-clients">
+                            <div class="dash-clients-header">
+                                <span class="dash-clients-title">Clients prioritaires</span>
+                                <span class="dash-clients-filter">📊 Tri : Score ↑</span>
+                            </div>
+
+                            <table class="dash-table">
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Score</th>
+                                        <th>Statut</th>
+                                        <th>Deadline</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="dash-client-name">Boulangerie Martin SARL</div>
+                                            <div class="dash-client-type">TPE · Commerce</div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-progress">
+                                                <div class="dash-progress-bar dash-progress-bar--high" style="width: 92%;"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="dash-status dash-status--ready">● Prêt</span></td>
+                                        <td class="dash-deadline">1 sept. 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="dash-client-name">Garage Lefebvre SAS</div>
+                                            <div class="dash-client-type">PME · Services</div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-progress">
+                                                <div class="dash-progress-bar dash-progress-bar--medium" style="width: 65%;"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="dash-status dash-status--progress">◐ En cours</span></td>
+                                        <td class="dash-deadline">1 sept. 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="dash-client-name">
+                                                Immobilière du Parc
+                                                <span class="dash-alert-badge">⚠ Alerte</span>
+                                            </div>
+                                            <div class="dash-client-type">PME · Immobilier</div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-progress">
+                                                <div class="dash-progress-bar dash-progress-bar--low" style="width: 28%;"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="dash-status dash-status--blocked">■ Bloqué</span></td>
+                                        <td class="dash-deadline dash-deadline--urgent">Mandat manquant</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="dash-client-name">Restaurant Le Comptoir</div>
+                                            <div class="dash-client-type">TPE · Restauration</div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-progress">
+                                                <div class="dash-progress-bar dash-progress-bar--medium" style="width: 54%;"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="dash-status dash-status--progress">◐ En cours</span></td>
+                                        <td class="dash-deadline">1 sept. 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="dash-client-name">Clinique Vétérinaire Pasteur</div>
+                                            <div class="dash-client-type">PME · Santé</div>
+                                        </td>
+                                        <td>
+                                            <div class="dash-progress">
+                                                <div class="dash-progress-bar dash-progress-bar--high" style="width: 88%;"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="dash-status dash-status--ready">● Prêt</span></td>
+                                        <td class="dash-deadline">1 sept. 2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
