@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ProfileData } from "@/config/profile";
 import {
   EnvelopeSimple,
@@ -14,7 +15,9 @@ import {
   Code,
   Cloud,
   Database,
-  Lightning
+  Lightning,
+  Sun,
+  Moon
 } from "@phosphor-icons/react";
 
 type CVFreelanceProps = {
@@ -71,19 +74,31 @@ const levelLabel = {
 export function CVFreelance({ profile, lang }: CVFreelanceProps) {
   const t = labels[lang];
   const levelLabels = levelLabel[lang];
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
-    <div className="cv-container">
-      {/* Print Button */}
-      <button
-        onClick={() => window.print()}
-        className="no-print fixed top-6 right-6 z-50 flex items-center gap-2 px-4 py-2 bg-[var(--electric-blue)] text-white rounded-lg font-medium hover:bg-[var(--electric-blue-dark)] transition-colors shadow-lg"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-        </svg>
-        {lang === "fr" ? "Imprimer / PDF" : "Print / PDF"}
-      </button>
+    <div className={`cv-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+      {/* Action Buttons */}
+      <div className="no-print fixed top-6 right-6 z-50 flex items-center gap-2">
+        {/* Theme Toggle */}
+        <button
+          onClick={() => setIsDarkMode(!isDarkMode)}
+          className="theme-toggle-btn flex items-center justify-center w-10 h-10 rounded-lg font-medium transition-colors shadow-lg"
+          aria-label={isDarkMode ? (lang === "fr" ? "Mode clair" : "Light mode") : (lang === "fr" ? "Mode sombre" : "Dark mode")}
+        >
+          {isDarkMode ? <Sun weight="bold" className="w-5 h-5" /> : <Moon weight="bold" className="w-5 h-5" />}
+        </button>
+        {/* Print Button */}
+        <button
+          onClick={() => window.print()}
+          className="print-btn flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors shadow-lg"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          {lang === "fr" ? "Imprimer / PDF" : "Print / PDF"}
+        </button>
+      </div>
 
       <div className="cv-page">
         {/* SIDEBAR */}
@@ -277,7 +292,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           </section>
 
           {/* Education */}
-          <section className="main-section">
+          <section className="main-section education-section">
             <h2 className="main-section-title">
               <span className="section-icon">
                 <GraduationCap weight="bold" />
@@ -297,10 +312,78 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
       </div>
 
       <style jsx>{`
+        /* ================================================
+           DARK MODE VARIABLES (default)
+           ================================================ */
+        .cv-container.dark-mode {
+          --cv-background: #0a0a0f;
+          --cv-card: #12121c;
+          --cv-foreground: #f0f0f5;
+          --cv-muted-foreground: #71717a;
+          --cv-sidebar-bg-start: #0d1117;
+          --cv-sidebar-bg-end: #161b22;
+          --cv-glass-bg: rgba(255, 255, 255, 0.04);
+          --cv-glass-border: rgba(255, 255, 255, 0.08);
+          --cv-electric-blue: #3b82f6;
+          --cv-electric-blue-light: #60a5fa;
+          --cv-electric-blue-dark: #2563eb;
+          --cv-violet: #8b5cf6;
+          --cv-skill-bar-bg: rgba(255, 255, 255, 0.1);
+          --cv-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 32px 80px rgba(0, 0, 0, 0.4);
+          --cv-avatar-border: #0d1117;
+          --cv-btn-bg: #3b82f6;
+          --cv-btn-text: #ffffff;
+          --cv-btn-hover: #2563eb;
+        }
+
+        /* ================================================
+           LIGHT MODE VARIABLES
+           ================================================ */
+        .cv-container.light-mode {
+          --cv-background: #f8fafc;
+          --cv-card: #ffffff;
+          --cv-foreground: #1e293b;
+          --cv-muted-foreground: #64748b;
+          --cv-sidebar-bg-start: #f1f5f9;
+          --cv-sidebar-bg-end: #e2e8f0;
+          --cv-glass-bg: rgba(0, 0, 0, 0.02);
+          --cv-glass-border: rgba(0, 0, 0, 0.08);
+          --cv-electric-blue: #2563eb;
+          --cv-electric-blue-light: #3b82f6;
+          --cv-electric-blue-dark: #1d4ed8;
+          --cv-violet: #7c3aed;
+          --cv-skill-bar-bg: rgba(0, 0, 0, 0.08);
+          --cv-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 8px 40px rgba(0, 0, 0, 0.05);
+          --cv-avatar-border: #f1f5f9;
+          --cv-btn-bg: #1e293b;
+          --cv-btn-text: #ffffff;
+          --cv-btn-hover: #334155;
+        }
+
         .cv-container {
           min-height: 100vh;
-          background: var(--background);
+          background: var(--cv-background);
           padding: 2rem;
+          transition: background-color 0.3s ease;
+        }
+
+        /* Theme Toggle & Print Buttons */
+        .theme-toggle-btn {
+          background: var(--cv-btn-bg);
+          color: var(--cv-btn-text);
+        }
+
+        .theme-toggle-btn:hover {
+          background: var(--cv-btn-hover);
+        }
+
+        .print-btn {
+          background: var(--cv-electric-blue);
+          color: white;
+        }
+
+        .print-btn:hover {
+          background: var(--cv-electric-blue-dark);
         }
 
         .cv-page {
@@ -309,27 +392,29 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           display: grid;
           grid-template-columns: 320px 1fr;
           gap: 0;
-          background: var(--card);
+          background: var(--cv-card);
           border-radius: 1.5rem;
           overflow: hidden;
-          box-shadow: var(--shadow-lg);
-          border: 1px solid var(--glass-border);
+          box-shadow: var(--cv-shadow);
+          border: 1px solid var(--cv-glass-border);
+          transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* SIDEBAR */
         .cv-sidebar {
-          background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+          background: linear-gradient(180deg, var(--cv-sidebar-bg-start) 0%, var(--cv-sidebar-bg-end) 100%);
           padding: 2rem 1.5rem;
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
-          border-right: 1px solid var(--glass-border);
+          border-right: 1px solid var(--cv-glass-border);
+          transition: background 0.3s ease;
         }
 
         .sidebar-header {
           text-align: center;
           padding-bottom: 1.5rem;
-          border-bottom: 1px solid var(--glass-border);
+          border-bottom: 1px solid var(--cv-glass-border);
         }
 
         .avatar-container {
@@ -343,7 +428,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           position: absolute;
           inset: -4px;
           border-radius: 50%;
-          background: linear-gradient(135deg, var(--electric-blue), var(--violet), var(--electric-blue-light));
+          background: linear-gradient(135deg, var(--cv-electric-blue), var(--cv-violet), var(--cv-electric-blue-light));
           animation: ring-rotate 3s linear infinite;
         }
 
@@ -358,23 +443,26 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           height: 100%;
           border-radius: 50%;
           object-fit: cover;
-          border: 4px solid #0d1117;
+          border: 4px solid var(--cv-avatar-border);
+          transition: border-color 0.3s ease;
         }
 
         .sidebar-name {
           font-family: var(--font-display);
           font-size: 1.5rem;
           font-weight: 700;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           margin-bottom: 0.25rem;
           letter-spacing: -0.02em;
+          transition: color 0.3s ease;
         }
 
         .sidebar-title {
           font-size: 0.85rem;
-          color: var(--electric-blue-light);
+          color: var(--cv-electric-blue-light);
           font-weight: 500;
           line-height: 1.4;
+          transition: color 0.3s ease;
         }
 
         .availability-badge {
@@ -409,35 +497,40 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           flex-direction: column;
           align-items: center;
           padding: 1rem;
-          background: rgba(59, 130, 246, 0.08);
-          border: 1px solid rgba(59, 130, 246, 0.2);
+          background: var(--cv-glass-bg);
+          border: 1px solid var(--cv-glass-border);
           border-radius: 1rem;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .rate-label {
           font-size: 0.7rem;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
           margin-bottom: 0.25rem;
+          transition: color 0.3s ease;
         }
 
         .rate-value {
           font-family: var(--font-display);
           font-size: 1.5rem;
           font-weight: 700;
-          color: var(--electric-blue-light);
+          color: var(--cv-electric-blue-light);
+          transition: color 0.3s ease;
         }
 
         .rate-remote {
           font-size: 0.75rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
           margin-top: 0.25rem;
+          transition: color 0.3s ease;
         }
 
         .sidebar-section {
           padding-top: 1rem;
-          border-top: 1px solid var(--glass-border);
+          border-top: 1px solid var(--cv-glass-border);
+          transition: border-color 0.3s ease;
         }
 
         .sidebar-section-title {
@@ -446,8 +539,9 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
           margin-bottom: 0.75rem;
+          transition: color 0.3s ease;
         }
 
         .contact-list {
@@ -461,19 +555,19 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           align-items: center;
           gap: 0.75rem;
           font-size: 0.8rem;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           text-decoration: none;
           transition: color 0.2s;
         }
 
         .contact-item:hover {
-          color: var(--electric-blue-light);
+          color: var(--cv-electric-blue-light);
         }
 
         .contact-icon {
           width: 16px;
           height: 16px;
-          color: var(--electric-blue);
+          color: var(--cv-electric-blue);
           flex-shrink: 0;
         }
 
@@ -506,14 +600,16 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
         .skill-name {
           font-size: 0.75rem;
-          color: var(--foreground);
+          color: var(--cv-foreground);
+          transition: color 0.3s ease;
         }
 
         .skill-bar-bg {
           height: 4px;
-          background: rgba(255, 255, 255, 0.1);
+          background: var(--cv-skill-bar-bg);
           border-radius: 2px;
           overflow: hidden;
+          transition: background-color 0.3s ease;
         }
 
         .skill-bar-fill {
@@ -536,12 +632,14 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
         .language-name {
           font-size: 0.8rem;
-          color: var(--foreground);
+          color: var(--cv-foreground);
+          transition: color 0.3s ease;
         }
 
         .language-level {
           font-size: 0.7rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
+          transition: color 0.3s ease;
         }
 
         /* MAIN CONTENT */
@@ -559,10 +657,11 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           font-family: var(--font-display);
           font-size: 1.1rem;
           font-weight: 700;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           margin-bottom: 1rem;
           padding-bottom: 0.5rem;
-          border-bottom: 2px solid var(--electric-blue);
+          border-bottom: 2px solid var(--cv-electric-blue);
+          transition: color 0.3s ease, border-color 0.3s ease;
         }
 
         .section-icon {
@@ -571,16 +670,18 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           justify-content: center;
           width: 28px;
           height: 28px;
-          background: rgba(59, 130, 246, 0.15);
+          background: var(--cv-glass-bg);
           border-radius: 0.5rem;
-          color: var(--electric-blue);
+          color: var(--cv-electric-blue);
+          transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .summary-text {
           font-size: 0.9rem;
           line-height: 1.7;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           opacity: 0.9;
+          transition: color 0.3s ease;
         }
 
         .stats-grid {
@@ -595,23 +696,26 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           flex-direction: column;
           align-items: center;
           padding: 1rem;
-          background: var(--glass-bg);
-          border: 1px solid var(--glass-border);
+          background: var(--cv-glass-bg);
+          border: 1px solid var(--cv-glass-border);
           border-radius: 0.75rem;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .stat-value {
           font-family: var(--font-display);
           font-size: 1.5rem;
           font-weight: 700;
-          color: var(--electric-blue);
+          color: var(--cv-electric-blue);
+          transition: color 0.3s ease;
         }
 
         .stat-label {
           font-size: 0.7rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
           text-align: center;
           margin-top: 0.25rem;
+          transition: color 0.3s ease;
         }
 
         .experience-timeline {
@@ -629,7 +733,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           top: 8px;
           bottom: 8px;
           width: 2px;
-          background: linear-gradient(180deg, var(--electric-blue), var(--violet));
+          background: linear-gradient(180deg, var(--cv-electric-blue), var(--cv-violet));
           border-radius: 1px;
         }
 
@@ -643,10 +747,11 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           top: 6px;
           width: 12px;
           height: 12px;
-          background: var(--electric-blue);
-          border: 3px solid var(--card);
+          background: var(--cv-electric-blue);
+          border: 3px solid var(--cv-card);
           border-radius: 50%;
-          box-shadow: 0 0 0 2px var(--electric-blue);
+          box-shadow: 0 0 0 2px var(--cv-electric-blue);
+          transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .experience-header {
@@ -664,7 +769,8 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           font-family: var(--font-display);
           font-size: 1rem;
           font-weight: 600;
-          color: var(--foreground);
+          color: var(--cv-foreground);
+          transition: color 0.3s ease;
         }
 
         .freelance-badge {
@@ -683,12 +789,14 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           align-items: center;
           gap: 0.5rem;
           font-size: 0.8rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
+          transition: color 0.3s ease;
         }
 
         .experience-company {
-          color: var(--electric-blue-light);
+          color: var(--cv-electric-blue-light);
           font-weight: 500;
+          transition: color 0.3s ease;
         }
 
         .experience-separator {
@@ -706,16 +814,18 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           padding-left: 1rem;
           font-size: 0.8rem;
           line-height: 1.6;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           opacity: 0.85;
           margin-bottom: 0.25rem;
+          transition: color 0.3s ease;
         }
 
         .experience-achievements li::before {
           content: '▸';
           position: absolute;
           left: 0;
-          color: var(--electric-blue);
+          color: var(--cv-electric-blue);
+          transition: color 0.3s ease;
         }
 
         .experience-stack {
@@ -728,10 +838,11 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           font-size: 0.65rem;
           font-weight: 500;
           padding: 0.2rem 0.5rem;
-          background: rgba(59, 130, 246, 0.1);
-          color: var(--electric-blue-light);
+          background: var(--cv-glass-bg);
+          color: var(--cv-electric-blue-light);
           border-radius: 0.25rem;
-          border: 1px solid rgba(59, 130, 246, 0.2);
+          border: 1px solid var(--cv-glass-border);
+          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         .certifications-grid {
@@ -744,21 +855,24 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           display: flex;
           flex-direction: column;
           padding: 0.75rem 1rem;
-          background: var(--glass-bg);
-          border: 1px solid var(--glass-border);
+          background: var(--cv-glass-bg);
+          border: 1px solid var(--cv-glass-border);
           border-radius: 0.5rem;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .cert-name {
           font-size: 0.8rem;
           font-weight: 600;
-          color: var(--foreground);
+          color: var(--cv-foreground);
           margin-bottom: 0.2rem;
+          transition: color 0.3s ease;
         }
 
         .cert-issuer {
           font-size: 0.7rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
+          transition: color 0.3s ease;
         }
 
         .education-list {
@@ -769,21 +883,24 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
         .education-item {
           padding: 0.75rem 1rem;
-          background: var(--glass-bg);
-          border: 1px solid var(--glass-border);
+          background: var(--cv-glass-bg);
+          border: 1px solid var(--cv-glass-border);
           border-radius: 0.5rem;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .education-degree {
           font-size: 0.85rem;
           font-weight: 600;
-          color: var(--foreground);
+          color: var(--cv-foreground);
+          transition: color 0.3s ease;
         }
 
         .education-school {
           font-size: 0.75rem;
-          color: var(--muted-foreground);
+          color: var(--cv-muted-foreground);
           margin-top: 0.2rem;
+          transition: color 0.3s ease;
         }
 
         /* ================================================
@@ -803,7 +920,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
           .cv-sidebar {
             border-right: none;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--cv-glass-border);
             padding: 1.5rem 1rem;
             gap: 1.25rem;
           }
@@ -1099,9 +1216,9 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           }
         }
 
-        /* Print button responsive */
+        /* Action buttons responsive */
         @media (max-width: 767px) {
-          button.no-print {
+          .no-print {
             position: fixed;
             top: auto;
             bottom: 1rem;
@@ -1109,10 +1226,21 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
             left: 1rem;
             width: auto;
             justify-content: center;
+            z-index: 100;
+          }
+
+          .print-btn {
+            flex: 1;
+            justify-content: center;
             padding: 0.75rem 1rem;
             font-size: 0.9rem;
             border-radius: 0.75rem;
-            z-index: 100;
+          }
+
+          .theme-toggle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.75rem;
           }
         }
 
@@ -1396,7 +1524,8 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
             padding: 0.08rem 0.25rem;
           }
 
-          .certifications-section {
+          .certifications-section,
+          .education-section {
             page-break-inside: avoid;
           }
 
