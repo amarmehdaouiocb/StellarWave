@@ -206,6 +206,22 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
               ))}
             </div>
           </div>
+
+          {/* Education - moved to sidebar for compact layout */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">
+              <GraduationCap weight="bold" className="inline-icon" />
+              {t.education}
+            </h3>
+            <div className="sidebar-education-list">
+              {profile.education.map((edu) => (
+                <div key={edu.degree} className="sidebar-education-item">
+                  <div className="sidebar-edu-degree">{edu.degree}</div>
+                  <div className="sidebar-edu-school">{edu.school} • {edu.year}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </aside>
 
         {/* MAIN CONTENT */}
@@ -291,23 +307,6 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
             </div>
           </section>
 
-          {/* Education */}
-          <section className="main-section education-section">
-            <h2 className="main-section-title">
-              <span className="section-icon">
-                <GraduationCap weight="bold" />
-              </span>
-              {t.education}
-            </h2>
-            <div className="education-list">
-              {profile.education.map((edu) => (
-                <div key={edu.degree} className="education-item">
-                  <div className="education-degree">{edu.degree}</div>
-                  <div className="education-school">{edu.school} • {edu.year}</div>
-                </div>
-              ))}
-            </div>
-          </section>
         </main>
       </div>
 
@@ -639,6 +638,44 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
         .language-level {
           font-size: 0.7rem;
           color: var(--cv-muted-foreground);
+          transition: color 0.3s ease;
+        }
+
+        /* Sidebar Education */
+        .inline-icon {
+          width: 12px;
+          height: 12px;
+          margin-right: 0.35rem;
+          vertical-align: -1px;
+          color: var(--cv-electric-blue);
+        }
+
+        .sidebar-education-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .sidebar-education-item {
+          padding: 0.5rem 0.65rem;
+          background: var(--cv-glass-bg);
+          border: 1px solid var(--cv-glass-border);
+          border-radius: 0.4rem;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sidebar-edu-degree {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--cv-foreground);
+          line-height: 1.3;
+          transition: color 0.3s ease;
+        }
+
+        .sidebar-edu-school {
+          font-size: 0.65rem;
+          color: var(--cv-muted-foreground);
+          margin-top: 0.15rem;
           transition: color 0.3s ease;
         }
 
@@ -1007,6 +1044,25 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
           .language-level {
             font-size: 0.65rem;
+          }
+
+          /* Sidebar Education - Mobile */
+          .sidebar-education-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.4rem;
+          }
+
+          .sidebar-education-item {
+            padding: 0.4rem 0.5rem;
+          }
+
+          .sidebar-edu-degree {
+            font-size: 0.7rem;
+          }
+
+          .sidebar-edu-school {
+            font-size: 0.6rem;
           }
 
           .cv-main {
@@ -1403,6 +1459,33 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           .language-level {
             color: #64748b;
             font-size: 0.45rem;
+          }
+
+          /* Sidebar Education - Print */
+          .sidebar-education-list {
+            gap: 0.2rem;
+          }
+
+          .sidebar-education-item {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            padding: 0.25rem 0.4rem;
+          }
+
+          .sidebar-edu-degree {
+            color: #1e293b;
+            font-size: 0.5rem;
+          }
+
+          .sidebar-edu-school {
+            color: #64748b;
+            font-size: 0.45rem;
+          }
+
+          .inline-icon {
+            width: 9px;
+            height: 9px;
+            color: #3b82f6;
           }
 
           .cv-main {
