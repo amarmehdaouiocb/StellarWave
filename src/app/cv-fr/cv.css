@@ -1,5 +1,21 @@
 /* CV Freelance Styles - Dark Theme */
 
+/* Force dark theme on CV pages - bypass Tailwind color conversion */
+html:has(.cv-container),
+body:has(.cv-container) {
+  color-scheme: dark !important;
+  background-color: #0d1117 !important;
+  color: #f0f0f5 !important;
+}
+
+/* Override Tailwind's automatic color conversion for dark theme */
+:root:has(.cv-container) {
+  --foreground: #f0f0f5 !important;
+  --background: #0d1117 !important;
+  --muted-foreground: #8b949e !important;
+  --card-foreground: #f0f0f5 !important;
+}
+
 .cv-container {
   min-height: 100vh;
   background: #0d1117;
