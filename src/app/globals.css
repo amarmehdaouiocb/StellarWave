@@ -173,6 +173,9 @@
   --electric-blue-dark: oklch(0.45 0.25 255);
   --electric-glow: oklch(0.55 0.25 255 / 30%);
 
+  /* Violet accent for CV gradients */
+  --violet: oklch(0.55 0.20 290);
+
   /* Secondary accent - Noir profond */
   --accent-dark: oklch(0.15 0.02 250);
   --accent-dark-muted: oklch(0.35 0.02 250);
