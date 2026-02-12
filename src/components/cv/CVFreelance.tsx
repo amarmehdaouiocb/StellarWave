@@ -648,6 +648,8 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           display: flex;
           flex-direction: column;
           gap: 2rem;
+          background: var(--cv-card);
+          transition: background-color 0.3s ease;
         }
 
         .main-section-title {
