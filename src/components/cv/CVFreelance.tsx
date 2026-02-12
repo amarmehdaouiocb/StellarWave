@@ -1427,6 +1427,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           .cv-container.light-mode .certification-card { background: #f8fafc !important; border-color: #e2e8f0 !important; }
           .cv-container.light-mode .cert-name { color: #1e293b !important; }
           .cv-container.light-mode .cert-issuer { color: #64748b !important; }
+          .cv-container.light-mode .avatar-img { border-color: #f1f5f9 !important; }
 
           /* ---- DARK MODE PRINT COLORS ---- */
           .cv-container.dark-mode { background: #0a0a0f !important; }
@@ -1468,6 +1469,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           .cv-container.dark-mode .certification-card { background: rgba(255, 255, 255, 0.04) !important; border-color: rgba(255, 255, 255, 0.08) !important; }
           .cv-container.dark-mode .cert-name { color: #f0f0f5 !important; }
           .cv-container.dark-mode .cert-issuer { color: #71717a !important; }
+          .cv-container.dark-mode .avatar-img { border-color: #0d1117 !important; }
         }
 
         @page {
