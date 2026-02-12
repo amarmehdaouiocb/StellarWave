@@ -209,10 +209,7 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
 
           {/* Education - moved to sidebar for compact layout */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">
-              <GraduationCap weight="bold" className="inline-icon" />
-              {t.education}
-            </h3>
+            <h3 className="sidebar-section-title">{t.education}</h3>
             <div className="sidebar-education-list">
               {profile.education.map((edu) => (
                 <div key={edu.degree} className="sidebar-education-item">
