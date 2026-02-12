@@ -1313,11 +1313,111 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
             content: none !important;
           }
 
-          .cv-container {
+          /* ---- LIGHT MODE PRINT ---- */
+          .cv-container.light-mode {
             padding: 0;
             background: white;
           }
 
+          .cv-container.light-mode .cv-page {
+            background: white;
+          }
+
+          .cv-container.light-mode .cv-sidebar {
+            background: #f8fafc;
+            border-right: 2px solid #e2e8f0;
+          }
+
+          .cv-container.light-mode .sidebar-name { color: #1e293b; }
+          .cv-container.light-mode .sidebar-title { color: #3b82f6; }
+          .cv-container.light-mode .availability-badge { background: #ecfdf5; border-color: #10b981; color: #059669; }
+          .cv-container.light-mode .rate-badge { background: #eff6ff; border-color: #3b82f6; }
+          .cv-container.light-mode .rate-value { color: #2563eb; }
+          .cv-container.light-mode .rate-label,
+          .cv-container.light-mode .rate-remote { color: #64748b; }
+          .cv-container.light-mode .sidebar-section { border-top-color: #e2e8f0; }
+          .cv-container.light-mode .sidebar-section-title { color: #64748b; }
+          .cv-container.light-mode .contact-item { color: #1e293b; }
+          .cv-container.light-mode .contact-icon { color: #3b82f6; }
+          .cv-container.light-mode .skill-name { color: #1e293b; }
+          .cv-container.light-mode .skill-bar-bg { background: #e2e8f0; }
+          .cv-container.light-mode .language-name { color: #1e293b; }
+          .cv-container.light-mode .language-level { color: #64748b; }
+          .cv-container.light-mode .sidebar-education-item { background: #f8fafc; border-color: #e2e8f0; }
+          .cv-container.light-mode .sidebar-edu-degree { color: #1e293b; }
+          .cv-container.light-mode .sidebar-edu-school { color: #64748b; }
+          .cv-container.light-mode .cv-main { background: white; }
+          .cv-container.light-mode .main-section-title { color: #1e293b; border-bottom-color: #3b82f6; }
+          .cv-container.light-mode .section-icon { background: #eff6ff; color: #3b82f6; }
+          .cv-container.light-mode .summary-text { color: #334155; }
+          .cv-container.light-mode .stat-card { background: #f8fafc; border-color: #e2e8f0; }
+          .cv-container.light-mode .stat-value { color: #2563eb; }
+          .cv-container.light-mode .stat-label { color: #64748b; }
+          .cv-container.light-mode .timeline-marker { background: #3b82f6; border-color: white; box-shadow: 0 0 0 2px #3b82f6; }
+          .cv-container.light-mode .experience-role { color: #1e293b; }
+          .cv-container.light-mode .experience-meta { color: #64748b; }
+          .cv-container.light-mode .experience-company { color: #3b82f6; }
+          .cv-container.light-mode .experience-achievements li { color: #334155; }
+          .cv-container.light-mode .experience-achievements li::before { color: #3b82f6; }
+          .cv-container.light-mode .tech-tag { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+          .cv-container.light-mode .certification-card { background: #f8fafc; border-color: #e2e8f0; }
+          .cv-container.light-mode .cert-name { color: #1e293b; }
+          .cv-container.light-mode .cert-issuer { color: #64748b; }
+          .cv-container.light-mode .avatar-ring { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+
+          /* ---- DARK MODE PRINT ---- */
+          .cv-container.dark-mode {
+            padding: 0;
+            background: #0a0a0f;
+          }
+
+          .cv-container.dark-mode .cv-page {
+            background: #12121c;
+          }
+
+          .cv-container.dark-mode .cv-sidebar {
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+          }
+
+          .cv-container.dark-mode .sidebar-name { color: #f0f0f5; }
+          .cv-container.dark-mode .sidebar-title { color: #60a5fa; }
+          .cv-container.dark-mode .availability-badge { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #10b981; }
+          .cv-container.dark-mode .rate-badge { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+          .cv-container.dark-mode .rate-value { color: #60a5fa; }
+          .cv-container.dark-mode .rate-label,
+          .cv-container.dark-mode .rate-remote { color: #71717a; }
+          .cv-container.dark-mode .sidebar-section { border-top-color: rgba(255, 255, 255, 0.08); }
+          .cv-container.dark-mode .sidebar-section-title { color: #71717a; }
+          .cv-container.dark-mode .contact-item { color: #f0f0f5; }
+          .cv-container.dark-mode .contact-icon { color: #3b82f6; }
+          .cv-container.dark-mode .skill-name { color: #f0f0f5; }
+          .cv-container.dark-mode .skill-bar-bg { background: rgba(255, 255, 255, 0.1); }
+          .cv-container.dark-mode .language-name { color: #f0f0f5; }
+          .cv-container.dark-mode .language-level { color: #71717a; }
+          .cv-container.dark-mode .sidebar-education-item { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
+          .cv-container.dark-mode .sidebar-edu-degree { color: #f0f0f5; }
+          .cv-container.dark-mode .sidebar-edu-school { color: #71717a; }
+          .cv-container.dark-mode .cv-main { background: #12121c; }
+          .cv-container.dark-mode .main-section-title { color: #f0f0f5; border-bottom-color: #3b82f6; }
+          .cv-container.dark-mode .section-icon { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+          .cv-container.dark-mode .summary-text { color: #e0e0e8; }
+          .cv-container.dark-mode .stat-card { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
+          .cv-container.dark-mode .stat-value { color: #3b82f6; }
+          .cv-container.dark-mode .stat-label { color: #71717a; }
+          .cv-container.dark-mode .timeline-marker { background: #3b82f6; border-color: #12121c; box-shadow: 0 0 0 2px #3b82f6; }
+          .cv-container.dark-mode .experience-role { color: #f0f0f5; }
+          .cv-container.dark-mode .experience-meta { color: #71717a; }
+          .cv-container.dark-mode .experience-company { color: #60a5fa; }
+          .cv-container.dark-mode .experience-achievements li { color: #e0e0e8; }
+          .cv-container.dark-mode .experience-achievements li::before { color: #3b82f6; }
+          .cv-container.dark-mode .tech-tag { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-color: rgba(59, 130, 246, 0.2); }
+          .cv-container.dark-mode .certification-card { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
+          .cv-container.dark-mode .cert-name { color: #f0f0f5; }
+          .cv-container.dark-mode .cert-issuer { color: #71717a; }
+          .cv-container.dark-mode .avatar-ring { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+
+          /* ---- COMMON PRINT LAYOUT (both modes) ---- */
           .cv-page {
             max-width: none;
             border-radius: 0;
@@ -1327,8 +1427,6 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
           }
 
           .cv-sidebar {
-            background: #f8fafc;
-            border-right: 2px solid #e2e8f0;
             padding: 0.6rem 0.5rem;
             gap: 0.35rem;
           }
@@ -1343,325 +1441,64 @@ export function CVFreelance({ profile, lang }: CVFreelanceProps) {
             margin-bottom: 0.3rem;
           }
 
-          .sidebar-name {
-            color: #1e293b;
-            font-size: 1rem;
-          }
-
-          .sidebar-title {
-            color: #3b82f6;
-            font-size: 0.55rem;
-            line-height: 1.25;
-          }
-
-          .availability-badge {
-            background: #ecfdf5;
-            border-color: #10b981;
-            color: #059669;
-            padding: 0.2rem 0.4rem;
-            font-size: 0.5rem;
-          }
-
-          .availability-dot {
-            width: 5px;
-            height: 5px;
-          }
-
-          .rate-badge {
-            background: #eff6ff;
-            border-color: #3b82f6;
-            padding: 0.35rem;
-          }
-
-          .rate-value {
-            color: #2563eb;
-            font-size: 1rem;
-          }
-
-          .rate-label, .rate-remote {
-            color: #64748b;
-            font-size: 0.5rem;
-          }
-
-          .sidebar-section {
-            padding-top: 0.3rem;
-            border-top-color: #e2e8f0;
-          }
-
-          .sidebar-section-title {
-            color: #64748b;
-            font-size: 0.5rem;
-            margin-bottom: 0.25rem;
-          }
-
-          .contact-list {
-            gap: 0.15rem;
-          }
-
-          .contact-item {
-            color: #1e293b;
-            font-size: 0.52rem;
-            gap: 0.3rem;
-          }
-
-          .contact-icon {
-            color: #3b82f6;
-            width: 10px;
-            height: 10px;
-          }
-
-          .skill-category {
-            margin-bottom: 0.25rem;
-          }
-
-          .skill-category-header {
-            font-size: 0.52rem;
-            margin-bottom: 0.15rem;
-            gap: 0.25rem;
-          }
-
-          .skill-category-header svg {
-            width: 10px;
-            height: 10px;
-          }
-
-          .skill-name {
-            color: #1e293b;
-            font-size: 0.48rem;
-          }
-
-          .skill-bar-bg {
-            background: #e2e8f0;
-            height: 2px;
-          }
-
-          .skill-item {
-            gap: 0.05rem;
-            margin-bottom: 0.1rem;
-          }
-
-          .languages-list {
-            gap: 0.1rem;
-          }
-
-          .language-item {
-            padding: 0;
-          }
-
-          .language-name {
-            color: #1e293b;
-            font-size: 0.5rem;
-          }
-
-          .language-level {
-            color: #64748b;
-            font-size: 0.45rem;
-          }
+          .sidebar-name { font-size: 1rem; }
+          .sidebar-title { font-size: 0.55rem; line-height: 1.25; }
+          .availability-badge { padding: 0.2rem 0.4rem; font-size: 0.5rem; }
+          .availability-dot { width: 5px; height: 5px; animation: none; }
+          .rate-badge { padding: 0.35rem; }
+          .rate-value { font-size: 1rem; }
+          .rate-label, .rate-remote { font-size: 0.5rem; }
+          .sidebar-section { padding-top: 0.3rem; }
+          .sidebar-section-title { font-size: 0.5rem; margin-bottom: 0.25rem; }
+          .contact-list { gap: 0.15rem; }
+          .contact-item { font-size: 0.52rem; gap: 0.3rem; }
+          .contact-icon { width: 10px; height: 10px; }
+          .skill-category { margin-bottom: 0.25rem; }
+          .skill-category-header { font-size: 0.52rem; margin-bottom: 0.15rem; gap: 0.25rem; }
+          .skill-category-header svg { width: 10px; height: 10px; }
+          .skill-name { font-size: 0.48rem; }
+          .skill-bar-bg { height: 2px; }
+          .skill-item { gap: 0.05rem; margin-bottom: 0.1rem; }
+          .languages-list { gap: 0.1rem; }
+          .language-item { padding: 0; }
+          .language-name { font-size: 0.5rem; }
+          .language-level { font-size: 0.45rem; }
 
           /* Sidebar Education - Print */
-          .sidebar-education-list {
-            gap: 0.2rem;
-          }
+          .sidebar-education-list { gap: 0.2rem; }
+          .sidebar-education-item { padding: 0.25rem 0.4rem; }
+          .sidebar-edu-degree { font-size: 0.5rem; }
+          .sidebar-edu-school { font-size: 0.45rem; }
+          .inline-icon { width: 9px; height: 9px; }
 
-          .sidebar-education-item {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            padding: 0.25rem 0.4rem;
-          }
+          .cv-main { padding: 0.75rem 1rem; gap: 0.5rem; }
+          .main-section { margin-bottom: 0; }
+          .main-section-title { font-size: 0.8rem; margin-bottom: 0.35rem; padding-bottom: 0.2rem; }
+          .section-icon { width: 18px; height: 18px; }
+          .summary-text { font-size: 0.62rem; line-height: 1.45; }
+          .stats-grid { gap: 0.4rem; margin-top: 0.5rem; }
+          .stat-card { padding: 0.35rem; }
+          .stat-value { font-size: 0.95rem; }
+          .stat-label { font-size: 0.5rem; }
+          .experience-timeline { gap: 0.5rem; padding-left: 0.85rem; }
+          .experience-timeline::before { left: 2px; background: linear-gradient(180deg, #3b82f6, #8b5cf6); }
+          .timeline-marker { width: 8px; height: 8px; left: -0.85rem; top: 4px; }
+          .experience-header { margin-bottom: 0.2rem; }
+          .experience-role { font-size: 0.72rem; }
+          .freelance-badge { font-size: 0.45rem; padding: 0.08rem 0.25rem; }
+          .experience-meta { font-size: 0.58rem; }
+          .experience-achievements { margin-bottom: 0.25rem; }
+          .experience-achievements li { font-size: 0.58rem; line-height: 1.35; padding-left: 0.6rem; margin-bottom: 0.08rem; }
+          .experience-stack { gap: 0.15rem; }
+          .tech-tag { font-size: 0.5rem; padding: 0.08rem 0.25rem; }
 
-          .sidebar-edu-degree {
-            color: #1e293b;
-            font-size: 0.5rem;
-          }
+          .certifications-section { page-break-inside: avoid; }
+          .certifications-grid { gap: 0.3rem; grid-template-columns: repeat(3, 1fr); }
+          .certification-card { padding: 0.3rem 0.4rem; }
+          .cert-name { font-size: 0.55rem; }
+          .cert-issuer { font-size: 0.48rem; }
 
-          .sidebar-edu-school {
-            color: #64748b;
-            font-size: 0.45rem;
-          }
-
-          .inline-icon {
-            width: 9px;
-            height: 9px;
-            color: #3b82f6;
-          }
-
-          .cv-main {
-            padding: 0.75rem 1rem;
-            gap: 0.5rem;
-          }
-
-          .main-section {
-            margin-bottom: 0;
-          }
-
-          .main-section-title {
-            color: #1e293b;
-            border-bottom-color: #3b82f6;
-            font-size: 0.8rem;
-            margin-bottom: 0.35rem;
-            padding-bottom: 0.2rem;
-          }
-
-          .section-icon {
-            background: #eff6ff;
-            color: #3b82f6;
-            width: 18px;
-            height: 18px;
-          }
-
-          .summary-text {
-            color: #334155;
-            font-size: 0.62rem;
-            line-height: 1.45;
-          }
-
-          .stats-grid {
-            gap: 0.4rem;
-            margin-top: 0.5rem;
-          }
-
-          .stat-card {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            padding: 0.35rem;
-          }
-
-          .stat-value {
-            color: #2563eb;
-            font-size: 0.95rem;
-          }
-
-          .stat-label {
-            color: #64748b;
-            font-size: 0.5rem;
-          }
-
-          .experience-timeline {
-            gap: 0.5rem;
-            padding-left: 0.85rem;
-          }
-
-          .experience-timeline::before {
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-            left: 2px;
-          }
-
-          .timeline-marker {
-            background: #3b82f6;
-            border-color: white;
-            box-shadow: 0 0 0 2px #3b82f6;
-            width: 8px;
-            height: 8px;
-            left: -0.85rem;
-            top: 4px;
-          }
-
-          .experience-header {
-            margin-bottom: 0.2rem;
-          }
-
-          .experience-role {
-            color: #1e293b;
-            font-size: 0.72rem;
-          }
-
-          .freelance-badge {
-            font-size: 0.45rem;
-            padding: 0.08rem 0.25rem;
-          }
-
-          .experience-meta {
-            font-size: 0.58rem;
-          }
-
-          .experience-company {
-            color: #3b82f6;
-          }
-
-          .experience-achievements {
-            margin-bottom: 0.25rem;
-          }
-
-          .experience-achievements li {
-            color: #334155;
-            font-size: 0.58rem;
-            line-height: 1.35;
-            padding-left: 0.6rem;
-            margin-bottom: 0.08rem;
-          }
-
-          .experience-achievements li::before {
-            color: #3b82f6;
-          }
-
-          .experience-stack {
-            gap: 0.15rem;
-          }
-
-          .tech-tag {
-            background: #eff6ff;
-            color: #2563eb;
-            border-color: #bfdbfe;
-            font-size: 0.5rem;
-            padding: 0.08rem 0.25rem;
-          }
-
-          .certifications-section,
-          .education-section {
-            page-break-inside: avoid;
-          }
-
-          .certifications-grid {
-            gap: 0.3rem;
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          .certification-card {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            padding: 0.3rem 0.4rem;
-          }
-
-          .cert-name {
-            color: #1e293b;
-            font-size: 0.55rem;
-          }
-
-          .cert-issuer {
-            color: #64748b;
-            font-size: 0.48rem;
-          }
-
-          .education-list {
-            gap: 0.25rem;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .education-item {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            padding: 0.3rem 0.4rem;
-          }
-
-          .education-degree {
-            color: #1e293b;
-            font-size: 0.58rem;
-          }
-
-          .education-school {
-            color: #64748b;
-            font-size: 0.5rem;
-          }
-
-          .avatar-ring {
-            animation: none;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-          }
-
-          .availability-dot {
-            animation: none;
-          }
+          .avatar-ring { animation: none; }
         }
 
         @page {
