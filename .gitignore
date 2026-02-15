@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraper output
+prospects-*.csv
+prospects-*.json
+
+.vercel
