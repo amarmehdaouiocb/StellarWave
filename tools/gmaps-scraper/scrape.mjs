@@ -39,8 +39,11 @@ const FIELD_MASK = [
   "places.businessStatus",
   "places.googleMapsUri",
   "places.primaryType",
+  "places.photos",
   "nextPageToken",
 ].join(",");
+
+const MAX_PHOTOS = 4;
 
 const DELAY_MS = 300;
 
@@ -320,10 +323,11 @@ async function textSearch(query, pageToken = null, pageSize = 20) {
 // ── Supabase ────────────────────────────────────────────────
 
 async function pushToSupabase(prospects) {
-  if (!SUPABASE_URL || !SUPABASE_KEY) return 0;
+  if (!SUPABASE_URL || !SUPABASE_KEY) return { inserted: 0, updated: 0 };
 
+  // Récupérer les prospects existants avec leurs photos
   const existingRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/prospects?select=nom,adresse`,
+    `${SUPABASE_URL}/rest/v1/prospects?select=nom,adresse,photos`,
     {
       headers: {
         apikey: SUPABASE_KEY,
@@ -333,16 +337,26 @@ async function pushToSupabase(prospects) {
   );
 
   const existing = existingRes.ok ? await existingRes.json() : [];
-  const existingSet = new Set(existing.map((e) => `${e.nom}|||${e.adresse}`));
+  const existingMap = new Map(existing.map((e) => [`${e.nom}|||${e.adresse}`, e]));
 
-  const newProspects = prospects.filter(
-    (p) => !existingSet.has(`${p.nom}|||${p.adresse}`)
-  );
+  const newProspects = [];
+  const toUpdate = [];
 
-  if (newProspects.length === 0) return 0;
+  for (const p of prospects) {
+    const key = `${p.nom}|||${p.adresse}`;
+    const ex = existingMap.get(key);
+    if (!ex) {
+      newProspects.push(p);
+    } else if (p.photos && p.photos.length > 0 && (!ex.photos || ex.photos.length === 0)) {
+      // Prospect existe mais n'a pas de photos → mettre à jour
+      toUpdate.push(p);
+    }
+  }
 
-  // Insérer par lots de 50
-  let totalInserted = 0;
+  let inserted = 0;
+  let updated = 0;
+
+  // Insérer les nouveaux par lots de 50
   for (let i = 0; i < newProspects.length; i += 50) {
     const batch = newProspects.slice(i, i + 50);
     const res = await fetch(`${SUPABASE_URL}/rest/v1/prospects`, {
@@ -360,10 +374,29 @@ async function pushToSupabase(prospects) {
       const err = await res.text();
       throw new Error(`Supabase insert error: ${err}`);
     }
-    totalInserted += batch.length;
+    inserted += batch.length;
   }
 
-  return totalInserted;
+  // Mettre à jour les photos des prospects existants
+  for (const p of toUpdate) {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/prospects?nom=eq.${encodeURIComponent(p.nom)}&adresse=eq.${encodeURIComponent(p.adresse)}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({ photos: p.photos }),
+      }
+    );
+
+    if (res.ok) updated++;
+  }
+
+  return { inserted, updated };
 }
 
 // ── Évaluation du site web ──────────────────────────────────
@@ -396,6 +429,40 @@ async function checkWebsite(url) {
   } catch {
     return { reachable: false, redirectsToSocial: false };
   }
+}
+
+// ── Résolution des photos ───────────────────────────────────
+
+async function resolvePhotoUrls(photos) {
+  if (!photos || photos.length === 0) return [];
+
+  const urls = [];
+  const toResolve = photos.slice(0, MAX_PHOTOS);
+
+  for (const photo of toResolve) {
+    try {
+      const mediaUrl = `https://places.googleapis.com/v1/${photo.name}/media?maxHeightPx=800&maxWidthPx=1200&key=${API_KEY}`;
+
+      // Suivre la redirection pour obtenir l'URL CDN finale
+      const res = await fetch(mediaUrl, {
+        method: "GET",
+        redirect: "follow",
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        },
+      });
+
+      if (res.ok && res.url) {
+        urls.push(res.url);
+      }
+    } catch {
+      // Ignorer les photos qui échouent
+    }
+    await sleep(50);
+  }
+
+  return urls;
 }
 
 function computePriority(place, webCheck) {
@@ -460,6 +527,7 @@ async function scrapeQuery(query, max) {
     const webCheck = await checkWebsite(place.websiteUri);
     const priority = computePriority(place, webCheck);
     const ville = extractVille(query);
+    const photos = await resolvePhotoUrls(place.photos);
 
     prospects.push({
       nom: name,
@@ -475,6 +543,7 @@ async function scrapeQuery(query, max) {
       priorite_label: priorityLabel(priority),
       recherche: query,
       ville,
+      photos,
     });
 
     await sleep(100);
@@ -626,8 +695,8 @@ async function exportResults(prospects, { output, noCsv, json, hasSupabase, quer
   // Supabase
   if (hasSupabase) {
     try {
-      const inserted = await pushToSupabase(prospects);
-      console.log(`  ☁️  Supabase : ${inserted} nouveaux prospects insérés (${prospects.length - inserted} doublons ignorés)`);
+      const { inserted, updated } = await pushToSupabase(prospects);
+      console.log(`  ☁️  Supabase : ${inserted} nouveaux, ${updated} mis à jour (photos), ${prospects.length - inserted - updated} inchangés`);
     } catch (err) {
       console.error(`  ❌ Supabase : ${err.message}`);
     }
