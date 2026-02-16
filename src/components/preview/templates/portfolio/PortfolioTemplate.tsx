@@ -223,7 +223,7 @@ export function PortfolioTemplate(props: PreviewProps) {
               margin: 0,
             }}
           >
-            {theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis)}
+            {theme.aboutText}
           </p>
         </div>
       </AnimatedSection>

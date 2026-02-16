@@ -288,7 +288,7 @@ export function EditorialTemplate(props: PreviewProps) {
               opacity: 0.85,
             }}
           >
-            {theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis)}
+            {theme.aboutText}
           </p>
 
           <div style={{ width: 50, height: 1, background: theme.accent, margin: "0 auto" }} />

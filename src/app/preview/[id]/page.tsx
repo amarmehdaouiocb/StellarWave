@@ -59,10 +59,16 @@ export default async function PreviewPage({
     .trim()
     .replace(/^\w/, (c) => c.toUpperCase());
 
+  // Résoudre aboutText côté serveur (les fonctions ne sont pas sérialisables pour le client)
+  const serializableTheme = {
+    ...theme,
+    aboutText: theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis),
+  };
+
   return (
     <PreviewClient
       prospect={prospect}
-      theme={theme}
+      theme={serializableTheme}
       template={template}
       typeLabel={typeLabel}
     />

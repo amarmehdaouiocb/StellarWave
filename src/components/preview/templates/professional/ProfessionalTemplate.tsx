@@ -174,7 +174,7 @@ export function ProfessionalTemplate(props: PreviewProps) {
               margin: "0 0 28px",
             }}
           >
-            {theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis)}
+            {theme.aboutText}
           </p>
 
           {/* Checklist points */}

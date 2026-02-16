@@ -16,9 +16,14 @@ export interface Prospect {
   photos: string[];
 }
 
+/** Version sérialisable de Theme (sans fonctions) pour le passage Server → Client */
+export type SerializableTheme = Omit<Theme, "aboutText"> & {
+  aboutText: string;
+};
+
 export interface PreviewProps {
   prospect: Prospect;
-  theme: Theme;
+  theme: SerializableTheme;
   template: TemplateName;
   typeLabel: string;
 }
