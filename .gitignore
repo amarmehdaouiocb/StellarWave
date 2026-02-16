@@ -45,3 +45,4 @@ prospects-*.csv
 prospects-*.json
 
 .vercel
+.env*.local

@@ -96,9 +96,9 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
 
-/* ── Custom cursor (desktop only) ── */
+/* ── Custom cursor (desktop only, landing page only) ── */
 @media (pointer: fine) {
-  * { cursor: none !important; }
+  main#top, main#top * { cursor: none !important; }
 }
 
 /* ── Text gradient ── */
