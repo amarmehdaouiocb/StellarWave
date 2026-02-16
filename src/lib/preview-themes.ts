@@ -23,6 +23,14 @@ export interface Theme {
   textOnPrimary: string;
   services: { icon: string; name: string; desc: string }[];
   tagline: string;
+  hours: string;
+  sectionLabels: {
+    services: string;
+    gallery: string;
+    about: string;
+    contact: string;
+  };
+  aboutText: (nom: string, ville: string, nbAvis: number) => string;
 }
 
 const THEMES: Record<ThemeKey, Theme> = {
@@ -35,6 +43,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#f0ebe3",
     textOnPrimary: "#faf6f0",
     tagline: "L'expertise au service de votre confort",
+    hours: "Lun-Ven : 8h-18h | Sam : 9h-13h",
+    sectionLabels: {
+      services: "Nos Prestations",
+      gallery: "Nos Réalisations",
+      about: "Notre Savoir-Faire",
+      contact: "Demander un Devis",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} intervient sur ${ville} et ses environs avec un savoir-faire reconnu. ${nbAvis > 0 ? `Avec ${nbAvis} avis clients, notre` : "Notre"} engagement : un travail soigné, des délais respectés et un devis transparent. Chaque chantier est unique, et nous y apportons la même exigence de qualité.`,
     services: [
       { icon: "🔧", name: "Dépannage Urgent", desc: "Intervention rapide 7j/7" },
       { icon: "🏗️", name: "Installation", desc: "Travail soigné et garanti" },
@@ -51,6 +68,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#f5eaee",
     textOnPrimary: "#fdf5f7",
     tagline: "Sublimez votre beauté naturelle",
+    hours: "Mar-Sam : 9h-19h",
+    sectionLabels: {
+      services: "Nos Soins",
+      gallery: "Notre Salon",
+      about: "Notre Philosophie",
+      contact: "Prendre Rendez-vous",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `Bienvenue chez ${nom}, votre espace beauté au cœur de ${ville}. ${nbAvis > 0 ? `Recommandé par ${nbAvis} clients, nous` : "Nous"} mettons notre expertise au service de votre bien-être. Dans une ambiance chaleureuse et raffinée, laissez-vous sublimer par notre équipe passionnée.`,
     services: [
       { icon: "✂️", name: "Coupe & Coiffure", desc: "Experts pour tous styles" },
       { icon: "🎨", name: "Coloration", desc: "Techniques sur-mesure" },
@@ -67,6 +93,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#f2ebe0",
     textOnPrimary: "#faf5ef",
     tagline: "Des saveurs authentiques, chaque jour",
+    hours: "Lun-Sam : 11h30-14h30, 18h30-22h30",
+    sectionLabels: {
+      services: "Nos Spécialités",
+      gallery: "Notre Établissement",
+      about: "Notre Histoire",
+      contact: "Réserver une Table",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} vous accueille à ${ville} dans un cadre chaleureux où chaque plat raconte une histoire. ${nbAvis > 0 ? `Plébiscité par ${nbAvis} gourmands, notre` : "Notre"} cuisine allie savoir-faire traditionnel et produits frais sélectionnés avec soin. Une expérience culinaire authentique vous attend.`,
     services: [
       { icon: "🍽️", name: "Nos Spécialités", desc: "Préparées avec passion" },
       { icon: "⭐", name: "Produits Frais", desc: "Qualité irréprochable" },
@@ -83,6 +118,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#e2f2ec",
     textOnPrimary: "#f0faf7",
     tagline: "Votre santé, notre priorité",
+    hours: "Lun-Ven : 9h-19h | Sam : 9h-12h",
+    sectionLabels: {
+      services: "Notre Cabinet",
+      gallery: "Nos Locaux",
+      about: "Notre Approche",
+      contact: "Prendre Rendez-vous",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} vous reçoit à ${ville} dans un cadre professionnel et bienveillant. ${nbAvis > 0 ? `Fort de ${nbAvis} avis positifs, notre` : "Notre"} approche personnalisée place votre bien-être au centre de chaque consultation. Prenez rendez-vous et bénéficiez d'un accompagnement adapté à vos besoins.`,
     services: [
       { icon: "🩺", name: "Consultation", desc: "Bilan complet et personnalisé" },
       { icon: "💪", name: "Traitement", desc: "Protocoles adaptés" },
@@ -99,6 +143,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#e8ede4",
     textOnPrimary: "#f5f8f3",
     tagline: "Un service de qualité, à deux pas de chez vous",
+    hours: "Lun-Sam : 9h-19h",
+    sectionLabels: {
+      services: "Nos Services",
+      gallery: "Notre Établissement",
+      about: "À Propos",
+      contact: "Nous Contacter",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `Bienvenue chez ${nom}, votre partenaire de confiance à ${ville}. ${nbAvis > 0 ? `Avec ${nbAvis} avis clients satisfaits, nous` : "Nous"} mettons notre savoir-faire et notre passion au service de notre clientèle. Qualité, proximité et professionnalisme sont les valeurs qui nous guident au quotidien.`,
     services: [
       { icon: "⚡", name: "Service Express", desc: "Rapidité garantie" },
       { icon: "👔", name: "Qualité Pro", desc: "Finitions impeccables" },
@@ -115,6 +168,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#e1e8ef",
     textOnPrimary: "#f0f4f8",
     tagline: "Votre véhicule entre de bonnes mains",
+    hours: "Lun-Ven : 8h-18h | Sam : 9h-12h",
+    sectionLabels: {
+      services: "Nos Prestations",
+      gallery: "Notre Atelier",
+      about: "Notre Expertise",
+      contact: "Prendre Rendez-vous",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} est votre spécialiste automobile à ${ville}. ${nbAvis > 0 ? `Reconnu par ${nbAvis} automobilistes, notre` : "Notre"} atelier dispose d'équipements de pointe pour diagnostiquer et réparer tous types de véhicules. Transparence, qualité et respect des délais sont notre engagement.`,
     services: [
       { icon: "🔧", name: "Réparation", desc: "Toutes marques, tous modèles" },
       { icon: "🔍", name: "Diagnostic", desc: "Équipement de pointe" },
@@ -131,6 +193,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#eae5f5",
     textOnPrimary: "#f5f3fa",
     tagline: "Dépassez vos limites",
+    hours: "Lun-Sam : 7h-21h | Dim : 9h-13h",
+    sectionLabels: {
+      services: "Nos Activités",
+      gallery: "Nos Installations",
+      about: "Notre Mission",
+      contact: "S'inscrire",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} est votre espace sport et bien-être à ${ville}. ${nbAvis > 0 ? `Avec ${nbAvis} membres satisfaits, nous` : "Nous"} proposons un accompagnement personnalisé pour atteindre vos objectifs. Que vous soyez débutant ou confirmé, notre équipe de coachs est à vos côtés.`,
     services: [
       { icon: "💪", name: "Cours collectifs", desc: "Énergie de groupe" },
       { icon: "🎯", name: "Coaching perso", desc: "Programme sur-mesure" },
@@ -147,6 +218,15 @@ const THEMES: Record<ThemeKey, Theme> = {
     bgAlt: "#f0ebe2",
     textOnPrimary: "#faf7f2",
     tagline: "Une sélection choisie avec passion",
+    hours: "Lun-Sam : 9h30-19h",
+    sectionLabels: {
+      services: "Notre Offre",
+      gallery: "Notre Boutique",
+      about: "Notre Passion",
+      contact: "Nous Rendre Visite",
+    },
+    aboutText: (nom, ville, nbAvis) =>
+      `${nom} vous accueille à ${ville} avec une sélection de produits choisis avec soin. ${nbAvis > 0 ? `Recommandé par ${nbAvis} clients, notre` : "Notre"} boutique allie qualité et conseil personnalisé. Venez découvrir notre univers et laissez-vous guider par nos passionnés.`,
     services: [
       { icon: "🛍️", name: "Notre Sélection", desc: "Produits de qualité" },
       { icon: "💎", name: "Conseil Expert", desc: "À votre écoute" },
