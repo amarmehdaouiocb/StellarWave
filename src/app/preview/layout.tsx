@@ -14,8 +14,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Votre futur site web — Simplisite",
-  description: "Aperçu personnalisé de votre site web professionnel par Simplisite.",
+  title: "Votre futur site web — Facilsite",
+  description: "Aperçu personnalisé de votre site web professionnel par Facilsite.",
 };
 
 export default function PreviewLayout({

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Simplisite — Scraper Google Maps → Supabase
+ * Facilsite — Scraper Google Maps → Supabase
  *
  * Trouve les commerces locaux sans site web et stocke les prospects dans Supabase.
  *
@@ -201,7 +201,7 @@ function parseArgs() {
 
   if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
     console.log(`
-Simplisite — Scraper Google Maps → Supabase
+Facilsite — Scraper Google Maps → Supabase
 
 Usage :
   node scrape.mjs "boulangerie Lyon"
@@ -618,7 +618,7 @@ async function mainBatch({ villes, nicheKeys, max, output, noCsv, json, hotOnly 
   const hasSupabase = !!(SUPABASE_URL && SUPABASE_KEY);
   const selectedNicheLabels = nicheKeys.map((k) => NICHES[k].label).join(", ");
 
-  console.log(`\n🚀 MODE BATCH — Simplisite Scraper`);
+  console.log(`\n🚀 MODE BATCH — Facilsite Scraper`);
   console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
   console.log(`🏙️  Villes    : ${villes.join(", ")}`);
   console.log(`📂 Niches    : ${selectedNicheLabels}`);

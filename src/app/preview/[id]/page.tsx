@@ -49,7 +49,7 @@ export async function generateMetadata({
   if (!prospect) return { title: "Preview introuvable" };
 
   return {
-    title: `${prospect.nom} — Votre site web par Simplisite`,
+    title: `${prospect.nom} — Votre site web par Facilsite`,
     description: `Aperçu du site web professionnel de ${prospect.nom}, ${prospect.ville}`,
   };
 }
@@ -81,15 +81,15 @@ export default async function PreviewPage({
 
   return (
     <div className="pv" style={cssVars}>
-      {/* ── Banner Simplisite ── */}
+      {/* ── Banner Facilsite ── */}
       <div className="pv-banner">
         <div className="pv-banner__inner">
           <span className="pv-banner__badge">APERÇU</span>
           <span className="pv-banner__text">
-            Votre futur site web par <strong>Simplisite</strong>
+            Votre futur site web par <strong>Facilsite</strong>
           </span>
           <a
-            href="https://stellarwave.fr/simplisite"
+            href="https://stellarwave.fr/facilsite"
             target="_blank"
             rel="noopener noreferrer"
             className="pv-banner__cta"
@@ -249,11 +249,11 @@ export default async function PreviewPage({
         <div className="pv-cta__inner pv-anim pv-anim--13">
           <h2 className="pv-cta__title">Ce site vous plaît ?</h2>
           <p className="pv-cta__subtitle">
-            Simplisite crée votre site web professionnel, clé en main, à partir
+            Facilsite crée votre site web professionnel, clé en main, à partir
             de <strong>29€/mois</strong>. Mise en ligne en 24h.
           </p>
           <a
-            href="https://stellarwave.fr/simplisite"
+            href="https://stellarwave.fr/facilsite"
             target="_blank"
             rel="noopener noreferrer"
             className="pv-cta__button"
@@ -261,7 +261,7 @@ export default async function PreviewPage({
             Je veux mon site →
           </a>
           <p className="pv-cta__mention">
-            Aperçu généré automatiquement par Simplisite — Les informations proviennent de Google Maps.
+            Aperçu généré automatiquement par Facilsite — Les informations proviennent de Google Maps.
           </p>
         </div>
       </section>

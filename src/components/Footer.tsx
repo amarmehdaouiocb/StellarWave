@@ -50,7 +50,7 @@ export default function Footer() {
               <span className="text-gradient">votre site web ?</span>
             </h2>
             <p className="text-lg max-w-xl mx-auto mb-8" style={{ color: "var(--text-secondary)" }}>
-              Rejoignez les 2 500+ commerces qui ont déjà fait confiance à Simplisite.
+              Rejoignez les 2 500+ commerces qui ont déjà fait confiance à Facilsite.
               Preview gratuite, sans engagement.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -90,7 +90,7 @@ export default function Footer() {
                 >
                   <span className="text-white text-sm font-bold">S</span>
                 </div>
-                <span>Simplisite</span>
+                <span>Facilsite</span>
               </a>
               <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
                 Des sites web professionnels pour les commerces locaux. Simple, rapide, efficace.
@@ -145,7 +145,7 @@ export default function Footer() {
             style={{ borderTop: "1px solid var(--border-subtle)" }}
           >
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              &copy; {new Date().getFullYear()} Simplisite. Tous droits réservés.
+              &copy; {new Date().getFullYear()} Facilsite. Tous droits réservés.
             </p>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               Fait avec &hearts; en France

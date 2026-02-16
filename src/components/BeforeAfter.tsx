@@ -61,7 +61,7 @@ export default function BeforeAfter() {
             <span className="text-gradient">flagrante</span>
           </h2>
           <p className="text-lg max-w-2xl mx-auto" style={{ color: "var(--text-secondary)" }}>
-            Glissez pour comparer un site générique avec un site Simplisite.
+            Glissez pour comparer un site générique avec un site Facilsite.
           </p>
         </motion.div>
 
@@ -127,7 +127,7 @@ export default function BeforeAfter() {
               <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full text-xs font-semibold"
                 style={{ background: "var(--gradient-accent)", color: "#fff" }}
               >
-                Avec Simplisite
+                Avec Facilsite
               </div>
             </div>
 

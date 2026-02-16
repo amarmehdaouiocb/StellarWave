@@ -16,9 +16,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Simplisite | Votre site web professionnel en 24h",
+  title: "Facilsite | Votre site web professionnel en 24h",
   description:
-    "Obtenez un site web professionnel pour votre commerce local. Preview gratuite, mise en ligne en 24h. Rejoignez les milliers de commerçants qui ont déjà fait confiance à Simplisite.",
+    "Obtenez un site web professionnel pour votre commerce local. Preview gratuite, mise en ligne en 24h. Rejoignez les milliers de commerçants qui ont déjà fait confiance à Facilsite.",
   keywords: [
     "site web commerce local",
     "création site internet",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "salon coiffure site",
   ],
   openGraph: {
-    title: "Simplisite | Votre site web professionnel en 24h",
+    title: "Facilsite | Votre site web professionnel en 24h",
     description:
       "Obtenez un site web professionnel pour votre commerce local. Preview gratuite.",
     type: "website",

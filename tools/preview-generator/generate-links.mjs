@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Simplisite — Générateur de liens de preview
+ * Facilsite — Générateur de liens de preview
  *
  * Récupère les prospects depuis Supabase et génère les URLs de preview
  * prêtes à envoyer par SMS/WhatsApp.
@@ -19,14 +19,14 @@ import { resolve } from "node:path";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
-const BASE_URL = process.env.PREVIEW_BASE_URL || "https://stellarwave.fr/simplisite";
+const BASE_URL = process.env.PREVIEW_BASE_URL || "https://stellarwave.fr/facilsite";
 
 function parseArgs() {
   const args = process.argv.slice(2);
 
   if (args.includes("--help") || args.includes("-h")) {
     console.log(`
-Simplisite — Générateur de liens de preview
+Facilsite — Générateur de liens de preview
 
 Usage :
   node generate-links.mjs
@@ -46,7 +46,7 @@ Options :
 Variables d'environnement :
   SUPABASE_URL       (requis) https://xxx.supabase.co
   SUPABASE_KEY       (requis) service_role key
-  PREVIEW_BASE_URL   (optionnel) Base URL (défaut: https://stellarwave.fr/simplisite)
+  PREVIEW_BASE_URL   (optionnel) Base URL (défaut: https://stellarwave.fr/facilsite)
 `);
     process.exit(0);
   }
@@ -90,7 +90,7 @@ async function fetchProspects({ ville, priorite, nonContactes }) {
 }
 
 function generateSmsMessage(prospect, previewUrl) {
-  return `Bonjour ! Voici un aperçu du site web que nous avons imaginé pour ${prospect.nom} : ${previewUrl} — Qu'en pensez-vous ? Simplisite.fr`;
+  return `Bonjour ! Voici un aperçu du site web que nous avons imaginé pour ${prospect.nom} : ${previewUrl} — Qu'en pensez-vous ? Facilsite.fr`;
 }
 
 async function main() {

@@ -1,4 +1,4 @@
-# Stratégie de Prospection — Simplisite
+# Stratégie de Prospection — Facilsite
 
 ## Vue d'ensemble
 
@@ -38,7 +38,7 @@ Objectif : convertir 10-15 clients le premier mois → 350-600€ MRR.
 
 ### Script d'appel (30 secondes)
 
-> "Bonjour, je suis [prénom] de Simplisite. Je vous ai envoyé un aperçu de
+> "Bonjour, je suis [prénom] de Facilsite. Je vous ai envoyé un aperçu de
 > site web pour [nom du commerce] par SMS. Vous avez eu le temps d'y jeter
 > un œil ? On crée des sites professionnels clé en main pour les pros comme
 > vous, à partir de 29€/mois. Est-ce que ça vous intéresserait d'en discuter

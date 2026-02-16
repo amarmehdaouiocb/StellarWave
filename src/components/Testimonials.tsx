@@ -12,7 +12,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "Je repoussais la création d'un site depuis des années. Simplisite a tout simplifié. Le résultat est exactement ce que je voulais.",
+    quote: "Je repoussais la création d'un site depuis des années. Facilsite a tout simplifié. Le résultat est exactement ce que je voulais.",
     author: "Thomas Dubois",
     role: "Salon de coiffure TD",
     location: "Paris",

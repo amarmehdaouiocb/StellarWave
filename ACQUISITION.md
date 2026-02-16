@@ -1,4 +1,4 @@
-# Simplisite — Playbook d'acquisition clients
+# Facilsite — Playbook d'acquisition clients
 
 > Objectif : signer les 50 premiers clients en 90 jours.
 > Cible : commerces locaux français sans site web ou avec un site obsolète.
@@ -41,7 +41,7 @@ Commence par les villes moyennes (50k–200k habitants) — moins de concurrence
 
 ### Script d'appel téléphonique
 
-> « Bonjour, je suis [Prénom] de Simplisite. Je travaille avec des [restaurants/salons/etc.] de [ville] pour les aider à avoir un site web professionnel.
+> « Bonjour, je suis [Prénom] de Facilsite. Je travaille avec des [restaurants/salons/etc.] de [ville] pour les aider à avoir un site web professionnel.
 >
 > J'ai vu que [nom du commerce] n'avait pas encore de site — j'ai pris la liberté de créer une maquette gratuite pour vous montrer ce que ça pourrait donner. Est-ce que je peux vous envoyer le lien par SMS ? Ça prend 30 secondes à regarder.
 >
@@ -65,7 +65,7 @@ Commence par les villes moyennes (50k–200k habitants) — moins de concurrence
 >
 > Bonne journée,
 > [Prénom]
-> Simplisite — simplisite.fr
+> Facilsite — facilsite.fr
 
 ### Séquence de relance
 
@@ -125,7 +125,7 @@ Campagne 2 : Recherche — Moyenne intention
 ```
 
 ### Landing page dédiée
-- Utilise ta landing Simplisite existante
+- Utilise ta landing Facilsite existante
 - Ajoute un paramètre UTM pour tracker les conversions Google Ads
 - Teste des variantes de headline par secteur ("Un site web pour votre restaurant en 24h")
 
@@ -158,7 +158,7 @@ Chaque page cible un mot-clé longue traîne :
 - "Comment apparaître en premier sur Google Maps"
 
 ### Google Business Profile
-- Crée un profil Google Business pour Simplisite
+- Crée un profil Google Business pour Facilsite
 - Poste régulièrement des exemples de réalisations
 - Demande des avis à chaque client satisfait
 
@@ -228,7 +228,7 @@ Chaque page cible un mot-clé longue traîne :
 
 ### Imprimeurs / agences de communication locale
 - Ils font les cartes de visite et flyers, mais pas les sites web
-- Partenariat complémentaire : ils vendent Simplisite, tu vends leurs services print
+- Partenariat complémentaire : ils vendent Facilsite, tu vends leurs services print
 
 ---
 
@@ -288,12 +288,12 @@ Chaque page cible un mot-clé longue traîne :
 
 ### Kit de démarchage
 - **Smartphone** avec des exemples de sites à montrer
-- **Flyer A5** : QR code vers simplisite.fr, tarifs, "preview gratuite"
+- **Flyer A5** : QR code vers facilsite.fr, tarifs, "preview gratuite"
 - **Carte de visite** avec QR code
 
 ### Script terrain
 
-> « Bonjour ! Je m'appelle [Prénom], je suis de Simplisite. On crée des sites web pour les commerces locaux. Je vois que [observation : pas de site, site ancien, juste une page Facebook…]. Est-ce que je peux vous montrer un exemple sur mon téléphone ? Ça prend 30 secondes. »
+> « Bonjour ! Je m'appelle [Prénom], je suis de Facilsite. On crée des sites web pour les commerces locaux. Je vois que [observation : pas de site, site ancien, juste une page Facebook…]. Est-ce que je peux vous montrer un exemple sur mon téléphone ? Ça prend 30 secondes. »
 
 ### Astuce : la photo du commerce
 - Prends une photo de la devanture avant d'entrer

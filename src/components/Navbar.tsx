@@ -54,7 +54,7 @@ export default function Navbar() {
               >
                 <span className="text-white font-extrabold text-lg">S</span>
               </div>
-              <span style={{ color: "var(--text-primary)" }}>Simplisite</span>
+              <span style={{ color: "var(--text-primary)" }}>Facilsite</span>
             </a>
 
             {/* Desktop nav */}

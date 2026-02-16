@@ -16,7 +16,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const saved = (localStorage.getItem("simplisite-theme") as Theme) || "dark";
+    const saved = (localStorage.getItem("facilsite-theme") as Theme) || "dark";
     setTheme(saved);
     document.documentElement.className = saved;
   }, []);
@@ -25,7 +25,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme((prev) => {
       const next = prev === "dark" ? "light" : "dark";
       document.documentElement.className = next;
-      localStorage.setItem("simplisite-theme", next);
+      localStorage.setItem("facilsite-theme", next);
       return next;
     });
   }, []);
