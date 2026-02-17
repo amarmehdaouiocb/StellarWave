@@ -29,7 +29,11 @@ export interface Theme {
     gallery: string;
     about: string;
     contact: string;
+    reviews: string;
+    hours: string;
   };
+  contactCTA: { headline: string; subtitle: string };
+  checklistItems: string[];
   aboutText: (nom: string, ville: string, nbAvis: number) => string;
 }
 
@@ -49,7 +53,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Nos Réalisations",
       about: "Notre Savoir-Faire",
       contact: "Demander un Devis",
+      reviews: "Ce que disent nos clients",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Besoin d'un pro ?", subtitle: "Demandez votre devis gratuit ou appelez-nous" },
+    checklistItems: ["Devis gratuit et transparent", "Intervention rapide", "Travail soigné et garanti"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} intervient sur ${ville} et ses environs avec un savoir-faire reconnu. ${nbAvis > 0 ? `Avec ${nbAvis} avis clients, notre` : "Notre"} engagement : un travail soigné, des délais respectés et un devis transparent. Chaque chantier est unique, et nous y apportons la même exigence de qualité.`,
     services: [
@@ -74,7 +82,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Notre Salon",
       about: "Notre Philosophie",
       contact: "Prendre Rendez-vous",
+      reviews: "L'avis de nos clientes",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Envie de vous faire plaisir ?", subtitle: "Réservez votre moment de détente" },
+    checklistItems: ["Accueil personnalisé", "Produits haut de gamme", "Résultat garanti"],
     aboutText: (nom, ville, nbAvis) =>
       `Bienvenue chez ${nom}, votre espace beauté au cœur de ${ville}. ${nbAvis > 0 ? `Recommandé par ${nbAvis} clients, nous` : "Nous"} mettons notre expertise au service de votre bien-être. Dans une ambiance chaleureuse et raffinée, laissez-vous sublimer par notre équipe passionnée.`,
     services: [
@@ -99,7 +111,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Notre Établissement",
       about: "Notre Histoire",
       contact: "Réserver une Table",
+      reviews: "L'avis des gourmands",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Envie de goûter ?", subtitle: "Réservez votre table ou passez commande" },
+    checklistItems: ["Produits frais et locaux", "Carte renouvelée", "Service attentionné"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} vous accueille à ${ville} dans un cadre chaleureux où chaque plat raconte une histoire. ${nbAvis > 0 ? `Plébiscité par ${nbAvis} gourmands, notre` : "Notre"} cuisine allie savoir-faire traditionnel et produits frais sélectionnés avec soin. Une expérience culinaire authentique vous attend.`,
     services: [
@@ -124,7 +140,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Nos Locaux",
       about: "Notre Approche",
       contact: "Prendre Rendez-vous",
+      reviews: "Témoignages patients",
+      hours: "Horaires de consultation",
     },
+    contactCTA: { headline: "Prenez soin de vous", subtitle: "Prenez rendez-vous dès maintenant" },
+    checklistItems: ["Approche bienveillante", "Suivi personnalisé", "Cabinet accessible"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} vous reçoit à ${ville} dans un cadre professionnel et bienveillant. ${nbAvis > 0 ? `Fort de ${nbAvis} avis positifs, notre` : "Notre"} approche personnalisée place votre bien-être au centre de chaque consultation. Prenez rendez-vous et bénéficiez d'un accompagnement adapté à vos besoins.`,
     services: [
@@ -149,7 +169,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Notre Établissement",
       about: "À Propos",
       contact: "Nous Contacter",
+      reviews: "Avis de nos clients",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Un besoin ? On s'en occupe", subtitle: "Contactez-nous pour un service rapide" },
+    checklistItems: ["Service rapide et fiable", "Tarifs transparents", "Satisfaction garantie"],
     aboutText: (nom, ville, nbAvis) =>
       `Bienvenue chez ${nom}, votre partenaire de confiance à ${ville}. ${nbAvis > 0 ? `Avec ${nbAvis} avis clients satisfaits, nous` : "Nous"} mettons notre savoir-faire et notre passion au service de notre clientèle. Qualité, proximité et professionnalisme sont les valeurs qui nous guident au quotidien.`,
     services: [
@@ -174,7 +198,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Notre Atelier",
       about: "Notre Expertise",
       contact: "Prendre Rendez-vous",
+      reviews: "Avis de nos clients",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Votre véhicule mérite le meilleur", subtitle: "Prenez rendez-vous pour un diagnostic" },
+    checklistItems: ["Diagnostic complet", "Pièces d'origine", "Délais respectés"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} est votre spécialiste automobile à ${ville}. ${nbAvis > 0 ? `Reconnu par ${nbAvis} automobilistes, notre` : "Notre"} atelier dispose d'équipements de pointe pour diagnostiquer et réparer tous types de véhicules. Transparence, qualité et respect des délais sont notre engagement.`,
     services: [
@@ -199,7 +227,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Nos Installations",
       about: "Notre Mission",
       contact: "S'inscrire",
+      reviews: "Avis de nos membres",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Prêt à relever le défi ?", subtitle: "Inscrivez-vous et commencez dès maintenant" },
+    checklistItems: ["Coaching personnalisé", "Matériel professionnel", "Ambiance motivante"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} est votre espace sport et bien-être à ${ville}. ${nbAvis > 0 ? `Avec ${nbAvis} membres satisfaits, nous` : "Nous"} proposons un accompagnement personnalisé pour atteindre vos objectifs. Que vous soyez débutant ou confirmé, notre équipe de coachs est à vos côtés.`,
     services: [
@@ -224,7 +256,11 @@ const THEMES: Record<ThemeKey, Theme> = {
       gallery: "Notre Boutique",
       about: "Notre Passion",
       contact: "Nous Rendre Visite",
+      reviews: "L'avis de nos clients",
+      hours: "Nos Horaires",
     },
+    contactCTA: { headline: "Venez découvrir notre sélection", subtitle: "Passez nous voir en boutique" },
+    checklistItems: ["Produits sélectionnés avec soin", "Conseil personnalisé", "Nouveautés régulières"],
     aboutText: (nom, ville, nbAvis) =>
       `${nom} vous accueille à ${ville} avec une sélection de produits choisis avec soin. ${nbAvis > 0 ? `Recommandé par ${nbAvis} clients, notre` : "Notre"} boutique allie qualité et conseil personnalisé. Venez découvrir notre univers et laissez-vous guider par nos passionnés.`,
     services: [

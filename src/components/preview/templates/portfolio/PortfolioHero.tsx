@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { StarRating } from "../../shared/StarRating";
+import { HeroFallback } from "../../shared/HeroFallback";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
 import type { PreviewProps } from "@/lib/preview-types";
 
@@ -128,6 +129,8 @@ export function PortfolioHero({ prospect, theme, typeLabel }: PreviewProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               href={`tel:${prospect.telephone.replace(/\s/g, "")}`}
+              whileHover={{ scale: 1.03, y: -2, boxShadow: `0 8px 24px ${theme.primary}30` }}
+              whileTap={{ scale: 0.97 }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -140,20 +143,29 @@ export function PortfolioHero({ prospect, theme, typeLabel }: PreviewProps) {
                 padding: "14px 32px",
                 borderRadius: 100,
                 textDecoration: "none",
-                transition: "transform 0.2s, box-shadow 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = `0 8px 24px ${theme.primary}30`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
               }}
             >
               📞 {prospect.telephone}
             </motion.a>
           )}
+
+          {/* Address + pin icon */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              fontFamily: fonts.body,
+              fontSize: "0.85rem",
+              color: theme.primary,
+              marginTop: 20,
+            }}
+          >
+            <span>📍</span> {prospect.adresse}
+          </motion.div>
         </motion.div>
 
         {/* Right — photo with rounded frame + glow */}
@@ -178,19 +190,7 @@ export function PortfolioHero({ prospect, theme, typeLabel }: PreviewProps) {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "4rem",
-                background: `linear-gradient(135deg, ${theme.bgAlt}, ${theme.bg})`,
-              }}
-            >
-              ✨
-            </div>
+            <HeroFallback template="portfolio" primary={theme.primary} accent={theme.accent} />
           )}
 
           {/* Accent glow border */}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
 import type { PreviewProps } from "@/lib/preview-types";
+import { HeroFallback } from "../../shared/HeroFallback";
 
 const fonts = TEMPLATE_FONT_VARS.professional;
 
@@ -20,7 +21,7 @@ export function ProfessionalHero({ prospect, theme, typeLabel }: PreviewProps) {
       }}
     >
       {/* Background photo — darker overlay */}
-      {prospect.photos?.[0] && (
+      {prospect.photos?.[0] ? (
         <div
           style={{
             position: "absolute",
@@ -32,6 +33,8 @@ export function ProfessionalHero({ prospect, theme, typeLabel }: PreviewProps) {
             filter: "saturate(0.4)",
           }}
         />
+      ) : (
+        <HeroFallback template="professional" primary={theme.primary} accent={theme.accent} />
       )}
 
       {/* Angular accent line */}
@@ -43,6 +46,19 @@ export function ProfessionalHero({ prospect, theme, typeLabel }: PreviewProps) {
           width: 6,
           height: "100%",
           background: theme.accent,
+        }}
+      />
+
+      {/* Right accent line */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: 2,
+          height: "100%",
+          background: theme.accent,
+          opacity: 0.3,
         }}
       />
 
@@ -155,6 +171,28 @@ export function ProfessionalHero({ prospect, theme, typeLabel }: PreviewProps) {
             📞 Appeler maintenant
           </motion.a>
         )}
+
+        {/* Badge — "Disponible 7j/7" */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.4 }}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            fontFamily: fonts.body,
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            color: theme.textOnPrimary,
+            marginTop: 16,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }} />
+          Disponible 7j/7
+        </motion.div>
       </div>
     </section>
   );

@@ -40,6 +40,19 @@ const FIELD_MASK = [
   "places.googleMapsUri",
   "places.primaryType",
   "places.photos",
+  "places.regularOpeningHours",
+  "places.editorialSummary",
+  "places.priceLevel",
+  "places.types",
+  "places.servesBeer",
+  "places.servesWine",
+  "places.servesVegetarianFood",
+  "places.takeout",
+  "places.delivery",
+  "places.dineIn",
+  "places.reservable",
+  "places.accessibilityOptions",
+  "places.paymentOptions",
   "nextPageToken",
 ].join(",");
 
@@ -320,14 +333,45 @@ async function textSearch(query, pageToken = null, pageSize = 20) {
   };
 }
 
+// ── Place Details (reviews) ─────────────────────────────────
+
+const DETAILS_FIELD_MASK = "reviews";
+
+async function fetchPlaceReviews(placeName) {
+  // placeName = "places/ChIJ..." (resource name from search)
+  if (!placeName) return [];
+
+  const url = `https://places.googleapis.com/v1/${placeName}`;
+  const res = await fetch(url, {
+    headers: {
+      "X-Goog-Api-Key": API_KEY,
+      "X-Goog-FieldMask": DETAILS_FIELD_MASK,
+    },
+  });
+
+  if (!res.ok) return [];
+
+  const data = await res.json();
+  return (data.reviews || [])
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, 3)
+    .map((r) => ({
+      author: r.authorAttribution?.displayName || "Client",
+      text: r.text?.text || "",
+      rating: r.rating,
+      relativeTime: r.relativePublishTimeDescription || "",
+    }))
+    .filter((r) => r.text.length > 0);
+}
+
 // ── Supabase ────────────────────────────────────────────────
 
 async function pushToSupabase(prospects) {
   if (!SUPABASE_URL || !SUPABASE_KEY) return { inserted: 0, updated: 0 };
 
-  // Récupérer les prospects existants avec leurs photos
+  // Récupérer les prospects existants avec leurs photos et données enrichies
   const existingRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/prospects?select=nom,adresse,photos`,
+    `${SUPABASE_URL}/rest/v1/prospects?select=nom,adresse,photos,avis`,
     {
       headers: {
         apikey: SUPABASE_KEY,
@@ -347,9 +391,14 @@ async function pushToSupabase(prospects) {
     const ex = existingMap.get(key);
     if (!ex) {
       newProspects.push(p);
-    } else if (p.photos && p.photos.length > 0 && (!ex.photos || ex.photos.length === 0)) {
-      // Prospect existe mais n'a pas de photos → mettre à jour
-      toUpdate.push(p);
+    } else {
+      // Prospect existe → mettre à jour si nouvelles données enrichies ou photos manquantes
+      const needsPhotos = p.photos && p.photos.length > 0 && (!ex.photos || ex.photos.length === 0);
+      const hasNewData = p.avis || p.horaires || p.description_google || p.niveau_prix || p.services_disponibles || p.types_google || p.moyens_paiement;
+      const needsEnrichment = !ex.avis && hasNewData;
+      if (needsPhotos || needsEnrichment) {
+        toUpdate.push(p);
+      }
     }
   }
 
@@ -377,8 +426,20 @@ async function pushToSupabase(prospects) {
     inserted += batch.length;
   }
 
-  // Mettre à jour les photos des prospects existants
+  // Mettre à jour les prospects existants (photos + données enrichies)
   for (const p of toUpdate) {
+    const updateData = {};
+    if (p.photos && p.photos.length > 0) updateData.photos = p.photos;
+    if (p.horaires) updateData.horaires = p.horaires;
+    if (p.avis) updateData.avis = p.avis;
+    if (p.description_google) updateData.description_google = p.description_google;
+    if (p.niveau_prix) updateData.niveau_prix = p.niveau_prix;
+    if (p.types_google) updateData.types_google = p.types_google;
+    if (p.services_disponibles) updateData.services_disponibles = p.services_disponibles;
+    if (p.accessibilite) updateData.accessibilite = p.accessibilite;
+    if (p.moyens_paiement) updateData.moyens_paiement = p.moyens_paiement;
+    if (p.reservable) updateData.reservable = p.reservable;
+
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/prospects?nom=eq.${encodeURIComponent(p.nom)}&adresse=eq.${encodeURIComponent(p.adresse)}`,
       {
@@ -389,7 +450,7 @@ async function pushToSupabase(prospects) {
           "Content-Type": "application/json",
           Prefer: "return=minimal",
         },
-        body: JSON.stringify({ photos: p.photos }),
+        body: JSON.stringify(updateData),
       }
     );
 
@@ -521,6 +582,14 @@ async function scrapeQuery(query, max) {
     await sleep(DELAY_MS);
   }
 
+  const PRICE_MAP = {
+    PRICE_LEVEL_FREE: "Gratuit",
+    PRICE_LEVEL_INEXPENSIVE: "€",
+    PRICE_LEVEL_MODERATE: "€€",
+    PRICE_LEVEL_EXPENSIVE: "€€€",
+    PRICE_LEVEL_VERY_EXPENSIVE: "€€€€",
+  };
+
   const prospects = [];
   for (const place of allPlaces) {
     const name = place.displayName?.text || "Inconnu";
@@ -528,6 +597,38 @@ async function scrapeQuery(query, max) {
     const priority = computePriority(place, webCheck);
     const ville = extractVille(query);
     const photos = await resolvePhotoUrls(place.photos);
+
+    // Horaires structurés
+    const horaires = place.regularOpeningHours?.weekdayDescriptions || null;
+
+    // Avis clients (top 3 triés par note, via Place Details API)
+    const avis = await fetchPlaceReviews(place.name);
+    await sleep(50);
+
+    // Description Google
+    const description_google = place.editorialSummary?.text || null;
+
+    // Niveau prix
+    const niveau_prix = PRICE_MAP[place.priceLevel] || null;
+
+    // Services disponibles
+    const services_disponibles = [];
+    if (place.dineIn) services_disponibles.push("Sur place");
+    if (place.takeout) services_disponibles.push("À emporter");
+    if (place.delivery) services_disponibles.push("Livraison");
+    if (place.servesVegetarianFood) services_disponibles.push("Options végétariennes");
+    if (place.servesBeer || place.servesWine) services_disponibles.push("Bar");
+    if (place.reservable) services_disponibles.push("Réservation");
+
+    // Types Google
+    const types_google = place.types || [];
+
+    // Accessibilité & paiement
+    const accessibilite = place.accessibilityOptions?.wheelchairAccessibleEntrance || false;
+    const moyens_paiement = [];
+    if (place.paymentOptions?.acceptsCreditCards) moyens_paiement.push("CB");
+    if (place.paymentOptions?.acceptsCashOnly) moyens_paiement.push("Espèces uniquement");
+    if (place.paymentOptions?.acceptsNfc) moyens_paiement.push("Sans contact");
 
     prospects.push({
       nom: name,
@@ -544,6 +645,15 @@ async function scrapeQuery(query, max) {
       recherche: query,
       ville,
       photos,
+      horaires: horaires && horaires.length > 0 ? horaires : null,
+      avis: avis.length > 0 ? avis : null,
+      description_google,
+      niveau_prix,
+      types_google: types_google.length > 0 ? types_google : null,
+      services_disponibles: services_disponibles.length > 0 ? services_disponibles : null,
+      accessibilite,
+      moyens_paiement: moyens_paiement.length > 0 ? moyens_paiement : null,
+      reservable: place.reservable || false,
     });
 
     await sleep(100);
@@ -696,7 +806,7 @@ async function exportResults(prospects, { output, noCsv, json, hasSupabase, quer
   if (hasSupabase) {
     try {
       const { inserted, updated } = await pushToSupabase(prospects);
-      console.log(`  ☁️  Supabase : ${inserted} nouveaux, ${updated} mis à jour (photos), ${prospects.length - inserted - updated} inchangés`);
+      console.log(`  ☁️  Supabase : ${inserted} nouveaux, ${updated} enrichis, ${prospects.length - inserted - updated} inchangés`);
     } catch (err) {
       console.error(`  ❌ Supabase : ${err.message}`);
     }

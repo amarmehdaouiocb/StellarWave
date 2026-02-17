@@ -49,9 +49,33 @@ export const staggerContainer: Variants = {
   },
 };
 
+export const staggerContainerSlow: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
 export const staggerItem: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
+};
+
+export const blurIn: Variants = {
+  hidden: { opacity: 0, filter: "blur(10px)" },
+  visible: { opacity: 1, filter: "blur(0px)" },
+};
+
+export const clipReveal: Variants = {
+  hidden: { clipPath: "inset(100% 0 0 0)" },
+  visible: { clipPath: "inset(0% 0 0 0)" },
+};
+
+export const decorativeReveal: Variants = {
+  hidden: { opacity: 0, scale: 0.6, rotate: -5 },
+  visible: { opacity: 1, scale: 1, rotate: 0 },
 };
 
 // ── Variants spécialisés par template ─────────────────────

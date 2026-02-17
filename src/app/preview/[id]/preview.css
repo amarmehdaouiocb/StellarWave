@@ -9,7 +9,8 @@
 @media (max-width: 768px) {
   /* Force single-column on mobile for all grid layouts */
   [style*="grid-template-columns: 1fr 1fr"],
-  [style*="grid-template-columns: 2fr 1fr"] {
+  [style*="grid-template-columns: 2fr 1fr"],
+  [style*="grid-template-columns: repeat(2, 1fr)"] {
     grid-template-columns: 1fr !important;
   }
 
@@ -17,6 +18,44 @@
   section {
     padding-left: 20px !important;
     padding-right: 20px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+
+  /* Portfolio hero: photo first on mobile */
+  [style*="grid-template-columns: 1fr 1fr"][style*="align-items: center"] > :first-child {
+    order: 1;
+  }
+  [style*="grid-template-columns: 1fr 1fr"][style*="align-items: center"] > :last-child {
+    order: -1;
+  }
+
+  /* Reviews: single column on tablet */
+  [style*="minmax(260px, 1fr)"],
+  [style*="minmax(280px, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Google Map responsive ── */
+@media (max-width: 768px) {
+  iframe[title^="Carte"] {
+    height: 220px !important;
+  }
+}
+
+/* ── Contact form inputs responsive ── */
+@media (max-width: 768px) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* ── Template Switcher responsive ── */
+@media (max-width: 480px) {
+  .switcher-label {
+    font-size: 0.75rem !important;
   }
 }
 
@@ -24,5 +63,23 @@
   section {
     padding-left: 16px !important;
     padding-right: 16px !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* TrustBar: stack stats vertically */
+  [style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Contact grid single col */
+  [style*="minmax(180px, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Service badges: smaller on mobile */
+  [style*="flex-wrap: wrap"][style*="justify-content: center"] {
+    gap: 6px !important;
   }
 }

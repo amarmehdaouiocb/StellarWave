@@ -13,8 +13,14 @@ import { PreviewBanner } from "../../shared/PreviewBanner";
 import { PreviewCTA } from "../../shared/PreviewCTA";
 import { AnimatedSection } from "../../shared/AnimatedSection";
 import { PhotoGallery } from "../../shared/PhotoGallery";
+import { PhoneCTA } from "../../shared/PhoneCTA";
 import { ProfessionalHero } from "./ProfessionalHero";
 import { TrustBar } from "./TrustBar";
+import { ReviewSection } from "../../shared/ReviewCard";
+import { OpeningHours } from "../../shared/OpeningHours";
+import { ServiceBadges } from "../../shared/ServiceBadges";
+import { GoogleMapEmbed } from "../../shared/GoogleMapEmbed";
+import { ContactForm } from "../../shared/ContactForm";
 
 const fonts = TEMPLATE_FONT_VARS.professional;
 const transition = templateTransitions.professional;
@@ -35,6 +41,26 @@ export function ProfessionalTemplate(props: PreviewProps) {
 
       {/* ── Trust Bar — stats strip ── */}
       <TrustBar {...props} />
+
+      {/* ── Service badges ── */}
+      {prospect.services_disponibles && prospect.services_disponibles.length > 0 && (
+        <div style={{ padding: "20px 24px", background: theme.bg }}>
+          <ServiceBadges
+            services={prospect.services_disponibles}
+            template="professional"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontBody={fonts.body}
+            transition={transition}
+            niveauPrix={prospect.niveau_prix}
+            accessibilite={prospect.accessibilite}
+            moyensPaiement={prospect.moyens_paiement}
+          />
+        </div>
+      )}
 
       {/* ── Services — industrial cards with accent left border ── */}
       <AnimatedSection
@@ -67,7 +93,7 @@ export function ProfessionalTemplate(props: PreviewProps) {
               gap: 16,
             }}
           >
-            {theme.services.map((svc) => (
+            {theme.services.map((svc, i) => (
               <motion.div
                 key={svc.name}
                 variants={professionalVariants.serviceCard}
@@ -79,8 +105,25 @@ export function ProfessionalTemplate(props: PreviewProps) {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 16,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
+                <span
+                  style={{
+                    position: "absolute",
+                    right: 8,
+                    bottom: -4,
+                    fontFamily: fonts.display,
+                    fontSize: "3.5rem",
+                    fontWeight: 700,
+                    color: theme.accent,
+                    opacity: 0.08,
+                    lineHeight: 1,
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <span style={{ fontSize: "1.8rem", flexShrink: 0, lineHeight: 1 }}>
                   {svc.icon}
                 </span>
@@ -179,7 +222,7 @@ export function ProfessionalTemplate(props: PreviewProps) {
 
           {/* Checklist points */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {["Devis gratuit et transparent", "Intervention rapide", "Travail soigné et garanti"].map(
+            {theme.checklistItems.map(
               (point) => (
                 <div
                   key={point}
@@ -223,6 +266,40 @@ export function ProfessionalTemplate(props: PreviewProps) {
         </div>
       </AnimatedSection>
 
+      {/* ── Avis clients ── */}
+      {prospect.avis && prospect.avis.length > 0 && (
+        <ReviewSection
+          reviews={prospect.avis}
+          sectionTitle={theme.sectionLabels.reviews}
+          template="professional"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
+
+      {/* ── Horaires ── */}
+      {prospect.horaires && prospect.horaires.length > 0 && (
+        <OpeningHours
+          horaires={prospect.horaires}
+          sectionTitle={theme.sectionLabels.hours}
+          template="professional"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
+
       {/* ── Contact — phone prominent ── */}
       <AnimatedSection
         variants={fadeUp}
@@ -253,22 +330,14 @@ export function ProfessionalTemplate(props: PreviewProps) {
             {/* Left — phone very prominent */}
             <div>
               {prospect.telephone && (
-                <a
-                  href={`tel:${prospect.telephone.replace(/\s/g, "")}`}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 12,
-                    fontFamily: fonts.display,
-                    fontSize: "1.6rem",
-                    fontWeight: 700,
-                    color: theme.accent,
-                    textDecoration: "none",
-                    marginBottom: 28,
-                  }}
-                >
-                  📞 {prospect.telephone}
-                </a>
+                <PhoneCTA
+                  telephone={prospect.telephone}
+                  accentColor={theme.accent}
+                  primaryColor={theme.primary}
+                  textOnPrimary={theme.textOnPrimary}
+                  fontBody={fonts.body}
+                  variant="block"
+                />
               )}
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -280,60 +349,59 @@ export function ProfessionalTemplate(props: PreviewProps) {
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <span style={{ fontSize: "1rem" }}>🕐</span>
                   <span style={{ fontFamily: fonts.body, fontSize: "0.9rem", color: theme.textOnPrimary, opacity: 0.7 }}>
-                    {theme.hours}
+                    {prospect.horaires && prospect.horaires.length > 0
+                      ? prospect.horaires.find((_, i) => i === (new Date().getDay() === 0 ? 6 : new Date().getDay() - 1)) || theme.hours
+                      : theme.hours}
                   </span>
                 </div>
               </div>
-            </div>
 
-            {/* Right — repeated CTA + Google Maps */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {prospect.telephone && (
-                <a
-                  href={`tel:${prospect.telephone.replace(/\s/g, "")}`}
-                  style={{
-                    display: "block",
-                    fontFamily: fonts.body,
-                    fontSize: "1rem",
-                    fontWeight: 700,
-                    color: theme.primary,
-                    background: theme.accent,
-                    padding: "16px 32px",
-                    borderRadius: 4,
-                    textDecoration: "none",
-                    textAlign: "center",
-                    transition: "transform 0.15s",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
-                >
-                  Appeler maintenant →
-                </a>
-              )}
+              {/* Map */}
+              <div style={{ marginTop: 24 }}>
+                <GoogleMapEmbed
+                  address={prospect.adresse}
+                  template="professional"
+                  accentColor={theme.accent}
+                  primaryColor={theme.primary}
+                  bgColor={theme.bg}
+                  transition={transition}
+                />
+              </div>
+
               {prospect.google_maps && (
                 <a
                   href={prospect.google_maps}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: "block",
+                    display: "inline-block",
+                    marginTop: 12,
                     fontFamily: fonts.body,
-                    fontSize: "0.9rem",
+                    fontSize: "0.85rem",
                     fontWeight: 500,
                     color: theme.textOnPrimary,
                     textDecoration: "none",
-                    border: `1px solid ${theme.textOnPrimary}30`,
-                    padding: "14px 32px",
-                    borderRadius: 4,
-                    textAlign: "center",
-                    transition: "background 0.2s",
+                    opacity: 0.6,
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = `${theme.textOnPrimary}10`; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                 >
                   Voir sur Google Maps →
                 </a>
               )}
+            </div>
+
+            {/* Right — contact form */}
+            <div>
+              <ContactForm
+                template="professional"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                bgAltColor={theme.bgAlt}
+                textOnPrimary={theme.textOnPrimary}
+                fontDisplay={fonts.display}
+                fontBody={fonts.body}
+                transition={transition}
+              />
             </div>
           </div>
         </div>

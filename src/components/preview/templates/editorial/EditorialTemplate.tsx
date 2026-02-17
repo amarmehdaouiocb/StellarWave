@@ -15,6 +15,13 @@ import { PreviewBanner } from "../../shared/PreviewBanner";
 import { PreviewCTA } from "../../shared/PreviewCTA";
 import { AnimatedSection } from "../../shared/AnimatedSection";
 import { EditorialHero } from "./EditorialHero";
+import { PhoneCTA } from "../../shared/PhoneCTA";
+import { SectionDivider } from "../../shared/SectionDivider";
+import { ReviewSection } from "../../shared/ReviewCard";
+import { OpeningHours } from "../../shared/OpeningHours";
+import { ServiceBadges } from "../../shared/ServiceBadges";
+import { GoogleMapEmbed } from "../../shared/GoogleMapEmbed";
+import { ContactForm } from "../../shared/ContactForm";
 
 const fonts = TEMPLATE_FONT_VARS.editorial;
 const transition = templateTransitions.editorial;
@@ -32,6 +39,26 @@ export function EditorialTemplate(props: PreviewProps) {
       />
 
       <EditorialHero {...props} />
+
+      {/* ── Service badges ── */}
+      {prospect.services_disponibles && prospect.services_disponibles.length > 0 && (
+        <div style={{ padding: "24px 24px 0", background: theme.bg }}>
+          <ServiceBadges
+            services={prospect.services_disponibles}
+            template="editorial"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontBody={fonts.body}
+            transition={transition}
+            niveauPrix={prospect.niveau_prix}
+            accessibilite={prospect.accessibilite}
+            moyensPaiement={prospect.moyens_paiement}
+          />
+        </div>
+      )}
 
       {/* ── Spécialités — editorial 2-column layout ── */}
       <AnimatedSection
@@ -108,14 +135,22 @@ export function EditorialTemplate(props: PreviewProps) {
                   style={{
                     width: "100%",
                     height: "100%",
-                    background: theme.bgAlt,
+                    background: `linear-gradient(135deg, ${theme.bgAlt}, ${theme.bg})`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "3rem",
+                    position: "relative",
                   }}
                 >
-                  🍽️
+                  <span style={{ fontSize: "4rem", opacity: 0.3 }}>{theme.services[0]?.icon || "🍽️"}</span>
+                  {/* Decorative offset frame */}
+                  <div style={{
+                    position: "absolute",
+                    inset: 16,
+                    border: `1px solid ${theme.accent}30`,
+                    borderRadius: 4,
+                    transform: "translate(8px, 8px)",
+                  }} />
                 </div>
               )}
             </motion.div>
@@ -142,6 +177,13 @@ export function EditorialTemplate(props: PreviewProps) {
                     borderBottom: i < theme.services.length - 1 ? `1px solid ${theme.primary}15` : "none",
                   }}
                 >
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 24 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    style={{ height: 2, background: theme.accent, marginBottom: 8 }}
+                  />
                   <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 6 }}>
                     <span style={{ fontSize: "1.4rem" }}>{svc.icon}</span>
                     <h3
@@ -176,78 +218,87 @@ export function EditorialTemplate(props: PreviewProps) {
         </div>
       </AnimatedSection>
 
+      <SectionDivider template="editorial" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
+
       {/* ── Gallery — asymmetric grid ── */}
       {prospect.photos && prospect.photos.length > 0 && (
-        <AnimatedSection
-          variants={fadeUp}
-          transition={transition}
-          style={{ padding: "100px 24px", background: theme.bgAlt }}
-        >
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <div style={{ width: 50, height: 1, background: theme.accent, margin: "0 auto 20px" }} />
-              <h2
-                style={{
-                  fontFamily: fonts.display,
-                  fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                  fontWeight: 600,
-                  color: theme.primary,
-                  margin: 0,
-                }}
-              >
-                {theme.sectionLabels.gallery}
-              </h2>
-            </div>
-
-            {/* Asymmetric: 1 large + 2 small */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={staggerContainer}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "2fr 1fr",
-                gridTemplateRows: "1fr 1fr",
-                gap: 12,
-                minHeight: 500,
-              }}
-            >
-              {prospect.photos.slice(0, 3).map((photo, i) => (
-                <motion.div
-                  key={i}
-                  variants={staggerItem}
-                  transition={transition}
+        <>
+          <AnimatedSection
+            variants={fadeUp}
+            transition={transition}
+            style={{ padding: "100px 24px", background: theme.bgAlt }}
+          >
+            <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+              <div style={{ textAlign: "center", marginBottom: 56 }}>
+                <div style={{ width: 50, height: 1, background: theme.accent, margin: "0 auto 20px" }} />
+                <h2
                   style={{
-                    gridRow: i === 0 ? "1 / 3" : undefined,
-                    borderRadius: 4,
-                    overflow: "hidden",
-                    position: "relative",
-                    background: theme.bg,
+                    fontFamily: fonts.display,
+                    fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+                    fontWeight: 600,
+                    color: theme.primary,
+                    margin: 0,
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photo}
-                    alt={`${prospect.nom} — photo ${i + 1}`}
-                    loading="lazy"
+                  {theme.sectionLabels.gallery}
+                </h2>
+              </div>
+
+              {/* Asymmetric: 1 large + 2 small */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={staggerContainer}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "2fr 1fr",
+                  gridTemplateRows: "1fr 1fr",
+                  gap: 12,
+                  minHeight: 500,
+                }}
+              >
+                {prospect.photos.slice(0, 3).map((photo, i) => (
+                  <motion.div
+                    key={i}
+                    variants={staggerItem}
+                    transition={transition}
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      transition: "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+                      gridRow: i === 0 ? "1 / 3" : undefined,
+                      borderRadius: 4,
+                      overflow: "hidden",
+                      position: "relative",
+                      background: theme.bg,
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.04)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </AnimatedSection>
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photo}
+                      alt={`${prospect.nom} — photo ${i + 1}`}
+                      loading="lazy"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transition: "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.04)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </AnimatedSection>
+          <SectionDivider template="editorial" accentColor={theme.accent} bgFrom={theme.bgAlt} bgTo={theme.primary} />
+        </>
       )}
 
       {/* ── À propos — full-width dark band ── */}
+      {!prospect.photos || prospect.photos.length === 0 ? (
+        <SectionDivider template="editorial" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.primary} />
+      ) : null}
+
       <AnimatedSection
         variants={fadeUp}
         transition={transition}
@@ -258,23 +309,25 @@ export function EditorialTemplate(props: PreviewProps) {
         }}
       >
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
-          {/* Decorative quotation marks */}
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 0.15, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            style={{
-              display: "block",
-              fontFamily: fonts.display,
-              fontSize: "6rem",
-              lineHeight: 0.8,
-              color: theme.accent,
-              marginBottom: 16,
-            }}
-          >
-            &ldquo;
-          </motion.span>
+          {/* Decorative quotation marks with flanking lines */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 16 }}>
+            <div style={{ width: 100, height: 1, background: `linear-gradient(to right, transparent, ${theme.accent}40)` }} />
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 0.15, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              style={{
+                fontFamily: fonts.display,
+                fontSize: "6rem",
+                lineHeight: 0.8,
+                color: theme.accent,
+              }}
+            >
+              &ldquo;
+            </motion.span>
+            <div style={{ width: 100, height: 1, background: `linear-gradient(to left, transparent, ${theme.accent}40)` }} />
+          </div>
 
           <p
             style={{
@@ -291,9 +344,56 @@ export function EditorialTemplate(props: PreviewProps) {
             {theme.aboutText}
           </p>
 
-          <div style={{ width: 50, height: 1, background: theme.accent, margin: "0 auto" }} />
+          {prospect.note && (
+            <p style={{
+              fontFamily: fonts.body,
+              fontSize: "0.85rem",
+              color: theme.accent,
+              opacity: 0.7,
+              margin: "20px 0 0",
+              letterSpacing: "0.05em",
+            }}>
+              {prospect.note}/5 sur Google — {prospect.nb_avis} avis
+            </p>
+          )}
+
+          <div style={{ width: 50, height: 1, background: theme.accent, margin: "20px auto 0" }} />
         </div>
       </AnimatedSection>
+
+      {/* ── Avis clients ── */}
+      {prospect.avis && prospect.avis.length > 0 && (
+        <ReviewSection
+          reviews={prospect.avis}
+          sectionTitle={theme.sectionLabels.reviews}
+          template="editorial"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
+
+      {/* ── Horaires ── */}
+      {prospect.horaires && prospect.horaires.length > 0 && (
+        <OpeningHours
+          horaires={prospect.horaires}
+          sectionTitle={theme.sectionLabels.hours}
+          template="editorial"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
 
       {/* ── Contact — split layout ── */}
       <AnimatedSection
@@ -358,7 +458,9 @@ export function EditorialTemplate(props: PreviewProps) {
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ fontSize: "1.2rem" }}>🕐</span>
                 <span style={{ fontFamily: fonts.body, fontSize: "0.95rem", color: theme.primary, opacity: 0.7 }}>
-                  {theme.hours}
+                  {prospect.horaires && prospect.horaires.length > 0
+                    ? prospect.horaires.find((_, i) => i === (new Date().getDay() === 0 ? 6 : new Date().getDay() - 1)) || theme.hours
+                    : theme.hours}
                 </span>
               </div>
             </div>
@@ -383,65 +485,72 @@ export function EditorialTemplate(props: PreviewProps) {
                 Voir sur Google Maps →
               </a>
             )}
+
+            {/* Map */}
+            <div style={{ marginTop: 28 }}>
+              <GoogleMapEmbed
+                address={prospect.adresse}
+                template="editorial"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                transition={transition}
+              />
+            </div>
           </motion.div>
 
-          {/* Right — large CTA */}
+          {/* Right — contact form */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={slideFromRight}
             transition={transition}
-            style={{
-              background: theme.primary,
-              borderRadius: 4,
-              padding: "48px 40px",
-              textAlign: "center",
-            }}
           >
             <p
               style={{
                 fontFamily: fonts.display,
-                fontSize: "1.6rem",
+                fontSize: "1.4rem",
                 fontWeight: 600,
-                color: theme.textOnPrimary,
+                color: theme.primary,
                 margin: "0 0 8px",
               }}
             >
-              Envie de goûter ?
+              {theme.contactCTA.headline}
             </p>
             <p
               style={{
                 fontFamily: fonts.body,
                 fontSize: "0.9rem",
-                color: theme.textOnPrimary,
+                color: theme.primary,
                 opacity: 0.6,
                 margin: "0 0 28px",
               }}
             >
-              Réservez votre table ou passez commande
+              {theme.contactCTA.subtitle}
             </p>
+            <ContactForm
+              template="editorial"
+              accentColor={theme.accent}
+              primaryColor={theme.primary}
+              bgColor={theme.bg}
+              bgAltColor={theme.bgAlt}
+              textOnPrimary={theme.textOnPrimary}
+              fontDisplay={fonts.display}
+              fontBody={fonts.body}
+              transition={transition}
+            />
             {prospect.telephone && (
-              <a
-                href={`tel:${prospect.telephone.replace(/\s/g, "")}`}
-                style={{
-                  display: "inline-block",
-                  fontFamily: fonts.body,
-                  fontSize: "1.1rem",
-                  fontWeight: 700,
-                  color: theme.primary,
-                  background: theme.accent,
-                  padding: "16px 40px",
-                  borderRadius: 4,
-                  textDecoration: "none",
-                  letterSpacing: "0.03em",
-                  transition: "transform 0.2s",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
-              >
-                📞 {prospect.telephone}
-              </a>
+              <div style={{ marginTop: 20 }}>
+                <PhoneCTA
+                  telephone={prospect.telephone}
+                  accentColor={theme.accent}
+                  primaryColor={theme.primary}
+                  textOnPrimary={theme.textOnPrimary}
+                  fontBody={fonts.body}
+                  variant="editorial"
+                />
+              </div>
             )}
           </motion.div>
         </div>

@@ -20,6 +20,42 @@ export function resolveTemplate(themeKey: ThemeKey): TemplateName {
   return THEME_TO_TEMPLATE[themeKey] ?? "modern";
 }
 
+// ── Alternates : 2 templates alternatifs pour le switcher ──
+const TEMPLATE_ALTERNATES: Record<TemplateName, [TemplateName, TemplateName]> = {
+  editorial: ["portfolio", "modern"],
+  portfolio: ["editorial", "modern"],
+  professional: ["modern", "editorial"],
+  modern: ["editorial", "portfolio"],
+};
+
+// ── Thème par défaut quand on affiche un template en mode alternatif ──
+const TEMPLATE_DEFAULT_THEME: Record<TemplateName, ThemeKey> = {
+  editorial: "alimentation",
+  portfolio: "beaute",
+  professional: "artisans",
+  modern: "services",
+};
+
+// ── Labels lisibles pour le switcher ──
+const TEMPLATE_LABELS: Record<TemplateName, string> = {
+  editorial: "Classique",
+  portfolio: "Créatif",
+  professional: "Professionnel",
+  modern: "Moderne",
+};
+
+export function getAlternateTemplates(template: TemplateName): [TemplateName, TemplateName] {
+  return TEMPLATE_ALTERNATES[template];
+}
+
+export function getDefaultThemeForTemplate(template: TemplateName): ThemeKey {
+  return TEMPLATE_DEFAULT_THEME[template];
+}
+
+export function getTemplateLabel(template: TemplateName): string {
+  return TEMPLATE_LABELS[template];
+}
+
 /**
  * CSS variable names pour les fonts par template.
  * Le layout.tsx définit les variables CSS, chaque template utilise les siennes.

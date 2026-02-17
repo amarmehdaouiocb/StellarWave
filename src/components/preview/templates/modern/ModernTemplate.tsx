@@ -3,12 +3,19 @@
 import { motion } from "framer-motion";
 import type { PreviewProps } from "@/lib/preview-types";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
-import { fadeUp, staggerContainer, staggerItem, templateTransitions } from "@/lib/preview-animations";
+import { fadeUp, staggerContainerSlow, staggerItem, templateTransitions } from "@/lib/preview-animations";
 import { PreviewBanner } from "../../shared/PreviewBanner";
 import { PreviewCTA } from "../../shared/PreviewCTA";
 import { AnimatedSection } from "../../shared/AnimatedSection";
 import { PhotoGallery } from "../../shared/PhotoGallery";
+import { PhoneCTA } from "../../shared/PhoneCTA";
+import { SectionDivider } from "../../shared/SectionDivider";
 import { ModernHero } from "./ModernHero";
+import { ReviewSection } from "../../shared/ReviewCard";
+import { OpeningHours } from "../../shared/OpeningHours";
+import { ServiceBadges } from "../../shared/ServiceBadges";
+import { GoogleMapEmbed } from "../../shared/GoogleMapEmbed";
+import { ContactForm } from "../../shared/ContactForm";
 
 const fonts = TEMPLATE_FONT_VARS.modern;
 const transition = templateTransitions.modern;
@@ -26,6 +33,26 @@ export function ModernTemplate(props: PreviewProps) {
       />
 
       <ModernHero {...props} />
+
+      {/* ── Service badges ── */}
+      {prospect.services_disponibles && prospect.services_disponibles.length > 0 && (
+        <div style={{ padding: "24px 24px 0", background: theme.bg }}>
+          <ServiceBadges
+            services={prospect.services_disponibles}
+            template="modern"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontBody={fonts.body}
+            transition={transition}
+            niveauPrix={prospect.niveau_prix}
+            accessibilite={prospect.accessibilite}
+            moyensPaiement={prospect.moyens_paiement}
+          />
+        </div>
+      )}
 
       {/* ── Services ── */}
       <AnimatedSection
@@ -52,7 +79,7 @@ export function ModernTemplate(props: PreviewProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            variants={staggerContainer}
+            variants={staggerContainerSlow}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -74,6 +101,8 @@ export function ModernTemplate(props: PreviewProps) {
                   textAlign: "center",
                   transition: "border-color 0.3s",
                   cursor: "default",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = theme.accent;
@@ -82,9 +111,32 @@ export function ModernTemplate(props: PreviewProps) {
                   e.currentTarget.style.borderColor = "transparent";
                 }}
               >
-                <span style={{ fontSize: "2.2rem", display: "block", marginBottom: 16 }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 4,
+                    background: `linear-gradient(90deg, ${theme.accent}, ${theme.accent}60)`,
+                    borderRadius: "8px 8px 0 0",
+                  }}
+                />
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 8,
+                    background: `${theme.accent}15`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 16px",
+                    fontSize: "1.6rem",
+                  }}
+                >
                   {svc.icon}
-                </span>
+                </div>
                 <h3
                   style={{
                     fontFamily: fonts.display,
@@ -114,6 +166,8 @@ export function ModernTemplate(props: PreviewProps) {
         </div>
       </AnimatedSection>
 
+      <SectionDivider template="modern" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
+
       {/* ── Gallery ── */}
       {prospect.photos && prospect.photos.length > 0 && (
         <AnimatedSection
@@ -134,6 +188,20 @@ export function ModernTemplate(props: PreviewProps) {
             >
               {theme.sectionLabels.gallery}
             </h2>
+            {prospect.photos.length >= 4 && (
+              <p
+                style={{
+                  fontFamily: fonts.body,
+                  fontSize: "0.8rem",
+                  color: theme.primary,
+                  opacity: 0.5,
+                  textAlign: "center",
+                  marginBottom: 16,
+                }}
+              >
+                {prospect.photos.length} photos
+              </p>
+            )}
             <PhotoGallery
               photos={prospect.photos}
               nom={prospect.nom}
@@ -152,6 +220,9 @@ export function ModernTemplate(props: PreviewProps) {
         style={{ padding: "80px 24px", background: theme.bg }}
       >
         <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: "2rem", marginBottom: 12 }}>
+            {theme.key === "sante" ? "❤️" : theme.key === "services" ? "💼" : "🛍️"}
+          </div>
           <h2
             style={{
               fontFamily: fonts.display,
@@ -185,6 +256,43 @@ export function ModernTemplate(props: PreviewProps) {
           </p>
         </div>
       </AnimatedSection>
+
+      {/* ── Avis clients ── */}
+      {prospect.avis && prospect.avis.length > 0 && (
+        <>
+          <SectionDivider template="modern" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
+          <ReviewSection
+            reviews={prospect.avis}
+            sectionTitle={theme.sectionLabels.reviews}
+            template="modern"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontDisplay={fonts.display}
+            fontBody={fonts.body}
+            transition={transition}
+          />
+        </>
+      )}
+
+      {/* ── Horaires ── */}
+      {prospect.horaires && prospect.horaires.length > 0 && (
+        <OpeningHours
+          horaires={prospect.horaires}
+          sectionTitle={theme.sectionLabels.hours}
+          template="modern"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
 
       {/* ── Contact ── */}
       <AnimatedSection
@@ -282,10 +390,27 @@ export function ModernTemplate(props: PreviewProps) {
                 Horaires
               </span>
               <span style={{ fontFamily: fonts.body, fontSize: "0.95rem", color: theme.textOnPrimary, opacity: 0.8 }}>
-                {theme.hours}
+                {prospect.horaires && prospect.horaires.length > 0
+                  ? prospect.horaires.find((_, i) => i === (new Date().getDay() === 0 ? 6 : new Date().getDay() - 1)) || theme.hours
+                  : theme.hours}
               </span>
             </div>
           </div>
+
+          {prospect.telephone && (
+            <div style={{ marginBottom: 24 }}>
+              <PhoneCTA
+                telephone={prospect.telephone}
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                textOnPrimary={theme.textOnPrimary}
+                fontBody={fonts.body}
+                variant="outline"
+              />
+            </div>
+          )}
+
+          <div style={{ width: 60, height: 2, background: `${theme.accent}30`, margin: "0 auto 24px" }} />
 
           {prospect.google_maps && (
             <a
@@ -316,6 +441,41 @@ export function ModernTemplate(props: PreviewProps) {
               Voir sur Google Maps →
             </a>
           )}
+
+          {/* Map + Form */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 32,
+              marginTop: 48,
+              textAlign: "left",
+            }}
+          >
+            <div>
+              <GoogleMapEmbed
+                address={prospect.adresse}
+                template="modern"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                transition={transition}
+              />
+            </div>
+            <div>
+              <ContactForm
+                template="modern"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                bgAltColor={theme.bgAlt}
+                textOnPrimary={theme.textOnPrimary}
+                fontDisplay={fonts.display}
+                fontBody={fonts.body}
+                transition={transition}
+              />
+            </div>
+          </div>
         </div>
       </AnimatedSection>
 

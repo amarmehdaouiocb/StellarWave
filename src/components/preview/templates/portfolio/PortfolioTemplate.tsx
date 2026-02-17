@@ -3,12 +3,19 @@
 import { motion } from "framer-motion";
 import type { PreviewProps } from "@/lib/preview-types";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
-import { fadeUp, staggerContainer, staggerItem, templateTransitions } from "@/lib/preview-animations";
+import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, templateTransitions } from "@/lib/preview-animations";
 import { PreviewBanner } from "../../shared/PreviewBanner";
 import { PreviewCTA } from "../../shared/PreviewCTA";
 import { AnimatedSection } from "../../shared/AnimatedSection";
+import { PhoneCTA } from "../../shared/PhoneCTA";
+import { SectionDivider } from "../../shared/SectionDivider";
 import { PortfolioHero } from "./PortfolioHero";
 import { PortfolioRating } from "./PortfolioRating";
+import { ReviewSection } from "../../shared/ReviewCard";
+import { OpeningHours } from "../../shared/OpeningHours";
+import { ServiceBadges } from "../../shared/ServiceBadges";
+import { GoogleMapEmbed } from "../../shared/GoogleMapEmbed";
+import { ContactForm } from "../../shared/ContactForm";
 
 const fonts = TEMPLATE_FONT_VARS.portfolio;
 const transition = templateTransitions.portfolio;
@@ -26,6 +33,26 @@ export function PortfolioTemplate(props: PreviewProps) {
       />
 
       <PortfolioHero {...props} />
+
+      {/* ── Service badges ── */}
+      {prospect.services_disponibles && prospect.services_disponibles.length > 0 && (
+        <div style={{ padding: "24px 24px 0", background: theme.bg }}>
+          <ServiceBadges
+            services={prospect.services_disponibles}
+            template="portfolio"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontBody={fonts.body}
+            transition={transition}
+            niveauPrix={prospect.niveau_prix}
+            accessibilite={prospect.accessibilite}
+            moyensPaiement={prospect.moyens_paiement}
+          />
+        </div>
+      )}
 
       {/* ── Services — 2x2 gradient cards ── */}
       <AnimatedSection
@@ -53,7 +80,7 @@ export function PortfolioTemplate(props: PreviewProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            variants={staggerContainer}
+            variants={staggerContainerSlow}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
@@ -75,9 +102,20 @@ export function PortfolioTemplate(props: PreviewProps) {
                   cursor: "default",
                 }}
               >
-                <span style={{ fontSize: "2.4rem", display: "block", marginBottom: 16 }}>
+                <div style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                  background: `${theme.accent}15`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 16px",
+                  fontSize: "1.8rem",
+                  transition: "transform 0.3s",
+                }}>
                   {svc.icon}
-                </span>
+                </div>
                 <h3
                   style={{
                     fontFamily: fonts.display,
@@ -106,6 +144,8 @@ export function PortfolioTemplate(props: PreviewProps) {
           </motion.div>
         </div>
       </AnimatedSection>
+
+      <SectionDivider template="portfolio" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
 
       {/* ── Gallery — alternating + very rounded ── */}
       {prospect.photos && prospect.photos.length > 0 && (
@@ -168,6 +208,22 @@ export function PortfolioTemplate(props: PreviewProps) {
                     onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.04)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                   />
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "rgba(0,0,0,0.3)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    opacity: 0,
+                    transition: "opacity 0.3s",
+                    cursor: "pointer",
+                  }}
+                    onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = "0"; }}
+                  >
+                    <span style={{ color: "#fff", fontSize: "1.5rem" }}>🔍</span>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -175,8 +231,12 @@ export function PortfolioTemplate(props: PreviewProps) {
         </AnimatedSection>
       )}
 
+      <SectionDivider template="portfolio" accentColor={theme.accent} bgFrom={theme.bgAlt} bgTo={theme.bg} />
+
       {/* ── Social Proof Rating ── */}
       <PortfolioRating {...props} />
+
+      <SectionDivider template="portfolio" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bg} />
 
       {/* ── About — centered minimal ── */}
       <AnimatedSection
@@ -225,8 +285,59 @@ export function PortfolioTemplate(props: PreviewProps) {
           >
             {theme.aboutText}
           </p>
+
+          {prospect.note && prospect.nb_avis > 0 && (
+            <p style={{
+              fontFamily: fonts.body,
+              fontSize: "0.9rem",
+              color: theme.accent,
+              fontWeight: 600,
+              marginTop: 20,
+            }}>
+              Recommandé par {prospect.nb_avis} clients
+            </p>
+          )}
         </div>
       </AnimatedSection>
+
+      {/* ── Avis clients ── */}
+      {prospect.avis && prospect.avis.length > 0 && (
+        <>
+          <SectionDivider template="portfolio" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
+          <ReviewSection
+            reviews={prospect.avis}
+            sectionTitle={theme.sectionLabels.reviews}
+            template="portfolio"
+            primaryColor={theme.primary}
+            accentColor={theme.accent}
+            bgColor={theme.bg}
+            bgAltColor={theme.bgAlt}
+            textOnPrimary={theme.textOnPrimary}
+            fontDisplay={fonts.display}
+            fontBody={fonts.body}
+            transition={transition}
+          />
+        </>
+      )}
+
+      {/* ── Horaires ── */}
+      {prospect.horaires && prospect.horaires.length > 0 && (
+        <OpeningHours
+          horaires={prospect.horaires}
+          sectionTitle={theme.sectionLabels.hours}
+          template="portfolio"
+          primaryColor={theme.primary}
+          accentColor={theme.accent}
+          bgColor={theme.bg}
+          bgAltColor={theme.bgAlt}
+          textOnPrimary={theme.textOnPrimary}
+          fontDisplay={fonts.display}
+          fontBody={fonts.body}
+          transition={transition}
+        />
+      )}
+
+      <SectionDivider template="portfolio" accentColor={theme.accent} bgFrom={theme.bg} bgTo={theme.bgAlt} />
 
       {/* ── Contact ── */}
       <AnimatedSection
@@ -258,7 +369,9 @@ export function PortfolioTemplate(props: PreviewProps) {
             {[
               { icon: "📞", label: "Téléphone", value: prospect.telephone, href: prospect.telephone ? `tel:${prospect.telephone.replace(/\s/g, "")}` : undefined },
               { icon: "📍", label: "Adresse", value: prospect.adresse },
-              { icon: "🕐", label: "Horaires", value: theme.hours },
+              { icon: "🕐", label: "Horaires", value: prospect.horaires && prospect.horaires.length > 0
+                ? prospect.horaires.find((_, i) => i === (new Date().getDay() === 0 ? 6 : new Date().getDay() - 1)) || theme.hours
+                : theme.hours },
             ].map((item) => (
               <div
                 key={item.label}
@@ -307,6 +420,19 @@ export function PortfolioTemplate(props: PreviewProps) {
             ))}
           </div>
 
+          {prospect.telephone && (
+            <div style={{ marginBottom: 24 }}>
+              <PhoneCTA
+                telephone={prospect.telephone}
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                textOnPrimary={theme.textOnPrimary}
+                fontBody={fonts.body}
+                variant="pill"
+              />
+            </div>
+          )}
+
           {prospect.google_maps && (
             <a
               href={prospect.google_maps}
@@ -336,6 +462,41 @@ export function PortfolioTemplate(props: PreviewProps) {
               Voir sur Google Maps →
             </a>
           )}
+
+          {/* Map + Form — side by side */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 32,
+              marginTop: 48,
+              textAlign: "left",
+            }}
+          >
+            <div>
+              <GoogleMapEmbed
+                address={prospect.adresse}
+                template="portfolio"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                transition={transition}
+              />
+            </div>
+            <div>
+              <ContactForm
+                template="portfolio"
+                accentColor={theme.accent}
+                primaryColor={theme.primary}
+                bgColor={theme.bg}
+                bgAltColor={theme.bgAlt}
+                textOnPrimary={theme.textOnPrimary}
+                fontDisplay={fonts.display}
+                fontBody={fonts.body}
+                transition={transition}
+              />
+            </div>
+          </div>
         </div>
       </AnimatedSection>
 

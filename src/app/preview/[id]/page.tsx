@@ -1,8 +1,13 @@
 import { notFound } from "next/navigation";
-import { detectTheme } from "@/lib/preview-themes";
-import { resolveTemplate } from "@/lib/template-registry";
+import { detectTheme, getTheme } from "@/lib/preview-themes";
+import {
+  resolveTemplate,
+  getAlternateTemplates,
+  getDefaultThemeForTemplate,
+  getTemplateLabel,
+} from "@/lib/template-registry";
 import { PreviewClient } from "@/components/preview/PreviewClient";
-import type { Prospect } from "@/lib/preview-types";
+import type { Prospect, TemplateVariant } from "@/lib/preview-types";
 import type { Metadata } from "next";
 import "./preview.css";
 
@@ -60,10 +65,38 @@ export default async function PreviewPage({
     .replace(/^\w/, (c) => c.toUpperCase());
 
   // Résoudre aboutText côté serveur (les fonctions ne sont pas sérialisables pour le client)
+  // Prioriser description_google si disponible, sinon fallback sur la fonction thème
+  const aboutText = prospect.description_google
+    ? prospect.description_google
+    : theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis);
+
   const serializableTheme = {
     ...theme,
-    aboutText: theme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis),
+    aboutText,
   };
+
+  // ── Résoudre les 3 variants (principal + 2 alternates) ──
+  const alternates = getAlternateTemplates(template);
+  const variants: TemplateVariant[] = [
+    {
+      template,
+      theme: serializableTheme,
+      label: getTemplateLabel(template),
+      isPrimary: true,
+    },
+    ...alternates.map((altTemplate) => {
+      const altTheme = getTheme(getDefaultThemeForTemplate(altTemplate));
+      const altAboutText = prospect.description_google
+        ? prospect.description_google
+        : altTheme.aboutText(prospect.nom, prospect.ville, prospect.nb_avis);
+      return {
+        template: altTemplate,
+        theme: { ...altTheme, aboutText: altAboutText },
+        label: getTemplateLabel(altTemplate),
+        isPrimary: false,
+      } satisfies TemplateVariant;
+    }),
+  ];
 
   return (
     <PreviewClient
@@ -71,6 +104,7 @@ export default async function PreviewPage({
       theme={serializableTheme}
       template={template}
       typeLabel={typeLabel}
+      variants={variants}
     />
   );
 }

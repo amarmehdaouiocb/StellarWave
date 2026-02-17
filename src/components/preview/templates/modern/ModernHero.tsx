@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { StarRating } from "../../shared/StarRating";
+import { HeroFallback } from "../../shared/HeroFallback";
+import { PhoneCTA } from "../../shared/PhoneCTA";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
 import type { PreviewProps } from "@/lib/preview-types";
 
@@ -22,7 +24,7 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
       }}
     >
       {/* Background photo */}
-      {prospect.photos?.[0] && (
+      {prospect.photos?.[0] ? (
         <div
           style={{
             position: "absolute",
@@ -34,6 +36,8 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
             filter: "blur(2px) saturate(0.6)",
           }}
         />
+      ) : (
+        <HeroFallback template="modern" primary={theme.primary} accent={theme.accent} />
       )}
 
       {/* Subtle pattern overlay */}
@@ -49,7 +53,7 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
         }}
       />
 
-      {/* Decorative circle */}
+      {/* Decorative circles */}
       <div
         style={{
           position: "absolute",
@@ -61,6 +65,18 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
           borderRadius: "50%",
           border: `1px solid ${theme.accent}`,
           opacity: 0.1,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: -60,
+          left: -60,
+          width: 300,
+          height: 300,
+          borderRadius: "50%",
+          border: `1px solid ${theme.accent}`,
+          opacity: 0.08,
         }}
       />
 
@@ -81,6 +97,7 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
+          whileHover={{ background: `${theme.accent}15` }}
           style={{
             display: "inline-block",
             fontFamily: fonts.body,
@@ -93,6 +110,7 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
             padding: "6px 20px",
             borderRadius: 2,
             marginBottom: 28,
+            transition: "background 0.2s",
           }}
         >
           {typeLabel}
@@ -144,18 +162,14 @@ export function ModernHero({ prospect, theme, typeLabel }: PreviewProps) {
           }}
         >
           {prospect.telephone && (
-            <a
-              href={`tel:${prospect.telephone.replace(/\s/g, "")}`}
-              style={{
-                fontFamily: fonts.body,
-                fontSize: "1.3rem",
-                fontWeight: 600,
-                color: theme.accent,
-                textDecoration: "none",
-              }}
-            >
-              {prospect.telephone}
-            </a>
+            <PhoneCTA
+              telephone={prospect.telephone}
+              accentColor={theme.accent}
+              primaryColor={theme.primary}
+              textOnPrimary={theme.textOnPrimary}
+              fontBody={fonts.body}
+              variant="outline"
+            />
           )}
           <span
             style={{

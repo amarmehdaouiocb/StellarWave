@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { TEMPLATE_FONT_VARS } from "@/lib/template-registry";
 import type { PreviewProps } from "@/lib/preview-types";
+import { HeroFallback } from "../../shared/HeroFallback";
 
 const fonts = TEMPLATE_FONT_VARS.editorial;
 
@@ -20,8 +21,8 @@ export function EditorialHero({ prospect, theme, typeLabel }: PreviewProps) {
         background: theme.primary,
       }}
     >
-      {/* Full-screen background photo */}
-      {prospect.photos?.[0] && (
+      {/* Full-screen background photo or fallback */}
+      {prospect.photos?.[0] ? (
         <motion.div
           initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -34,6 +35,8 @@ export function EditorialHero({ prospect, theme, typeLabel }: PreviewProps) {
             backgroundPosition: "center",
           }}
         />
+      ) : (
+        <HeroFallback template="editorial" primary={theme.primary} accent={theme.accent} />
       )}
 
       {/* Dark gradient overlay — heavier at bottom for text legibility */}
@@ -171,6 +174,39 @@ export function EditorialHero({ prospect, theme, typeLabel }: PreviewProps) {
             </span>
           </motion.div>
         )}
+
+        {/* Address */}
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          style={{
+            display: "block",
+            fontFamily: fonts.body,
+            fontSize: "0.85rem",
+            color: "#fff",
+            marginTop: 16,
+          }}
+        >
+          {prospect.adresse}
+        </motion.span>
+
+        {/* Scroll indicator — bouncing chevron */}
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            bottom: 24,
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: "#fff",
+            opacity: 0.5,
+            fontSize: "1.5rem",
+          }}
+        >
+          &#8964;
+        </motion.div>
       </div>
     </section>
   );
