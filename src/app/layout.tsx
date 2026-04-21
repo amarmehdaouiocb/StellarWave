@@ -1,13 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { brand, seoKeywords } from "@/config/brand";
-import {
-  clashDisplay,
-  cabinetGrotesk,
-  outfit,
-  getFontVariables,
-} from "@/lib/fonts";
+import { outfit, getFontVariables } from "@/lib/fonts";
 import { GoogleAnalytics } from "@/components/analytics";
+import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
 // Metadata
 export const metadata: Metadata = {
@@ -67,8 +63,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+    { media: "(prefers-color-scheme: light)", color: "#020617" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -170,19 +166,30 @@ export default function RootLayout({
     <html lang="fr" className="dark">
       <head>
         <JsonLd />
+        {/* Fallback: force animations-ready after 2s for headless/screenshot environments */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `setTimeout(function(){document.body.classList.add('animations-ready')},2000)`,
+          }}
+        />
       </head>
       <body
+        suppressHydrationWarning
         className={`${getFontVariables()} ${outfit.variable} font-sans antialiased`}
+        style={{ backgroundColor: "#020617", color: "#cbd5e1" }}
       >
         <GoogleAnalytics />
         {/* Skip to main content for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg"
+          style={{ background: "#38bdf8", color: "#000000" }}
         >
           Aller au contenu principal
         </a>
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -22,28 +22,44 @@ interface CTAButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: cn(
-    "bg-[var(--electric-blue)]",
-    "text-white font-semibold",
-    "hover:bg-[var(--electric-blue-dark)]",
+    "font-semibold",
     "active:scale-[0.98]"
   ),
   secondary: cn(
-    "bg-white border border-[oklch(0_0_0_/_10%)]",
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-50)] hover:border-[var(--electric-blue)]/20",
+    "font-medium",
     "active:scale-[0.98]"
   ),
   ghost: cn(
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-100)]",
+    "font-medium",
     "active:scale-[0.98]"
   ),
   outline: cn(
-    "border border-[oklch(0_0_0_/_15%)]",
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-50)] hover:border-[var(--electric-blue)]/30",
+    "font-medium",
     "active:scale-[0.98]"
   ),
+};
+
+const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
+  primary: {
+    background: "#38bdf8",
+    color: "#000000",
+    borderRadius: "8px",
+  },
+  secondary: {
+    background: "transparent",
+    color: "#ffffff",
+    border: "2px solid #38bdf8",
+    borderRadius: "8px",
+  },
+  ghost: {
+    color: "#38bdf8",
+    background: "transparent",
+  },
+  outline: {
+    border: "1px solid rgba(56, 189, 248, 0.20)",
+    color: "#38bdf8",
+    borderRadius: "8px",
+  },
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -103,12 +119,14 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
     const buttonClasses = cn(
       "inline-flex items-center justify-center",
       "transition-all duration-200",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--electric-blue)] focus-visible:ring-offset-2",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
       "disabled:opacity-50 disabled:cursor-not-allowed",
       variantClasses[variant],
       sizeClasses[size],
       className
     );
+
+    const inlineStyle = variantStyles[variant];
 
     // If href is provided, render as anchor
     if (href && !isDisabled) {
@@ -116,6 +134,7 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
         <motion.a
           href={href}
           className={buttonClasses}
+          style={inlineStyle}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -128,6 +147,7 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
       <motion.button
         ref={ref}
         className={buttonClasses}
+        style={inlineStyle}
         disabled={isDisabled}
         whileHover={!isDisabled ? { y: -2 } : undefined}
         whileTap={!isDisabled ? { scale: 0.98 } : undefined}

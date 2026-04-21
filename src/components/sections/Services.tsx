@@ -1,133 +1,119 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   RocketLaunch,
-  Globe,
   Stack,
-  DeviceMobile,
   Cloud,
-  CaretLeft,
-  CaretRight,
 } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
-import { cn } from "@/lib/utils";
-import { services } from "@/config/brand";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { fadeInUp, easings } from "@/lib/animations";
 
-// Icon map for looking up Phosphor icons by name
-const iconMap: Record<string, React.ElementType> = {
-  RocketLaunch,
-  Globe,
-  Stack,
-  DeviceMobile,
-  Cloud,
-};
+// 3 core services for bento grid — radical simplicity
+const bentoServices = [
+  {
+    id: "product",
+    icon: RocketLaunch,
+    title: "Product Design & Dev",
+    description: "Landing pages premium, sites web, applications SaaS. Du prototype Figma au d\u00e9ploiement production.",
+    span: "col-span-1 md:col-span-7 md:row-span-2",
+  },
+  {
+    id: "apps",
+    icon: Stack,
+    title: "Apps & Mobile",
+    description: "Applications React Native et web apps temps r\u00e9el, architectur\u00e9es pour la scalabilit\u00e9.",
+    span: "col-span-1 md:col-span-5",
+  },
+  {
+    id: "cloud",
+    icon: Cloud,
+    title: "Cloud & Infra",
+    description: "Architecture serverless, FinOps, s\u00e9curit\u00e9. AWS, GCP, Azure.",
+    span: "col-span-1 md:col-span-5",
+  },
+];
 
-// Service card - Uniform dark premium style
-function ServiceCard({
+function BentoCard({
   service,
   index,
 }: {
-  service: (typeof services)[number];
+  service: (typeof bentoServices)[number];
   index: number;
 }) {
-  const Icon = iconMap[service.iconName] || RocketLaunch;
+  const Icon = service.icon;
+  const isHero = index === 0;
 
   return (
     <motion.div
-      className="group relative flex-shrink-0"
-      style={{ width: "380px" }}
-      initial={{ opacity: 0, y: 30 }}
+      className={`group relative ${service.span}`}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: easings.smooth }}
+      transition={{ delay: index * 0.15, duration: 0.6, ease: easings.smooth }}
     >
       <div
-        className="h-full flex flex-col relative overflow-hidden"
+        className="h-full flex flex-col relative"
         style={{
-          background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
-          borderRadius: "var(--card-radius-xl)",
-          padding: "32px",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-          minHeight: "420px",
-          transition: "transform 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out",
+          background: "#1e293b",
+          borderRadius: "var(--card-radius-2xl)",
+          padding: isHero ? "56px" : "36px",
+          border: "1px solid rgba(56, 189, 248, 0.15)",
+          boxShadow: "0 4px 24px rgba(0, 0, 0, 0.4)",
+          minHeight: isHero ? "400px" : "auto",
+          transition: "transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }}
       >
-        {/* Inner glow */}
+        {/* Hover glow */}
         <div
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
             borderRadius: "inherit",
-            background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59, 130, 246, 0.20) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 60%)",
           }}
         />
 
-        {/* Subtle border glow on hover */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            borderRadius: "inherit",
-            border: "1px solid rgba(59, 130, 246, 0.3)",
-          }}
-        />
-
-        {/* Content */}
         <div className="flex flex-col h-full relative z-10">
-          {/* Icon */}
           <div
-            className="flex h-14 w-14 items-center justify-center rounded-2xl mb-6 transition-all duration-300 group-hover:scale-110"
+            className="flex h-14 w-14 items-center justify-center rounded-2xl mb-8 transition-transform duration-300 group-hover:scale-110"
             style={{
-              background: "rgba(59, 130, 246, 0.15)",
-              border: "1px solid rgba(59, 130, 246, 0.20)",
+              background: "rgba(56, 189, 248, 0.10)",
+              border: "1px solid rgba(56, 189, 248, 0.15)",
             }}
           >
-            <Icon weight="duotone" className="h-7 w-7 text-[#60a5fa]" />
+            <Icon weight="duotone" className="h-7 w-7" style={{ color: "#38bdf8" }} />
           </div>
 
-          {/* Title */}
           <h3
-            className="text-xl font-semibold mb-3 text-white transition-colors duration-300"
+            className="font-semibold mb-4 text-white"
+            style={{
+              fontSize: isHero ? "clamp(1.5rem, 3vw, 2.25rem)" : "1.25rem",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+            }}
           >
             {service.title}
           </h3>
 
-          {/* Description */}
           <p
-            className="mb-6 flex-grow leading-relaxed text-[15px]"
-            style={{ color: "rgba(255, 255, 255, 0.65)" }}
+            className="leading-relaxed mt-auto"
+            style={{
+              color: "var(--text-body)",
+              fontSize: isHero ? "1.05rem" : "0.95rem",
+            }}
           >
             {service.description}
           </p>
 
-          {/* Features */}
-          <ul className="space-y-2.5 mb-6">
-            {service.features.map((feature, featureIndex) => (
-              <li
-                key={featureIndex}
-                className="flex items-center gap-3 text-sm"
-                style={{ color: "rgba(255, 255, 255, 0.75)" }}
-              >
-                <span
-                  className="h-1.5 w-1.5 rounded-full flex-shrink-0"
-                  style={{ background: "#3b82f6" }}
-                />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* CTA */}
           <motion.a
             href="#contact"
-            className="inline-flex items-center gap-2 text-sm font-semibold mt-auto text-[#60a5fa] group-hover:text-white transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-sm font-semibold mt-8 transition-colors duration-300"
+            style={{ color: "#38bdf8" }}
             whileHover={{ x: 4 }}
           >
-            {service.cta}
+            D&eacute;couvrir
             <ArrowNarrowRightIcon size={16} />
           </motion.a>
         </div>
@@ -137,201 +123,97 @@ function ServiceCard({
 }
 
 export function Services() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [isDragging, setIsDragging] = useState(false);
-
-  // Check scroll position
-  const checkScrollPosition = () => {
-    if (!carouselRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    checkScrollPosition();
-    carousel.addEventListener("scroll", checkScrollPosition);
-    window.addEventListener("resize", checkScrollPosition);
-
-    return () => {
-      carousel.removeEventListener("scroll", checkScrollPosition);
-      window.removeEventListener("resize", checkScrollPosition);
-    };
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!carouselRef.current) return;
-    const scrollAmount = 400;
-    carouselRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <AnimatedSection
       id="services"
-      className="section-padding overflow-hidden"
-      style={{ backgroundColor: "var(--apple-bg)" }}
+      className="section-padding-tight overflow-hidden"
+      style={{ backgroundColor: "#0f172a" }}
     >
       <div className="container-wide">
-        {/* Header */}
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-20"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
           <motion.span
-            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
+            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-10"
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              background: "rgba(255, 255, 255, 0.80)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.60)",
-              boxShadow: "var(--shadow-apple-sm)",
-              color: "rgba(17, 17, 17, 0.6)",
+              background: "rgba(56, 189, 248, 0.06)",
+              border: "1px solid rgba(56, 189, 248, 0.12)",
+              color: "rgba(56, 189, 248, 0.8)",
             }}
           >
             Nos expertises
           </motion.span>
 
           <h2
-            className="mb-6"
+            className="mb-10"
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.5rem, 6vw, 4rem)",
-              lineHeight: "1.05",
-              letterSpacing: "-0.03em",
+              fontSize: "clamp(3rem, 8vw, 6rem)",
+              lineHeight: "0.95",
+              letterSpacing: "-0.02em",
             }}
           >
-            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Des solutions </span>
-            <span style={{ color: "#111111", fontWeight: 600 }}>sur mesure</span>
-            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}> pour chaque besoin</span>
+            <span style={{ color: "var(--text-muted)" }}>Des solutions </span>
+            <span
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontStyle: "italic",
+                color: "#ffffff",
+                fontWeight: 500,
+                fontSize: "1.15em",
+              }}
+            >
+              sur mesure
+            </span>
           </h2>
+          {/* Lime accent line — editorial separator */}
+          <div
+            style={{
+              width: "80px",
+              height: "2px",
+              background: "linear-gradient(90deg, #38bdf8 0%, transparent 100%)",
+              marginTop: "32px",
+              marginBottom: "24px",
+            }}
+          />
           <p
-            className="text-lg leading-relaxed"
-            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+            className="text-lg leading-relaxed max-w-xl"
+            style={{ color: "var(--text-body)" }}
           >
-            Du prototypage rapide au déploiement en production, nous couvrons
-            l&apos;ensemble du cycle de vie de vos produits digitaux.
+            Du prototypage au d&eacute;ploiement, nous couvrons
+            l&apos;int&eacute;gralit&eacute; du cycle produit.
           </p>
         </motion.div>
 
-        {/* Carousel Container */}
-        <div className="relative overflow-hidden">
-          {/* Navigation Arrows */}
-          <motion.button
-            onClick={() => scroll("left")}
-            className={cn(
-              "absolute left-0 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
-              canScrollLeft
-                ? "opacity-100 cursor-pointer"
-                : "opacity-0 pointer-events-none"
-            )}
-            style={{
-              background: "rgba(255, 255, 255, 0.95)",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Défiler vers la gauche"
-          >
-            <CaretLeft className="h-5 w-5 text-[#111111]" weight="bold" />
-          </motion.button>
-
-          <motion.button
-            onClick={() => scroll("right")}
-            className={cn(
-              "absolute right-0 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
-              canScrollRight
-                ? "opacity-100 cursor-pointer"
-                : "opacity-0 pointer-events-none"
-            )}
-            style={{
-              background: "rgba(255, 255, 255, 0.95)",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Défiler vers la droite"
-          >
-            <CaretRight className="h-5 w-5 text-[#111111]" weight="bold" />
-          </motion.button>
-
-          {/* Gradient Masks */}
-          <div
-            className={cn(
-              "absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none transition-opacity duration-300",
-              canScrollLeft ? "opacity-100" : "opacity-0"
-            )}
-            style={{
-              background: "linear-gradient(to right, var(--apple-bg) 0%, transparent 100%)",
-            }}
-          />
-          <div
-            className={cn(
-              "absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none transition-opacity duration-300",
-              canScrollRight ? "opacity-100" : "opacity-0"
-            )}
-            style={{
-              background: "linear-gradient(to left, var(--apple-bg) 0%, transparent 100%)",
-            }}
-          />
-
-          {/* Scrollable Carousel */}
-          <div
-            ref={carouselRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 pt-2 px-2 -mx-2 cursor-grab active:cursor-grabbing"
-            style={{
-              scrollSnapType: "x mandatory",
-              scrollPaddingLeft: "16px",
-              scrollPaddingRight: "16px",
-              WebkitOverflowScrolling: "touch",
-            }}
-            onMouseDown={() => setIsDragging(true)}
-            onMouseUp={() => setIsDragging(false)}
-            onMouseLeave={() => setIsDragging(false)}
-          >
-            {services.map((service, index) => (
-              <div
-                key={service.id}
-                style={{ scrollSnapAlign: "start" }}
-              >
-                <ServiceCard service={service} index={index} />
-              </div>
-            ))}
-          </div>
-
+        {/* Bento grid — asymmetric layout 7/5 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {bentoServices.map((service, index) => (
+            <BentoCard key={service.id} service={service} index={index} />
+          ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
-          className="text-center mt-16"
+          className="mt-20"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-[var(--neutral-500)] mb-6">
-            Vous avez un projet en tête ? Discutons-en.
-          </p>
           <CTAButton
             variant="primary"
             size="lg"
             icon={<ArrowNarrowRightIcon size={20} />}
             href="#contact"
           >
-            Demander un devis
+            Lancer un projet
           </CTAButton>
         </motion.div>
       </div>

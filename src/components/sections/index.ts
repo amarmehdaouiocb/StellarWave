@@ -1,6 +1,7 @@
 // Active sections (used in current landing page)
 export { Hero } from "./Hero";
 export { Services } from "./Services";
+export { HorizontalGallery } from "./HorizontalGallery";
 export { Proof } from "./Proof";
 export { ProcessSimple } from "./ProcessSimple";
 export { OffersWithFAQ } from "./OffersWithFAQ";

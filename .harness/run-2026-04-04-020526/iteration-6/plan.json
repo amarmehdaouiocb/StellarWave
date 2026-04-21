@@ -1,0 +1,56 @@
+{
+  "iteration": 6,
+  "target_score": 8.0,
+  "current_score": 7.13,
+  "strategy": "Saut qualitatif via 3 axes : combler le vide desktop, introduire des elements de rupture visuelle, et polir le craft avec profondeur et transitions",
+  "changes": [
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "description": "Enrichir visuellement la timeline : ajouter des illustrations SVG inline dans les noeuds, renforcer le glow de la card Build, ajouter un compteur anime (nombre d etapes) et des micro-details amber",
+      "axis": "vide_desktop + craft"
+    },
+    {
+      "file": "src/components/sections/OffersWithFAQ.tsx",
+      "description": "Card populaire : glow ambiant pulse plus fort + box-shadow profonde. Ajouter un titre oversized en fond de section (element de rupture). Renforcer la profondeur de toutes les cards avec inner glow hover",
+      "axis": "vide_desktop + originalite + craft"
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "description": "Ajouter des trust signals visuels (stats animees, badges, logos partenaires tech). Section enrichie avec un gradient radial pulse en fond. Micro-separateurs amber",
+      "axis": "vide_desktop + craft"
+    },
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "description": "Ajouter un compteur anime (AnimatedCounter) sur les chiffres cles avec Framer Motion. Element de rupture : titre oversized en watermark derriere les metrics. Renforcer les box-shadow et transitions entre sections",
+      "axis": "originalite + craft"
+    },
+    {
+      "file": "src/components/sections/Services.tsx",
+      "description": "Ajouter box-shadow profonde sur hover (0 4px 24px rgba(0,0,0,0.4)). Inner glow subtil sur les cards. Lignes amber de separation",
+      "axis": "craft"
+    },
+    {
+      "file": "src/app/globals.css",
+      "description": "Ajouter des transitions gradient inter-sections de 80px. Classe utilitaire pour le pulse glow. Renforcer les ombres des cards",
+      "axis": "craft"
+    },
+    {
+      "file": "src/components/layout/Footer.tsx",
+      "description": "Ajouter un element visuel distinctif dans le footer : rappel du motif SW oversized. Signature visuelle avec lignes amber",
+      "axis": "originalite"
+    }
+  ],
+  "rupture_elements": [
+    "Compteur anime (AnimatedCounter) sur les chiffres cles de Proof - Framer Motion animate()",
+    "Titre oversized watermark 'TARIFS' en fond de la section OffersWithFAQ",
+    "Gradient radial qui pulse subtilement dans la section Contact",
+    "Footer avec motif SW oversized en watermark"
+  ],
+  "contrast_guard": {
+    "titles": "#ffffff",
+    "body": "#d0d0d8",
+    "muted": "#a0a0b0",
+    "cards": "#1e1e30",
+    "borders": "#333350"
+  }
+}

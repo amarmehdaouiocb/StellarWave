@@ -1,0 +1,188 @@
+{
+  "iteration": 3,
+  "previous_score": 7.29,
+  "target_score": 8.0,
+  "diagnosis": "Score 7.29/10 bloque par ORIGINALITY (6.0), CRAFT (7.0), DESIGN_QUALITY (7.0), ACCESSIBILITY (7.0). La structure est trop template-like, manque de ruptures visuelles, d'espace negatif massif, et de typographie oversized. Les cards sont generiques. Les textes secondaires ont un contraste insuffisant.",
+  "strategy": "Transformer radicalement la mise en page pour passer d'un template SaaS generique a un site editorial/agence premium inspire de landonorris.com. Les 5 leviers : (1) espace negatif massif, (2) typographie oversized, (3) layout minimaliste radical, (4) elements graphiques signature, (5) dividers typographiques. Objectif : +2 en originalite, +1 en craft, +1 en design quality, +1 en accessibility.",
+  "changes": [
+    {
+      "id": "C1",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Espace negatif massif — respiration radicale entre sections",
+      "description": "Augmenter drastiquement le padding vertical des sections. Desktop: min 160px top/bottom. Mobile: min 100px. Reduire container-wide max-width a 1200px pour plus de vide lateral. Supprimer les transition gradients entre sections (trop template-like) et les remplacer par du vide pur.",
+      "files": [
+        "src/app/globals.css",
+        "src/app/page.tsx"
+      ],
+      "css_changes": {
+        "--section-padding-md": "100px",
+        "--section-padding-lg": "160px",
+        "--container-max": "1200px"
+      },
+      "expected_impact": "+1.5 originality, +0.5 design_quality"
+    },
+    {
+      "id": "C2",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Typographie OVERSIZED pour les titres de section",
+      "description": "Tous les titres h2 de section passent a clamp(3rem, 8vw, 6rem). Le mot en italique serif est PLUS GRAND que le reste du titre (1.15x). Letter-spacing serre a -0.02em. Les titres ne sont plus centres — ils sont alignes a gauche pour un look editorial. Le sous-titre est separe du titre par un espace accru (mb-10 au lieu de mb-6).",
+      "files": [
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx"
+      ],
+      "expected_impact": "+1.0 originality, +0.5 craft"
+    },
+    {
+      "id": "C3",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Divider typographique METHODE. entre Proof et Process",
+      "description": "Ajouter une section de transition typographique entre Proof et Process. Le mot 'METHODE.' en clamp(6rem, 15vw, 12rem), couleur lime avec opacity 0.15, font-display weight 800. Padding vertical 120px desktop / 80px mobile. Pas de contenu additionnel — juste le mot qui flotte dans l'espace negatif. C'est un separateur visuel editorial.",
+      "files": [
+        "src/app/page.tsx"
+      ],
+      "expected_impact": "+1.5 originality"
+    },
+    {
+      "id": "C4",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Elements graphiques signature — ligne diagonale lime + dots grid",
+      "description": "Hero: ajouter une ligne diagonale decorative lime (2px, opacity 0.15) qui traverse en diagonal du coin superieur droit vers le centre gauche. Sections: ajouter un pattern de dots subtil (opacity 0.03) en arriere-plan des sections alternees. Ces elements ajoutent de la personnalite sans ajouter de contenu.",
+      "files": [
+        "src/components/sections/Hero.tsx",
+        "src/app/globals.css"
+      ],
+      "expected_impact": "+0.5 originality, +0.5 craft"
+    },
+    {
+      "id": "C5",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Layout minimaliste radical — Services en 3 bento cards max",
+      "description": "Remplacer le carousel horizontal de 5 cards par un bento grid asymetrique de 3 grandes cards. Grid: col-span-2 pour la premiere card (hero card), col-span-1 pour les 2 suivantes. Supprimer les features listes detaillees — garder uniquement titre, 1 ligne de description, et icone. Simplicite radicale : chaque card = UN message.",
+      "files": [
+        "src/components/sections/Services.tsx"
+      ],
+      "expected_impact": "+1.0 originality, +0.5 design_quality"
+    },
+    {
+      "id": "C6",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "Proof simplifie — UN chiffre geant + 2 case studies",
+      "description": "Remplacer la grille de 4 MetricCards + logo marquee + case studies par: (1) UN chiffre geant central (le plus impactant, ex: '+300%') en clamp(6rem, 15vw, 10rem) lime, avec label en dessous. (2) 2 case studies cote a cote en dessous. Supprimer le logo marquee et les 3 autres metrics. Minimalisme radical = impact maximal.",
+      "files": [
+        "src/components/sections/Proof.tsx"
+      ],
+      "expected_impact": "+1.0 originality, +0.5 design_quality"
+    },
+    {
+      "id": "C7",
+      "priority": "P1",
+      "target_criterion": "craft",
+      "title": "Craft premium sur les cards — shadows, glow, hover states",
+      "description": "Toutes les cards: box-shadow 0 4px 24px rgba(0,0,0,0.4). Au hover: scale(1.02), border-color passe de rgba(210,255,0,0.15) a rgba(210,255,0,0.4), inner glow lime subtil (box-shadow inset 0 0 30px rgba(210,255,0,0.05)). Transition 400ms cubic-bezier. Les titres de section: letter-spacing -0.02em.",
+      "files": [
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx",
+        "src/app/globals.css"
+      ],
+      "expected_impact": "+1.0 craft"
+    },
+    {
+      "id": "C8",
+      "priority": "P1",
+      "target_criterion": "craft",
+      "title": "Footer editorial — typographie signature au lieu de grille generique",
+      "description": "Transformer le footer: (1) Nom de marque 'Stellar Wave' en clamp(4rem, 10vw, 8rem) font-display italic, opacity 0.5 -> 1.0 au hover. (2) Reduire les liens a 2 colonnes max (Services + Legal). (3) Contact info en une seule ligne horizontale. (4) Ajouter une ligne lime decorative en haut du footer.",
+      "files": [
+        "src/components/layout/Footer.tsx"
+      ],
+      "expected_impact": "+0.5 craft, +0.5 design_quality"
+    },
+    {
+      "id": "C9",
+      "priority": "P1",
+      "target_criterion": "accessibility",
+      "title": "Audit contraste — remonter tous les textes gris a #b8c4a8 minimum",
+      "description": "Audit systematique de tous les textes utilisant var(--text-muted) et var(--text-body). --text-muted passe de #a8b498 a #b8c4a8 (ratio 6.2:1 sur #0a0f00). --text-body reste #d0d8c0 (deja bon). Les labels, tags, badges: couleur minimum #c0cca8. Les textes zinc-400/zinc-500 dans les cards sont remplaces par les variables correctes.",
+      "files": [
+        "src/app/globals.css"
+      ],
+      "expected_impact": "+1.0 accessibility"
+    },
+    {
+      "id": "C10",
+      "priority": "P1",
+      "target_criterion": "originality",
+      "title": "Section titles alignes a gauche — briser la symetrie",
+      "description": "Tous les blocs de titre de section (eyebrow + h2 + subtitle) passent de text-center a text-left. Supprimer max-w-3xl mx-auto sur ces blocs. Le texte s'aligne a gauche du container, comme un editorial. Le contenu (cards, grid) reste centre/full-width. Cette asymetrie deliberee casse le pattern template-like.",
+      "files": [
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx"
+      ],
+      "expected_impact": "+0.5 originality, +0.5 design_quality"
+    }
+  ],
+  "preserved": [
+    "Hero split-text 'Creons le / digital qui / convertit.' — INTACT",
+    "Dual-font sans-serif + Playfair Display italic pour 'qui' — INTACT",
+    "Palette lime #d2ff00 sur dark green #0a0f00 — INTACT",
+    "KPI strip avec 4 metriques dans le hero — INTACT",
+    "Framer Motion animations avec fallback CSS — INTACT",
+    "Lenis smooth scroll — INTACT",
+    "GSAP ScrollTrigger si present — INTACT",
+    "Hero radial glow + grid texture overlay — INTACT",
+    "Responsive 3 breakpoints (375/768/1440) — INTACT",
+    "Offers/FAQ section — INTACT",
+    "Contact section — INTACT",
+    "Navigation pill — INTACT",
+    "Pas d'overflow-hidden sur les containers principaux"
+  ],
+  "implementation_order": [
+    "C9  — Accessibility contraste (CSS-only, zero risque regression visuelle)",
+    "C1  — Espace negatif massif (CSS variables, section spacing)",
+    "C4  — Elements graphiques signature (additif, ne casse rien)",
+    "C3  — Divider typographique METHODE (nouvel element dans page.tsx)",
+    "C10 — Titres alignes a gauche (changement de layout des titres)",
+    "C2  — Typographie oversized (taille des titres)",
+    "C5  — Services en 3 bento cards (refactor le plus complexe)",
+    "C6  — Proof simplifie (reduction du contenu)",
+    "C7  — Craft premium cards (enrichissement hovers/shadows)",
+    "C8  — Footer editorial (refactor footer)"
+  ],
+  "self_check_plan": {
+    "step_1": "Prendre screenshot 1440px apres implementation",
+    "step_2": "Verifier: (a) palette lime visible, (b) espace negatif accru, (c) titres oversized, (d) divider METHODE visible, (e) 3 cards bento services, (f) 1 chiffre geant proof, (g) footer editorial, (h) ligne diagonale hero",
+    "step_3": "Verifier: pas d'overflow-hidden cassant le layout, pas de contenu coupe",
+    "step_4": "Supprimer les screenshots temporaires"
+  },
+  "expected_scores": {
+    "design_quality": "8 (+1) — espace negatif massif + titres a gauche + footer editorial",
+    "originality": "8 (+2) — ruptures visuelles, divider typo, bento asymetrique, elements graphiques",
+    "craft": "8 (+1) — shadows/glow premium, letter-spacing, hover states enrichis",
+    "functionality": "8 (=) — conserve, pas de regression",
+    "accessibility": "8 (+1) — contraste textes secondaires corrige",
+    "responsive": "8 (=) — conserve, le bento grid est responsive",
+    "perceived_performance": "8 (=) — conserve"
+  },
+  "expected_average": 8.0,
+  "risk_assessment": {
+    "highest_risk": "C5 (Services bento) et C6 (Proof simplifie) — refactors majeurs qui modifient le contenu visible. Risque de casser les animations Framer Motion.",
+    "mitigation": "Implementer C5 et C6 en gardant les memes motion.div wrappers. Tester le screenshot apres chaque changement majeur.",
+    "no_regression_checks": [
+      "Hero split-text toujours visible avec 3 lignes",
+      "KPI strip toujours visible avec 4 metriques",
+      "CTA buttons toujours visibles et cliquables",
+      "Offers/FAQ section intacte",
+      "Contact form intacte",
+      "Navigation pill intacte"
+    ]
+  }
+}

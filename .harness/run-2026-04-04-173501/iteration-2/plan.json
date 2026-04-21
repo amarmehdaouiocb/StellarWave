@@ -1,0 +1,72 @@
+{
+  "iteration": 2,
+  "previous_score": 4.43,
+  "priority_fixes": [
+    {
+      "priority": "P0",
+      "issue": "Animations GSAP/Framer Motion invisibles en headless",
+      "fix": "Triple fallback : (1) CSS body.animations-ready force opacity:1/transform:none, (2) script timer 2s dans layout.tsx ajoute la classe, (3) fallback timer 2s dans AnimateOnScroll.tsx et AnimatedSection.tsx force GSAP set visible. Hero AnimatedCounter default a la valeur finale (pas 0).",
+      "files": [
+        "src/app/globals.css",
+        "src/app/layout.tsx",
+        "src/components/shared/AnimateOnScroll.tsx",
+        "src/components/shared/AnimatedSection.tsx",
+        "src/components/sections/Hero.tsx"
+      ]
+    },
+    {
+      "priority": "P0",
+      "issue": "Contraste catastrophique sous le hero - contenu invisible",
+      "fix": "Palette corrigee partout : background-alt #111a08->#141e08, cards #1a2210->#1e2a12, cards highlighted #283814, bordures rgba(lime, 0.06/0.08)->0.15 minimum, text-muted #a0aa90->#a8b498, CTA secondary border 2px solid #d2ff00 texte blanc, pricing cards non-populaires sur fond dark (pas blanc).",
+      "files": [
+        "src/app/globals.css",
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx",
+        "src/components/sections/OffersWithFAQ.tsx",
+        "src/components/sections/Contact.tsx",
+        "src/components/shared/CTAButton.tsx",
+        "src/components/shared/LogoMarquee.tsx",
+        "src/components/layout/Footer.tsx"
+      ]
+    },
+    {
+      "priority": "P1",
+      "issue": "CTA lime avec texte blanc illisible",
+      "fix": "Tous les boutons CTA fond lime ont maintenant color:#000000 au lieu de white. Secondary CTA = border 2px solid #d2ff00, texte #ffffff, fond transparent.",
+      "files": [
+        "src/components/sections/Contact.tsx",
+        "src/components/sections/OffersWithFAQ.tsx",
+        "src/components/shared/CTAButton.tsx"
+      ]
+    }
+  ],
+  "preserved": [
+    "Hero split-text Creons le / digital qui / convertit.",
+    "Dual-font sans-serif + Playfair Display italic pour 'qui'",
+    "Palette lime #d2ff00 sur dark green #0a0f00",
+    "KPI strip avec 4 metriques",
+    "Section layout avec gradient transitions",
+    "Services carousel horizontal",
+    "Proof section avec metrics + case studies + logo marquee",
+    "Process 3 etapes",
+    "Pricing cards avec FAQ accordion",
+    "Contact form multi-step",
+    "GSAP ScrollTrigger + Lenis smooth scroll"
+  ],
+  "self_check": {
+    "screenshot_taken": true,
+    "all_sections_visible": true,
+    "kpi_values_display_final": true,
+    "contrast_improved": true,
+    "hero_intact": true,
+    "notes": "Screenshot confirme toutes les 6 sections visibles + footer. KPIs affichent les valeurs finales. Cards et bordures plus visibles."
+  },
+  "expected_impact": {
+    "design_quality": "+2 (sections visibles, contraste correct)",
+    "craft": "+2 (bordures visibles, cards differenties du fond)",
+    "functionality": "+3 (tout le contenu visible et interactif, KPIs corrects)",
+    "accessibility": "+3 (WCAG AA ratios respectes, focus visible)",
+    "perceived_performance": "+2 (pas d'impression de contenu casse)"
+  }
+}

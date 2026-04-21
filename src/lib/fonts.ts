@@ -9,7 +9,7 @@
  */
 
 import localFont from "next/font/local";
-import { Outfit } from "next/font/google";
+import { Outfit, Playfair_Display } from "next/font/google";
 
 /**
  * Clash Display - Premium Display Font
@@ -119,10 +119,23 @@ export const outfit = Outfit({
 });
 
 /**
+ * Playfair Display - Serif Display Font
+ * Elegant serif for accent words in headlines (italic)
+ * Used for dual-font system inspired by landonorris.com
+ */
+export const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
+
+/**
  * Get font class names for the body element
  */
 export function getFontVariables(): string {
-  return `${clashDisplay.variable} ${cabinetGrotesk.variable}`;
+  return `${clashDisplay.variable} ${cabinetGrotesk.variable} ${playfairDisplay.variable}`;
 }
 
 /**

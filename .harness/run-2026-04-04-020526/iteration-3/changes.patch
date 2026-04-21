@@ -1,0 +1,15 @@
+ src/app/globals.css                       | 218 +++++----
+ src/app/layout.tsx                        |   7 +
+ src/app/page.tsx                          |   3 +-
+ src/components/layout/Footer.tsx          |  81 ++--
+ src/components/layout/NavPill.tsx         |  39 +-
+ src/components/sections/Contact.tsx       | 717 ++++++++++--------------------
+ src/components/sections/Hero.tsx          | 533 +++++++++++-----------
+ src/components/sections/OffersWithFAQ.tsx | 302 ++++++-------
+ src/components/sections/ProcessSimple.tsx | 194 ++++----
+ src/components/sections/Proof.tsx         | 436 +++++++++---------
+ src/components/sections/Services.tsx      | 353 ++++++---------
+ src/components/shared/AnimatedSection.tsx |  13 +-
+ src/components/shared/CTAButton.tsx       |  22 +-
+ src/components/shared/ScrollProgress.tsx  |   6 +-
+ 14 files changed, 1291 insertions(+), 1633 deletions(-)

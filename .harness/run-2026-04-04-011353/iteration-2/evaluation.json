@@ -1,0 +1,64 @@
+{
+  "iteration": 2,
+  "scores": {
+    "design_quality": 4.0,
+    "originality": 5.5,
+    "craft": 4.0,
+    "functionality": 3.0,
+    "accessibility": 2.5,
+    "responsive": 4.5,
+    "perceived_performance": 4.0
+  },
+  "global_score": 3.9,
+  "converged": false,
+  "blocking_criteria": ["design_quality", "craft", "functionality", "accessibility", "responsive", "perceived_performance"],
+  "feedback": [
+    {
+      "criterion": "accessibility",
+      "severity": "high",
+      "detail": "Problème critique de contraste : environ 80% du contenu de la page est pratiquement invisible. Les sections sous le hero utilisent des surfaces sombres sur un fond quasi noir, rendant le texte et les éléments UI indiscernables. Cela viole massivement WCAG AA (ratio de contraste minimum 4.5:1 pour le texte). Sur les 3 viewports, seul le hero est réellement lisible.",
+      "suggestion": "Augmenter drastiquement le contraste des surfaces de contenu. Options : (1) Utiliser des cards avec un background nettement plus clair (ex: #1a1a2e ou #1e1e30 sur fond #0a0a0f), (2) Ajouter des bordures subtiles (1px border avec rgba(255,255,255,0.08)), (3) Utiliser des dégradés subtils ou des ombres pour séparer les sections du fond. Le texte dans ces sections doit être en blanc ou gris clair (min #e0e0e0)."
+    },
+    {
+      "criterion": "functionality",
+      "severity": "high",
+      "detail": "L'utilisabilité est gravement compromise car le contenu est invisible. On ne peut pas lire les services proposés, les cas d'usage, les témoignages, ni aucune information sous le hero. Les CTA secondaires, s'ils existent, sont invisibles. La page ne remplit pas sa fonction de conversion car l'utilisateur ne voit rien à lire ou cliquer après le hero.",
+      "suggestion": "Rendre chaque section clairement visible avec un contraste suffisant. Chaque CTA doit être identifiable (utiliser la couleur ember-amber #f59e0b ou ember-coral #ef6c4a). Les titres de section doivent être en blanc pur ou en couleur accent. Vérifier que chaque élément interactif est visuellement distinct du fond."
+    },
+    {
+      "criterion": "design_quality",
+      "severity": "high",
+      "detail": "Le hero montre une amélioration avec la typographie split (orange/blanc) et le CTA orange, mais la cohérence visuelle globale est brisée par le fait que le reste de la page est un mur noir indifférencié. Il n'y a pas de rythme visuel, pas de variation de densité, pas de respiration entre les sections. L'identité visuelle ne se maintient pas au-delà du hero.",
+      "suggestion": "Créer un rythme visuel avec des alternances de densité : section hero (dense, impactant) → section logos (aéré, marquee) → section services (bento grid avec cards visibles) → section social proof (fond légèrement différent) → CTA final (dense). Utiliser des séparateurs visuels (lignes, changements de fond subtils, gradients) entre les sections."
+    },
+    {
+      "criterion": "craft",
+      "severity": "high",
+      "detail": "Le hero démontre un effort de craft (typographie split avec poids visuel, mise en valeur du '3.'), mais ce craft disparaît totalement sous le fold. Impossible d'évaluer la hiérarchie typographique, l'échelle de spacing, ou les micro-détails des sections inférieures car elles sont invisibles. Le résultat global manque de polish car seul 20% de la page est soigné.",
+      "suggestion": "Appliquer le même niveau de craft du hero à toutes les sections : titres de section en grande taille avec typographie expressive, sous-titres en gris clair, contenu en blanc cassé. Utiliser une échelle de spacing cohérente (32px, 48px, 64px, 96px entre les sections). Ajouter des micro-interactions visibles (bordures accent, icônes colorées, badges)."
+    },
+    {
+      "criterion": "responsive",
+      "severity": "high",
+      "detail": "Sur mobile (375px), le titre semble légèrement tronqué ('CONVERSIC' au lieu de 'CONVERSIONS'). Le contenu sous le fold est invisible sur les 3 viewports, donc impossible d'évaluer correctement l'adaptation responsive des sections. Le hero lui-même s'adapte raisonnablement mais le texte descriptif sous le titre est très petit et peu lisible sur mobile.",
+      "suggestion": "Corriger le troncage du titre sur mobile — réduire la taille de la typo ou passer en layout vertical (un mot par ligne). Augmenter la taille du texte descriptif à minimum 16px sur mobile. Une fois le contraste corrigé, vérifier que la bento grid passe en colonnes empilées sur mobile et en 2 colonnes sur tablette."
+    },
+    {
+      "criterion": "originality",
+      "severity": "medium",
+      "detail": "Le hero montre une amélioration par rapport à l'itération 1 : la typographie split avec le '3.' en accent est un choix distinctif qui rappelle l'inspiration landonorris.com. Le CTA orange est vif. Cependant, impossible d'évaluer l'originalité des sections inférieures (bento grid, marquee, etc.) car elles sont invisibles. Le score reflète uniquement ce qui est visible.",
+      "suggestion": "Une fois le contraste corrigé, s'assurer que les sections inférieures utilisent des layouts distinctifs : bento grid asymétrique (pas une grille régulière), marquee de logos avec vitesse contrôlée, cards avec des angles ou formes non-standard, utilisation créative des couleurs accent (amber, coral, teal)."
+    },
+    {
+      "criterion": "perceived_performance",
+      "severity": "high",
+      "detail": "La page donne une impression de vide et d'inachèvement. Après le hero, l'utilisateur fait défiler dans le noir sans rien voir, ce qui donne l'impression que la page est cassée ou n'a pas fini de charger. La densité d'information perçue est quasi nulle sous le fold.",
+      "suggestion": "Chaque section doit avoir un contenu visuellement présent dès le scroll. Alterner les densités d'information : sections riches (bento grid multi-cards) avec des sections aérées (citation client, chiffre clé isolé). L'utilisateur ne doit jamais scroller plus de 200px sans rencontrer un élément visuel identifiable."
+    }
+  ],
+  "screenshots": {
+    "mobile": "iteration-2/screenshot-375.png",
+    "tablet": "iteration-2/screenshot-768.png",
+    "desktop": "iteration-2/screenshot-1440.png"
+  }
+}

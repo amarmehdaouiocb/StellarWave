@@ -1,15 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { MagnifyingGlass } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
-import { navPillIndicator } from "@/lib/animations";
 
 const navTabs = [
   { id: "services", label: "Services" },
-  { id: "proof", label: "Réalisations" },
+  { id: "proof", label: "R\u00e9alisations" },
   { id: "process", label: "Process" },
   { id: "offers", label: "Offres" },
   { id: "contact", label: "Contact" },
@@ -27,7 +25,6 @@ export function NavPill({ className }: NavPillProps) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
 
-      // Update active tab based on scroll position
       const sections = navTabs.map((tab) => ({
         id: tab.id,
         element: document.getElementById(tab.id),
@@ -53,23 +50,13 @@ export function NavPill({ className }: NavPillProps) {
   return (
     <motion.nav
       className={cn(
-        "fixed top-6 left-1/2 -translate-x-1/2 z-50",
-        "hidden md:flex items-center gap-1",
-        "px-2 py-2 rounded-full",
-        // Light theme glass
-        "bg-white/80 backdrop-blur-xl border border-[oklch(0_0_0_/_8%)]",
-        "transition-all duration-300",
-        isScrolled && "shadow-lg",
+        "fixed top-8 left-1/2 -translate-x-1/2 z-50",
+        "hidden md:flex items-center gap-8",
         className
       )}
-      style={{
-        boxShadow: isScrolled
-          ? "0 8px 32px oklch(0.2 0.01 250 / 10%), 0 32px 80px oklch(0.2 0.01 250 / 8%)"
-          : "0 2px 8px oklch(0.2 0.01 250 / 4%)",
-      }}
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
     >
       {navTabs.map((tab) => {
         const isActive = activeTab === tab.id;
@@ -79,45 +66,30 @@ export function NavPill({ className }: NavPillProps) {
             key={tab.id}
             href={`#${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
-            className={cn(
-              "relative px-4 py-2 rounded-full",
-              "text-sm font-medium",
-              "transition-colors duration-200",
-              isActive
-                ? "text-white"
-                : "text-[var(--neutral-600)] hover:text-[var(--accent-dark)]"
-            )}
+            className="relative flex flex-col items-center gap-1.5 group"
           >
+            <span
+              className="text-base font-medium tracking-wide transition-opacity duration-200"
+              style={{
+                color: isActive ? "#ffffff" : "rgba(255,255,255,0.5)",
+              }}
+            >
+              {tab.label}
+            </span>
             {isActive && (
-              <motion.div
-                layoutId="nav-pill-active"
-                className="absolute inset-0 rounded-full bg-[var(--electric-blue)]"
-                variants={navPillIndicator}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                style={{
-                  boxShadow: "0 4px 12px oklch(0.55 0.25 255 / 25%)",
-                }}
+              <motion.span
+                layoutId="nav-dot"
+                className="block w-1 h-1 rounded-full"
+                style={{ background: "#38bdf8" }}
+                transition={{ type: "spring", stiffness: 400, damping: 35 }}
               />
             )}
-            <span className="relative z-10">{tab.label}</span>
+            {!isActive && (
+              <span className="block w-1 h-1 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-200" />
+            )}
           </Link>
         );
       })}
-
-      {/* Search button */}
-      <button
-        className={cn(
-          "ml-2 flex h-9 w-9 items-center justify-center rounded-full",
-          "text-[var(--neutral-500)] hover:text-[var(--electric-blue)] hover:bg-[var(--electric-blue)]/10",
-          "transition-colors duration-200"
-        )}
-        aria-label="Rechercher"
-      >
-        <MagnifyingGlass className="h-4 w-4" weight="bold" />
-      </button>
     </motion.nav>
   );
 }

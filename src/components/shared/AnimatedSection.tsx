@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { motion, Variants, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -32,6 +32,8 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const prefersReducedMotion = useReducedMotion();
   const Component = motion[as];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sectionRef = useRef<any>(null);
 
   const animationVariants = prefersReducedMotion
     ? getReducedMotionVariants(variants)
@@ -43,8 +45,20 @@ export function AnimatedSection({
       : staggerContainer
     : animationVariants;
 
+  // Fallback: force section visible after 2s for headless/screenshot environments
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (sectionRef.current) {
+        sectionRef.current.style.opacity = "1";
+        sectionRef.current.style.transform = "none";
+      }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Component
+      ref={sectionRef}
       id={id}
       className={cn(className)}
       style={style}

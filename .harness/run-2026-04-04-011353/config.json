@@ -1,0 +1,25 @@
+{
+  "brief": "Redesign de src/app/page.tsx inspiré de landonorris.com. Direction esthétique : dark premium, palette sombre avec couleur accent néon distinctive (adapter Ember Luxe amber/coral), typographie fluide sans media queries, smooth scroll, animations scroll-driven subtiles, hero sticky, navigation thème dynamique, hover reveal clip-path, marquee de logos. Vitrine d'agence web avec craft exceptionnel. Référence d'analyse : C:\\Users\\amarm\\SaaS\\Vitrine\\landonorris",
+  "mode": "redesign",
+  "target_files": ["src/app/page.tsx"],
+  "max_iterations": 3,
+  "convergence_threshold": 8.0,
+  "min_criterion_score": 6.0,
+  "plateau_detection": 3,
+  "criteria_weights": {
+    "design_quality": 1,
+    "originality": 1,
+    "craft": 1,
+    "functionality": 1,
+    "accessibility": 1,
+    "responsive": 1,
+    "perceived_performance": 1
+  },
+  "viewports": [375, 768, 1440],
+  "dev_command": "npm run dev",
+  "stack": {
+    "framework": "next",
+    "css": "tailwindcss",
+    "port": 3000
+  }
+}

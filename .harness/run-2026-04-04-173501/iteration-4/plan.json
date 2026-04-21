@@ -1,0 +1,236 @@
+{
+  "iteration": 4,
+  "previous_score": 7.50,
+  "target_score": 8.0,
+  "progression": "4.43 -> 7.29 -> 7.50 -> ?",
+  "diagnosis": "Score 7.50 bloque par CRAFT (7.0) et ORIGINALITE (7.0). La ligne diagonale lime du hero est a peine visible. Le bento services est en grille reguliere (pas de VRAIE asymetrie). Les transitions entre sections manquent d'articulation graphique. La typographie est propre mais pas exploitee comme outil de design (pas de letter-spacing negatif, pas de variation de graisses dans une meme ligne, pas de traitements graphiques sur le texte).",
+  "strategy": "5 leviers chirurgicaux pour gagner les 0.5 pts manquants : (1) Typographie comme outil de design — chaque titre de section recoit un traitement typographique UNIQUE au lieu du pattern repetitif actuel. (2) VRAIE asymetrie bento — card 1 occupe 7/12 colonnes. (3) Elements graphiques STRUCTURANTS (pas decoratifs) — ligne diagonale epaisse, cercle decoatif, dot grid amplifie. (4) Transitions inter-sections avec ligne lime. (5) Hover states premium animes par GSAP.",
+  "changes": [
+    {
+      "id": "C1",
+      "priority": "P0",
+      "target_criterion": "craft + originality",
+      "title": "Typographie UNIQUE par section — le levier le plus fort",
+      "description": "Chaque titre de section recoit un traitement typographique DISTINCT au lieu du pattern repetitif 'mot gris + mot serif italic blanc'. C'est le changement qui transforme 'site d'agence propre' en 'site avec une identite visuelle memorable'.",
+      "sub_changes": [
+        {
+          "section": "Services",
+          "current": "'Des solutions' en gris + 'sur mesure' en serif italic blanc, meme taille",
+          "new": "'Des solutions' reste identique. 'sur mesure' passe en serif Playfair italic + taille 1.3x plus grande que le reste + couleur LIME #d2ff00 (au lieu de blanc). Le mot lime sur fond dark green cree un point focal fort.",
+          "rationale": "Le mot-cle du titre devient un element graphique, pas juste du texte. Reference landonorris.com ou les mots-cles sont mis en evidence par couleur + taille."
+        },
+        {
+          "section": "Proof",
+          "current": "'Des chiffres' gris + 'qui parlent' serif italic blanc, meme ligne",
+          "new": "2 lignes distinctes. Ligne 1 : 'Des chiffres' en UPPERCASE, tracking +0.2em, font-size 0.4x du titre normal, couleur muted. Ligne 2 : 'qui parlent.' en serif italic, taille 2x plus grande que ligne 1, couleur lime #d2ff00. Le point final est intentionnel. Le contraste de taille entre les deux lignes cree une hierarchie dramatique.",
+          "rationale": "Casser la symetrie des titres. Alterner micro-texte label + mega-texte expressif. Pattern editorial magazine."
+        },
+        {
+          "section": "Process",
+          "current": "'3 etapes' gris + 'vers le succes' serif italic blanc, meme ligne",
+          "new": "Le chiffre '3' en taille 3x le reste du titre (font-size: clamp(6rem, 12vw, 9rem)), weight 900, couleur lime #d2ff00, sur sa propre ligne. 'etapes vers le succes' en font-size normal, regular weight, couleur muted, sur la ligne suivante. Le chiffre geant cree un rythme avec le '+118%' de la section Proof.",
+          "rationale": "Utiliser les chiffres comme elements graphiques (pattern landonorris.com). Le '3' geant lime dialogue avec le '+118%' geant lime au-dessus."
+        },
+        {
+          "section": "Offers",
+          "current": "'Des offres' gris + 'sans surprise' blanc bold, centree",
+          "new": "Passer de centree a alignee gauche comme les autres sections. 'Des offres' reste en gris muted. 'sans surprise' passe en serif italic lime #d2ff00 avec un soulignement lime (border-bottom 2px solid rgba(210,255,0,0.5), padding-bottom 4px). Le soulignement ajoute du craft a un mot-cle.",
+          "rationale": "Le soulignement est un traitement typographique classique du design editorial. Il singularise cette section des autres."
+        },
+        {
+          "section": "Contact",
+          "current": "'Parlons de' gris + 'votre projet' blanc bold, centree",
+          "new": "Passer de centree a alignee gauche. 'Parlons de' en muted regular. 'votre' en regular blanc. 'projet' en serif italic lime #d2ff00, taille 1.5x plus grande. La difference de taille sur le mot final cree un appel a l'action visuel.",
+          "rationale": "La section Contact est le CTA final — le mot 'projet' doit etre visuellement magnetique."
+        }
+      ],
+      "files": [
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx",
+        "src/components/sections/OffersWithFAQ.tsx",
+        "src/components/sections/Contact.tsx"
+      ],
+      "expected_impact": "+1.0 craft, +0.5 originality"
+    },
+    {
+      "id": "C2",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "VRAIE asymetrie bento — card hero 7/12 colonnes",
+      "description": "Le bento services actuel utilise grid-cols-3 avec la card 1 en col-span-2 et cards 2+3 en col-span-1 cote a cote. C'est de l'asymetrie 'lite'. Pour de la VRAIE asymetrie comme landonorris.com, passer a un layout ou card 1 occupe 7/12 (58%) de la largeur en hauteur pleine, et cards 2+3 sont empilees verticalement dans les 5/12 restants (42%). Cela cree une composition visuellement desequilibree et donc memorable.",
+      "implementation": {
+        "grid_change": "Passer de 'grid-cols-3' a 'grid-cols-12' pour un controle plus fin. Card 1 = col-span-7 row-span-2. Cards 2+3 = col-span-5, empilees (chacune row-span-1).",
+        "card_1_enhancement": "La card hero (Product Design) recoit plus de padding (56px), un titre plus grand (clamp(2rem, 4vw, 3rem)), et son element visuel interne (cercles animes) est agrandi.",
+        "cards_2_3_reduction": "Les cards secondaires gardent leur padding actuel (36px) mais leur min-height est reduite pour permettre l'empilement sans gap excessif."
+      },
+      "files": [
+        "src/components/sections/Services.tsx"
+      ],
+      "expected_impact": "+1.0 originality"
+    },
+    {
+      "id": "C3",
+      "priority": "P0",
+      "target_criterion": "craft + originality",
+      "title": "Elements graphiques STRUCTURANTS — ligne diagonale epaisse, cercle decoatif, dot grid amplifie",
+      "description": "L'evaluator dit que la ligne diagonale lime est 'a peine perceptible'. Les elements graphiques doivent etre FORTS, pas subtils. 3 changements concrets.",
+      "sub_changes": [
+        {
+          "element": "Hero — ligne diagonale",
+          "current": "Gradient diagonal avec rgba(210,255,0,0.15) sur 1% de largeur — quasiment invisible",
+          "new": "Remplacer le gradient par un vrai element DIV positionne en absolue. Width: 3px, height: 140% du container, rotation: -35deg, transform-origin center. Background: rgba(210,255,0,0.5). L'element deborde volontairement du hero (overflow visible). Cette epaisseur et opacite le rendent clairement visible sans etre dominant.",
+          "fallback": "Si le overflow pose probleme sur mobile, clipper avec max-width: 100vw sur le parent"
+        },
+        {
+          "element": "Proof — cercle decoatif derriere +118%",
+          "current": "Aucun element graphique autour du chiffre geant",
+          "new": "Ajouter un cercle de 250px de diametre, border 2px solid rgba(210,255,0,0.12), positionne en absolute derriere le chiffre, centre vertical, decale de 20% a droite. Le cercle est un element graphique pur — il ne contient rien, il sert de cadre visuel au chiffre geant.",
+          "rationale": "Le chiffre geant est le meilleur element de la page (evaluator). L'encadrer avec un cercle amplifie son impact et ajoute une couche graphique."
+        },
+        {
+          "element": "Services — dot grid pattern de fond",
+          "current": "Class .dot-grid-bg sur la section Proof avec opacity tres faible",
+          "new": "Ajouter le dot grid en fond de la section Services aussi. Augmenter l'opacity du dot-grid-bg de 0.03 a 0.06 dans globals.css. Le pattern de points lime sur fond dark-green-alt ajoute de la texture sans distraire."
+        }
+      ],
+      "files": [
+        "src/components/sections/Hero.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/Services.tsx",
+        "src/app/globals.css"
+      ],
+      "expected_impact": "+0.5 craft, +0.5 originality"
+    },
+    {
+      "id": "C4",
+      "priority": "P1",
+      "target_criterion": "craft",
+      "title": "Transitions inter-sections — lignes lime horizontales + divider METHODE renforce",
+      "description": "L'evaluator note que 'les transitions entre sections manquent d'articulation graphique'. 2 changements.",
+      "sub_changes": [
+        {
+          "element": "Lignes lime horizontales entre sections",
+          "description": "Ajouter un separateur horizontal lime (1px solid rgba(210,255,0,0.2)) entre chaque section majeure dans page.tsx. Le separateur a un gradient (transparent -> lime -> transparent) pour un rendu elegant. Implementer comme un composant reutilisable <SectionDivider />."
+        },
+        {
+          "element": "Divider METHODE — plus de poids visuel",
+          "current": "Texte 'METHODE.' en opacity 0.15",
+          "new": "Passer opacity a 0.20. Ajouter une ligne horizontale lime (1px, opacity 0.15) SOUS le texte METHODE, centree, width 40% du container. Cette ligne ancre visuellement le divider et le connecte aux sections adjacentes."
+        }
+      ],
+      "files": [
+        "src/app/page.tsx"
+      ],
+      "expected_impact": "+0.5 craft"
+    },
+    {
+      "id": "C5",
+      "priority": "P1",
+      "target_criterion": "craft",
+      "title": "Hover states premium — translateY + border-glow + box-shadow via GSAP",
+      "description": "Toutes les cards interactives (Services, Proof case studies, Process steps, Offers pricing) recoivent des hover states enrichis. Actuellement les cards ont des transitions CSS inline. On les garde en CSS (pas besoin de GSAP pour ca — GSAP est overkill pour des hovers simples et alourdirait le code).",
+      "hover_spec": {
+        "translateY": "-4px",
+        "border_color": "rgba(210, 255, 0, 0.4)",
+        "box_shadow": "0 8px 32px rgba(210, 255, 0, 0.08), 0 4px 24px rgba(0, 0, 0, 0.4)",
+        "inner_glow": "inset 0 0 30px rgba(210, 255, 0, 0.04)",
+        "transition": "400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      },
+      "implementation": "Ajouter les hover styles via les onMouseEnter/onMouseLeave handlers ou via des classes CSS hover: dans globals.css. Preferer les classes CSS car plus performant et plus maintenable.",
+      "files": [
+        "src/app/globals.css",
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx"
+      ],
+      "expected_impact": "+0.5 craft"
+    },
+    {
+      "id": "C6",
+      "priority": "P1",
+      "target_criterion": "craft",
+      "title": "Footer — traitement graphique sur 'Stellar Wave'",
+      "description": "L'evaluator dit : le 'Stellar Wave' en grand est bien, mais ajouter un traitement graphique. Ajouter un trait lime horizontal sous 'Wave' (le 2e mot seulement). Le trait fait 2px de haut, 100% de la largeur du mot, couleur rgba(210,255,0,0.4). Au hover, le trait passe a opacity 0.8. Cela transforme le texte en element de design sans changer la structure.",
+      "files": [
+        "src/components/layout/Footer.tsx"
+      ],
+      "expected_impact": "+0.3 craft"
+    },
+    {
+      "id": "C7",
+      "priority": "P2",
+      "target_criterion": "responsive",
+      "title": "Mobile — padding internes cards augmentes a 24px minimum",
+      "description": "Sur mobile (< 768px), les cards ont parfois 16px de padding interne ce qui est serre pour du premium. Augmenter le padding minimum a 24px sur tous les breakpoints. Sur desktop garder les valeurs actuelles (36-48px).",
+      "files": [
+        "src/components/sections/Services.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/ProcessSimple.tsx"
+      ],
+      "expected_impact": "+0.3 responsive"
+    }
+  ],
+  "preserved": [
+    "Hero split-text 'Creons le / digital qui / convertit.' structure 3 lignes — INTACT",
+    "Dual-font sans-serif + Playfair Display italic pour 'qui' — INTACT",
+    "Palette lime #d2ff00 sur dark green #0a0f00 — INTACT",
+    "KPI strip avec 4 metriques dans le hero — INTACT",
+    "Framer Motion animations avec fallback CSS — INTACT",
+    "Lenis smooth scroll — INTACT",
+    "Hero radial glow + grid texture overlay — INTACT",
+    "Responsive 3 breakpoints (375/768/1440) — INTACT",
+    "Espace negatif 160px entre sections — INTACT",
+    "Offers/FAQ section structure (3 pricing cards + FAQ accordion) — INTACT",
+    "Contact section formulaire multi-step — INTACT",
+    "Navigation pill — INTACT",
+    "'+118%' chiffre geant — INTACT (enrichi avec cercle decoratif)",
+    "Divider METHODE. — INTACT (renforce)",
+    "Footer 'Stellar Wave' oversized — INTACT (enrichi avec trait)",
+    "AnimatedSection/fadeInUp/stagger animations — INTACT",
+    "Pas d'overflow-hidden sur les containers principaux"
+  ],
+  "implementation_order": [
+    "C5 — Hover states CSS (ajout de classes dans globals.css, zero risque)",
+    "C4 — Transitions inter-sections (ajout de composant et modification page.tsx)",
+    "C3 — Elements graphiques structurants (modifications visuelles additives)",
+    "C2 — Asymetrie bento (changement de grid services — le plus risque)",
+    "C1 — Typographie unique par section (modifications de texte dans 5 fichiers)",
+    "C6 — Footer traitement graphique (modification legere du footer)",
+    "C7 — Mobile padding (ajustement responsive)"
+  ],
+  "self_check_plan": {
+    "step_1": "Screenshot 1440px apres implementation complete",
+    "step_2": "Verifier checklist : (a) Services titre 'sur mesure' en lime et plus grand, (b) Proof titre en 2 lignes avec contraste de taille, (c) Process chiffre 3 geant lime, (d) Offers 'sans surprise' souligne lime, (e) Contact 'projet' en serif italic lime 1.5x, (f) bento asymetrique 7/5, (g) ligne diagonale hero visible, (h) cercle decoatif autour du +118%, (i) dot grid visible en fond services, (j) lignes lime entre sections, (k) divider METHODE plus visible, (l) hover states enrichis, (m) footer 'Wave' souligne",
+    "step_3": "Verifier : pas d'overflow coupe, pas de texte masque, responsive coherent",
+    "step_4": "rm -rf /tmp/harness-selfcheck"
+  },
+  "expected_scores": {
+    "design_quality": "7.5 (=) — pas de regression, le design est deja bon",
+    "originality": "8.0 (+1.0) — asymetrie bento reelle, typographie unique par section, elements graphiques forts",
+    "craft": "8.0 (+1.0) — traitements typographiques intentionnels, hover states premium, transitions soignees, details comme le cercle et le trait de soulignement",
+    "functionality": "8.0 (=) — aucune regression fonctionnelle",
+    "accessibility": "7.5 (=) — aucune regression de contraste",
+    "responsive": "7.8 (+0.3) — padding mobile ameliore",
+    "perceived_performance": "8.0 (=) — pas de JS additionnel lourd"
+  },
+  "expected_average": 7.83,
+  "convergence_note": "Cible 8.0 mais estimation prudente a 7.83. Les gains principaux viennent de craft (+1.0) et originality (+1.0) qui etaient les deux criteres bloquants. Si les traitements typographiques sont bien executes et que l'asymetrie bento est convaincante, on peut atteindre 8.0.",
+  "risk_assessment": {
+    "highest_risk": "C2 (asymetrie bento 7/12) — le changement de grid peut casser le responsive mobile. Sur mobile, les 12 colonnes doivent se replier en 1 colonne.",
+    "mitigation": "Sur mobile (< 768px), toutes les cards passent en col-span-full. La grille 12-colonnes ne s'applique qu'a partir de md:. Tester le screenshot mobile apres cette modification.",
+    "medium_risk": "C1 (typographie unique) — 5 fichiers a modifier. Risque de casser un titre si le JSX est mal formate.",
+    "mitigation_c1": "Modifier un fichier a la fois, verifier le rendu apres chaque modification.",
+    "low_risk": "C3-C7 sont des ajouts additifs ou des modifications cosmetiques. Risque minimal.",
+    "no_regression_checks": [
+      "Hero split-text 3 lignes toujours visible",
+      "KPI strip 4 metriques toujours visible",
+      "CTA buttons toujours visibles et cliquables",
+      "Offers pricing cards toujours lisibles et alignees",
+      "Contact form toujours fonctionnel",
+      "Navigation pill toujours visible",
+      "Footer liens toujours cliquables",
+      "Pas de texte coupe ou masque par overflow"
+    ]
+  }
+}

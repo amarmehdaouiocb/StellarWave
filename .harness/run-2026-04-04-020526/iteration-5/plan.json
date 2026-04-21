@@ -1,0 +1,57 @@
+{
+  "iteration": 5,
+  "previous_score": 6.71,
+  "target_score": 8.0,
+  "strategy": "Saut qualitatif sur les 4 axes faibles: accessibilite (contraste systematique), originalite (layouts organiques uniques), craft (cards definies, transitions douces), responsive (elements decoratifs adaptes)",
+  "changes": [
+    {
+      "file": "src/components/sections/Services.tsx",
+      "action": "rewrite",
+      "description": "Layout hero card (60% largeur) + 4 petites en colonne a droite. Contraste textes >= #d0d0d8 body, #a0a0b0 muted. Cards fond #1e1e30 bordure #333350 visible. Ghost numbers adaptes mobile (plus petits, pas supprimes)."
+    },
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "action": "rewrite",
+      "description": "Layout en Z: metriques a gauche + case study a droite, puis inverse. Transitions douces entre blocs via gradients. Contraste textes rehausse. Marquee integre comme transition organique entre sections."
+    },
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "action": "rewrite",
+      "description": "Timeline verticale avec ligne connectrice au lieu de 3 cards en row. Ghost numbers adaptes mobile. Cards fond #1e1e30 bordure #333350."
+    },
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "action": "edit",
+      "description": "Rehausser contrastes textes secondaires. Adapter ghost SW pour mobile (plus petit, pas cache). Section transition gradient vers section suivante."
+    },
+    {
+      "file": "src/components/sections/OffersWithFAQ.tsx",
+      "action": "edit",
+      "description": "Rehausser contrastes. Cards fond/bordure bien definis. Mobile: ghost numbers visibles en plus petit."
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "action": "edit",
+      "description": "Rehausser contrastes textes. Fond card bien defini."
+    },
+    {
+      "file": "src/components/layout/Footer.tsx",
+      "action": "edit",
+      "description": "Ajouter CTA final fort avant footer. Separation visuelle premium. Rehausser contrastes."
+    },
+    {
+      "file": "src/app/globals.css",
+      "action": "edit",
+      "description": "Ajouter classes utilitaires pour transitions entre sections (gradient fading). Section spacing mobile augmente a 64px min."
+    }
+  ],
+  "accessibility_checklist": [
+    "TOUS textes body: #d0d0d8 minimum",
+    "TOUS textes muted: #a0a0b0 minimum",
+    "TOUS titres: #ffffff",
+    "TOUTES cards: fond #1e1e30, bordure #333350",
+    "CTA primary: fond solide #f59e0b",
+    "Aucun text-white/40 ou text-white/50 residuel",
+    "Aucun text-zinc-500 ou #808098 residuel"
+  ]
+}
