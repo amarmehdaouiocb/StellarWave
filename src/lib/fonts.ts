@@ -9,7 +9,7 @@
  */
 
 import localFont from "next/font/local";
-import { Outfit, Playfair_Display } from "next/font/google";
+import { Outfit, Playfair_Display, Raleway } from "next/font/google";
 
 /**
  * Clash Display - Premium Display Font
@@ -131,11 +131,44 @@ export const playfairDisplay = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-/**
- * Get font class names for the body element
- */
+export const bodoniFLF = localFont({
+  src: [
+    {
+      path: "../../public/fonts/BodoniFLF-Roman.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-Italic.woff",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-BoldItalic.woff",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-bodoni",
+  display: "swap",
+  preload: true,
+});
+
+export const raleway = Raleway({
+  subsets: ["latin"],
+  variable: "--font-raleway",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+});
+
 export function getFontVariables(): string {
-  return `${clashDisplay.variable} ${cabinetGrotesk.variable} ${playfairDisplay.variable}`;
+  return `${bodoniFLF.variable} ${raleway.variable} ${playfairDisplay.variable}`;
 }
 
 /**

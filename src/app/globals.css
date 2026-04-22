@@ -4,6 +4,35 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'BodoniFLF';
+  src: url('/fonts/BodoniFLF-Roman.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BodoniFLF';
+  src: url('/fonts/BodoniFLF-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BodoniFLF';
+  src: url('/fonts/BodoniFLF-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BodoniFLF';
+  src: url('/fonts/BodoniFLF-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ================================================
    STELLAR WAVE - LIME NEO ON DARK GREEN
    Inspired by landonorris.com patterns
@@ -13,9 +42,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-body), var(--font-outfit), system-ui, sans-serif;
-  --font-display: var(--font-display), var(--font-outfit), system-ui, sans-serif;
-  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-raleway), var(--font-outfit), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Sidebar */
@@ -313,6 +340,9 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
     color: var(--text-body);
+    --font-display: 'BodoniFLF', Georgia, "Times New Roman", serif;
+    --font-body: var(--font-raleway), system-ui, sans-serif;
+    font-family: var(--font-raleway), system-ui, sans-serif;
   }
 
   /* Selection - Lime on black */
@@ -897,6 +927,71 @@
 
   .card-shadow-hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 32px 80px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(56, 189, 248, 0.12);
+  }
+
+  /* ================================================
+     LIQUID GLASS BUTTONS — Cinematic pill style
+     Border gradient via ::before mask technique
+     ================================================ */
+
+  .btn-liquid-primary {
+    background: rgba(56, 189, 248, 0.06);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(56, 189, 248, 0.20);
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+  }
+
+  .btn-liquid-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(180deg,
+      rgba(56, 189, 248, 0.65) 0%,
+      rgba(56, 189, 248, 0.22) 20%,
+      rgba(56, 189, 248, 0.02) 40%,
+      rgba(56, 189, 248, 0.02) 60%,
+      rgba(56, 189, 248, 0.22) 80%,
+      rgba(56, 189, 248, 0.65) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .btn-liquid-secondary {
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.10);
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+  }
+
+  .btn-liquid-secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 20%,
+      rgba(255, 255, 255, 0.00) 40%,
+      rgba(255, 255, 255, 0.00) 60%,
+      rgba(255, 255, 255, 0.15) 80%,
+      rgba(255, 255, 255, 0.45) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
 

@@ -489,14 +489,9 @@ export function Contact() {
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <motion.a
                       href={brand.calendlyUrl}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
-                      style={{
-                        background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
-                        color: "#000000",
-                        boxShadow: "0 8px 24px rgba(56, 189, 248, 0.35)",
-                      }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      className="btn-liquid-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       <Lightning className="h-4 w-4" weight="fill" />
                       Réserver un appel maintenant
@@ -853,14 +848,9 @@ export function Contact() {
                       <motion.button
                         type="button"
                         onClick={nextStep}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
-                        style={{
-                          background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
-                          color: "white",
-                          boxShadow: "0 8px 24px rgba(56, 189, 248, 0.35)",
-                        }}
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         Continuer
                         <ArrowRight className="h-4 w-4" />
@@ -869,14 +859,9 @@ export function Contact() {
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm disabled:opacity-70"
-                        style={{
-                          background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
-                          color: "white",
-                          boxShadow: "0 8px 24px rgba(56, 189, 248, 0.35)",
-                        }}
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm disabled:opacity-70"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         <PaperPlaneTilt className="h-4 w-4" weight="duotone" />
                         {isSubmitting ? "Envoi..." : "Envoyer ma demande"}

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { brand, seoKeywords } from "@/config/brand";
-import { outfit, getFontVariables } from "@/lib/fonts";
+import { outfit, raleway, bodoniFLF, getFontVariables } from "@/lib/fonts";
 import { GoogleAnalytics } from "@/components/analytics";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
@@ -175,7 +175,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${getFontVariables()} ${outfit.variable} font-sans antialiased`}
+        className={`${getFontVariables()} ${outfit.variable} ${raleway.variable} ${bodoniFLF.variable} font-sans antialiased`}
         style={{ backgroundColor: "#020617", color: "#cbd5e1" }}
       >
         <GoogleAnalytics />

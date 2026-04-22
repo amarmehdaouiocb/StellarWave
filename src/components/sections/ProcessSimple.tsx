@@ -77,7 +77,7 @@ function ProcessCard({
       <div
         className="relative h-full"
         style={{
-          background: isHighlighted ? "#283814" : "#1e293b",
+          background: isHighlighted ? "#0d1f42" : "#1e293b",
           borderRadius: "var(--card-radius-2xl)",
           padding: "36px",
           border: isHighlighted

@@ -22,35 +22,28 @@ interface CTAButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: cn(
+    "btn-liquid-primary",
     "font-semibold",
-    "active:scale-[0.98]"
+    "active:scale-[0.97]"
   ),
   secondary: cn(
+    "btn-liquid-secondary",
     "font-medium",
-    "active:scale-[0.98]"
+    "active:scale-[0.97]"
   ),
   ghost: cn(
     "font-medium",
-    "active:scale-[0.98]"
+    "active:scale-[0.97]"
   ),
   outline: cn(
     "font-medium",
-    "active:scale-[0.98]"
+    "active:scale-[0.97]"
   ),
 };
 
 const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
-  primary: {
-    background: "#38bdf8",
-    color: "#000000",
-    borderRadius: "8px",
-  },
-  secondary: {
-    background: "transparent",
-    color: "#ffffff",
-    border: "2px solid #38bdf8",
-    borderRadius: "8px",
-  },
+  primary: {},
+  secondary: {},
   ghost: {
     color: "#38bdf8",
     background: "transparent",
@@ -58,15 +51,14 @@ const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
   outline: {
     border: "1px solid rgba(56, 189, 248, 0.20)",
     color: "#38bdf8",
-    borderRadius: "8px",
   },
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
-  md: "px-6 py-3 text-base rounded-xl gap-2",
-  lg: "px-8 py-4 text-lg rounded-2xl gap-2.5",
-  xl: "px-10 py-5 text-xl rounded-2xl gap-3",
+  sm: "px-4 py-2 text-sm rounded-full gap-1.5",
+  md: "px-6 py-3 text-base rounded-full gap-2",
+  lg: "px-8 py-4 text-lg rounded-full gap-2.5",
+  xl: "px-10 py-5 text-xl rounded-full gap-3",
 };
 
 const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
@@ -135,8 +127,8 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
           href={href}
           className={buttonClasses}
           style={inlineStyle}
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
           {content}
         </motion.a>
@@ -149,8 +141,8 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
         className={buttonClasses}
         style={inlineStyle}
         disabled={isDisabled}
-        whileHover={!isDisabled ? { y: -2 } : undefined}
-        whileTap={!isDisabled ? { scale: 0.98 } : undefined}
+        whileHover={!isDisabled ? { scale: 1.03 } : undefined}
+        whileTap={!isDisabled ? { scale: 0.97 } : undefined}
         {...props}
       >
         {content}

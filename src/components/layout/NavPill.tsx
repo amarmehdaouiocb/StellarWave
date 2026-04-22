@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const navTabs = [
   { id: "services", label: "Services" },
-  { id: "proof", label: "R\u00e9alisations" },
+  { id: "proof", label: "Réalisations" },
   { id: "process", label: "Process" },
   { id: "offers", label: "Offres" },
   { id: "contact", label: "Contact" },
@@ -19,12 +19,10 @@ interface NavPillProps {
 
 export function NavPill({ className }: NavPillProps) {
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-
       const sections = navTabs.map((tab) => ({
         id: tab.id,
         element: document.getElementById(tab.id),
@@ -51,7 +49,7 @@ export function NavPill({ className }: NavPillProps) {
     <motion.nav
       className={cn(
         "fixed top-8 left-1/2 -translate-x-1/2 z-50",
-        "hidden md:flex items-center gap-8",
+        "hidden md:flex items-center gap-1",
         className
       )}
       initial={{ opacity: 0, y: -16 }}
@@ -60,33 +58,67 @@ export function NavPill({ className }: NavPillProps) {
     >
       {navTabs.map((tab) => {
         const isActive = activeTab === tab.id;
+        const isHovered = hoveredTab === tab.id;
 
         return (
           <Link
             key={tab.id}
             href={`#${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
-            className="relative flex flex-col items-center gap-1.5 group"
+            onMouseEnter={() => setHoveredTab(tab.id)}
+            onMouseLeave={() => setHoveredTab(null)}
+            className="relative flex items-center justify-center px-4 py-1.5"
           >
+            {/* Active capsule — sky blue glass, slides between sections */}
+            {isActive && (
+              <motion.span
+                layoutId="nav-active-capsule"
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "rgba(56, 189, 248, 0.08)",
+                  backdropFilter: "blur(4px)",
+                  WebkitBackdropFilter: "blur(4px)",
+                  boxShadow:
+                    "0 0 0 1px rgba(56,189,248,0.32), inset 0 1px 0 rgba(56,189,248,0.22), 0 0 18px rgba(56,189,248,0.10)",
+                }}
+                transition={{ type: "spring", stiffness: 420, damping: 38 }}
+              />
+            )}
+
+            {/* Hover capsule — white glass, slides while hovering non-active items */}
+            {isHovered && !isActive && (
+              <motion.span
+                layoutId="nav-hover-capsule"
+                className="absolute inset-0 rounded-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  background: "rgba(255, 255, 255, 0.04)",
+                  backdropFilter: "blur(4px)",
+                  WebkitBackdropFilter: "blur(4px)",
+                  boxShadow:
+                    "0 0 0 1px rgba(255,255,255,0.13), inset 0 1px 0 rgba(255,255,255,0.10)",
+                }}
+                transition={{ type: "spring", stiffness: 420, damping: 38 }}
+              />
+            )}
+
             <span
-              className="text-base font-medium tracking-wide transition-opacity duration-200"
+              className="relative z-10 text-sm font-medium tracking-wide"
               style={{
-                color: isActive ? "#ffffff" : "rgba(255,255,255,0.5)",
+                color:
+                  isActive || isHovered
+                    ? "#ffffff"
+                    : "rgba(255,255,255,0.48)",
+                textShadow: isActive
+                  ? "0 0 18px rgba(56,189,248,0.50)"
+                  : "none",
+                transition: "color 0.18s ease, text-shadow 0.22s ease",
               }}
             >
               {tab.label}
             </span>
-            {isActive && (
-              <motion.span
-                layoutId="nav-dot"
-                className="block w-1 h-1 rounded-full"
-                style={{ background: "#38bdf8" }}
-                transition={{ type: "spring", stiffness: 400, damping: 35 }}
-              />
-            )}
-            {!isActive && (
-              <span className="block w-1 h-1 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-200" />
-            )}
           </Link>
         );
       })}

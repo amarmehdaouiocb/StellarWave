@@ -34,7 +34,7 @@ function PricingCard({
         className="h-full flex flex-col relative overflow-hidden"
         style={{
           background: isDark
-            ? "#283814"
+            ? "#0d1f42"
             : "#1e293b",
           borderRadius: "var(--card-radius-xl)",
           padding: "32px",
@@ -153,22 +153,9 @@ function PricingCard({
           {/* CTA Button */}
           <motion.a
             href="#contact"
-            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold text-sm rounded-xl transition-all duration-300"
-            style={
-              isDark
-                ? {
-                    background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
-                    color: "#000000",
-                    boxShadow: "0 8px 24px rgba(56, 189, 248, 0.35)",
-                  }
-                : {
-                    background: "transparent",
-                    color: "#ffffff",
-                    border: "2px solid #38bdf8",
-                  }
-            }
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+            className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold text-sm rounded-full transition-all duration-300 ${isDark ? "btn-liquid-primary" : "btn-liquid-secondary"}`}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
             {offer.cta}
             <ArrowRight className="h-4 w-4" />
