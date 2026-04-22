@@ -1,0 +1,55 @@
+{
+  "iteration": 3,
+  "focus": ["originality", "craft", "responsive"],
+  "strategy": "Transform generic SaaS template into distinctive premium dark site inspired by landonorris.com. Break monotony with asymmetric layouts, expressive typography, varied section backgrounds, and generous spacing.",
+  "changes": [
+    {
+      "file": "src/app/globals.css",
+      "action": "update",
+      "description": "Add section-specific spacing tokens, serif font import for expressive typography, gradient divider utilities, and ghost number styles. Increase section-padding to generous values (clamp 100-160px)."
+    },
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "action": "rewrite",
+      "description": "Make hero more editorial: right-aligned large ghost text, asymmetric layout with text on left 60% and decorative element on right. Add serif italic accent on 'qui'. Increase vertical breathing."
+    },
+    {
+      "file": "src/components/sections/Services.tsx",
+      "action": "rewrite",
+      "description": "Transform into true bento grid with dramatically varied sizes: 1 hero card (2x2), 2 medium cards, 2 small cards. Add ghost numbers behind each card. Section header with split serif/sans typography. Background #0e1018 for variation."
+    },
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "action": "rewrite",
+      "description": "Asymmetric 2-column layout: left side has big editorial stat highlight (one metric blown up huge), right side has remaining metrics + case studies stacked. Add gradient divider between sections. Background #08080c."
+    },
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "action": "rewrite",
+      "description": "Horizontal timeline with oversized step numbers as ghost elements. Cards connected by gradient line. Middle card elevated with amber accent. Background #0e1018. More generous spacing between cards."
+    },
+    {
+      "file": "src/components/sections/OffersWithFAQ.tsx",
+      "action": "update",
+      "description": "Increase spacing between pricing and FAQ. Add gradient divider. Popular card more visually distinct with glow ring. Background #08080c."
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "action": "update",
+      "description": "Add editorial left column with large quote/stat while form sits on right. Background #0e1018. Asymmetric 40/60 layout on desktop."
+    }
+  ],
+  "design_tokens": {
+    "section_spacing": "clamp(100px, 12vw, 160px)",
+    "bg_primary": "#08080c",
+    "bg_secondary": "#0e1018",
+    "card_bg": "#1a1a2e",
+    "card_border": "#2a2a45",
+    "text_primary": "#ffffff",
+    "text_body": "#d0d0d8",
+    "text_muted": "#8888a0",
+    "accent": "#f59e0b",
+    "accent_coral": "#ef6c4a",
+    "mobile_padding": "24px"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "iteration": 2,
+  "diagnosis": [
+    "Cards (#12121f) quasi invisibles sur fond (#08080c/#0c0c14) -- ecart de luminosite insuffisant",
+    "Bordures rgba(255,255,255,0.06) invisibles",
+    "Titres h2 partiellement en rgba(255,255,255,0.35) -- trop sombre",
+    "Body text #9898a8 trop sombre dans ProcessSimple, OffersWithFAQ, Contact",
+    "Sections alternees #0c0c14 trop proche de #08080c",
+    "Footer fond #06060a avec bordure rgba(255,255,255,0.04) invisible",
+    "Features tags sur cards avec fond rgba(255,255,255,0.04) et texte #9898a8 invisibles"
+  ],
+  "fixes": [
+    {
+      "file": "Services.tsx",
+      "changes": [
+        "Card background #12121f -> #1e1e30",
+        "Card border rgba(255,255,255,0.06) -> #333350",
+        "Feature tags fond rgba(255,255,255,0.04) -> rgba(255,255,255,0.08), texte #9898a8 -> #c8c8d0, border -> #333350",
+        "H2 thin text rgba(255,255,255,0.35) -> #a0a0b0",
+        "Body text #c8c8d0 -> #d0d0d8"
+      ]
+    },
+    {
+      "file": "Proof.tsx",
+      "changes": [
+        "Section background #0c0c14 -> #141420",
+        "Card backgrounds #12121f/#16162a -> #1e1e30/#252540",
+        "Card borders rgba(255,255,255,0.06) -> #333350",
+        "H2 thin text -> #a0a0b0",
+        "Dividers -> #2a2a40"
+      ]
+    },
+    {
+      "file": "ProcessSimple.tsx",
+      "changes": [
+        "Card backgrounds #12121f -> #1e1e30, accent gradient -> #252540 range",
+        "Card borders rgba(255,255,255,0.06) -> #333350",
+        "H2 thin text -> #a0a0b0",
+        "Body text #9898a8 -> #d0d0d8",
+        "Deliverables divider -> #2a2a40",
+        "Step number opacity boost"
+      ]
+    },
+    {
+      "file": "OffersWithFAQ.tsx",
+      "changes": [
+        "Section background #0c0c14 -> #141420",
+        "Card backgrounds #12121f -> #1e1e30, popular gradient -> #252540 range",
+        "Card borders -> #333350",
+        "FAQ backgrounds -> #1e1e30/#252540",
+        "FAQ borders -> #333350",
+        "H2 thin text -> #a0a0b0",
+        "Body text #9898a8 -> #d0d0d8",
+        "FAQ answer text #9898a8 -> #c8c8d0",
+        "Non-popular CTA border boost"
+      ]
+    },
+    {
+      "file": "Contact.tsx",
+      "changes": [
+        "Form card background #12121f -> #1e1e30",
+        "Form card border -> #333350",
+        "Body text #9898a8 -> #d0d0d8",
+        "Input backgrounds and borders boost",
+        "H2 thin text -> #a0a0b0"
+      ]
+    },
+    {
+      "file": "Footer.tsx",
+      "changes": [
+        "Footer background #06060a -> #0c0c14",
+        "Footer top border -> #2a2a40",
+        "Bottom divider -> #2a2a40",
+        "Body text #9898a8 -> #c8c8d0",
+        "Muted text #707088 -> #a0a0b0",
+        "Social icon borders -> #333350"
+      ]
+    },
+    {
+      "file": "Hero.tsx",
+      "changes": [
+        "Marquee border -> #2a2a40",
+        "Logo container borders -> #333350"
+      ]
+    }
+  ],
+  "color_palette": {
+    "bg_page": "#08080c",
+    "bg_alt_section": "#141420",
+    "bg_card": "#1e1e30",
+    "bg_card_highlighted": "#252540",
+    "text_heading": "#ffffff",
+    "text_body": "#d0d0d8",
+    "text_muted": "#a0a0b0",
+    "text_on_card": "#e0e0e8",
+    "border_card": "#333350",
+    "border_divider": "#2a2a40",
+    "accent_primary": "#f59e0b",
+    "accent_cta_text": "#000000"
+  }
+}

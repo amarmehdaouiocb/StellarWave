@@ -67,19 +67,9 @@ export function FinalCTA() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
               <motion.a
                 href={brand.calendlyUrl}
-                className="inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg"
-                style={{
-                  background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                  borderRadius: "16px",
-                  color: "white",
-                  boxShadow: "0 8px 24px rgba(59, 130, 246, 0.35)",
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  y: -2,
-                  boxShadow: "0 12px 32px rgba(59, 130, 246, 0.45)",
-                }}
-                whileTap={{ scale: 0.98 }}
+                className="btn-liquid-primary inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg rounded-full"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
                 <CalendarDots weight="duotone" className="h-5 w-5" />
                 Réserver un appel découverte
@@ -87,20 +77,9 @@ export function FinalCTA() {
 
               <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg"
-                style={{
-                  background: "rgba(255, 255, 255, 0.10)",
-                  backdropFilter: "blur(20px)",
-                  borderRadius: "16px",
-                  color: "white",
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  y: -2,
-                  background: "rgba(255, 255, 255, 0.15)",
-                }}
-                whileTap={{ scale: 0.98 }}
+                className="btn-liquid-secondary inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg rounded-full"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
                 <Envelope weight="duotone" className="h-5 w-5" />
                 Demander un devis

@@ -1,0 +1,48 @@
+{
+  "iteration": 7,
+  "goal": "Corriger la regression desktop 1440px (sections invisibles) introduite par l'iteration 6",
+  "diagnosis": {
+    "root_cause": "Combinaison de trois facteurs : (1) overflow-hidden sur les sections Proof et Contact empechait le rendu correct du contenu sur desktop, (2) overflow-x:hidden sur <main> creait un BFC implicite perturbant l'IntersectionObserver de Framer Motion, (3) le composant AnimatedSection mettait initial='hidden' (opacity:0) et le fallback CSS ne pouvait pas override les styles inline de Framer Motion",
+    "affected_breakpoint": "desktop 1440px uniquement",
+    "mobile_tablet_status": "fonctionnels avant correction"
+  },
+  "changes": [
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "action": "Retirer overflow-hidden de la section AnimatedSection + ajouter support prefers-reduced-motion sur AnimatedCounter",
+      "rationale": "overflow-hidden sur la section coupait le contenu; prefers-reduced-motion est une amelioration d'accessibilite"
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "action": "Retirer overflow-hidden de la section AnimatedSection",
+      "rationale": "overflow-hidden sur la section coupait le contenu sur desktop"
+    },
+    {
+      "file": "src/components/shared/AnimatedSection.tsx",
+      "action": "Ameliorer le mecanisme de fallback visibility : ajouter un IntersectionObserver natif en backup, utiliser initial='visible' quand forceVisible est actif, elargir le viewport margin a 100px",
+      "rationale": "Le whileInView de Framer Motion ne se declenchait pas de maniere fiable sur desktop; le double fallback (timer 2s + native IntersectionObserver) garantit la visibilite"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "action": "Remplacer overflow-x-hidden par overflow-x:clip sur <main>",
+      "rationale": "overflow-x:hidden cree un BFC implicite qui peut perturber l'IntersectionObserver; overflow-x:clip clip le debordement sans creer de BFC"
+    },
+    {
+      "file": "src/app/globals.css",
+      "action": "Ajouter transform:none!important et visibility:visible!important au fallback body.animations-ready",
+      "rationale": "Le fallback CSS doit aussi annuler les transforms Framer Motion (y: 30px) en plus de l'opacite"
+    }
+  ],
+  "preserved_from_iteration_6": [
+    "Compteurs animes (AnimatedCounter) dans Proof",
+    "Box-shadows profondes sur les cards",
+    "Watermarks oversized (RESULTATS, METHODE, TARIFS) avec pointer-events-none",
+    "Icones SVG custom dans la timeline ProcessSimple",
+    "Trust signals enrichis dans Contact",
+    "Gradient pulse subtil dans Contact"
+  ],
+  "verification": {
+    "desktop_1440": "Toutes les 7 sections visibles (Hero, Services, Proof, Process, Offers, Contact, Footer)",
+    "screenshot_validated": true
+  }
+}

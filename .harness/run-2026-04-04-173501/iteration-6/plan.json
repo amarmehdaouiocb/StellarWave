@@ -1,0 +1,61 @@
+{
+  "iteration": 6,
+  "goal": "Franchir le seuil de convergence 8.0 en injectant un element de rupture visuelle fort (galerie horizontale GSAP) et en affinant le rythme vertical des sections",
+  "target_score": 8.1,
+  "blocking_criterion": "originality (7.4 -> 8.0+)",
+  "changes": [
+    {
+      "id": "horizontal-gallery",
+      "type": "new_component",
+      "file": "src/components/sections/HorizontalGallery.tsx",
+      "description": "Section galerie horizontale pilotee par GSAP ScrollTrigger. Le scroll vertical deplace horizontalement 4 case studies. Pin + scrub. Fond #0d1400 distinct des sections adjacentes. Cards 500x400px avec titre, client, tag industrie, metrique resultat. Fallback headless: visibilite forcee apres 2s.",
+      "impact": {
+        "originality": "+0.8 — rupture de layout non-conventionnelle, signature visuelle forte",
+        "design_quality": "+0.2 — tension et surprise dans la composition",
+        "craft": "+0.1 — qualite du scroll horizontal, attention aux details des cards"
+      }
+    },
+    {
+      "id": "page-integration",
+      "type": "modify",
+      "file": "src/app/page.tsx",
+      "description": "Inserer HorizontalGallery entre Services et Proof. Supprimer le TypographicDivider (son role de rupture est repris par la galerie). Varier le spacing entre sections (140px / 180px en alternance au lieu de 160px uniforme).",
+      "impact": {
+        "design_quality": "+0.1 — rythme vertical plus dynamique",
+        "originality": "+0.1 — composition moins previsible"
+      }
+    },
+    {
+      "id": "section-index-export",
+      "type": "modify",
+      "file": "src/components/sections/index.ts",
+      "description": "Ajouter l'export de HorizontalGallery dans le barrel file.",
+      "impact": {}
+    },
+    {
+      "id": "spacing-variation",
+      "type": "modify",
+      "file": "src/app/globals.css",
+      "description": "Ajouter les classes utilitaires section-padding-tight (140px) et section-padding-loose (180px) pour varier le rythme vertical.",
+      "impact": {
+        "design_quality": "+0.1 — variation de rythme"
+      }
+    }
+  ],
+  "files_touched": [
+    "src/components/sections/HorizontalGallery.tsx",
+    "src/components/sections/index.ts",
+    "src/app/page.tsx",
+    "src/app/globals.css"
+  ],
+  "risks": [
+    "GSAP pin peut casser le layout des sections suivantes si mal configure — verifier via screenshot que Proof, ProcessSimple, OffersWithFAQ et Contact sont toujours visibles apres la galerie",
+    "overflow-x-hidden sur main pourrait interagir avec le pin — tester",
+    "Sur mobile 375px, la galerie horizontale doit etre desactivee (fallback vertical stack)"
+  ],
+  "verification": [
+    "Screenshot 1440px — toutes les sections visibles",
+    "Screenshot 375px — galerie en vertical stack, pas de scroll horizontal",
+    "Verifier que le pin ne cree pas de gap ou de chevauchement entre sections"
+  ]
+}

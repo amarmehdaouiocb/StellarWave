@@ -92,10 +92,10 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300",
               i + 1 === currentStep
-                ? "bg-[#3b82f6] text-white"
+                ? "bg-[#38bdf8] text-white"
                 : i + 1 < currentStep
                 ? "bg-[#22c55e] text-white"
-                : "bg-white/10 text-white/40"
+                : "bg-white/10 text-white/60"
             )}
           >
             {i + 1 < currentStep ? (
@@ -148,28 +148,28 @@ function PriceEstimate({
       exit={{ opacity: 0, y: -10 }}
       className="p-5 rounded-2xl mb-6"
       style={{
-        background: "rgba(59, 130, 246, 0.12)",
-        border: "1px solid rgba(59, 130, 246, 0.25)",
+        background: "rgba(56, 189, 248, 0.12)",
+        border: "1px solid rgba(56, 189, 248, 0.25)",
       }}
     >
       <div className="flex items-start gap-3">
         <div
           className="flex h-10 w-10 items-center justify-center rounded-xl flex-shrink-0"
-          style={{ background: "rgba(59, 130, 246, 0.25)" }}
+          style={{ background: "rgba(56, 189, 248, 0.25)" }}
         >
-          <CurrencyEur className="h-5 w-5 text-[#60a5fa]" weight="duotone" />
+          <CurrencyEur className="h-5 w-5 text-[#7dd3fc]" weight="duotone" />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-medium text-white/60 uppercase tracking-wider">
+            <span className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.75)" }}>
               Estimation indicative
             </span>
-            <Info className="h-3.5 w-3.5 text-white/40" />
+            <Info className="h-3.5 w-3.5 text-white/55" />
           </div>
           <div className="text-xl font-bold text-white mb-1">
             {formatPrice(estimate.min)} – {formatPrice(estimate.max)}
           </div>
-          <p className="text-xs text-white/50">
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.70)" }}>
             {estimate.label} • Prix final après étude détaillée
           </p>
         </div>
@@ -197,12 +197,12 @@ function ProjectTypeCard({
       className={cn(
         "relative flex flex-col items-center gap-3 p-5 rounded-2xl text-center transition-all duration-300 cursor-pointer",
         isSelected
-          ? "ring-2 ring-[#3b82f6]"
+          ? "ring-2 ring-[#38bdf8]"
           : "hover:bg-white/5"
       )}
       style={{
-        background: isSelected ? "rgba(59, 130, 246, 0.15)" : "rgba(255, 255, 255, 0.05)",
-        border: isSelected ? "1px solid rgba(59, 130, 246, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
+        background: isSelected ? "rgba(56, 189, 248, 0.15)" : "rgba(255, 255, 255, 0.05)",
+        border: isSelected ? "1px solid rgba(56, 189, 248, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
       }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
@@ -213,17 +213,17 @@ function ProjectTypeCard({
           animate={{ scale: 1 }}
           className="absolute top-3 right-3"
         >
-          <CheckCircle className="h-5 w-5 text-[#3b82f6]" weight="fill" />
+          <CheckCircle className="h-5 w-5 text-[#38bdf8]" weight="fill" />
         </motion.div>
       )}
       <div
         className="flex h-12 w-12 items-center justify-center rounded-xl"
         style={{
-          background: isSelected ? "rgba(59, 130, 246, 0.25)" : "rgba(255, 255, 255, 0.08)",
+          background: isSelected ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
         }}
       >
         <Icon
-          className={cn("h-6 w-6", isSelected ? "text-[#60a5fa]" : "text-white/60")}
+          className={cn("h-6 w-6", isSelected ? "text-[#7dd3fc]" : "text-white/70")}
           weight="duotone"
         />
       </div>
@@ -257,22 +257,22 @@ function SelectionCard({
       onClick={onSelect}
       className={cn(
         "relative flex items-center gap-3 p-4 rounded-xl transition-all duration-300 cursor-pointer w-full text-left",
-        isSelected ? "ring-2 ring-[#3b82f6]" : "hover:bg-white/5"
+        isSelected ? "ring-2 ring-[#38bdf8]" : "hover:bg-white/5"
       )}
       style={{
-        background: isSelected ? "rgba(59, 130, 246, 0.12)" : "rgba(255, 255, 255, 0.05)",
-        border: isSelected ? "1px solid rgba(59, 130, 246, 0.35)" : "1px solid rgba(255, 255, 255, 0.08)",
+        background: isSelected ? "rgba(56, 189, 248, 0.12)" : "rgba(255, 255, 255, 0.05)",
+        border: isSelected ? "1px solid rgba(56, 189, 248, 0.35)" : "1px solid rgba(255, 255, 255, 0.08)",
       }}
       whileTap={{ scale: 0.98 }}
     >
       <div
         className="flex h-9 w-9 items-center justify-center rounded-lg flex-shrink-0"
         style={{
-          background: isSelected ? "rgba(59, 130, 246, 0.25)" : "rgba(255, 255, 255, 0.08)",
+          background: isSelected ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
         }}
       >
         <Icon
-          className={cn("h-4 w-4", isSelected ? "text-[#60a5fa]" : "text-white/50")}
+          className={cn("h-4 w-4", isSelected ? "text-[#7dd3fc]" : "text-white/70")}
           weight="duotone"
         />
       </div>
@@ -285,7 +285,7 @@ function SelectionCard({
         {option.label}
       </span>
       {isSelected && (
-        <CheckCircle className="h-5 w-5 text-[#3b82f6]" weight="fill" />
+        <CheckCircle className="h-5 w-5 text-[#38bdf8]" weight="fill" />
       )}
     </motion.button>
   );
@@ -381,7 +381,7 @@ export function Contact() {
     <AnimatedSection
       id="contact"
       className="section-padding relative overflow-hidden"
-      style={{ backgroundColor: "var(--apple-bg)" }}
+      style={{ backgroundColor: "#020617" }}
     >
       <div className="container-wide">
         {/* Header */}
@@ -399,11 +399,11 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              background: "rgba(255, 255, 255, 0.80)",
+              background: "rgba(56, 189, 248, 0.06)",
               backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.60)",
+              border: "1px solid rgba(56, 189, 248, 0.12)",
               boxShadow: "var(--shadow-apple-sm)",
-              color: "rgba(17, 17, 17, 0.6)",
+              color: "var(--text-body)",
             }}
           >
             Demander un devis
@@ -418,12 +418,21 @@ export function Contact() {
               letterSpacing: "-0.03em",
             }}
           >
-            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Parlons de </span>
-            <span style={{ color: "#111111", fontWeight: 600 }}>votre projet</span>
+            <span style={{ color: "var(--text-muted)" }}>Parlons de </span>
+            <span style={{ color: "#ffffff", fontWeight: 600 }}>votre projet</span>
           </h2>
+          {/* Lime accent line — editorial separator */}
+          <div
+            style={{
+              width: "80px",
+              height: "2px",
+              background: "linear-gradient(90deg, transparent 0%, #38bdf8 50%, transparent 100%)",
+              margin: "24px auto",
+            }}
+          />
           <p
             className="text-lg leading-relaxed"
-            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+            style={{ color: "var(--text-body)" }}
           >
             Réponse sous 24h • Premier appel gratuit • Sans engagement
           </p>
@@ -440,9 +449,9 @@ export function Contact() {
           <div
             className="relative overflow-hidden p-8 md:p-10"
             style={{
-              background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+              background: "#1e293b",
               borderRadius: "var(--card-radius-2xl)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(56, 189, 248, 0.15)",
               boxShadow: "var(--shadow-apple-xl)",
             }}
           >
@@ -451,7 +460,7 @@ export function Contact() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 borderRadius: "inherit",
-                background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 60%)",
+                background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 60%)",
               }}
             />
 
@@ -480,14 +489,9 @@ export function Contact() {
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <motion.a
                       href={brand.calendlyUrl}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
-                      style={{
-                        background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                        color: "white",
-                        boxShadow: "0 8px 24px rgba(59, 130, 246, 0.35)",
-                      }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      className="btn-liquid-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       <Lightning className="h-4 w-4" weight="fill" />
                       Réserver un appel maintenant
@@ -511,7 +515,7 @@ export function Contact() {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           Quel type de projet ?
                         </h3>
-                        <p className="text-white/60 text-sm mb-6">
+                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
                           Sélectionnez le type de projet qui correspond le mieux à votre besoin
                         </p>
 
@@ -546,7 +550,7 @@ export function Contact() {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           Budget et délais
                         </h3>
-                        <p className="text-white/60 text-sm mb-6">
+                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
                           Aidez-nous à calibrer notre proposition
                         </p>
 
@@ -616,7 +620,7 @@ export function Contact() {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           Vos coordonnées
                         </h3>
-                        <p className="text-white/60 text-sm mb-6">
+                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
                           Pour vous recontacter et préparer notre échange
                         </p>
 
@@ -626,11 +630,11 @@ export function Contact() {
                               Prénom *
                             </Label>
                             <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                               <Input
                                 id="firstName"
                                 placeholder="Jean"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                                 {...register("firstName")}
                               />
                             </div>
@@ -646,11 +650,11 @@ export function Contact() {
                               Nom *
                             </Label>
                             <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                               <Input
                                 id="lastName"
                                 placeholder="Dupont"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                                 {...register("lastName")}
                               />
                             </div>
@@ -667,12 +671,12 @@ export function Contact() {
                             Email professionnel *
                           </Label>
                           <div className="relative">
-                            <Envelope className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                            <Envelope className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                             <Input
                               id="email"
                               type="email"
                               placeholder="jean@entreprise.com"
-                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                               {...register("email")}
                             />
                           </div>
@@ -689,12 +693,12 @@ export function Contact() {
                               Téléphone
                             </Label>
                             <div className="relative">
-                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                               <Input
                                 id="phone"
                                 type="tel"
                                 placeholder="+33 6 00 00 00 00"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                                 {...register("phone")}
                               />
                             </div>
@@ -705,11 +709,11 @@ export function Contact() {
                               Entreprise
                             </Label>
                             <div className="relative">
-                              <Buildings className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                              <Buildings className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                               <Input
                                 id="company"
                                 placeholder="Acme Inc."
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                                 {...register("company")}
                               />
                             </div>
@@ -730,7 +734,7 @@ export function Contact() {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           Décrivez votre projet
                         </h3>
-                        <p className="text-white/60 text-sm mb-6">
+                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
                           Plus vous êtes précis, plus notre réponse sera pertinente
                         </p>
 
@@ -739,11 +743,11 @@ export function Contact() {
                             Description du projet *
                           </Label>
                           <div className="relative">
-                            <ChatText className="absolute left-3 top-3 h-4 w-4 text-white/40" />
+                            <ChatText className="absolute left-3 top-3 h-4 w-4 text-white/55" />
                             <Textarea
                               id="description"
                               placeholder="Décrivez votre projet : objectifs, fonctionnalités souhaitées, cible utilisateur..."
-                              className="pl-10 min-h-[120px] bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                              className="pl-10 min-h-[120px] bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                               {...register("description")}
                             />
                           </div>
@@ -759,12 +763,12 @@ export function Contact() {
                             Site existant (optionnel)
                           </Label>
                           <div className="relative">
-                            <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+                            <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
                             <Input
                               id="existingUrl"
                               type="url"
                               placeholder="https://votre-site-actuel.com"
-                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:border-[#3b82f6] focus:ring-[#3b82f6]/20"
+                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
                               {...register("existingUrl")}
                             />
                           </div>
@@ -776,12 +780,12 @@ export function Contact() {
                           </Label>
                           <select
                             id="referralSource"
-                            className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/15 text-white focus:border-[#3b82f6] focus:ring-[#3b82f6]/20 focus:outline-none"
+                            className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/15 text-white focus:border-[#38bdf8] focus:ring-[#38bdf8]/20 focus:outline-none"
                             {...register("referralSource")}
                           >
-                            <option value="" className="bg-[#1a1a2e]">Sélectionner...</option>
+                            <option value="" className="bg-[#1e293b]">Sélectionner...</option>
                             {referralSourceOptions.map((option) => (
-                              <option key={option.value} value={option.value} className="bg-[#1a1a2e]">
+                              <option key={option.value} value={option.value} className="bg-[#1e293b]">
                                 {option.label}
                               </option>
                             ))}
@@ -793,10 +797,10 @@ export function Contact() {
                           <input
                             type="checkbox"
                             id="consent"
-                            className="mt-1 h-4 w-4 rounded border-white/15 bg-white/10 text-[#3b82f6] focus:ring-[#3b82f6]/20"
+                            className="mt-1 h-4 w-4 rounded border-white/15 bg-white/10 text-[#38bdf8] focus:ring-[#38bdf8]/20"
                             {...register("consent")}
                           />
-                          <label htmlFor="consent" className="text-sm text-white/60">
+                          <label htmlFor="consent" className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
                             J'accepte que mes données soient utilisées pour traiter ma demande et recevoir des communications de {brand.name}. *
                           </label>
                         </div>
@@ -844,14 +848,9 @@ export function Contact() {
                       <motion.button
                         type="button"
                         onClick={nextStep}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
-                        style={{
-                          background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                          color: "white",
-                          boxShadow: "0 8px 24px rgba(59, 130, 246, 0.35)",
-                        }}
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         Continuer
                         <ArrowRight className="h-4 w-4" />
@@ -860,14 +859,9 @@ export function Contact() {
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm disabled:opacity-70"
-                        style={{
-                          background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                          color: "white",
-                          boxShadow: "0 8px 24px rgba(59, 130, 246, 0.35)",
-                        }}
-                        whileHover={{ scale: 1.02, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm disabled:opacity-70"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         <PaperPlaneTilt className="h-4 w-4" weight="duotone" />
                         {isSubmitting ? "Envoi..." : "Envoyer ma demande"}

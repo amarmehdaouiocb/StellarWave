@@ -34,13 +34,13 @@ function PricingCard({
         className="h-full flex flex-col relative overflow-hidden"
         style={{
           background: isDark
-            ? "linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)"
-            : "white",
+            ? "#0d1f42"
+            : "#1e293b",
           borderRadius: "var(--card-radius-xl)",
           padding: "32px",
           border: isDark
-            ? "1px solid rgba(255, 255, 255, 0.08)"
-            : "1px solid rgba(255, 255, 255, 0.40)",
+            ? "1px solid rgba(56, 189, 248, 0.25)"
+            : "1px solid rgba(56, 189, 248, 0.15)",
           boxShadow: isDark
             ? "var(--shadow-apple-xl)"
             : "var(--shadow-apple-lg)",
@@ -52,7 +52,7 @@ function PricingCard({
             className="absolute inset-0 pointer-events-none"
             style={{
               borderRadius: "inherit",
-              background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 60%)",
+              background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 60%)",
             }}
           />
         )}
@@ -68,8 +68,8 @@ function PricingCard({
             <span
               className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-b-xl text-xs font-semibold text-white"
               style={{
-                background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                boxShadow: "0 4px 16px rgba(59, 130, 246, 0.35)",
+                background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
+                boxShadow: "0 4px 16px rgba(56, 189, 248, 0.35)",
               }}
             >
               <Sparkle className="h-3 w-3" weight="fill" />
@@ -86,15 +86,15 @@ function PricingCard({
               className="flex h-12 w-12 items-center justify-center rounded-xl"
               style={{
                 background: isDark
-                  ? "rgba(59, 130, 246, 0.20)"
-                  : "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+                  ? "rgba(56, 189, 248, 0.20)"
+                  : "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
               }}
             >
               <Icon className="h-6 w-6 text-white" weight="duotone" />
             </div>
             <h3
               className="text-xl font-semibold"
-              style={{ color: isDark ? "white" : "#111111" }}
+              style={{ color: "#ffffff" }}
             >
               {offer.name}
             </h3>
@@ -103,7 +103,7 @@ function PricingCard({
           {/* Description */}
           <p
             className="text-sm mb-5 leading-relaxed"
-            style={{ color: isDark ? "rgba(255,255,255,0.7)" : "rgba(17,17,17,0.6)" }}
+            style={{ color: isDark ? "rgba(255,255,255,0.75)" : "#cbd5e1" }}
           >
             {offer.description}
           </p>
@@ -113,8 +113,8 @@ function PricingCard({
             className="text-2xl font-bold mb-6"
             style={{
               backgroundImage: isDark
-                ? "linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)"
-                : "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+                ? "linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%)"
+                : "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -129,19 +129,19 @@ function PricingCard({
               <li
                 key={featureIndex}
                 className="flex items-start gap-2.5 text-sm"
-                style={{ color: isDark ? "rgba(255,255,255,0.8)" : "rgba(17,17,17,0.6)" }}
+                style={{ color: isDark ? "rgba(255,255,255,0.85)" : "#cbd5e1" }}
               >
                 <div
                   className="flex h-5 w-5 items-center justify-center rounded-full flex-shrink-0 mt-0.5"
                   style={{
                     background: isDark
-                      ? "rgba(59, 130, 246, 0.25)"
-                      : "rgba(59, 130, 246, 0.12)",
+                      ? "rgba(56, 189, 248, 0.25)"
+                      : "rgba(56, 189, 248, 0.12)",
                   }}
                 >
                   <Check
                     className="h-3 w-3"
-                    style={{ color: isDark ? "rgba(59, 130, 246, 0.9)" : "#3b82f6" }}
+                    style={{ color: isDark ? "rgba(56, 189, 248, 0.9)" : "#38bdf8" }}
                     weight="bold"
                   />
                 </div>
@@ -153,22 +153,9 @@ function PricingCard({
           {/* CTA Button */}
           <motion.a
             href="#contact"
-            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold text-sm rounded-xl transition-all duration-300"
-            style={
-              isDark
-                ? {
-                    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                    color: "white",
-                    boxShadow: "0 8px 24px rgba(59, 130, 246, 0.35)",
-                  }
-                : {
-                    background: "rgba(59, 130, 246, 0.08)",
-                    color: "#3b82f6",
-                    border: "1px solid rgba(59, 130, 246, 0.15)",
-                  }
-            }
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+            className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold text-sm rounded-full transition-all duration-300 ${isDark ? "btn-liquid-primary" : "btn-liquid-secondary"}`}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
             {offer.cta}
             <ArrowRight className="h-4 w-4" />
@@ -195,11 +182,11 @@ function FAQItemCompact({
     <div
       className="overflow-hidden transition-all duration-300"
       style={{
-        background: "white",
+        background: "#1e293b",
         borderRadius: "var(--card-radius-lg)",
         border: isOpen
-          ? "1px solid rgba(59, 130, 246, 0.25)"
-          : "1px solid rgba(17, 17, 17, 0.08)",
+          ? "1px solid rgba(56, 189, 248, 0.30)"
+          : "1px solid rgba(56, 189, 248, 0.15)",
       }}
     >
       <button
@@ -208,15 +195,15 @@ function FAQItemCompact({
       >
         <span
           className="flex-1 text-sm font-medium"
-          style={{ color: isOpen ? "#3b82f6" : "#111111" }}
+          style={{ color: isOpen ? "#38bdf8" : "#ffffff" }}
         >
           {faq.question}
         </span>
         <motion.div
           className="flex h-6 w-6 items-center justify-center rounded-full flex-shrink-0"
           style={{
-            background: isOpen ? "rgba(59, 130, 246, 0.12)" : "rgba(17, 17, 17, 0.04)",
-            color: isOpen ? "#3b82f6" : "rgba(17, 17, 17, 0.4)",
+            background: isOpen ? "rgba(56, 189, 248, 0.12)" : "rgba(17, 17, 17, 0.04)",
+            color: isOpen ? "#38bdf8" : "var(--text-muted)",
           }}
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -240,7 +227,7 @@ function FAQItemCompact({
             <div className="px-5 pb-4">
               <p
                 className="text-sm leading-relaxed"
-                style={{ color: "rgba(17, 17, 17, 0.6)" }}
+                style={{ color: "var(--text-body)" }}
               >
                 {faq.answer}
               </p>
@@ -260,8 +247,8 @@ export function OffersWithFAQ() {
   return (
     <AnimatedSection
       id="offers"
-      className="section-padding"
-      style={{ backgroundColor: "var(--apple-bg)" }}
+      className="section-padding-loose"
+      style={{ backgroundColor: "#020617" }}
     >
       <div className="container-wide">
         {/* Header */}
@@ -279,11 +266,11 @@ export function OffersWithFAQ() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easings.smooth }}
             style={{
-              background: "rgba(255, 255, 255, 0.80)",
+              background: "rgba(56, 189, 248, 0.06)",
               backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.60)",
+              border: "1px solid rgba(56, 189, 248, 0.12)",
               boxShadow: "var(--shadow-apple-sm)",
-              color: "rgba(17, 17, 17, 0.6)",
+              color: "var(--text-body)",
             }}
           >
             Tarifs transparents
@@ -298,12 +285,21 @@ export function OffersWithFAQ() {
               letterSpacing: "-0.03em",
             }}
           >
-            <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Des offres </span>
-            <span style={{ color: "#111111", fontWeight: 600 }}>sans surprise</span>
+            <span style={{ color: "var(--text-muted)" }}>Des offres </span>
+            <span style={{ color: "#ffffff", fontWeight: 600 }}>sans surprise</span>
           </h2>
+          {/* Lime accent line — editorial separator */}
+          <div
+            style={{
+              width: "80px",
+              height: "2px",
+              background: "linear-gradient(90deg, transparent 0%, #38bdf8 50%, transparent 100%)",
+              margin: "24px auto",
+            }}
+          />
           <p
             className="text-lg leading-relaxed"
-            style={{ color: "rgba(17, 17, 17, 0.6)" }}
+            style={{ color: "var(--text-body)" }}
           >
             Choisissez la formule adaptée à votre projet. Prix fixe, livraison garantie.
           </p>
@@ -333,13 +329,13 @@ export function OffersWithFAQ() {
           <div className="text-center mb-10">
             <h3
               className="text-2xl font-semibold mb-2"
-              style={{ color: "#111111" }}
+              style={{ color: "#ffffff" }}
             >
               Questions fréquentes
             </h3>
             <p
               className="text-sm"
-              style={{ color: "rgba(17, 17, 17, 0.6)" }}
+              style={{ color: "var(--text-body)" }}
             >
               Tout ce que vous devez savoir avant de démarrer
             </p>
@@ -360,7 +356,7 @@ export function OffersWithFAQ() {
           {/* More questions link */}
           <motion.p
             className="text-center mt-6 text-sm"
-            style={{ color: "rgba(17, 17, 17, 0.5)" }}
+            style={{ color: "var(--text-muted)" }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -370,7 +366,7 @@ export function OffersWithFAQ() {
             <a
               href="#contact"
               className="font-medium hover:underline"
-              style={{ color: "#3b82f6" }}
+              style={{ color: "#38bdf8" }}
             >
               Contactez-nous
             </a>

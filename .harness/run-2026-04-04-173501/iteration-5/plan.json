@@ -1,0 +1,293 @@
+{
+  "iteration": 5,
+  "previous_score": 7.69,
+  "target_score": 8.0,
+  "progression": "4.43 -> 7.29 -> 7.50 -> 7.69 -> ?",
+  "diagnosis": "Score 7.69 bloque par ACCESSIBILITE (6.8 — le verrou), ORIGINALITE (7.5 — graphiques trop subtils), et CRAFT (7.6 — asymetrie pas assez marquee). L'accessibilite est le levier critique : +1.2 pts a gagner. Les textes secondaires utilisant text-white/40, text-white/50, text-white/60, et rgba(255,255,255,0.4) echouent au ratio WCAG AA sur fond #0a0f00 et #1e2a12. Les elements graphiques (ligne diagonale, METHODE divider) sont quasi-invisibles.",
+  "strategy": "3 leviers chirurgicaux. (1) ACCESSIBILITE : audit exhaustif et correction de TOUTES les couleurs de texte sous-contrastees — le gain le plus important (+1.2 pts). (2) ORIGINALITE : renforcer drastiquement les elements graphiques decoratifs — ligne diagonale, cercle, trait lime inter-sections. (3) CRAFT : amplifier le +118%, renforcer le divider METHODE, accentuer l'asymetrie bento.",
+  "changes": [
+    {
+      "id": "C1",
+      "priority": "P0",
+      "target_criterion": "accessibility",
+      "title": "ACCESSIBILITE — Audit et correction exhaustive des contrastes de texte",
+      "description": "Le fond #0a0f00 est tres sombre. Pour atteindre WCAG AA (4.5:1 body text, 3:1 large text), il faut un minimum de #8a8f78 pour le large text et #b3b8a0 pour le body text. Correction fichier par fichier de TOUTES les couleurs non conformes.",
+      "sub_changes": [
+        {
+          "file": "src/app/globals.css",
+          "changes": [
+            {
+              "what": "dot-grid-bg opacity 0.03 -> 0.07",
+              "old": "opacity: 0.03;",
+              "new": "opacity: 0.07;",
+              "rationale": "L'evaluator dit que le dot grid est invisible. 0.07 le rend perceptible comme texture sans distraire."
+            }
+          ]
+        },
+        {
+          "file": "src/components/sections/Hero.tsx",
+          "changes": [
+            {
+              "what": "Hero 'digital' color rgba(255,255,255,0.4) -> rgba(255,255,255,0.55)",
+              "old": "color: \"rgba(255, 255, 255, 0.4)\"",
+              "new": "color: \"rgba(255, 255, 255, 0.55)\"",
+              "rationale": "Large text (>24px) sur fond #0a0f00 : ratio passe de 3.7:1 a 5.5:1 (depasse le seuil AA de 3:1 et meme AAA). Le mot reste visuellement dimmed mais lisible."
+            },
+            {
+              "what": "Scroll indicator color rgba(210,255,0,0.4) -> rgba(210,255,0,0.6)",
+              "old": "color: \"rgba(210, 255, 0, 0.4)\"",
+              "new": "color: \"rgba(210, 255, 0, 0.6)\"",
+              "rationale": "Icone decouverte plus visible."
+            },
+            {
+              "what": "Diagonal line — epaisseur 3px, opacity 0.5",
+              "old": "background: \"linear-gradient(135deg, transparent 0%, transparent 49.5%, rgba(210, 255, 0, 0.15) 49.5%, rgba(210, 255, 0, 0.15) 50.5%, transparent 50.5%, transparent 100%)\"",
+              "new": "Remplacer par un vrai element DIV positionne en absolute. width: 3px, height: 140%, rotation: -35deg, background: rgba(210,255,0,0.4). Deborde du hero volontairement.",
+              "rationale": "L'evaluator dit explicitement : 'la ligne diagonale est a peine visible'. Passer de gradient 0.15 a un DIV solide 0.4 la rend structurante."
+            }
+          ]
+        },
+        {
+          "file": "src/components/sections/Contact.tsx",
+          "changes": [
+            {
+              "what": "text-white/60 -> text-white/75 sur les descriptions de step (p tags 'Selectionnez...', 'Aidez-nous...', etc.)",
+              "find": "text-white/60",
+              "replace": "rgba(255,255,255,0.75) via style prop",
+              "rationale": "Small text sur fond #1e2a12 : ratio passe de 2.6:1 (FAIL) a 4.8:1 (PASS AA). 5 occurrences dans Contact.tsx."
+            },
+            {
+              "what": "text-white/50 (estimation) -> text-white/70",
+              "find": "text-xs text-white/50",
+              "replace": "text-xs style={{ color: 'rgba(255,255,255,0.70)' }}",
+              "rationale": "Small text 'Prix final apres etude' : ratio passe de 3.2:1 (FAIL) a 4.5:1 (PASS AA)."
+            },
+            {
+              "what": "text-white/40 (icons placeholder) -> text-white/55",
+              "find": "text-white/40",
+              "replace": "style={{ color: 'rgba(255,255,255,0.55)' }}",
+              "rationale": "Icones dans les inputs : non-text, mais ameliore la visibilite. 8+ occurrences."
+            },
+            {
+              "what": "text-white/60 (consent label) -> text-white/75",
+              "find": "text-sm text-white/60",
+              "replace": "text-sm style={{ color: 'rgba(255,255,255,0.75)' }}",
+              "rationale": "Texte de consentement petit : doit passer AA."
+            },
+            {
+              "what": "Estimation indicative text-white/60 -> text-white/75",
+              "find": "text-xs font-medium text-white/60",
+              "replace": "text-xs font-medium style={{ color: 'rgba(255,255,255,0.75)' }}",
+              "rationale": "Label 'Estimation indicative' micro-texte."
+            }
+          ]
+        },
+        {
+          "file": "src/components/sections/OffersWithFAQ.tsx",
+          "changes": [
+            {
+              "what": "Badge 'Tarifs transparents' color: var(--text-body) est OK (#d0d8c0), pas de changement",
+              "rationale": "Verification : ratio ~11:1 sur fond #0a0f00 — conforme."
+            },
+            {
+              "what": "Description offres non-dark cards: #d0d8c0 est OK",
+              "rationale": "Verification : ratio ~7.4:1 sur fond #1e2a12 — conforme."
+            },
+            {
+              "what": "FAQ answer text color: var(--text-body) est OK",
+              "rationale": "Verification confirmee."
+            }
+          ]
+        },
+        {
+          "file": "src/components/sections/ProcessSimple.tsx",
+          "changes": [
+            {
+              "what": "Step numbers opacity — isHighlighted rgba(210,255,0,0.10) et non-highlighted 0.05 sont decoratifs, pas du texte — pas de changement",
+              "rationale": "Elements decoratifs, pas informationnels. Conforme."
+            },
+            {
+              "what": "Livrables deliverables text color: var(--text-body) est OK",
+              "rationale": "Ratio ~7.4:1 sur fond #1e2a12. Conforme."
+            }
+          ]
+        },
+        {
+          "file": "src/components/layout/NavPill.tsx",
+          "changes": [
+            {
+              "what": "Inactive nav items color: var(--text-muted) = #b8c4a8 est OK",
+              "rationale": "Ratio ~8.5:1 sur fond rgba(10,15,0,0.80). Conforme pour nav items (large text equivalent en contexte interactif)."
+            }
+          ]
+        },
+        {
+          "file": "src/components/layout/Footer.tsx",
+          "changes": [
+            {
+              "what": "Footer body links color: var(--text-body) est OK sur fond #070a00 (~12:1)",
+              "rationale": "Conforme."
+            },
+            {
+              "what": "Footer muted text color: var(--text-muted) est OK sur fond #070a00 (~9.5:1)",
+              "rationale": "Conforme."
+            },
+            {
+              "what": "Footer social icons color: var(--text-muted) non-text decoratif, OK",
+              "rationale": "Conforme comme decoratif."
+            }
+          ]
+        }
+      ],
+      "summary_fixes_needed": {
+        "Hero.tsx": "2 corrections (digital, scroll indicator) + 1 refactor (ligne diagonale)",
+        "Contact.tsx": "~15 corrections (text-white/40, /50, /60 partout)",
+        "globals.css": "1 correction (dot-grid opacity)",
+        "Services.tsx": "0 corrections (var(--text-body) et var(--text-muted) conformes)",
+        "Proof.tsx": "0 corrections (idem)",
+        "ProcessSimple.tsx": "0 corrections (idem)",
+        "OffersWithFAQ.tsx": "0 corrections",
+        "Footer.tsx": "0 corrections",
+        "NavPill.tsx": "0 corrections"
+      },
+      "files": [
+        "src/components/sections/Hero.tsx",
+        "src/components/sections/Contact.tsx",
+        "src/app/globals.css"
+      ],
+      "expected_impact": "+1.2 accessibility (6.8 -> 8.0)"
+    },
+    {
+      "id": "C2",
+      "priority": "P0",
+      "target_criterion": "originality",
+      "title": "ORIGINALITE — Elements graphiques nettement plus forts",
+      "description": "L'evaluator dit que la ligne diagonale et le cercle decoratif sont trop subtils. 3 interventions pour passer de 'a peine visible' a 'element de design a part entiere'.",
+      "sub_changes": [
+        {
+          "element": "Hero — ligne diagonale refaite (voir C1)",
+          "implementation": "DIV absolu, width 3px, height 140%, rotate(-35deg), background rgba(210,255,0,0.4). Position: top -20%, left 60%. Le debordement cree un effet editorial. Sur mobile (<768px), hide via hidden md:block car elle prend trop de place.",
+          "rationale": "La version gradient 0.15 est invisible. Un vrai element 3px a 0.4 est clairement visible sans dominer."
+        },
+        {
+          "element": "Proof — cercle decoratif derriere +118%",
+          "implementation": "DIV absolu 300px x 300px, border 2px solid rgba(210,255,0,0.25), border-radius 50%. Position: centre vertical du chiffre, decale de 30% a droite. z-index -1 par rapport au texte. Le cercle est vide — pur element graphique.",
+          "rationale": "Le chiffre geant est le meilleur moment visuel de la page. L'encadrer avec un cercle 300px + border 2px amplifie son impact. A 0.25 opacity il est clairement visible sans etre agressif."
+        },
+        {
+          "element": "Trait lime horizontal entre titre et contenu de CHAQUE section",
+          "implementation": "Ajouter un <div> apres chaque <h2> de section : height 2px, width 80px, background linear-gradient(90deg, #d2ff00 0%, transparent 100%). Marge : mt-8 mb-12. Fichiers concernes : Services.tsx, Proof.tsx, ProcessSimple.tsx, OffersWithFAQ.tsx, Contact.tsx.",
+          "rationale": "L'evaluator recommande 'un gradient lime de 3-4px entre sections'. Plutot qu'entre sections (deja fait avec les lignes), ajouter un accent lime SOUS chaque titre de section cree un pattern repetitif qui structure la page."
+        }
+      ],
+      "files": [
+        "src/components/sections/Hero.tsx",
+        "src/components/sections/Proof.tsx",
+        "src/components/sections/Services.tsx",
+        "src/components/sections/ProcessSimple.tsx",
+        "src/components/sections/OffersWithFAQ.tsx",
+        "src/components/sections/Contact.tsx"
+      ],
+      "expected_impact": "+0.5 originality (7.5 -> 8.0)"
+    },
+    {
+      "id": "C3",
+      "priority": "P0",
+      "target_criterion": "craft",
+      "title": "CRAFT — Amplifier les elements forts existants",
+      "description": "3 amplifications pour consolider le craft a 8.0.",
+      "sub_changes": [
+        {
+          "element": "+118% — taille encore plus grande",
+          "current": "fontSize: clamp(6rem, 15vw, 10rem)",
+          "new": "fontSize: clamp(6rem, 18vw, 14rem)",
+          "file": "src/components/sections/Proof.tsx",
+          "rationale": "L'evaluator dit que c'est le meilleur element de la page. L'agrandir encore le rend plus spectaculaire. De 10rem max a 14rem max."
+        },
+        {
+          "element": "METHODE. divider — opacity 0.15 -> 0.25 + ligne lime sous le texte",
+          "current": "color: rgba(210,255,0,0.15)",
+          "new": "color: rgba(210,255,0,0.25). Ajouter un div height 2px, width 40%, margin auto, background linear-gradient(90deg, transparent, rgba(210,255,0,0.2), transparent) en dessous.",
+          "file": "src/app/page.tsx",
+          "rationale": "A 0.15 le texte est quasi-fantome. A 0.25 il est perceptible comme element structurant. La ligne lime en dessous l'ancre visuellement."
+        },
+        {
+          "element": "Bento grid Services — renforcer l'asymetrie visuelle avec grid-cols-12",
+          "current": "grid grid-cols-1 md:grid-cols-3 gap-6, card 1 = col-span-2",
+          "new": "grid grid-cols-1 md:grid-cols-12 gap-6. Card 1 = md:col-span-7 md:row-span-2. Cards 2+3 = md:col-span-5 empilees. Card 1 padding 56px, min-height 400px. Cards 2+3 gardent 36px padding.",
+          "file": "src/components/sections/Services.tsx",
+          "rationale": "L'evaluator dit que l'asymetrie 2/3 + 1/3 est trop subtile. En passant a 7/12 + 5/12 avec row-span, la card hero domine visuellement de maniere memorable."
+        }
+      ],
+      "files": [
+        "src/components/sections/Proof.tsx",
+        "src/app/page.tsx",
+        "src/components/sections/Services.tsx"
+      ],
+      "expected_impact": "+0.4 craft (7.6 -> 8.0)"
+    }
+  ],
+  "preserved": [
+    "Hero split-text 'Creons le / digital qui / convertit.' structure 3 lignes — INTACT",
+    "Dual-font sans-serif + Playfair Display italic pour 'qui' — INTACT",
+    "Palette lime #d2ff00 sur dark green #0a0f00 — INTACT",
+    "KPI strip avec 4 metriques dans le hero — INTACT",
+    "Framer Motion animations avec fallback CSS — INTACT",
+    "Lenis smooth scroll — INTACT",
+    "Hero radial glow + grid texture overlay — INTACT",
+    "Responsive 3 breakpoints (375/768/1440) — INTACT",
+    "Espace negatif 160px entre sections — INTACT",
+    "Section titles typographie unique par section (iter 4) — INTACT",
+    "Offers/FAQ section structure (3 pricing cards + FAQ accordion) — INTACT",
+    "Contact section formulaire multi-step — INTACT",
+    "Navigation pill — INTACT",
+    "Hover states premium (iter 4) — INTACT",
+    "Footer 'Stellar Wave' oversized — INTACT",
+    "AnimatedSection/fadeInUp/stagger animations — INTACT",
+    "Section divider lines (iter 4) — INTACT"
+  ],
+  "implementation_order": [
+    "C1 — Accessibilite (corrections de contraste, le plus critique, zero risque de regression visuelle)",
+    "C2 — Originalite elements graphiques (ajouts visuels additifs)",
+    "C3 — Craft amplifications (modifications de taille/grid, risque moyen sur responsive)"
+  ],
+  "self_check_plan": {
+    "step_1": "Screenshot 1440px + 375px apres implementation complete",
+    "step_2": "Verifier checklist accessibilite : (a) aucun text-white/40 restant pour du body text, (b) aucun text-white/50 restant pour du body text, (c) 'digital' en hero est rgba(255,255,255,0.55) minimum, (d) tous les textes de formulaire sont lisibles",
+    "step_3": "Verifier elements graphiques : (a) ligne diagonale hero VISIBLE clairement, (b) cercle 300px derriere +118% VISIBLE, (c) traits lime sous chaque titre de section, (d) dot-grid visible en fond",
+    "step_4": "Verifier craft : (a) +118% taille clamp(6rem,18vw,14rem), (b) METHODE opacity 0.25 avec ligne dessous, (c) bento Services 7/12 + 5/12 visible comme asymetrie FORTE",
+    "step_5": "Verifier responsive mobile 375px : (a) ligne diagonale cachee, (b) bento revient en 1 colonne, (c) +118% reste lisible, (d) pas de debordement horizontal",
+    "step_6": "rm -rf /tmp/harness-selfcheck"
+  },
+  "expected_scores": {
+    "design_quality": "7.8 (=) — pas de changement structurel du design",
+    "originality": "8.0 (+0.5) — elements graphiques nettement plus forts : ligne 3px, cercle 300px, traits lime",
+    "craft": "8.0 (+0.4) — +118% geant, METHODE renforce, asymetrie bento 7/12",
+    "functionality": "8.0 (=) — aucune regression fonctionnelle",
+    "accessibility": "8.0 (+1.2) — correction exhaustive de TOUS les textes sous-contrastes",
+    "responsive": "8.2 (=) — aucune regression responsive",
+    "perceived_performance": "7.9 (=) — pas de JS additionnel"
+  },
+  "expected_average": 8.0,
+  "convergence_note": "L'accessibilite etait le verrou principal (6.8 -> 8.0 = +1.2 pts). Les corrections de contraste sont mecaniques et fiables — pas de subjectivite. L'originalite et le craft gagnent chacun ~0.5 pts grace a des elements graphiques plus affirmes. Estimation : 8.0 exactement, avec marge d'erreur +/- 0.15.",
+  "risk_assessment": {
+    "highest_risk": "C3 — bento grid-cols-12 (changement de grid services). Sur mobile le fallback grid-cols-1 est deja en place.",
+    "mitigation": "Sur mobile (<768px), toutes les cards en col-span-full. Tester screenshot mobile.",
+    "medium_risk": "C1 — corrections de contraste Contact.tsx (15 occurrences). Risque de casser un classname Tailwind si on mixe style props et classes.",
+    "mitigation_c1": "Preferer les style props inline pour les corrections de couleur — plus explicite et pas de conflit avec Tailwind.",
+    "low_risk": "C2 — ajouts d'elements graphiques (additifs, zero regression).",
+    "no_regression_checks": [
+      "Hero split-text 3 lignes toujours visible",
+      "KPI strip 4 metriques toujours visible et lisible",
+      "CTA buttons toujours visibles et cliquables",
+      "Offers pricing cards toujours lisibles",
+      "Contact form toujours fonctionnel et lisible",
+      "Navigation pill toujours visible",
+      "Footer liens toujours cliquables",
+      "Pas de texte coupe ou masque par overflow",
+      "Tous les textes passent WCAG AA 4.5:1 pour body text",
+      "Ligne diagonale hero visible sur desktop, cachee sur mobile",
+      "Cercle decoratif ne masque pas le chiffre +118%"
+    ]
+  }
+}

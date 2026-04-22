@@ -1,0 +1,384 @@
+{
+  "iteration": 3,
+  "diagnosis": {
+    "root_cause": "Sections alternate between --apple-bg (#08080c) and #0a0a0f — virtually identical dark backgrounds. Card surfaces use rgba(255,255,255,0.02-0.035) with borders at rgba(255,255,255,0.05-0.06), making them invisible. Text throughout uses opacity values (0.20–0.45) that fail WCAG AA on any of these backgrounds. The hero is the only visually successful section because it uses vibrant gradient text and strong neon accents.",
+    "regression_from_iter2": "Score dropped from 6.0 to 3.9 because ~80% of the page content became invisible. The hero improved (split typography, CTA) but all other sections became indistinguishable from the background."
+  },
+  "strategy": {
+    "approach": "Fix contrast systemically by establishing a clear visual rhythm with alternating section backgrounds, visible card surfaces, and WCAG AA-compliant text colors. Preserve all hero improvements. Extend craft quality to every section.",
+    "priorities": [
+      "1. CONTRAST: Make every section visually distinct and readable",
+      "2. FUNCTIONALITY: All CTAs visible, all text readable, all viewports covered",
+      "3. RESPONSIVE: Fix mobile title truncation, text sizing, tablet grids",
+      "4. CRAFT: Extend hero-level quality to all sections",
+      "5. ORIGINALITY: Keep marquee, bento grid, split typography — just make them visible"
+    ]
+  },
+  "design_tokens": {
+    "section_backgrounds": {
+      "primary_dark": "#08080c",
+      "elevated_dark": "#0f0f18",
+      "card_surface_on_primary": "#14142a",
+      "card_surface_on_elevated": "#1a1a32",
+      "card_surface_popular": "#1e1e38"
+    },
+    "borders": {
+      "card_default": "rgba(255,255,255,0.08)",
+      "card_hover": "rgba(255,255,255,0.14)",
+      "card_popular": "oklch(0.80 0.18 75 / 22%)",
+      "divider": "rgba(255,255,255,0.06)",
+      "section_divider": "rgba(255,255,255,0.08)"
+    },
+    "text_colors": {
+      "heading_primary": "#ffffff",
+      "heading_ghost": "rgba(255,255,255,0.30)",
+      "body_primary": "#d4d4d8",
+      "body_secondary": "#a1a1aa",
+      "body_muted": "#71717a",
+      "accent": "var(--neon-amber)",
+      "accent_secondary": "var(--neon-coral)"
+    },
+    "spacing_sections": {
+      "desktop": "clamp(96px, 10vw, 140px)",
+      "mobile_reduction": "Section padding 64-80px on mobile via clamp"
+    }
+  },
+  "files_to_modify": [
+    {
+      "file": "src/components/sections/Services.tsx",
+      "changes": [
+        {
+          "id": "S1",
+          "what": "Change section background from #0a0a0f to #0f0f18",
+          "why": "Create visible contrast with the hero section's --apple-bg (#08080c). The 2 backgrounds were virtually identical.",
+          "old_value": "background: \"#0a0a0f\"",
+          "new_value": "background: \"#0f0f18\""
+        },
+        {
+          "id": "S2",
+          "what": "Increase card backgrounds to visible values",
+          "why": "Cards at rgba(255,255,255,0.02-0.035) are invisible on dark backgrounds",
+          "details": [
+            "Large card: rgba(255,255,255,0.035) -> #1a1a32",
+            "Regular card: rgba(255,255,255,0.02) -> #14142a"
+          ]
+        },
+        {
+          "id": "S3",
+          "what": "Increase card border opacity",
+          "why": "Borders at 0.05-0.06 opacity are invisible",
+          "details": [
+            "Large card border: rgba(255,255,255,0.08) -> rgba(255,255,255,0.10)",
+            "Regular card border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)"
+          ]
+        },
+        {
+          "id": "S4",
+          "what": "Increase text contrast throughout section",
+          "why": "Text at rgba(255,255,255,0.20-0.45) fails WCAG AA",
+          "details": [
+            "Section title ghost text: rgba(255,255,255,0.20) -> rgba(255,255,255,0.35)",
+            "Card descriptions: rgba(255,255,255,0.45) -> #a1a1aa",
+            "Card features tags text: rgba(255,255,255,0.50) -> #d4d4d8",
+            "Card features tags bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.06)",
+            "Card features tags border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)",
+            "Bottom CTA text: rgba(255,255,255,0.38) -> #a1a1aa",
+            "Number watermark: rgba(255,255,255,0.04) -> rgba(255,255,255,0.06)"
+          ]
+        },
+        {
+          "id": "S5",
+          "what": "Increase icon background visibility",
+          "why": "Icon containers invisible",
+          "details": [
+            "Icon bg: rgba(255,255,255,0.04) -> rgba(255,255,255,0.07)",
+            "Icon border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "changes": [
+        {
+          "id": "P1",
+          "what": "Keep section background at var(--apple-bg) for alternation rhythm",
+          "why": "Alternating dark/slightly-lighter creates visual sections: Hero(dark) -> Services(lighter) -> Proof(dark) -> Process(lighter) -> Offers(dark) -> Contact(lighter)"
+        },
+        {
+          "id": "P2",
+          "what": "Increase card backgrounds",
+          "why": "Same invisible card issue as Services",
+          "details": [
+            "Metric card bg: rgba(255,255,255,0.02) -> #14142a",
+            "Case study card bg: rgba(255,255,255,0.02) -> #14142a"
+          ]
+        },
+        {
+          "id": "P3",
+          "what": "Increase card borders",
+          "details": [
+            "Card borders: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)"
+          ]
+        },
+        {
+          "id": "P4",
+          "what": "Increase text contrast",
+          "details": [
+            "Section title ghost text: rgba(255,255,255,0.20) -> rgba(255,255,255,0.35)",
+            "Metric label: rgba(255,255,255,0.70) -> #d4d4d8",
+            "Before value: rgba(255,255,255,0.22) -> rgba(255,255,255,0.40)",
+            "Case study context: rgba(255,255,255,0.42) -> #a1a1aa",
+            "Case study industry badge text: rgba(255,255,255,0.50) -> #d4d4d8",
+            "Case study badge bg: rgba(255,255,255,0.04) -> rgba(255,255,255,0.07)",
+            "Case study badge border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)",
+            "Resultat cle label: rgba(255,255,255,0.28) -> rgba(255,255,255,0.45)",
+            "Top divider: rgba(255,255,255,0.06) -> rgba(255,255,255,0.08)",
+            "Internal divider: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)"
+          ]
+        },
+        {
+          "id": "P5",
+          "what": "Increase logo/icon container visibility",
+          "details": [
+            "Image container bg: rgba(255,255,255,0.04) -> rgba(255,255,255,0.07)",
+            "Image container border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)",
+            "Arrow button bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.06)",
+            "Arrow button border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "changes": [
+        {
+          "id": "PR1",
+          "what": "Change section background from #0a0a0f to #0f0f18",
+          "why": "Match alternating rhythm: Services(#0f0f18) -> Proof(#08080c) -> Process(#0f0f18)"
+        },
+        {
+          "id": "PR2",
+          "what": "Increase card backgrounds",
+          "details": [
+            "Card bg: rgba(255,255,255,0.02) -> #1a1a32"
+          ]
+        },
+        {
+          "id": "PR3",
+          "what": "Increase card borders",
+          "details": [
+            "Card border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)"
+          ]
+        },
+        {
+          "id": "PR4",
+          "what": "Increase text contrast",
+          "details": [
+            "Section title ghost text: rgba(255,255,255,0.20) -> rgba(255,255,255,0.35)",
+            "Section subtitle: rgba(255,255,255,0.42) -> #a1a1aa",
+            "Card description: rgba(255,255,255,0.45) -> #a1a1aa",
+            "Duration badge stays amber (already good)",
+            "Deliverables label: rgba(255,255,255,0.28) -> rgba(255,255,255,0.45)",
+            "Deliverable items: rgba(255,255,255,0.55) -> #d4d4d8",
+            "Deliverable divider: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)",
+            "Watermark number: rgba(255,255,255,0.025) -> rgba(255,255,255,0.04)"
+          ]
+        },
+        {
+          "id": "PR5",
+          "what": "Increase icon container visibility",
+          "details": [
+            "Icon bg: rgba(255,255,255,0.04) -> rgba(255,255,255,0.07)",
+            "Icon border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/sections/OffersWithFAQ.tsx",
+      "changes": [
+        {
+          "id": "O1",
+          "what": "Keep section background at var(--apple-bg) for alternation rhythm",
+          "why": "Process(#0f0f18) -> Offers(#08080c) -> Contact(#0f0f18)"
+        },
+        {
+          "id": "O2",
+          "what": "Increase pricing card backgrounds",
+          "details": [
+            "Regular card: rgba(255,255,255,0.02) -> #14142a",
+            "Popular card: rgba(255,255,255,0.04) -> #1e1e38"
+          ]
+        },
+        {
+          "id": "O3",
+          "what": "Increase pricing card borders",
+          "details": [
+            "Regular border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)",
+            "Popular border: oklch(0.80 0.18 75 / 18%) -> oklch(0.80 0.18 75 / 25%)"
+          ]
+        },
+        {
+          "id": "O4",
+          "what": "Increase text contrast across pricing and FAQ",
+          "details": [
+            "Section title ghost text: rgba(255,255,255,0.20) -> rgba(255,255,255,0.35)",
+            "Section subtitle: rgba(255,255,255,0.42) -> #a1a1aa",
+            "Card description: rgba(255,255,255,0.45) -> #a1a1aa",
+            "Feature list items: rgba(255,255,255,0.55) -> #d4d4d8",
+            "Non-popular CTA text: rgba(255,255,255,0.65) -> #d4d4d8",
+            "Non-popular CTA bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.06)",
+            "Non-popular CTA border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)",
+            "Check icon non-popular: rgba(255,255,255,0.45) -> rgba(255,255,255,0.60)",
+            "Check circle bg non-popular: rgba(255,255,255,0.04) -> rgba(255,255,255,0.07)",
+            "FAQ question text (closed): rgba(255,255,255,0.75) -> #d4d4d8",
+            "FAQ answer text: rgba(255,255,255,0.42) -> #a1a1aa",
+            "FAQ closed bg: rgba(255,255,255,0.01) -> rgba(255,255,255,0.03)",
+            "FAQ closed border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)",
+            "FAQ open bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.05)",
+            "FAQ toggle icon closed: rgba(255,255,255,0.30) -> rgba(255,255,255,0.50)",
+            "FAQ toggle bg closed: rgba(255,255,255,0.03) -> rgba(255,255,255,0.06)",
+            "Bottom text: rgba(255,255,255,0.32) -> #71717a",
+            "Icon container non-popular bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.06)",
+            "Icon container non-popular border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.10)",
+            "Icon non-popular color: rgba(255,255,255,0.55) -> rgba(255,255,255,0.70)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "changes": [
+        {
+          "id": "C1",
+          "what": "Change section background from #0a0a0f to #0f0f18",
+          "why": "Alternation: Offers(#08080c) -> Contact(#0f0f18)"
+        },
+        {
+          "id": "C2",
+          "what": "Increase form card background",
+          "details": [
+            "Form card bg: rgba(255,255,255,0.02) -> #14142a",
+            "Form card border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)"
+          ]
+        },
+        {
+          "id": "C3",
+          "what": "Increase text contrast",
+          "details": [
+            "Section title ghost text: rgba(255,255,255,0.20) -> rgba(255,255,255,0.35)",
+            "Section subtitle: rgba(255,255,255,0.42) -> #a1a1aa",
+            "Step text (h3) stays white (good)",
+            "Step description: text-white/45 -> text-white/65",
+            "Success description: text-white/55 -> text-white/70",
+            "Return button: text-white/55 -> text-white/65",
+            "Consent label: text-white/45 -> text-white/60",
+            "Project type card unselected bg: rgba(255,255,255,0.02) -> rgba(255,255,255,0.04)",
+            "Project type card unselected border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.08)",
+            "Project type card unselected text: text-white/60 -> text-white/75",
+            "Project type card unselected icon: text-white/50 -> text-white/65",
+            "Selection card unselected bg: rgba(255,255,255,0.02) -> rgba(255,255,255,0.04)",
+            "Selection card unselected border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.08)",
+            "Selection card unselected text: text-white/60 -> text-white/75",
+            "Selection card unselected icon: text-white/40 -> text-white/55",
+            "Step indicator inactive: bg-white/5 text-white/30 -> bg-white/8 text-white/45"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "changes": [
+        {
+          "id": "H1",
+          "what": "Fix mobile title truncation",
+          "why": "'CONVERSIONS' is truncated to 'CONVERSIC' on 375px viewport",
+          "details": [
+            "Line 2 fontSize: clamp(3.5rem, 12vw, 11rem) -> clamp(2.4rem, 11vw, 11rem)",
+            "This reduces the minimum size from 3.5rem (56px) to 2.4rem (38.4px) so it fits on 375px"
+          ]
+        },
+        {
+          "id": "H2",
+          "what": "Increase subtitle text for mobile readability",
+          "why": "Text too small and transparent on mobile",
+          "details": [
+            "Subtitle fontSize: clamp(1rem, 1.15vw, 1.25rem) -> clamp(1.05rem, 1.15vw, 1.25rem)",
+            "Subtitle color: rgba(255,255,255,0.48) -> rgba(255,255,255,0.58)",
+            "Subtitle highlight span: rgba(255,255,255,0.65) -> rgba(255,255,255,0.80)"
+          ]
+        },
+        {
+          "id": "H3",
+          "what": "Slightly increase logo marquee text visibility",
+          "details": [
+            "Logo name color: rgba(255,255,255,0.22) -> rgba(255,255,255,0.30)",
+            "Trust label: rgba(255,255,255,0.20) -> rgba(255,255,255,0.30)",
+            "Logo image opacity: opacity-40 -> opacity-50"
+          ]
+        },
+        {
+          "id": "H4",
+          "what": "Increase KPI metrics label contrast",
+          "details": [
+            "KPI label: rgba(255,255,255,0.35) -> rgba(255,255,255,0.50)",
+            "KPI card bg: rgba(255,255,255,0.02) -> rgba(255,255,255,0.04)",
+            "KPI card border: rgba(255,255,255,0.06) -> rgba(255,255,255,0.08)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/components/layout/Footer.tsx",
+      "changes": [
+        {
+          "id": "F1",
+          "what": "Increase link text visibility",
+          "details": [
+            "Link text color: rgba(255,255,255,0.38) -> rgba(255,255,255,0.50)",
+            "Description text: rgba(255,255,255,0.38) -> rgba(255,255,255,0.48)",
+            "Tagline: rgba(255,255,255,0.32) -> rgba(255,255,255,0.42)",
+            "Bottom bar text: rgba(255,255,255,0.25) -> rgba(255,255,255,0.38)",
+            "Social icons color: rgba(255,255,255,0.38) -> rgba(255,255,255,0.50)",
+            "Social icons bg: rgba(255,255,255,0.03) -> rgba(255,255,255,0.05)",
+            "Social icons border: rgba(255,255,255,0.05) -> rgba(255,255,255,0.08)",
+            "Top divider: rgba(255,255,255,0.04) -> rgba(255,255,255,0.06)",
+            "Bottom bar divider: rgba(255,255,255,0.04) -> rgba(255,255,255,0.06)"
+          ]
+        }
+      ]
+    }
+  ],
+  "visual_rhythm": {
+    "description": "Create a clear alternating pattern so sections are visually distinct",
+    "pattern": [
+      "Hero: --apple-bg (#08080c) — keeps the atmospheric neon glows",
+      "Services: #0f0f18 — slightly elevated, cards in #1a1a32",
+      "Proof: #08080c — dark reset, cards in #14142a",
+      "Process: #0f0f18 — elevated again, cards in #1a1a32",
+      "Offers: #08080c — dark reset, cards in #14142a, popular in #1e1e38",
+      "Contact: #0f0f18 — elevated, form card in #14142a",
+      "Footer: #050508 — darkest, clear termination"
+    ]
+  },
+  "what_to_preserve": [
+    "Hero split typography (MULTIPLIEZ / VOS CONVERSIONS / PAR 3.)",
+    "Neon amber/coral gradient accents on CTAs and headings",
+    "Logo marquee animation (Framer Motion animate)",
+    "Bento grid asymmetric layout for services",
+    "Section header pattern (eyebrow + ghost text + bold text)",
+    "All Framer Motion entrance animations (whileInView, spring, stagger)",
+    "Multi-step contact form with price estimate",
+    "FAQ accordion with AnimatePresence",
+    "Parallax scroll effects on hero",
+    "KPI metrics strip design",
+    "Hover glow effects on cards (just make cards visible first)"
+  ],
+  "verification": {
+    "contrast_check": "Every piece of body text must be at minimum #a1a1aa on any background used. Titles must be #ffffff. Ghost text at minimum rgba(255,255,255,0.30).",
+    "mobile_check": "Title 'VOS CONVERSIONS' must not be truncated at 375px. All text minimum 14px on mobile.",
+    "visual_check": "Each section must be visually distinguishable when scrolling. Cards must have visible edges/surfaces.",
+    "functional_check": "All CTAs visible. Form fully usable. FAQ accordion works. Marquee runs."
+  }
+}

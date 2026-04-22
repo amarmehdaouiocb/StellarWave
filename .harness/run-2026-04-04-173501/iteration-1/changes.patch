@@ -1,0 +1,16 @@
+ package-lock.json                         |   39 +
+ package.json                              |    2 +
+ src/app/globals.css                       | 1283 +++++++----------------------
+ src/app/layout.tsx                        |   16 +-
+ src/app/page.tsx                          |   34 +-
+ src/components/layout/Footer.tsx          |  118 ++-
+ src/components/layout/NavPill.tsx         |   42 +-
+ src/components/sections/Contact.tsx       |   86 +-
+ src/components/sections/Hero.tsx          |  299 ++++---
+ src/components/sections/OffersWithFAQ.tsx |   74 +-
+ src/components/sections/ProcessSimple.tsx |  132 ++-
+ src/components/sections/Proof.tsx         |  244 ++----
+ src/components/sections/Services.tsx      |  116 +--
+ src/components/shared/CTAButton.tsx       |   44 +-
+ src/lib/fonts.ts                          |   17 +-
+ 15 files changed, 915 insertions(+), 1631 deletions(-)

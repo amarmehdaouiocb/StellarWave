@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --v4-bg: #050505;
+    --v4-fg: #ededed;
+    
+    /* V4 Specific Avant-Garde Palette */
+    --v4-accent-1: #E0FF31; /* Neon Lime */
+    --v4-accent-2: #8A2BE2; /* Deep Purple */
+    --v4-surface: #111111;
+    --v4-surface-border: #222222;
+  }
+}
+
+.v4-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.font-editorial {
+  font-family: var(--font-v4-playfair), serif;
+}
+
+.font-sans {
+  font-family: var(--font-v4-geist-sans), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-v4-geist-mono), monospace;
+}
+
+/* Radical Anti-Slop Layouts */
+.v4-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100dvh;
+}
+
+/* Glass & Materiality */
+.v4-glass {
+  background: rgba(17, 17, 17, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1),
+              0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.v4-spotlight-border {
+  position: relative;
+  background: var(--v4-surface);
+  border-radius: 24px;
+}
+
+.v4-spotlight-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.1) 20%, transparent 40%);
+  z-index: -1;
+}
+
+/* Noise overlay */
+.v4-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Micro-interactions */
+.v4-magnetic-element {
+  transition: transform 0.1s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Brutalist Typography adjustments */
+.v4-mega-type {
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+}
+
+.v4-body-type {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: #a1a1aa;
+}

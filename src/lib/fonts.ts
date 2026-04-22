@@ -9,7 +9,7 @@
  */
 
 import localFont from "next/font/local";
-import { Outfit } from "next/font/google";
+import { Outfit, Playfair_Display, Raleway } from "next/font/google";
 
 /**
  * Clash Display - Premium Display Font
@@ -119,10 +119,56 @@ export const outfit = Outfit({
 });
 
 /**
- * Get font class names for the body element
+ * Playfair Display - Serif Display Font
+ * Elegant serif for accent words in headlines (italic)
+ * Used for dual-font system inspired by landonorris.com
  */
+export const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
+
+export const bodoniFLF = localFont({
+  src: [
+    {
+      path: "../../public/fonts/BodoniFLF-Roman.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-Italic.woff",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BodoniFLF-BoldItalic.woff",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-bodoni",
+  display: "swap",
+  preload: true,
+});
+
+export const raleway = Raleway({
+  subsets: ["latin"],
+  variable: "--font-raleway",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+});
+
 export function getFontVariables(): string {
-  return `${clashDisplay.variable} ${cabinetGrotesk.variable}`;
+  return `${bodoniFLF.variable} ${raleway.variable} ${playfairDisplay.variable}`;
 }
 
 /**

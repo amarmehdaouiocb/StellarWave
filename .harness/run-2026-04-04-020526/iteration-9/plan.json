@@ -1,0 +1,60 @@
+{
+  "iteration": 9,
+  "goal": "Saut qualitatif sur l'originalite (6.9 → 7.8+) via 2 elements signature + correction accessibilite + variation fonds",
+  "strategy": "Ajouter un gradient mesh anime dans le hero (Framer Motion, pas CSS) + section de transition 'chiffre geant' entre Proof et Process + varier les fonds + rehausser tous textes < #b8b8cc",
+  "changes": [
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "action": "add",
+      "description": "Ajouter un gradient mesh/blob anime avec Framer Motion (animate, duration 8-10s, repeat Infinity, ease linear). Glow amber/coral qui pulse tres subtilement en arriere-plan. C'est l'element SIGNATURE numero 1."
+    },
+    {
+      "file": "src/components/sections/ImpactDivider.tsx",
+      "action": "create",
+      "description": "Creer une section de transition 'chiffre geant' entre Proof et Process. Texte oversized (clamp(8rem, 20vw, 16rem)) pleine largeur '+200 projets' avec gradient amber→transparent. Style maximaliste. Element SIGNATURE numero 2."
+    },
+    {
+      "file": "src/app/page.tsx",
+      "action": "modify",
+      "description": "Inserer ImpactDivider entre Proof et ProcessSimple."
+    },
+    {
+      "file": "src/components/sections/index.ts",
+      "action": "modify",
+      "description": "Exporter ImpactDivider."
+    },
+    {
+      "file": "src/components/sections/Services.tsx",
+      "action": "modify",
+      "description": "Changer le fond de #0e1018 a #111122 pour augmenter la variation visuelle."
+    },
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "action": "modify",
+      "description": "Changer le fond de #0e1018 a #111122 + ajouter gradient radial subtil du centre."
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "action": "modify",
+      "description": "Changer le fond de #0e1018 a #111122 + rehausser tous textes gris."
+    },
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "action": "modify",
+      "description": "Ajouter effet parallax leger sur les titres (useScroll + useTransform, translateY -20px max)."
+    },
+    {
+      "file": "multiple",
+      "action": "modify",
+      "description": "Audit accessibilite : rehausser toute couleur < #b0b0b0 vers #b8b8cc minimum dans Hero, Services, Proof, ProcessSimple, OffersWithFAQ, Contact."
+    }
+  ],
+  "verification": [
+    "npm run build doit passer",
+    "Screenshot 1440px : 7 sections visibles (Hero, Services, Proof, ImpactDivider, Process, Offers, Contact)",
+    "Gradient mesh anime visible dans le hero",
+    "Section chiffre geant visible entre Proof et Process",
+    "Fonds alternes visiblement differents (#08080c vs #111122)",
+    "Aucun texte < #b8b8cc sur fonds sombres"
+  ]
+}

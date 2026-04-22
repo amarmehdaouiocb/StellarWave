@@ -1,0 +1,39 @@
+{
+  "iteration": 1,
+  "focus": [
+    "design_quality",
+    "originality",
+    "craft",
+    "responsive"
+  ],
+  "reasoning": "Itération 1 se concentre sur la transformation fondamentale du thème (light -> dark premium), la refonte de la palette de couleurs (bleu électrique -> neon amber/coral), la typographie fluide (clamp-based sans media queries), le hero avec parallax scroll-driven, le layout éditorial asymétrique des services (inspiré landonorris.com), et le marquee de logos. Les fonctionnalités existantes (formulaire, navigation, contenu textuel) sont intégralement conservées.",
+  "changes_planned": [
+    "Conversion complète du thème vers dark premium (#08080c fond, neon amber/coral accents)",
+    "Refonte des variables CSS : --neon-amber, --neon-coral, neutrals dark, glass dark, glow effects",
+    "Hero avec typographie MEGA fluide (clamp), parallax scroll-driven (useScroll/useTransform), glows atmosphériques",
+    "Marquee de logos infini intégré dans le hero",
+    "Section Services en layout éditorial horizontal (rows alternées au lieu du carousel)",
+    "Section Proof adaptée au dark premium avec cards subtiles",
+    "Section Process adaptée au dark premium",
+    "Section Offers/FAQ adaptée au dark premium avec badges neon",
+    "Section Contact adaptée au dark premium",
+    "NavPill en glass dark avec pill active gradient amber/coral",
+    "Footer adapté au dark premium",
+    "CTAButton avec gradient amber-to-coral pour le variant primary",
+    "Suppression du SidebarGlass pour un layout full-width plus éditorial",
+    "Typographie fluide calc-based (0 media queries pour les tailles de texte)"
+  ],
+  "files_modified": [
+    "src/app/globals.css",
+    "src/app/page.tsx",
+    "src/components/sections/Hero.tsx",
+    "src/components/sections/Services.tsx",
+    "src/components/sections/Proof.tsx",
+    "src/components/sections/ProcessSimple.tsx",
+    "src/components/sections/OffersWithFAQ.tsx",
+    "src/components/sections/Contact.tsx",
+    "src/components/layout/NavPill.tsx",
+    "src/components/layout/Footer.tsx",
+    "src/components/shared/CTAButton.tsx"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "iteration": 1,
+  "goal": "Fondations du redesign lime-on-dark-green inspir\u00e9 landonorris.com : palette, smooth scroll Lenis, typographie dual-font fluide, Hero sticky split-text, AnimateOnScroll GSAP, Marquee logos, sections altern\u00e9es",
+  "steps": [
+    {
+      "id": 1,
+      "description": "Réécrire globals.css : nouvelle palette lime #d2ff00 sur #0a0f00, CSS variables, selection, focus",
+      "files": ["src/app/globals.css"]
+    },
+    {
+      "id": 2,
+      "description": "Ajouter Playfair Display (serif italique) dans fonts.ts, configurer dual-font system",
+      "files": ["src/lib/fonts.ts"]
+    },
+    {
+      "id": 3,
+      "description": "Créer composant SmoothScroll (Lenis + GSAP ScrollTrigger) et l'intégrer dans layout.tsx",
+      "files": ["src/components/shared/SmoothScroll.tsx", "src/app/layout.tsx"]
+    },
+    {
+      "id": 4,
+      "description": "Créer composant AnimateOnScroll (GSAP ScrollTrigger) pour animations au scroll",
+      "files": ["src/components/shared/AnimateOnScroll.tsx"]
+    },
+    {
+      "id": 5,
+      "description": "Réécrire Hero : sticky, split-text expressif, palette lime, KPI strip, CTA lime",
+      "files": ["src/components/sections/Hero.tsx"]
+    },
+    {
+      "id": 6,
+      "description": "Créer composant LogoMarquee (Framer Motion, gradient mask aux bords)",
+      "files": ["src/components/shared/LogoMarquee.tsx"]
+    },
+    {
+      "id": 7,
+      "description": "Réécrire Services avec palette lime, fond #111a08, hover clip-path reveal",
+      "files": ["src/components/sections/Services.tsx"]
+    },
+    {
+      "id": 8,
+      "description": "Réécrire Proof avec palette lime, marquee logos intégré",
+      "files": ["src/components/sections/Proof.tsx"]
+    },
+    {
+      "id": 9,
+      "description": "Réécrire ProcessSimple avec palette lime et fond alterné",
+      "files": ["src/components/sections/ProcessSimple.tsx"]
+    },
+    {
+      "id": 10,
+      "description": "Réécrire OffersWithFAQ avec palette lime",
+      "files": ["src/components/sections/OffersWithFAQ.tsx"]
+    },
+    {
+      "id": 11,
+      "description": "Réécrire Contact avec palette lime",
+      "files": ["src/components/sections/Contact.tsx"]
+    },
+    {
+      "id": 12,
+      "description": "Réécrire NavPill avec palette lime sur fond dark",
+      "files": ["src/components/layout/NavPill.tsx"]
+    },
+    {
+      "id": 13,
+      "description": "Réécrire Footer avec palette lime",
+      "files": ["src/components/layout/Footer.tsx"]
+    },
+    {
+      "id": 14,
+      "description": "Mettre à jour page.tsx et composants partagés (ScrollProgress, CTAButton)",
+      "files": ["src/app/page.tsx", "src/components/shared/ScrollProgress.tsx", "src/components/shared/CTAButton.tsx"]
+    },
+    {
+      "id": 15,
+      "description": "Build + screenshot + vérification visuelle",
+      "files": []
+    }
+  ]
+}

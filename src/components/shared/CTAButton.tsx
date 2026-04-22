@@ -22,35 +22,43 @@ interface CTAButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: cn(
-    "bg-[var(--electric-blue)]",
-    "text-white font-semibold",
-    "hover:bg-[var(--electric-blue-dark)]",
-    "active:scale-[0.98]"
+    "btn-liquid-primary",
+    "font-semibold",
+    "active:scale-[0.97]"
   ),
   secondary: cn(
-    "bg-white border border-[oklch(0_0_0_/_10%)]",
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-50)] hover:border-[var(--electric-blue)]/20",
-    "active:scale-[0.98]"
+    "btn-liquid-secondary",
+    "font-medium",
+    "active:scale-[0.97]"
   ),
   ghost: cn(
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-100)]",
-    "active:scale-[0.98]"
+    "font-medium",
+    "active:scale-[0.97]"
   ),
   outline: cn(
-    "border border-[oklch(0_0_0_/_15%)]",
-    "text-[var(--accent-dark)] font-medium",
-    "hover:bg-[var(--neutral-50)] hover:border-[var(--electric-blue)]/30",
-    "active:scale-[0.98]"
+    "font-medium",
+    "active:scale-[0.97]"
   ),
 };
 
+const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
+  primary: {},
+  secondary: {},
+  ghost: {
+    color: "#38bdf8",
+    background: "transparent",
+  },
+  outline: {
+    border: "1px solid rgba(56, 189, 248, 0.20)",
+    color: "#38bdf8",
+  },
+};
+
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
-  md: "px-6 py-3 text-base rounded-xl gap-2",
-  lg: "px-8 py-4 text-lg rounded-2xl gap-2.5",
-  xl: "px-10 py-5 text-xl rounded-2xl gap-3",
+  sm: "px-4 py-2 text-sm rounded-full gap-1.5",
+  md: "px-6 py-3 text-base rounded-full gap-2",
+  lg: "px-8 py-4 text-lg rounded-full gap-2.5",
+  xl: "px-10 py-5 text-xl rounded-full gap-3",
 };
 
 const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
@@ -103,12 +111,14 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
     const buttonClasses = cn(
       "inline-flex items-center justify-center",
       "transition-all duration-200",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--electric-blue)] focus-visible:ring-offset-2",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
       "disabled:opacity-50 disabled:cursor-not-allowed",
       variantClasses[variant],
       sizeClasses[size],
       className
     );
+
+    const inlineStyle = variantStyles[variant];
 
     // If href is provided, render as anchor
     if (href && !isDisabled) {
@@ -116,8 +126,9 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
         <motion.a
           href={href}
           className={buttonClasses}
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.98 }}
+          style={inlineStyle}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
           {content}
         </motion.a>
@@ -128,9 +139,10 @@ const CTAButton = forwardRef<HTMLButtonElement, CTAButtonProps>(
       <motion.button
         ref={ref}
         className={buttonClasses}
+        style={inlineStyle}
         disabled={isDisabled}
-        whileHover={!isDisabled ? { y: -2 } : undefined}
-        whileTap={!isDisabled ? { scale: 0.98 } : undefined}
+        whileHover={!isDisabled ? { scale: 1.03 } : undefined}
+        whileTap={!isDisabled ? { scale: 0.97 } : undefined}
         {...props}
       >
         {content}

@@ -1,0 +1,53 @@
+{
+  "iteration": 4,
+  "focus": "P0 accessibilité + P0 originalité + P1 zones vides + P1 longueur mobile + P1 éléments surprenants",
+  "changes": [
+    {
+      "file": "src/app/globals.css",
+      "action": "edit",
+      "description": "Augmenter tous les textes muted/secondary à minimum #c8c8d0. Ajouter des classes utilitaires pour le marquee texte et le divider diagonal."
+    },
+    {
+      "file": "src/components/sections/Hero.tsx",
+      "action": "edit",
+      "description": "P0 contraste : remonter couleurs KPI labels de #707088 à #a0a0b0. Ajouter un chiffre oversized (98) en position absolue comme élément visuel surprise."
+    },
+    {
+      "file": "src/components/sections/Services.tsx",
+      "action": "edit",
+      "description": "P0 originalité : refaire la bento grid avec des tailles VRAIMENT différentes (card full-width, card tall étroite). Ajouter un élément graphique décoratif (cercle amber). P0 contraste : remonter les gris. P1 mobile : limiter à 3 cards visibles sur mobile."
+    },
+    {
+      "file": "src/components/sections/Proof.tsx",
+      "action": "edit",
+      "description": "P1 surprise : rendre le chiffre 98 ÉNORME (200px+). Ajouter un marquee de texte phrase qui défile. P0 contraste : remonter les gris secondaires. P1 zones vides : resserrer le padding."
+    },
+    {
+      "file": "src/components/sections/ProcessSimple.tsx",
+      "action": "edit",
+      "description": "P1 zones vides : réduire padding section. P0 contraste : remonter #606078 à #a0a0b0. Ajouter un divider diagonal/courbe entre Process et Offers."
+    },
+    {
+      "file": "src/components/sections/OffersWithFAQ.tsx",
+      "action": "edit",
+      "description": "P1 zones vides : resserrer spacing. P0 contraste : remonter gris. P1 mobile : limiter features visibles et FAQs sur mobile."
+    },
+    {
+      "file": "src/components/sections/Contact.tsx",
+      "action": "edit",
+      "description": "P0 contraste : remonter gris secondaires. P1 zones vides : resserrer."
+    },
+    {
+      "file": "src/components/layout/Footer.tsx",
+      "action": "edit",
+      "description": "P0 contraste : vérifier et remonter les gris. P1 zones vides : resserrer."
+    }
+  ],
+  "expected_improvements": {
+    "accessibility": "+1.5 via contraste minimum #a0a0b0 partout",
+    "originality": "+1.5 via bento vraiment asymétrique, chiffre 98 géant, marquee phrase, divider diagonal",
+    "design_quality": "+0.5 via meilleur rythme vertical",
+    "responsive": "+0.5 via condensation mobile",
+    "craft": "+0.5 via éléments décoratifs et traitement typo unique"
+  }
+}
