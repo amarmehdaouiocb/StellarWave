@@ -326,11 +326,24 @@ export function HorizontalGallery() {
       className="relative"
       style={{
         backgroundColor: "#020617",
+        backgroundImage: "url('/projects/bg-what-we-build.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center 30%",
+        backgroundRepeat: "no-repeat",
         overflow: "hidden",
         paddingTop: isMobile ? "80px" : 0,
         paddingBottom: isMobile ? "80px" : 0,
       }}
     >
+      {/* Dark overlay to keep text readable over the background image */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, rgba(2,6,23,0.72) 0%, rgba(2,6,23,0.55) 40%, rgba(2,6,23,0.72) 100%)",
+          zIndex: 0,
+        }}
+      />
+
       {/* Subtle top edge gradient for section transition */}
       <div
         className="absolute top-0 left-0 right-0 pointer-events-none"
