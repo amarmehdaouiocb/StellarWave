@@ -349,23 +349,6 @@ export function Services() {
           transition={{ duration: 0.7, ease: easings.dramatic }}
           style={{ marginBottom: 46 }}
         >
-          <motion.span
-            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-10"
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: easings.smooth }}
-            style={{
-              background: "rgba(59,107,255,0.06)",
-              borderWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgba(59,107,255,0.15)",
-              color: "rgba(143,179,255,0.85)",
-            }}
-          >
-            Nos expertises
-          </motion.span>
-
           <h2
             style={{
               fontFamily: "var(--font-display)",

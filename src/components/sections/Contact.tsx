@@ -1,880 +1,654 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  PaperPlaneTilt,
-  Check,
-  ArrowRight,
-  ArrowLeft,
-  RocketLaunch,
-  Globe,
-  Stack,
-  DeviceMobile,
-  Cloud,
-  Question,
-  Lightning,
-  Clock,
-  CurrencyEur,
-  User,
-  Envelope,
-  Phone,
-  Buildings,
-  Link,
-  ChatText,
-  CheckCircle,
-  Info,
-} from "@phosphor-icons/react";
-import { cn } from "@/lib/utils";
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { brand } from "@/config/brand";
-import {
-  estimateFormSchema,
-  EstimateFormData,
-  projectTypeOptions,
-  budgetOptions,
-  timelineOptions,
-  referralSourceOptions,
-  validateAntiSpam,
-} from "@/lib/validators";
-import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { fadeInUp, easings } from "@/lib/animations";
+import { validateAntiSpam } from "@/lib/validators";
+import "./Contact.css";
 
-// Project type icons
-const projectTypeIcons: Record<string, React.ElementType> = {
-  "landing-page": RocketLaunch,
-  website: Globe,
-  "web-app": Stack,
-  "mobile-app": DeviceMobile,
-  cloud: Cloud,
-  other: Question,
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(SplitText);
+}
+
+const useIso =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+type ProjectTypeKey = "site" | "ecom" | "app" | "brand" | "autre";
+type BudgetKey = "<5k" | "5-15k" | "15-50k" | ">50k";
+
+const projectTypes: { value: ProjectTypeKey; label: string }[] = [
+  { value: "site", label: "Site vitrine" },
+  { value: "ecom", label: "E-commerce" },
+  { value: "app", label: "Application web / mobile" },
+  { value: "brand", label: "Identité de marque" },
+  { value: "autre", label: "Autre" },
+];
+
+const budgets: { value: BudgetKey; label: string }[] = [
+  { value: "<5k", label: "< 5 000 €" },
+  { value: "5-15k", label: "5 000 € – 15 000 €" },
+  { value: "15-50k", label: "15 000 € – 50 000 €" },
+  { value: ">50k", label: "> 50 000 €" },
+];
+
+// Map UI values → server schema enums
+const projectTypeToServer: Record<
+  ProjectTypeKey,
+  "landing-page" | "website" | "web-app" | "mobile-app" | "cloud" | "other"
+> = {
+  site: "website",
+  ecom: "website",
+  app: "web-app",
+  brand: "other",
+  autre: "other",
 };
 
-// Price ranges per project type
-const priceRanges: Record<string, { min: number; max: number; label: string }> = {
-  "landing-page": { min: 3000, max: 8000, label: "Landing Page Premium" },
-  website: { min: 5000, max: 15000, label: "Site Web" },
-  "web-app": { min: 15000, max: 80000, label: "Application Web" },
-  "mobile-app": { min: 20000, max: 100000, label: "Application Mobile" },
-  cloud: { min: 4000, max: 25000, label: "Architecture Cloud" },
-  other: { min: 5000, max: 50000, label: "Projet sur mesure" },
+const budgetToServer: Record<
+  BudgetKey,
+  "5k-10k" | "10k-25k" | "25k-50k" | "50k-100k" | "100k+" | "unknown"
+> = {
+  "<5k": "5k-10k",
+  "5-15k": "10k-25k",
+  "15-50k": "25k-50k",
+  ">50k": "50k-100k",
 };
 
-// Timeline multipliers
-const timelineMultipliers: Record<string, number> = {
-  asap: 1.2,
-  "1-2months": 1.0,
-  "3-6months": 0.95,
-  "6months+": 0.9,
-  flexible: 1.0,
+type DropdownProps<T extends string> = {
+  label: string;
+  optional?: boolean;
+  placeholder: string;
+  value: T | "";
+  options: { value: T; label: string }[];
+  onChange: (v: T) => void;
+  required?: boolean;
 };
 
-// Format price
-const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(price);
-};
+function Dropdown<T extends string>({
+  label,
+  optional,
+  placeholder,
+  value,
+  options,
+  onChange,
+  required,
+}: DropdownProps<T>) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-// Step indicator
-function StepIndicator({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("click", handleClick);
+    document.addEventListener("keydown", handleEsc);
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
+  const selected = options.find((o) => o.value === value);
+
   return (
-    <div className="flex items-center gap-2 mb-8">
-      {Array.from({ length: totalSteps }, (_, i) => (
-        <div key={i} className="flex items-center gap-2">
-          <div
-            className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300",
-              i + 1 === currentStep
-                ? "bg-[#38bdf8] text-white"
-                : i + 1 < currentStep
-                ? "bg-[#22c55e] text-white"
-                : "bg-white/10 text-white/60"
-            )}
+    <div className="sw-field">
+      <label className="sw-label">
+        {label}
+        {optional && <span className="sw-opt"> (optionnel)</span>}
+      </label>
+      <div className={`sw-dropdown${open ? " is-open" : ""}`} ref={ref}>
+        <button
+          type="button"
+          className={`sw-dropdown-trigger${selected ? " has-value" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen((o) => !o);
+          }}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          data-required={required ? "true" : undefined}
+        >
+          <span>{selected ? selected.label : placeholder}</span>
+          <svg
+            className="sw-dropdown-chevron"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden
           >
-            {i + 1 < currentStep ? (
-              <Check className="h-4 w-4" weight="bold" />
-            ) : (
-              i + 1
-            )}
-          </div>
-          {i < totalSteps - 1 && (
-            <div
-              className={cn(
-                "h-0.5 w-8 transition-all duration-300",
-                i + 1 < currentStep ? "bg-[#22c55e]" : "bg-white/10"
-              )}
+            <path
+              d="M3 4.5L6 7.5L9 4.5"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-          )}
+          </svg>
+        </button>
+        <div className="sw-dropdown-menu" role="listbox">
+          {options.map((opt, idx) => {
+            const isSel = opt.value === value;
+            return (
+              <button
+                type="button"
+                key={opt.value}
+                role="option"
+                aria-selected={isSel}
+                className={`sw-dropdown-option${isSel ? " is-selected" : ""}`}
+                style={{ ["--i" as string]: idx }}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                }}
+              >
+                <span>{opt.label}</span>
+                <svg
+                  className="sw-check"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M3 8.5l3 3 7-7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            );
+          })}
         </div>
-      ))}
+      </div>
     </div>
   );
 }
 
-// Price estimate card
-function PriceEstimate({
-  projectType,
-  timeline,
+/* RollingText — effet hover Lando sur tiktok/instagram, version state
+   of the art via GSAP SplitText (officiel, gratuit depuis avril 2025).
+   - mask: "chars"  → wrappers overflow:clip auto par char
+   - autoSplit      → re-split au chargement des fonts + au resize (no jitter)
+   - smartWrap      → mots non cassés sur 2 lignes
+   - aria-label parent + aria-hidden chars → accessibilité native */
+function RollingText({
+  text,
+  className,
 }: {
-  projectType: string;
-  timeline: string;
+  text: string;
+  className?: string;
 }) {
-  const estimate = useMemo(() => {
-    if (!projectType) return null;
-    const range = priceRanges[projectType];
-    if (!range) return null;
+  const wrapRef = useRef<HTMLSpanElement>(null);
+  const origRef = useRef<HTMLSpanElement>(null);
+  const copyRef = useRef<HTMLSpanElement>(null);
 
-    const multiplier = timelineMultipliers[timeline] || 1.0;
-    return {
-      min: Math.round(range.min * multiplier),
-      max: Math.round(range.max * multiplier),
-      label: range.label,
+  useIso(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const wrap = wrapRef.current;
+    const orig = origRef.current;
+    const copy = copyRef.current;
+    if (!wrap || !orig || !copy || reduce) return;
+
+    let splitOrig: SplitText | null = null;
+    let splitCopy: SplitText | null = null;
+    let cleanup: (() => void) | null = null;
+
+    const ctx = gsap.context(() => {
+      // Deux SplitText synchronisés : orig (visible au repos) + copy
+      // (positionnée en bas via top:100%, visible au hover quand
+      // toute la composition glisse vers le haut de -100%).
+      splitOrig = SplitText.create(orig, {
+        type: "chars,words",
+        smartWrap: true,
+        autoSplit: true,
+        charsClass: "rt-char",
+      });
+      splitCopy = SplitText.create(copy, {
+        type: "chars,words",
+        smartWrap: true,
+        autoSplit: true,
+        charsClass: "rt-char",
+      });
+
+      const trigger = wrap.closest<HTMLElement>(".sw-h1") ?? wrap;
+
+      const onEnter = () => {
+        if (!splitOrig?.chars || !splitCopy?.chars) return;
+        const opts = {
+          yPercent: -100,
+          duration: 0.6,
+          ease: "expo.out" as const,
+          stagger: { each: 0.025, from: "start" as const },
+          overwrite: "auto" as const,
+        };
+        gsap.to(splitOrig.chars, opts);
+        gsap.to(splitCopy.chars, opts);
+      };
+
+      const onLeave = () => {
+        if (!splitOrig?.chars || !splitCopy?.chars) return;
+        const opts = {
+          yPercent: 0,
+          duration: 0.7,
+          ease: "expo.out" as const,
+          stagger: { each: 0.022, from: "start" as const },
+          overwrite: "auto" as const,
+        };
+        gsap.to(splitOrig.chars, opts);
+        gsap.to(splitCopy.chars, opts);
+      };
+
+      trigger.addEventListener("mouseenter", onEnter);
+      trigger.addEventListener("mouseleave", onLeave);
+
+      cleanup = () => {
+        trigger.removeEventListener("mouseenter", onEnter);
+        trigger.removeEventListener("mouseleave", onLeave);
+      };
+    }, wrapRef);
+
+    return () => {
+      cleanup?.();
+      splitOrig?.revert();
+      splitCopy?.revert();
+      ctx.revert();
     };
-  }, [projectType, timeline]);
-
-  if (!estimate) return null;
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      className="p-5 rounded-2xl mb-6"
-      style={{
-        background: "rgba(56, 189, 248, 0.12)",
-        border: "1px solid rgba(56, 189, 248, 0.25)",
-      }}
+    <span
+      ref={wrapRef}
+      className={`rt ${className ?? ""}`}
+      aria-label={text}
     >
-      <div className="flex items-start gap-3">
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-xl flex-shrink-0"
-          style={{ background: "rgba(56, 189, 248, 0.25)" }}
-        >
-          <CurrencyEur className="h-5 w-5 text-[#7dd3fc]" weight="duotone" />
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.75)" }}>
-              Estimation indicative
-            </span>
-            <Info className="h-3.5 w-3.5 text-white/55" />
-          </div>
-          <div className="text-xl font-bold text-white mb-1">
-            {formatPrice(estimate.min)} – {formatPrice(estimate.max)}
-          </div>
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.70)" }}>
-            {estimate.label} • Prix final après étude détaillée
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// Selection card for project type
-function ProjectTypeCard({
-  option,
-  isSelected,
-  onSelect,
-}: {
-  option: (typeof projectTypeOptions)[number];
-  isSelected: boolean;
-  onSelect: () => void;
-}) {
-  const Icon = projectTypeIcons[option.value] || Question;
-
-  return (
-    <motion.button
-      type="button"
-      onClick={onSelect}
-      className={cn(
-        "relative flex flex-col items-center gap-3 p-5 rounded-2xl text-center transition-all duration-300 cursor-pointer",
-        isSelected
-          ? "ring-2 ring-[#38bdf8]"
-          : "hover:bg-white/5"
-      )}
-      style={{
-        background: isSelected ? "rgba(56, 189, 248, 0.15)" : "rgba(255, 255, 255, 0.05)",
-        border: isSelected ? "1px solid rgba(56, 189, 248, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
-      }}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      {isSelected && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="absolute top-3 right-3"
-        >
-          <CheckCircle className="h-5 w-5 text-[#38bdf8]" weight="fill" />
-        </motion.div>
-      )}
-      <div
-        className="flex h-12 w-12 items-center justify-center rounded-xl"
-        style={{
-          background: isSelected ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-        }}
-      >
-        <Icon
-          className={cn("h-6 w-6", isSelected ? "text-[#7dd3fc]" : "text-white/70")}
-          weight="duotone"
-        />
-      </div>
-      <span
-        className={cn(
-          "text-sm font-medium",
-          isSelected ? "text-white" : "text-white/70"
-        )}
-      >
-        {option.label}
+      <span ref={origRef} className="rt-orig" aria-hidden="true">
+        {text}
       </span>
-    </motion.button>
-  );
-}
-
-// Selection card for budget/timeline
-function SelectionCard({
-  option,
-  isSelected,
-  onSelect,
-  icon: Icon,
-}: {
-  option: { value: string; label: string };
-  isSelected: boolean;
-  onSelect: () => void;
-  icon: React.ElementType;
-}) {
-  return (
-    <motion.button
-      type="button"
-      onClick={onSelect}
-      className={cn(
-        "relative flex items-center gap-3 p-4 rounded-xl transition-all duration-300 cursor-pointer w-full text-left",
-        isSelected ? "ring-2 ring-[#38bdf8]" : "hover:bg-white/5"
-      )}
-      style={{
-        background: isSelected ? "rgba(56, 189, 248, 0.12)" : "rgba(255, 255, 255, 0.05)",
-        border: isSelected ? "1px solid rgba(56, 189, 248, 0.35)" : "1px solid rgba(255, 255, 255, 0.08)",
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <div
-        className="flex h-9 w-9 items-center justify-center rounded-lg flex-shrink-0"
-        style={{
-          background: isSelected ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-        }}
-      >
-        <Icon
-          className={cn("h-4 w-4", isSelected ? "text-[#7dd3fc]" : "text-white/70")}
-          weight="duotone"
-        />
-      </div>
-      <span
-        className={cn(
-          "text-sm font-medium flex-1",
-          isSelected ? "text-white" : "text-white/70"
-        )}
-      >
-        {option.label}
+      <span ref={copyRef} className="rt-copy" aria-hidden="true">
+        {text}
       </span>
-      {isSelected && (
-        <CheckCircle className="h-5 w-5 text-[#38bdf8]" weight="fill" />
-      )}
-    </motion.button>
+    </span>
   );
 }
 
 export function Contact() {
-  const [step, setStep] = useState(1);
-  const [formTimestamp] = useState(Date.now());
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [formTimestamp] = useState(() => Date.now());
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [tel, setTel] = useState("");
+  const [type, setType] = useState<ProjectTypeKey | "">("");
+  const [budget, setBudget] = useState<BudgetKey | "">("");
+  const [msg, setMsg] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot
+  const [file, setFile] = useState<File | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    trigger,
-    formState: { errors, isSubmitting },
-  } = useForm<EstimateFormData>({
-    resolver: zodResolver(estimateFormSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      projectType: undefined,
-      budget: undefined,
-      timeline: undefined,
-      description: "",
-      existingUrl: "",
-      referralSource: undefined,
-      consent: undefined,
-      website: "",
-      _timestamp: formTimestamp,
-    },
-  });
+  const formCardRef = useRef<HTMLDivElement>(null);
 
-  const projectType = watch("projectType");
-  const timeline = watch("timeline");
-  const budget = watch("budget");
+  const onFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0] ?? null;
+    setFile(f);
+  };
 
-  const onSubmit = async (data: EstimateFormData) => {
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (!name.trim() || name.trim().length < 3) next.name = "Nom requis";
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      next.email = "Email invalide";
+    if (!type) next.type = "Sélectionnez un type de projet";
+    if (!msg.trim() || msg.trim().length < 20)
+      next.msg = "Décrivez votre projet (20 caractères min.)";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validate() || submitting) return;
+
     const { isBot } = validateAntiSpam({
-      website: data.website,
+      website,
       _timestamp: formTimestamp,
     });
-
     if (isBot) {
-      setIsSuccess(true);
+      setDone(true);
       return;
     }
 
+    setSubmitting(true);
+
+    // Map "Nom complet" → firstName / lastName for the existing API
+    const trimmed = name.trim().replace(/\s+/g, " ");
+    const parts = trimmed.split(" ");
+    const firstName = parts[0] || trimmed;
+    const lastName = parts.length > 1 ? parts.slice(1).join(" ") : "—";
+
+    const payload = {
+      firstName,
+      lastName,
+      email: email.trim(),
+      phone: tel.trim() || undefined,
+      projectType: projectTypeToServer[type as ProjectTypeKey],
+      budget: budget ? budgetToServer[budget as BudgetKey] : "unknown",
+      timeline: "flexible",
+      description: msg.trim(),
+      consent: true,
+      website,
+      _timestamp: formTimestamp,
+    };
+
     try {
-      const response = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
-
-      if (!response.ok) {
-        console.error("Contact form error");
-      }
-
-      setIsSuccess(true);
-    } catch (error) {
-      console.error("Contact form error:", error);
-      setIsSuccess(true);
-    }
-  };
-
-  const nextStep = async () => {
-    let fieldsToValidate: (keyof EstimateFormData)[] = [];
-
-    if (step === 1) {
-      fieldsToValidate = ["projectType"];
-    } else if (step === 2) {
-      fieldsToValidate = ["budget", "timeline"];
-    } else if (step === 3) {
-      fieldsToValidate = ["firstName", "lastName", "email"];
+    } catch (err) {
+      console.error("[Contact] submit error", err);
     }
 
-    const isValid = await trigger(fieldsToValidate);
-    if (isValid) {
-      setStep(step + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (step > 1) setStep(step - 1);
+    setSubmitting(false);
+    setDone(true);
   };
 
   return (
-    <AnimatedSection
+    <section
       id="contact"
-      className="section-padding relative overflow-hidden"
-      style={{ backgroundColor: "#020617" }}
+      className="sw-contact"
+      data-screen-label="Contact"
     >
-      <div className="container-wide">
-        {/* Header */}
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-12"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <motion.span
-            className="inline-block px-5 py-2.5 rounded-full text-sm font-medium mb-8"
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: easings.smooth }}
-            style={{
-              background: "rgba(56, 189, 248, 0.06)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(56, 189, 248, 0.12)",
-              boxShadow: "var(--shadow-apple-sm)",
-              color: "var(--text-body)",
-            }}
-          >
-            Demander un devis
-          </motion.span>
+      {/* Hero */}
+      <div className="sw-hero">
+        <h1 className="sw-h1">
+          <RollingText text="Parlons de" className="sw-h1-thin" />
+          <RollingText text="votre projet" className="sw-h1-serif" />
+        </h1>
+      </div>
 
-          <h2
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.5rem, 6vw, 4rem)",
-              lineHeight: "1.05",
-              letterSpacing: "-0.03em",
-            }}
-          >
-            <span style={{ color: "var(--text-muted)" }}>Parlons de </span>
-            <span style={{ color: "#ffffff", fontWeight: 600 }}>votre projet</span>
-          </h2>
-          {/* Lime accent line — editorial separator */}
-          <div
-            style={{
-              width: "80px",
-              height: "2px",
-              background: "linear-gradient(90deg, transparent 0%, #38bdf8 50%, transparent 100%)",
-              margin: "24px auto",
-            }}
+      {/* Form wrap with floating devices */}
+      <div className="sw-form-wrap">
+        {/* Devices flanking the form */}
+        <div className="sw-device sw-device-mac" aria-hidden>
+          <Image
+            src="/contact/macbook.png"
+            alt=""
+            width={1760}
+            height={1100}
+            sizes="(max-width: 1200px) 520px, (max-width: 1400px) 680px, 880px"
+            priority={false}
           />
-          <p
-            className="text-lg leading-relaxed"
-            style={{ color: "var(--text-body)" }}
-          >
-            Réponse sous 24h • Premier appel gratuit • Sans engagement
-          </p>
-        </motion.div>
+        </div>
+        <div className="sw-device sw-device-iphone" aria-hidden>
+          <Image
+            src="/contact/iphone.png"
+            alt=""
+            width={1020}
+            height={2200}
+            sizes="(max-width: 1200px) 580px, (max-width: 1400px) 720px, 900px"
+            priority={false}
+          />
+        </div>
 
-        {/* Form Card */}
         <motion.div
-          className="max-w-2xl mx-auto"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          ref={formCardRef}
+          className="sw-form-card"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div
-            className="relative overflow-hidden p-8 md:p-10"
-            style={{
-              background: "#1e293b",
-              borderRadius: "var(--card-radius-2xl)",
-              border: "1px solid rgba(56, 189, 248, 0.15)",
-              boxShadow: "var(--shadow-apple-xl)",
-            }}
-          >
-            {/* Inner glow */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                borderRadius: "inherit",
-                background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 60%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {isSuccess ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-8"
-                >
-                  <div
-                    className="flex h-20 w-20 items-center justify-center rounded-full mx-auto mb-6"
-                    style={{
-                      background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
-                      boxShadow: "0 8px 24px rgba(34, 197, 94, 0.35)",
-                    }}
-                  >
-                    <Check className="h-10 w-10 text-white" weight="bold" />
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-3 text-white">
-                    Demande envoyée !
-                  </h3>
-                  <p className="text-white/70 mb-6">
-                    Nous avons bien reçu votre demande et reviendrons vers vous sous 24h.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <motion.a
-                      href={brand.calendlyUrl}
-                      className="btn-liquid-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      <Lightning className="h-4 w-4" weight="fill" />
-                      Réserver un appel maintenant
-                    </motion.a>
-                  </div>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <StepIndicator currentStep={step} totalSteps={4} />
-
-                  <AnimatePresence mode="wait">
-                    {/* Step 1: Project Type */}
-                    {step === 1 && (
-                      <motion.div
-                        key="step1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Quel type de projet ?
-                        </h3>
-                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
-                          Sélectionnez le type de projet qui correspond le mieux à votre besoin
-                        </p>
-
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-                          {projectTypeOptions.map((option) => (
-                            <ProjectTypeCard
-                              key={option.value}
-                              option={option}
-                              isSelected={projectType === option.value}
-                              onSelect={() => setValue("projectType", option.value)}
-                            />
-                          ))}
-                        </div>
-
-                        {errors.projectType && (
-                          <p className="text-red-400 text-sm mb-4">
-                            {errors.projectType.message}
-                          </p>
-                        )}
-                      </motion.div>
-                    )}
-
-                    {/* Step 2: Budget & Timeline */}
-                    {step === 2 && (
-                      <motion.div
-                        key="step2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Budget et délais
-                        </h3>
-                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
-                          Aidez-nous à calibrer notre proposition
-                        </p>
-
-                        <AnimatePresence>
-                          {projectType && timeline && (
-                            <PriceEstimate projectType={projectType} timeline={timeline} />
-                          )}
-                        </AnimatePresence>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <div>
-                            <Label className="text-white/80 text-sm mb-3 block">
-                              Budget envisagé
-                            </Label>
-                            <div className="space-y-2">
-                              {budgetOptions.map((option) => (
-                                <SelectionCard
-                                  key={option.value}
-                                  option={option}
-                                  isSelected={budget === option.value}
-                                  onSelect={() => setValue("budget", option.value)}
-                                  icon={CurrencyEur}
-                                />
-                              ))}
-                            </div>
-                            {errors.budget && (
-                              <p className="text-red-400 text-sm mt-2">
-                                {errors.budget.message}
-                              </p>
-                            )}
-                          </div>
-
-                          <div>
-                            <Label className="text-white/80 text-sm mb-3 block">
-                              Délai souhaité
-                            </Label>
-                            <div className="space-y-2">
-                              {timelineOptions.map((option) => (
-                                <SelectionCard
-                                  key={option.value}
-                                  option={option}
-                                  isSelected={timeline === option.value}
-                                  onSelect={() => setValue("timeline", option.value)}
-                                  icon={Clock}
-                                />
-                              ))}
-                            </div>
-                            {errors.timeline && (
-                              <p className="text-red-400 text-sm mt-2">
-                                {errors.timeline.message}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 3: Contact Info */}
-                    {step === 3 && (
-                      <motion.div
-                        key="step3"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Vos coordonnées
-                        </h3>
-                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
-                          Pour vous recontacter et préparer notre échange
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="firstName" className="text-white/80">
-                              Prénom *
-                            </Label>
-                            <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                              <Input
-                                id="firstName"
-                                placeholder="Jean"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                                {...register("firstName")}
-                              />
-                            </div>
-                            {errors.firstName && (
-                              <p className="text-red-400 text-xs">
-                                {errors.firstName.message}
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="lastName" className="text-white/80">
-                              Nom *
-                            </Label>
-                            <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                              <Input
-                                id="lastName"
-                                placeholder="Dupont"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                                {...register("lastName")}
-                              />
-                            </div>
-                            {errors.lastName && (
-                              <p className="text-red-400 text-xs">
-                                {errors.lastName.message}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          <Label htmlFor="email" className="text-white/80">
-                            Email professionnel *
-                          </Label>
-                          <div className="relative">
-                            <Envelope className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="jean@entreprise.com"
-                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                              {...register("email")}
-                            />
-                          </div>
-                          {errors.email && (
-                            <p className="text-red-400 text-xs">
-                              {errors.email.message}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="phone" className="text-white/80">
-                              Téléphone
-                            </Label>
-                            <div className="relative">
-                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                              <Input
-                                id="phone"
-                                type="tel"
-                                placeholder="+33 6 00 00 00 00"
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                                {...register("phone")}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="company" className="text-white/80">
-                              Entreprise
-                            </Label>
-                            <div className="relative">
-                              <Buildings className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                              <Input
-                                id="company"
-                                placeholder="Acme Inc."
-                                className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                                {...register("company")}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 4: Project Details */}
-                    {step === 4 && (
-                      <motion.div
-                        key="step4"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Décrivez votre projet
-                        </h3>
-                        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.75)" }}>
-                          Plus vous êtes précis, plus notre réponse sera pertinente
-                        </p>
-
-                        <div className="space-y-2 mb-4">
-                          <Label htmlFor="description" className="text-white/80">
-                            Description du projet *
-                          </Label>
-                          <div className="relative">
-                            <ChatText className="absolute left-3 top-3 h-4 w-4 text-white/55" />
-                            <Textarea
-                              id="description"
-                              placeholder="Décrivez votre projet : objectifs, fonctionnalités souhaitées, cible utilisateur..."
-                              className="pl-10 min-h-[120px] bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                              {...register("description")}
-                            />
-                          </div>
-                          {errors.description && (
-                            <p className="text-red-400 text-xs">
-                              {errors.description.message}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          <Label htmlFor="existingUrl" className="text-white/80">
-                            Site existant (optionnel)
-                          </Label>
-                          <div className="relative">
-                            <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/55" />
-                            <Input
-                              id="existingUrl"
-                              type="url"
-                              placeholder="https://votre-site-actuel.com"
-                              className="pl-10 bg-white/10 border-white/15 text-white placeholder:text-white/50 focus:border-[#38bdf8] focus:ring-[#38bdf8]/20"
-                              {...register("existingUrl")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 mb-6">
-                          <Label htmlFor="referralSource" className="text-white/80">
-                            Comment nous avez-vous trouvé ?
-                          </Label>
-                          <select
-                            id="referralSource"
-                            className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/15 text-white focus:border-[#38bdf8] focus:ring-[#38bdf8]/20 focus:outline-none"
-                            {...register("referralSource")}
-                          >
-                            <option value="" className="bg-[#1e293b]">Sélectionner...</option>
-                            {referralSourceOptions.map((option) => (
-                              <option key={option.value} value={option.value} className="bg-[#1e293b]">
-                                {option.label}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* Consent */}
-                        <div className="flex items-start gap-3 mb-6">
-                          <input
-                            type="checkbox"
-                            id="consent"
-                            className="mt-1 h-4 w-4 rounded border-white/15 bg-white/10 text-[#38bdf8] focus:ring-[#38bdf8]/20"
-                            {...register("consent")}
-                          />
-                          <label htmlFor="consent" className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
-                            J'accepte que mes données soient utilisées pour traiter ma demande et recevoir des communications de {brand.name}. *
-                          </label>
-                        </div>
-                        {errors.consent && (
-                          <p className="text-red-400 text-xs mb-4">
-                            {errors.consent.message}
-                          </p>
-                        )}
-
-                        {/* Honeypot */}
-                        <input
-                          type="text"
-                          {...register("website")}
-                          className="sr-only"
-                          tabIndex={-1}
-                          autoComplete="off"
-                          aria-hidden="true"
-                        />
-                        <input
-                          type="hidden"
-                          {...register("_timestamp", { valueAsNumber: true })}
-                          value={formTimestamp}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Navigation buttons */}
-                  <div className="flex items-center justify-between mt-8">
-                    {step > 1 ? (
-                      <motion.button
-                        type="button"
-                        onClick={prevStep}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-white/70 hover:text-white transition-colors"
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <ArrowLeft className="h-4 w-4" />
-                        Retour
-                      </motion.button>
-                    ) : (
-                      <div />
-                    )}
-
-                    {step < 4 ? (
-                      <motion.button
-                        type="button"
-                        onClick={nextStep}
-                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        Continuer
-                        <ArrowRight className="h-4 w-4" />
-                      </motion.button>
-                    ) : (
-                      <motion.button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="btn-liquid-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm disabled:opacity-70"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        <PaperPlaneTilt className="h-4 w-4" weight="duotone" />
-                        {isSubmitting ? "Envoi..." : "Envoyer ma demande"}
-                      </motion.button>
-                    )}
-                  </div>
-                </form>
-              )}
+          <aside className="sw-aside">
+            <div className="sw-aside-title">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Dites-nous tout
             </div>
-          </div>
+            <p className="sw-aside-desc">
+              Décrivez votre projet en quelques mots et nous vous recontacterons
+              rapidement.
+            </p>
+            <div className="sw-aside-list">
+              <div className="sw-aside-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                  <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Réponse sous 24h
+              </div>
+              <div className="sw-aside-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Premier appel gratuit
+              </div>
+              <div className="sw-aside-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                </svg>
+                Sans engagement
+              </div>
+            </div>
+          </aside>
+
+          {done ? (
+            <div className="sw-form sw-success">
+              <div className="sw-success-badge">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path
+                    d="M5 12.5l4.5 4.5L19 7.5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 className="sw-success-title">Demande envoyée !</h3>
+              <p className="sw-success-text">
+                Merci, nous revenons vers vous sous 24h à l&apos;adresse{" "}
+                <strong>{email}</strong>.
+              </p>
+              <a
+                className="sw-success-cta"
+                href={brand.calendlyUrl ?? "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Réserver un appel maintenant
+                <svg viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path
+                    d="M2.5 6h7M6 2.5L9.5 6 6 9.5"
+                    stroke="white"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          ) : (
+            <form className="sw-form" onSubmit={handleSubmit} noValidate>
+              <div className="sw-row sw-row-3">
+                <div className="sw-field">
+                  <label className="sw-label" htmlFor="sw-name">
+                    Nom complet
+                  </label>
+                  <input
+                    id="sw-name"
+                    className={`sw-input${errors.name ? " has-error" : ""}`}
+                    type="text"
+                    placeholder="Votre nom"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    autoComplete="name"
+                  />
+                  {errors.name && <span className="sw-error">{errors.name}</span>}
+                </div>
+                <div className="sw-field">
+                  <label className="sw-label" htmlFor="sw-email">
+                    Email professionnel
+                  </label>
+                  <input
+                    id="sw-email"
+                    className={`sw-input${errors.email ? " has-error" : ""}`}
+                    type="email"
+                    placeholder="vous@entreprise.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    autoComplete="email"
+                  />
+                  {errors.email && <span className="sw-error">{errors.email}</span>}
+                </div>
+                <div className="sw-field">
+                  <label className="sw-label" htmlFor="sw-tel">
+                    Téléphone <span className="sw-opt">(optionnel)</span>
+                  </label>
+                  <input
+                    id="sw-tel"
+                    className="sw-input"
+                    type="tel"
+                    placeholder="06 12 34 56 78"
+                    value={tel}
+                    onChange={(e) => setTel(e.target.value)}
+                    autoComplete="tel"
+                  />
+                </div>
+              </div>
+
+              <div className="sw-row sw-row-2">
+                <Dropdown
+                  label="Type de projet"
+                  required
+                  placeholder="Sélectionnez le type de projet"
+                  value={type}
+                  options={projectTypes}
+                  onChange={(v) => setType(v)}
+                />
+                <Dropdown
+                  label="Budget estimatif"
+                  optional
+                  placeholder="Sélectionnez une fourchette"
+                  value={budget}
+                  options={budgets}
+                  onChange={(v) => setBudget(v)}
+                />
+              </div>
+              {errors.type && (
+                <span className="sw-error sw-error-row">{errors.type}</span>
+              )}
+
+              <div className="sw-field">
+                <label className="sw-label" htmlFor="sw-msg">
+                  Parlez-nous de votre projet
+                </label>
+                <textarea
+                  id="sw-msg"
+                  className={`sw-textarea${errors.msg ? " has-error" : ""}`}
+                  placeholder="Décrivez vos objectifs, vos idées, vos contraintes..."
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  required
+                />
+                {errors.msg && <span className="sw-error">{errors.msg}</span>}
+              </div>
+
+              <div className="sw-footer-row">
+                <label className="sw-file-drop" htmlFor="sw-file">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="sw-file-text">
+                    <span className="sw-file-title">
+                      {file ? (
+                        file.name
+                      ) : (
+                        <>
+                          Ajouter un fichier{" "}
+                          <span className="sw-opt">(optionnel)</span>
+                        </>
+                      )}
+                    </span>
+                    <span className="sw-file-sub">
+                      {file
+                        ? `${(file.size / 1024 / 1024).toFixed(2)} Mo`
+                        : "PDF, doc, images... 10 Mo max"}
+                    </span>
+                  </span>
+                </label>
+                <input
+                  id="sw-file"
+                  type="file"
+                  accept=".pdf,.doc,.docx,image/*"
+                  onChange={onFile}
+                  style={{ display: "none" }}
+                />
+
+                <button
+                  className="sw-submit"
+                  type="submit"
+                  disabled={submitting}
+                >
+                  {submitting ? "Envoi..." : "Envoyer ma demande"}
+                  {!submitting && (
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path
+                        d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+
+              {/* Honeypot */}
+              <input
+                type="text"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                className="sw-honeypot"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden
+              />
+            </form>
+          )}
         </motion.div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }
 

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="487" height="625" viewBox="0 0 487 625">
+  <defs>
+    <linearGradient id="logoGradient" x1="8%" y1="4%" x2="92%" y2="96%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="30%" stop-color="#F8FBFF"/>
+      <stop offset="62%" stop-color="#DCE7FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#logoGradient)">
+    <path d="M 0 625
+             L 0 190.5
+             A 40.5 40.5 0 0 1 81 190.5
+             L 81 584.5
+             A 40.5 40.5 0 0 1 40.5 625
+             Z"/>
+    <path fill-rule="evenodd"
+          d="M 109 625
+             L 109 134.5
+             A 134.5 134.5 0 0 1 378 134.5
+             L 378 625
+             Z
+             M 187 625
+             L 187 154
+             A 57.5 57.5 0 0 1 302 154
+             L 302 625
+             Z"/>
+    <path d="M 487 625
+             L 446.5 625
+             A 40.5 40.5 0 0 1 406 584.5
+             L 406 190.5
+             A 40.5 40.5 0 0 1 487 190.5
+             Z"/>
+    <circle cx="243.5" cy="283.5" r="25.5"/>
+  </g>
+</svg>

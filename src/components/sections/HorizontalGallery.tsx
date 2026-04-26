@@ -364,20 +364,6 @@ export function HorizontalGallery() {
         }
         style={!isMobile ? { maxWidth: "400px" } : undefined}
       >
-        <motion.span
-          className="inline-block px-4 py-2 rounded-full text-xs font-medium mb-6"
-          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: easings.smooth }}
-          style={{
-            background: "rgba(56, 189, 248, 0.06)",
-            border: "1px solid rgba(56, 189, 248, 0.12)",
-            color: "rgba(56, 189, 248, 0.8)",
-          }}
-        >
-          Projets
-        </motion.span>
         <motion.h2
           className="mb-4"
           initial={{ opacity: 0, y: 30 }}
@@ -438,12 +424,13 @@ export function HorizontalGallery() {
         }
         style={
           isMobile
-            ? undefined
+            ? { marginTop: "6cm" }
             : {
                 width: "max-content",
                 height: "100vh",
                 paddingLeft: "min(420px, 30vw)",
                 paddingRight: "120px",
+                marginTop: "6cm",
               }
         }
       >

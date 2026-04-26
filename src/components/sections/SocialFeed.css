@@ -1,0 +1,528 @@
+/* ===========================================================
+   StellarWave — SocialFeed
+   Inspiré de la section "what's up On Socials" de landonorris.com
+   - Titre bi-typo : Mona Sans 200 (thin) + BodoniFLF italic (substitut Brier)
+   - Éventail (fan deck) de 8 cartes verticales (mocks)
+   - Liens horizontaux vers les réseaux
+   =========================================================== */
+
+/* ============================================================
+   @property — déclarations typées des custom properties.
+   CRITIQUE pour la fluidité du hover : sans @property, le browser
+   traite les CSS vars comme des chaînes et la transition saute
+   d'une valeur à l'autre. Avec @property, le browser interpole
+   continûment <length> et <angle> → transitions soyeuses.
+   ============================================================ */
+@property --fan-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fan-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fan-rot {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --fan-scale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+.sf-section {
+  /* Lando design tokens (reproduits à l'identique) */
+  --sf-gap: 1.25rem;
+  --sf-bg: #050C1F;
+  --sf-text: #E8ECF5;
+  --sf-text-dim: #8A95B0;
+  --sf-text-muted: #5C6986;
+  --sf-accent: #38bdf8;
+  --sf-accent-soft: rgba(56, 189, 248, 0.12);
+
+  z-index: 5;
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.10), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(56, 189, 248, 0.06), transparent 60%),
+    var(--sf-bg);
+  color: var(--sf-text);
+  padding: clamp(80px, 10vw, 140px) 24px;
+  /* clip horizontal seul (évite scrollbar) — vertical libre pour le hover */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Lando: .callout-socials-inner — flex centered */
+.sf-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Lando: .callout-socials-layout — column, centered, gap = --gap * 2 */
+.sf-layout {
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: calc(var(--sf-gap) * 2);
+}
+
+/* ===== Title ===== */
+.sf-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 0.6vw, 10px);
+  text-align: center;
+  margin: 0;
+  line-height: 0.9;
+}
+
+.sf-title-thin {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  letter-spacing: -0.04em;
+  color: var(--sf-text);
+  text-transform: uppercase;
+}
+
+.sf-title-serif {
+  font-family: var(--font-btn), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-transform: none;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   Fan deck — éventail STATIQUE en CSS (positions via :nth-child).
+   - .sf-marquee = container fixe, hauteur 36rem (Lando), overflow hidden
+   - .sf-marquee-track = wrapper centré (point d'origine pour les cards)
+   - .sf-card-pos = wrapper en position: absolute, transform éventail
+                    posé par CSS :nth-child (statique, robuste)
+   - GSAP n'anime QUE l'opacity au scroll (cf. SocialFeed.tsx)
+   ============================================================
+   Calcul (centre = 3.5, SPACING = 200, ARC = 16, ROT = 3deg) :
+     i=0: x=-700  y=200  rot=-10.5°  z=1
+     i=1: x=-500  y=128  rot=-7.5°   z=2
+     i=2: x=-300  y= 72  rot=-4.5°   z=3
+     i=3: x=-100  y= 16  rot=-1.5°   z=4
+     i=4: x= 100  y= 16  rot= 1.5°   z=4
+     i=5: x= 300  y= 72  rot= 4.5°   z=3
+     i=6: x= 500  y=128  rot= 7.5°   z=2
+     i=7: x= 700  y=200  rot=10.5°   z=1
+   ============================================================ */
+.sf-marquee {
+  position: relative;
+  width: 100%;
+  height: 36rem;                   /* Lando exact */
+  /* PAS d'overflow hidden : les cards de l'éventail doivent pouvoir
+     dépasser horizontalement ET verticalement (notamment au hover où
+     la card sort vers le haut). Le clip horizontal global est géré
+     au niveau .sf-section (overflow-x: clip). */
+}
+
+.sf-marquee-track {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* ============================================================
+   .sf-card-pos — wrappers d'éventail
+   Position via 3 CSS variables (--fan-x, --fan-y, --fan-rot) que
+   le :hover override pour l'effet "card sortie du deck" Lando-like
+   (la card hover se redresse, sort vers le haut, grandit, et
+   passe au-dessus de toutes les autres).
+   ============================================================ */
+.sf-card-pos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Variables courantes (animées par GSAP au hover) */
+  --fan-x: var(--fan-x-base);
+  --fan-y: var(--fan-y-base);
+  --fan-rot: var(--fan-rot-base);
+  --fan-scale: 1;
+  /* Variables base (immuables, posées par :nth-child) */
+  --fan-x-base: 0px;
+  --fan-y-base: 0px;
+  --fan-rot-base: 0deg;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--fan-x), var(--fan-y))
+    rotate(var(--fan-rot))
+    scale(var(--fan-scale));
+  transform-origin: 50% 100%;      /* rotation/scale depuis la base */
+  will-change: transform, opacity;
+  cursor: pointer;
+  /* z-index géré en JS par GSAP (incrémental, évite les race conditions
+     entre cards survolées rapidement). Pas de transition CSS ici :
+     toute l'orchestration hover est en JS GSAP timeline. */
+}
+
+/* Positions de chaque carte dans l'éventail (8 cards, centre = 3.5) */
+.sf-card-pos:nth-child(1) { --fan-x-base: -700px; --fan-y-base: 200px; --fan-rot-base: -10.5deg; z-index: 1; }
+.sf-card-pos:nth-child(2) { --fan-x-base: -500px; --fan-y-base: 128px; --fan-rot-base: -7.5deg;  z-index: 2; }
+.sf-card-pos:nth-child(3) { --fan-x-base: -300px; --fan-y-base:  72px; --fan-rot-base: -4.5deg;  z-index: 3; }
+.sf-card-pos:nth-child(4) { --fan-x-base: -100px; --fan-y-base:  16px; --fan-rot-base: -1.5deg;  z-index: 4; }
+.sf-card-pos:nth-child(5) { --fan-x-base:  100px; --fan-y-base:  16px; --fan-rot-base:  1.5deg;  z-index: 4; }
+.sf-card-pos:nth-child(6) { --fan-x-base:  300px; --fan-y-base:  72px; --fan-rot-base:  4.5deg;  z-index: 3; }
+.sf-card-pos:nth-child(7) { --fan-x-base:  500px; --fan-y-base: 128px; --fan-rot-base:  7.5deg;  z-index: 2; }
+.sf-card-pos:nth-child(8) { --fan-x-base:  700px; --fan-y-base: 200px; --fan-rot-base: 10.5deg;  z-index: 1; }
+
+/* ===== Responsive — éventail compacté pour viewports plus étroits ===== */
+@media (max-width: 1100px) {
+  .sf-card-pos:nth-child(1) { --fan-x-base: -540px; --fan-y-base: 156px; --fan-rot-base: -9deg; }
+  .sf-card-pos:nth-child(2) { --fan-x-base: -385px; --fan-y-base: 100px; --fan-rot-base: -6deg; }
+  .sf-card-pos:nth-child(3) { --fan-x-base: -230px; --fan-y-base:  56px; --fan-rot-base: -3.5deg; }
+  .sf-card-pos:nth-child(4) { --fan-x-base:  -75px; --fan-y-base:  12px; --fan-rot-base: -1deg; }
+  .sf-card-pos:nth-child(5) { --fan-x-base:   75px; --fan-y-base:  12px; --fan-rot-base:  1deg; }
+  .sf-card-pos:nth-child(6) { --fan-x-base:  230px; --fan-y-base:  56px; --fan-rot-base:  3.5deg; }
+  .sf-card-pos:nth-child(7) { --fan-x-base:  385px; --fan-y-base: 100px; --fan-rot-base:  6deg; }
+  .sf-card-pos:nth-child(8) { --fan-x-base:  540px; --fan-y-base: 156px; --fan-rot-base:  9deg; }
+}
+
+@media (max-width: 768px) {
+  /* En mobile, fallback en scroll horizontal natif (éventail non pertinent) */
+  .sf-marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sf-marquee-track {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: var(--sf-gap);
+    padding: 0 24px;
+    width: max-content;
+    height: auto;
+  }
+  .sf-card-pos {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none !important;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sf-marquee-track {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: var(--sf-gap);
+    padding: 0 24px;
+    width: max-content;
+    height: auto;
+  }
+  .sf-card-pos {
+    position: relative;
+    top: auto; left: auto;
+    width: auto; height: auto;
+    margin: 0;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+}
+
+/* ============================================================
+   Card — reproduction 1:1 de .callout-socials-card-w (Lando)
+   Seul changement nécessaire vs Lando : position relative
+   (au lieu de absolute) parce qu'on n'a pas le JS GSAP qui
+   distribue les cards en éventail. Toutes les autres
+   propriétés visuelles sont identiques.
+   ============================================================ */
+.sf-card {
+  z-index: 0;
+  position: relative;
+  flex: none;
+  width: 20rem;                    /* Lando exact: 320px */
+  height: 35rem;                   /* Lando exact: 560px */
+  border-radius: 3.31625rem;       /* Lando exact: ≈ 53px */
+  backface-visibility: hidden;     /* Lando exact */
+  will-change: transform;          /* Lando exact */
+  overflow: clip;                  /* Lando exact */
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 28px 26px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  /* Le transform du hover est géré sur .sf-card-pos (parent) pour
+     ne pas écraser le transform CSS de l'éventail. Ici on n'anime
+     que le shadow pour amplifier l'effet d'élévation. */
+  transition: box-shadow 850ms cubic-bezier(.16, 1, .3, 1);
+  scroll-snap-align: center;
+}
+
+/* Quand le wrapper-pos est hover, on intensifie le shadow de la card */
+.sf-card-pos:hover .sf-card {
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* .image.is-social-card — Lando exact:
+   inset: 0%; position: absolute; z-index: 10
+   (full-bleed background acting like the image of a Lando card) */
+.sf-card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 90% 50% at 50% 100%, rgba(0, 0, 0, 0.30), transparent 60%);
+  pointer-events: none;
+  /* Subtle zoom on hover — esprit du data-stream-hover JS de Lando */
+  transition: transform 1000ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.sf-card-pos:hover .sf-card-glow {
+  transform: scale(1.06);
+}
+
+.sf-card-header,
+.sf-card-body,
+.sf-card-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.sf-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sf-card-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 6px 12px;
+  border-radius: 999px;
+  width: fit-content;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.sf-card-platform svg {
+  width: 14px;
+  height: 14px;
+}
+
+.sf-card-handle {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+  opacity: 0.85;
+  letter-spacing: 0.01em;
+}
+
+.sf-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  padding-top: 32px;
+}
+
+.sf-card-caption {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.sf-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sf-card-meta {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 200;
+  font-size: 13px;
+  opacity: 0.85;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sf-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 300ms ease, background 300ms ease;
+}
+
+.sf-card:hover .sf-card-arrow {
+  background: rgba(255, 255, 255, 0.32);
+  transform: rotate(-12deg);
+}
+
+.sf-card-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== Footer CTA + links =====
+   Lando: .callout-socials-intro-w margin-top = --gap * 3
+   Lando: .callout-socials-links-layout gap = --gap * 1.5
+*/
+.sf-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sf-gap) * 1.5);
+  margin-top: calc(var(--sf-gap) * 1);
+  text-align: center;
+}
+
+.sf-footer-intro {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.04;
+  letter-spacing: 0.04em;
+  color: var(--sf-text);
+  margin: 0;
+}
+
+.sf-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--sf-gap) * 1.5);    /* Lando exact */
+}
+
+.sf-footer-link {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--sf-text);
+  text-decoration: none;
+  position: relative;
+  padding: 4px 2px;
+  transition: color 300ms ease;
+}
+
+.sf-footer-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--sf-accent);
+  transform-origin: right center;
+  transform: scaleX(0);
+  transition: transform 350ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.sf-footer-link:hover {
+  color: var(--sf-accent);
+}
+
+.sf-footer-link:hover::after {
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   Responsive — breakpoints exacts de Lando (Webflow defaults)
+   - tablet  ≤ 991px : card 17rem, aspect-ratio 20/35, height auto
+   - mobile-l ≤ 767px : card 15rem
+   - mobile-p ≤ 479px : card 14rem, aspect-ratio 20/35, height auto
+   - links layout passe en wrap, max-width 20rem (Lando exact)
+   ============================================================ */
+@media (max-width: 991px) {
+  .sf-marquee { height: auto; }
+  .sf-card {
+    aspect-ratio: 20 / 35;
+    width: 17rem;
+    height: auto;
+    padding: 24px 24px 22px;
+    border-radius: 2.81rem;          /* proportionnel à width 17rem */
+  }
+  .sf-card-caption { font-size: 19px; }
+}
+
+@media (max-width: 767px) {
+  .sf-card {
+    width: 15rem;
+    border-radius: 2.49rem;          /* proportionnel à width 15rem */
+  }
+  .sf-card-caption { font-size: 17px; }
+}
+
+@media (max-width: 479px) {
+  .sf-card {
+    aspect-ratio: 20 / 35;
+    width: 14rem;
+    height: auto;
+    border-radius: 2.32rem;          /* proportionnel à width 14rem */
+  }
+  .sf-card-caption { font-size: 16px; }
+  .sf-footer-links {
+    flex-flow: wrap;
+    max-width: 20rem;                /* Lando exact */
+    gap: var(--sf-gap) calc(var(--sf-gap) * 0.5);
+  }
+}

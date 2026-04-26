@@ -2,6 +2,7 @@
 export { Hero } from "./Hero";
 export { Services } from "./Services";
 export { HorizontalGallery } from "./HorizontalGallery";
+export { SocialFeed } from "./SocialFeed";
 export { Proof } from "./Proof";
 export { ProcessSimple } from "./ProcessSimple";
 export { OffersWithFAQ } from "./OffersWithFAQ";
