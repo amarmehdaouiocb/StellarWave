@@ -1,0 +1,529 @@
+/* ===========================================================
+   StellarWave — HorizontalGallery (Ce qu'on construit)
+   Fan deck (éventail) de 8 cartes verticales — disposition et
+   hover repris de l'ancienne section SocialFeed (Lando-style).
+   =========================================================== */
+
+/* ============================================================
+   @property — déclarations typées des custom properties.
+   CRITIQUE pour la fluidité du hover : sans @property, le browser
+   traite les CSS vars comme des chaînes et la transition saute
+   d'une valeur à l'autre. Avec @property, le browser interpole
+   continûment <length> et <angle> → transitions soyeuses.
+   ============================================================ */
+@property --hg-fan-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --hg-fan-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --hg-fan-rot {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --hg-fan-scale {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+.hg-section {
+  --hg-gap: 1.25rem;
+  --hg-text: #E8ECF5;
+  --hg-text-dim: #8A95B0;
+  --hg-text-muted: #5C6986;
+  --hg-accent: #38bdf8;
+
+  z-index: 5;
+  position: relative;
+  width: 100%;
+  background-color: #020617;
+  background-image: url('/projects/bg-what-we-build.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  color: var(--hg-text);
+  padding: clamp(80px, 10vw, 140px) 24px;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Dark overlay so cards/text stay legible over the bg image */
+.hg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.10), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(56, 189, 248, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.72) 0%, rgba(2, 6, 23, 0.55) 40%, rgba(2, 6, 23, 0.78) 100%);
+  pointer-events: none;
+}
+
+/* Subtle top edge — softens transition with previous section */
+.hg-edge-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 1;
+  background: linear-gradient(180deg, #0f172a 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hg-edge-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 1;
+  background: linear-gradient(0deg, #020617 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hg-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hg-layout {
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: calc(var(--hg-gap) * 2);
+}
+
+/* ===== Title — "Ce qu'on construit" bi-typo ===== */
+.hg-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 0.6vw, 10px);
+  text-align: center;
+  margin: 0;
+  line-height: 0.9;
+}
+
+.hg-title-display {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6.4vw, 5rem);
+  letter-spacing: -0.02em;
+  color: var(--hg-text-muted);
+  text-transform: uppercase;
+}
+
+.hg-title-serif {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.7rem, 7.2vw, 6rem);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-transform: none;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hg-accent-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #38bdf8 50%, transparent 100%);
+  margin: 4px auto 0;
+}
+
+.hg-subtitle {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--hg-text-dim);
+  margin: 6px 0 0;
+  max-width: 560px;
+}
+
+/* ============================================================
+   Fan deck — éventail STATIQUE en CSS (positions via :nth-child).
+   GSAP n'anime QUE l'opacity au scroll + le hover pull-out.
+   ============================================================
+   9 cards · centre = card 5 (impair, parfait centrage)
+   Paramètres : SPACING = 240, ARC = 18, ROT = 3.5deg
+     i=1: x=-960  y=252  rot=-14°    z=1
+     i=2: x=-720  y=162  rot=-10.5°  z=2
+     i=3: x=-480  y= 90  rot=-7°     z=3
+     i=4: x=-240  y= 36  rot=-3.5°   z=4
+     i=5: x=   0  y=  0  rot=  0°    z=5  (centre)
+     i=6: x= 240  y= 36  rot=  3.5°  z=4
+     i=7: x= 480  y= 90  rot=  7°    z=3
+     i=8: x= 720  y=162  rot= 10.5°  z=2
+     i=9: x= 960  y=252  rot= 14°    z=1
+   ============================================================ */
+/* Zone hit étendue : couvre la zone du pull-out (la card monte de ~150px
+   au-dessus de la base fan). Sans ça, la souris peut sortir du deck box
+   pendant le hover (car la card lifted dépasse), ce qui déclencherait
+   un mouseleave deck → collapseToStack → désastre visuel. */
+.hg-deck-area {
+  position: relative;
+  width: 100%;
+  padding-top: 180px;
+  margin-top: -180px;
+}
+
+.hg-deck {
+  position: relative;
+  width: 100%;
+  height: 36rem;
+  /* PAS d'overflow hidden : les cards de l'éventail doivent pouvoir
+     dépasser horizontalement ET verticalement (notamment au hover où
+     la card sort vers le haut). Le clip horizontal global est géré
+     au niveau .hg-section (overflow-x: clip). */
+}
+
+.hg-deck-track {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.hg-card-pos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --hg-fan-x: var(--hg-fan-x-base);
+  --hg-fan-y: var(--hg-fan-y-base);
+  --hg-fan-rot: var(--hg-fan-rot-base);
+  --hg-fan-scale: 1;
+  --hg-fan-x-base: 0px;
+  --hg-fan-y-base: 0px;
+  --hg-fan-rot-base: 0deg;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--hg-fan-x), var(--hg-fan-y))
+    rotate(var(--hg-fan-rot))
+    scale(var(--hg-fan-scale));
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+/* Positions de chaque carte dans l'éventail (9 cards, centre = card 5)
+   SPACING = 240, ARC = 18, ROT = 3.5deg */
+.hg-card-pos:nth-child(1) { --hg-fan-x-base: -960px; --hg-fan-y-base: 252px; --hg-fan-rot-base: -14deg;   z-index: 1; }
+.hg-card-pos:nth-child(2) { --hg-fan-x-base: -720px; --hg-fan-y-base: 162px; --hg-fan-rot-base: -10.5deg; z-index: 2; }
+.hg-card-pos:nth-child(3) { --hg-fan-x-base: -480px; --hg-fan-y-base:  90px; --hg-fan-rot-base:  -7deg;   z-index: 3; }
+.hg-card-pos:nth-child(4) { --hg-fan-x-base: -240px; --hg-fan-y-base:  36px; --hg-fan-rot-base:  -3.5deg; z-index: 4; }
+.hg-card-pos:nth-child(5) { --hg-fan-x-base:    0px; --hg-fan-y-base:   0px; --hg-fan-rot-base:   0deg;   z-index: 5; }
+.hg-card-pos:nth-child(6) { --hg-fan-x-base:  240px; --hg-fan-y-base:  36px; --hg-fan-rot-base:   3.5deg; z-index: 4; }
+.hg-card-pos:nth-child(7) { --hg-fan-x-base:  480px; --hg-fan-y-base:  90px; --hg-fan-rot-base:   7deg;   z-index: 3; }
+.hg-card-pos:nth-child(8) { --hg-fan-x-base:  720px; --hg-fan-y-base: 162px; --hg-fan-rot-base:  10.5deg; z-index: 2; }
+.hg-card-pos:nth-child(9) { --hg-fan-x-base:  960px; --hg-fan-y-base: 252px; --hg-fan-rot-base:  14deg;   z-index: 1; }
+
+@media (max-width: 1280px) {
+  /* Scale ~0.7 pour viewports moyens */
+  .hg-card-pos:nth-child(1) { --hg-fan-x-base: -680px; --hg-fan-y-base: 180px; --hg-fan-rot-base: -10deg; }
+  .hg-card-pos:nth-child(2) { --hg-fan-x-base: -510px; --hg-fan-y-base: 116px; --hg-fan-rot-base: -7.5deg; }
+  .hg-card-pos:nth-child(3) { --hg-fan-x-base: -340px; --hg-fan-y-base:  64px; --hg-fan-rot-base: -5deg; }
+  .hg-card-pos:nth-child(4) { --hg-fan-x-base: -170px; --hg-fan-y-base:  26px; --hg-fan-rot-base: -2.5deg; }
+  .hg-card-pos:nth-child(5) { --hg-fan-x-base:    0px; --hg-fan-y-base:   0px; --hg-fan-rot-base:  0deg; }
+  .hg-card-pos:nth-child(6) { --hg-fan-x-base:  170px; --hg-fan-y-base:  26px; --hg-fan-rot-base:  2.5deg; }
+  .hg-card-pos:nth-child(7) { --hg-fan-x-base:  340px; --hg-fan-y-base:  64px; --hg-fan-rot-base:  5deg; }
+  .hg-card-pos:nth-child(8) { --hg-fan-x-base:  510px; --hg-fan-y-base: 116px; --hg-fan-rot-base:  7.5deg; }
+  .hg-card-pos:nth-child(9) { --hg-fan-x-base:  680px; --hg-fan-y-base: 180px; --hg-fan-rot-base:  10deg; }
+}
+
+@media (max-width: 1024px) {
+  /* Scale ~0.55 pour tablettes larges */
+  .hg-card-pos:nth-child(1) { --hg-fan-x-base: -540px; --hg-fan-y-base: 144px; --hg-fan-rot-base: -9deg; }
+  .hg-card-pos:nth-child(2) { --hg-fan-x-base: -405px; --hg-fan-y-base:  92px; --hg-fan-rot-base: -6.75deg; }
+  .hg-card-pos:nth-child(3) { --hg-fan-x-base: -270px; --hg-fan-y-base:  52px; --hg-fan-rot-base: -4.5deg; }
+  .hg-card-pos:nth-child(4) { --hg-fan-x-base: -135px; --hg-fan-y-base:  20px; --hg-fan-rot-base: -2.25deg; }
+  .hg-card-pos:nth-child(5) { --hg-fan-x-base:    0px; --hg-fan-y-base:   0px; --hg-fan-rot-base:  0deg; }
+  .hg-card-pos:nth-child(6) { --hg-fan-x-base:  135px; --hg-fan-y-base:  20px; --hg-fan-rot-base:  2.25deg; }
+  .hg-card-pos:nth-child(7) { --hg-fan-x-base:  270px; --hg-fan-y-base:  52px; --hg-fan-rot-base:  4.5deg; }
+  .hg-card-pos:nth-child(8) { --hg-fan-x-base:  405px; --hg-fan-y-base:  92px; --hg-fan-rot-base:  6.75deg; }
+  .hg-card-pos:nth-child(9) { --hg-fan-x-base:  540px; --hg-fan-y-base: 144px; --hg-fan-rot-base:  9deg; }
+}
+
+@media (max-width: 768px) {
+  .hg-deck-area {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .hg-deck {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hg-deck-track {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: var(--hg-gap);
+    padding: 0 24px;
+    width: max-content;
+    height: auto;
+  }
+  .hg-card-pos {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none !important;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-deck-area {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .hg-deck {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hg-deck-track {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: var(--hg-gap);
+    padding: 0 24px;
+    width: max-content;
+    height: auto;
+  }
+  .hg-card-pos {
+    position: relative;
+    top: auto; left: auto;
+    width: auto; height: auto;
+    margin: 0;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+}
+
+/* ============================================================
+   Card — reproduction du visuel social card (gradient + glow).
+   ============================================================ */
+.hg-card {
+  z-index: 0;
+  position: relative;
+  flex: none;
+  width: 20rem;
+  height: 35rem;
+  border-radius: 3.31625rem;
+  backface-visibility: hidden;
+  will-change: transform;
+  overflow: clip;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 28px 26px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: box-shadow 850ms cubic-bezier(.16, 1, .3, 1);
+  scroll-snap-align: center;
+  /* Card cliquable → ouvre le case-study modal */
+  cursor: pointer;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+/* Background image (illustration générée). Si absent → gradient seul. */
+.hg-card-illustration {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  /* Léger overlay pour préserver la lisibilité du texte par-dessus */
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.25) 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.hg-card-pos:hover .hg-card {
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.hg-card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 90% 50% at 50% 100%, rgba(0, 0, 0, 0.30), transparent 60%);
+  pointer-events: none;
+  transition: transform 1000ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.hg-card-pos:hover .hg-card-glow {
+  transform: scale(1.06);
+}
+
+.hg-card-header,
+.hg-card-body,
+.hg-card-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.hg-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hg-card-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 6px 12px;
+  border-radius: 999px;
+  width: fit-content;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hg-card-platform svg {
+  width: 14px;
+  height: 14px;
+}
+
+.hg-card-handle {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+  opacity: 0.85;
+  letter-spacing: 0.01em;
+}
+
+.hg-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  padding-top: 32px;
+}
+
+.hg-card-caption {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hg-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hg-card-meta {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 200;
+  font-size: 13px;
+  opacity: 0.85;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hg-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 300ms ease, background 300ms ease;
+}
+
+.hg-card:hover .hg-card-arrow {
+  background: rgba(255, 255, 255, 0.32);
+  transform: rotate(-12deg);
+}
+
+.hg-card-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== Responsive — breakpoints exacts (Lando-equivalent) ===== */
+@media (max-width: 991px) {
+  .hg-deck { height: auto; }
+  .hg-card {
+    aspect-ratio: 20 / 35;
+    width: 17rem;
+    height: auto;
+    padding: 24px 24px 22px;
+    border-radius: 2.81rem;
+  }
+  .hg-card-caption { font-size: 19px; }
+}
+
+@media (max-width: 767px) {
+  .hg-card {
+    width: 15rem;
+    border-radius: 2.49rem;
+  }
+  .hg-card-caption { font-size: 17px; }
+}
+
+@media (max-width: 479px) {
+  .hg-card {
+    aspect-ratio: 20 / 35;
+    width: 14rem;
+    height: auto;
+    border-radius: 2.32rem;
+  }
+  .hg-card-caption { font-size: 16px; }
+}

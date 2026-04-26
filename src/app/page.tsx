@@ -3,7 +3,6 @@ import {
   Hero,
   Services,
   HorizontalGallery,
-  SocialFeed,
   Contact,
 } from "@/components/sections";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
@@ -31,10 +30,7 @@ export default function HomePage() {
         {/* 3. HORIZONTAL GALLERY — signature visual rupture */}
         <HorizontalGallery />
 
-        {/* 4. SOCIAL FEED — bi-typo title + marquee carousel */}
-        <SocialFeed />
-
-        {/* 5. CONTACT */}
+        {/* 4. CONTACT */}
         <Contact />
       </main>
 

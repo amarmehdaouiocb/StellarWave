@@ -284,6 +284,9 @@ function RollingText({
   );
 }
 
+// Limites pièce jointe — alignées avec l'UI ("PDF, doc, images... 10 Mo max")
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+
 export function Contact() {
   const [formTimestamp] = useState(() => Date.now());
   const [name, setName] = useState("");
@@ -294,14 +297,30 @@ export function Contact() {
   const [msg, setMsg] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
   const [file, setFile] = useState<File | null>(null);
+  const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const formCardRef = useRef<HTMLDivElement>(null);
 
   const onFile = (e: ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0] ?? null;
+    if (f && f.size > MAX_FILE_BYTES) {
+      setErrors((prev) => ({
+        ...prev,
+        file: "Pièce jointe trop volumineuse (10 Mo max).",
+      }));
+      setFile(null);
+      e.target.value = "";
+      return;
+    }
+    setErrors((prev) => {
+      const { file: _omit, ...rest } = prev;
+      void _omit;
+      return rest;
+    });
     setFile(f);
   };
 
@@ -313,13 +332,18 @@ export function Contact() {
     if (!type) next.type = "Sélectionnez un type de projet";
     if (!msg.trim() || msg.trim().length < 20)
       next.msg = "Décrivez votre projet (20 caractères min.)";
+    if (!consent)
+      next.consent =
+        "Vous devez accepter notre politique de confidentialité.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validate() || submitting) return;
+    if (submitting) return;
+    setSubmitError(null);
+    if (!validate()) return;
 
     const { isBot } = validateAntiSpam({
       website,
@@ -338,28 +362,53 @@ export function Contact() {
     const firstName = parts[0] || trimmed;
     const lastName = parts.length > 1 ? parts.slice(1).join(" ") : "—";
 
-    const payload = {
-      firstName,
-      lastName,
-      email: email.trim(),
-      phone: tel.trim() || undefined,
-      projectType: projectTypeToServer[type as ProjectTypeKey],
-      budget: budget ? budgetToServer[budget as BudgetKey] : "unknown",
-      timeline: "flexible",
-      description: msg.trim(),
-      consent: true,
-      website,
-      _timestamp: formTimestamp,
-    };
+    // FormData (multipart) — permet d'envoyer le fichier en attachment.
+    // Côté API, route.ts détecte le content-type et parse FormData.
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email.trim());
+    if (tel.trim()) formData.append("phone", tel.trim());
+    formData.append("projectType", projectTypeToServer[type as ProjectTypeKey]);
+    formData.append(
+      "budget",
+      budget ? budgetToServer[budget as BudgetKey] : "unknown",
+    );
+    formData.append("timeline", "flexible");
+    formData.append("description", msg.trim());
+    formData.append("consent", "true"); // déjà validé côté client
+    formData.append("website", website);
+    formData.append("_timestamp", String(formTimestamp));
+    if (file) formData.append("file", file);
 
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: formData,
       });
+      if (!res.ok) {
+        // Tenter de récupérer le message d'erreur côté API.
+        let serverMessage: string | null = null;
+        try {
+          const json = (await res.json()) as { error?: string };
+          serverMessage = json.error ?? null;
+        } catch {
+          // Réponse non-JSON → message générique.
+        }
+        setSubmitError(
+          serverMessage ??
+            "Une erreur est survenue. Réessayez ou écrivez-nous directement à contact@stellarwave.fr.",
+        );
+        setSubmitting(false);
+        return;
+      }
     } catch (err) {
       console.error("[Contact] submit error", err);
+      setSubmitError(
+        "Connexion impossible. Vérifiez votre réseau ou écrivez-nous directement à contact@stellarwave.fr.",
+      );
+      setSubmitting(false);
+      return;
     }
 
     setSubmitting(false);
@@ -633,6 +682,59 @@ export function Contact() {
                   )}
                 </button>
               </div>
+              {errors.file && (
+                <span className="sw-error sw-error-row">{errors.file}</span>
+              )}
+
+              {/* Consent RGPD — opt-in explicite obligatoire */}
+              <label
+                className={`sw-consent${errors.consent ? " has-error" : ""}`}
+                htmlFor="sw-consent"
+              >
+                <input
+                  id="sw-consent"
+                  type="checkbox"
+                  className="sw-consent-checkbox"
+                  checked={consent}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    if (e.target.checked && errors.consent) {
+                      setErrors((prev) => {
+                        const { consent: _omit, ...rest } = prev;
+                        void _omit;
+                        return rest;
+                      });
+                    }
+                  }}
+                  required
+                />
+                <span className="sw-consent-text">
+                  J&rsquo;accepte que mes données soient utilisées pour
+                  recontacter mon projet, conformément à la{" "}
+                  <a
+                    href="/politique-de-confidentialite"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    politique de confidentialité
+                  </a>
+                  .
+                </span>
+              </label>
+              {errors.consent && (
+                <span className="sw-error">{errors.consent}</span>
+              )}
+
+              {/* Banner d'erreur — affiché si l'API renvoie une erreur */}
+              {submitError && (
+                <div className="sw-submit-error" role="alert">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                    <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                  <span>{submitError}</span>
+                </div>
+              )}
 
               {/* Honeypot */}
               <input
