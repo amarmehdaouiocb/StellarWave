@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   LinkedinLogo,
@@ -12,9 +13,6 @@ import { fadeInUp } from "@/lib/animations";
 
 const navLinks = [
   { label: "Services", href: "#services" },
-  { label: "R\u00e9alisations", href: "#proof" },
-  { label: "Process", href: "#process" },
-  { label: "Offres", href: "#offers" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -42,7 +40,7 @@ export function Footer() {
       />
 
       <div className="container-wide" style={{ paddingTop: "clamp(80px, 10vw, 120px)", paddingBottom: "clamp(40px, 5vw, 60px)" }}>
-        {/* Signature brand name — oversized editorial */}
+        {/* Signature brand logo — oversized editorial */}
         <motion.div
           className="mb-16"
           variants={fadeInUp}
@@ -50,23 +48,43 @@ export function Footer() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2
-            className="cursor-pointer select-none"
+          <Link
+            href="/"
+            aria-label="Stellar Wave — retour accueil"
+            className="group inline-block select-none"
             style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontSize: "clamp(4rem, 10vw, 8rem)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.03em",
-              fontWeight: 400,
-              color: "rgba(255, 255, 255, 0.5)",
-              transition: "color 500ms ease",
+              opacity: 0.55,
+              transition: "opacity 500ms ease, filter 500ms ease, transform 500ms ease",
+              filter: "drop-shadow(0 0 24px rgba(56, 189, 248, 0.08))",
             }}
-            onMouseEnter={(e) => { (e.target as HTMLElement).style.color = "rgba(255, 255, 255, 1)"; }}
-            onMouseLeave={(e) => { (e.target as HTMLElement).style.color = "rgba(255, 255, 255, 0.5)"; }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.opacity = "1";
+              el.style.filter =
+                "drop-shadow(0 0 32px rgba(56, 189, 248, 0.35)) drop-shadow(0 0 2px rgba(255,255,255,0.3))";
+              el.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.opacity = "0.55";
+              el.style.filter = "drop-shadow(0 0 24px rgba(56, 189, 248, 0.08))";
+              el.style.transform = "translateY(0)";
+            }}
           >
-            Stellar Wave
-          </h2>
+            <Image
+              src="/logo-footer.png"
+              alt="Stellar Wave"
+              width={1093}
+              height={1438}
+              priority={false}
+              style={{
+                /* Taille divisée par 2 vs avant (clamp 120/14vw/200px → 60/7vw/100px) */
+                height: "clamp(60px, 7vw, 100px)",
+                width: "auto",
+                display: "block",
+              }}
+            />
+          </Link>
         </motion.div>
 
         {/* Compact 2-column layout */}

@@ -7,9 +7,6 @@ import { cn } from "@/lib/utils";
 
 const navTabs = [
   { id: "services", label: "Services" },
-  { id: "proof", label: "Réalisations" },
-  { id: "process", label: "Process" },
-  { id: "offers", label: "Offres" },
   { id: "contact", label: "Contact" },
 ];
 

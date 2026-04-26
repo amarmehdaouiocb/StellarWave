@@ -9,7 +9,7 @@
  */
 
 import localFont from "next/font/local";
-import { Outfit, Playfair_Display, Raleway } from "next/font/google";
+import { Outfit, Raleway, Mona_Sans } from "next/font/google";
 
 /**
  * Clash Display - Premium Display Font
@@ -118,46 +118,9 @@ export const outfit = Outfit({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-/**
- * Playfair Display - Serif Display Font
- * Elegant serif for accent words in headlines (italic)
- * Used for dual-font system inspired by landonorris.com
- */
-export const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
-});
-
-export const bodoniFLF = localFont({
-  src: [
-    {
-      path: "../../public/fonts/BodoniFLF-Roman.woff",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BodoniFLF-Italic.woff",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BodoniFLF-Bold.woff",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BodoniFLF-BoldItalic.woff",
-      weight: "700",
-      style: "italic",
-    },
-  ],
-  variable: "--font-bodoni",
-  display: "swap",
-  preload: true,
-});
+/* Playfair Display & BodoniFLF retirés du chargement.
+   Tous les usages de var(--font-serif) et var(--font-bodoni) sont
+   redirigés vers Behind the Nineties via aliases dans globals.css. */
 
 export const raleway = Raleway({
   subsets: ["latin"],
@@ -167,8 +130,66 @@ export const raleway = Raleway({
   style: ["normal", "italic"],
 });
 
+/**
+ * Mona Sans Variable - Vraie font variable (open-source by GitHub)
+ * Axes : wght (200-900 continu) + wdth (75-125 condensation)
+ * Usage : font-variation-settings: "wght" 750, "wdth" 93 (façon Lando)
+ * On omet `weight` → next/font sert le fichier .woff2 variable unique.
+ */
+export const monaSans = Mona_Sans({
+  subsets: ["latin"],
+  variable: "--font-mona",
+  display: "swap",
+  axes: ["wdth"],
+  style: ["normal"],
+});
+
+/**
+ * Behind The Nineties - Display font 90s/80s retro
+ * 6 weights chargés (Regular / Bold / Black + leurs italiques)
+ * Mapping CSS standard : Rg=400, Bd=700, Blk=900
+ * Used as accent display (e.g. "On Socials")
+ */
+export const behindTheNineties = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Behind-The-Nineties-Rg.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Behind-The-Nineties-It.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/Behind-The-Nineties-Bd.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Behind-The-Nineties-Bd-It.otf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/Behind-The-Nineties-Blk.otf",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Behind-The-Nineties-Blk-It.otf",
+      weight: "900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-btn",
+  display: "swap",
+  preload: true,
+});
+
 export function getFontVariables(): string {
-  return `${bodoniFLF.variable} ${raleway.variable} ${playfairDisplay.variable}`;
+  return `${raleway.variable} ${monaSans.variable} ${behindTheNineties.variable}`;
 }
 
 /**

@@ -4,34 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: 'BodoniFLF';
-  src: url('/fonts/BodoniFLF-Roman.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'BodoniFLF';
-  src: url('/fonts/BodoniFLF-Italic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'BodoniFLF';
-  src: url('/fonts/BodoniFLF-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'BodoniFLF';
-  src: url('/fonts/BodoniFLF-BoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
+/* @font-face BodoniFLF retirées : la font BodoniFLF n'est plus utilisée
+   (remplacée par Behind the Nineties via var(--font-btn) côté composants
+   et par var(--font-mona) pour le reste). Les fichiers .woff dans
+   public/fonts/BodoniFLF-*.woff peuvent être supprimés sans risque. */
 
 /* ================================================
    STELLAR WAVE - LIME NEO ON DARK GREEN
@@ -42,7 +18,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-raleway), var(--font-outfit), system-ui, sans-serif;
+  --font-sans: var(--font-mona), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Sidebar */
@@ -340,9 +316,15 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
     color: var(--text-body);
-    --font-display: 'BodoniFLF', Georgia, "Times New Roman", serif;
-    --font-body: var(--font-raleway), system-ui, sans-serif;
-    font-family: var(--font-raleway), system-ui, sans-serif;
+    /* Migration globale typo :
+       - Tout le reste     → Mona Sans Variable (--font-mona)
+       - BodoniFLF / serif → Behind the Nineties (--font-btn)
+       Aliases pour préserver les CSS existants (--font-bodoni, --font-serif). */
+    --font-display: var(--font-mona), system-ui, sans-serif;
+    --font-body:    var(--font-mona), system-ui, sans-serif;
+    --font-bodoni:  var(--font-btn), Georgia, serif;
+    --font-serif:   var(--font-btn), Georgia, serif;
+    font-family: var(--font-mona), system-ui, sans-serif;
   }
 
   /* Selection - Lime on black */
