@@ -41,3 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .grepai/
+
+# plaquette debug screenshots (generated locally, not versioned)
+.plaquette-debug/
+
+# Supabase CLI metadata (peut contenir des credentials ex: pooler-url)
+supabase/.temp/

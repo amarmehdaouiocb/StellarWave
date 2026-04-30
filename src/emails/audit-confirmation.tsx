@@ -13,29 +13,42 @@ import {
 
 type AuditConfirmationEmailProps = {
   url: string;
+  /** True si le PDF est en pièce jointe (email final) */
+  ready?: boolean;
+  /** True si le pipeline a échoué et que l'équipe a été alertée */
+  delayed?: boolean;
 };
 
-export function AuditConfirmationEmail({ url }: AuditConfirmationEmailProps) {
+export function AuditConfirmationEmail({
+  url,
+  ready = false,
+  delayed = false,
+}: AuditConfirmationEmailProps) {
+  if (ready) return <ReadyEmail url={url} />;
+  if (delayed) return <DelayedEmail url={url} />;
+  return <PendingEmail url={url} />;
+}
+
+// Email envoyé immédiatement après soumission du formulaire
+function PendingEmail({ url }: { url: string }) {
   return (
     <Html>
       <Head />
-      <Preview>
-        Votre mini-audit est en préparation - Stellar Wave
-      </Preview>
+      <Preview>Votre mini-audit arrive dans quelques minutes</Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Header */}
           <Section style={header}>
             <Text style={logoText}>✦ Stellar Wave</Text>
           </Section>
 
           <Section style={content}>
             <Heading style={heading}>
-              Votre mini-audit est en préparation ! 🔍
+              Votre mini-audit est en route 🚀
             </Heading>
 
             <Text style={text}>
-              Merci de votre intérêt pour notre mini-audit Performance & SEO.
+              Merci de votre demande. Notre système analyse votre site en ce
+              moment.
             </Text>
 
             <Section style={highlightBox}>
@@ -46,29 +59,31 @@ export function AuditConfirmationEmail({ url }: AuditConfirmationEmailProps) {
             </Section>
 
             <Text style={text}>
-              <strong>Ce que vous allez recevoir sous 24h :</strong>
+              <strong>
+                Vous recevrez votre rapport PDF par email dans 5 à 10 minutes
+                maximum.
+              </strong>
             </Text>
 
             <Section style={featuresList}>
               <Text style={featureItem}>
-                <span style={checkmark}>✓</span> Score Lighthouse détaillé
-                (Performance, SEO, Accessibilité)
+                <span style={checkmark}>✓</span> Score performance détaillé
+                (mobile + desktop)
               </Text>
               <Text style={featureItem}>
-                <span style={checkmark}>✓</span> Audit SEO technique complet
+                <span style={checkmark}>✓</span> Audit SEO complet et actionnable
               </Text>
               <Text style={featureItem}>
-                <span style={checkmark}>✓</span> Recommandations priorisées par
+                <span style={checkmark}>✓</span> Recommandations classées par
                 impact
               </Text>
               <Text style={featureItem}>
-                <span style={checkmark}>✓</span> Estimation des gains potentiels
+                <span style={checkmark}>✓</span> Estimation chiffrée des gains
               </Text>
             </Section>
 
             <Text style={text}>
-              Si vous avez des questions en attendant, n&apos;hésitez pas à nous
-              contacter.
+              Une question d&apos;ici là ? Nous sommes joignables à tout moment.
             </Text>
 
             <Section style={buttonContainer}>
@@ -79,53 +94,183 @@ export function AuditConfirmationEmail({ url }: AuditConfirmationEmailProps) {
           </Section>
 
           <Hr style={hr} />
-
-          <Section style={footer}>
-            <Text style={footerText}>
-              Stellar Wave - Product & Cloud Studio
-            </Text>
-            <Text style={footerText}>
-              Paris, France | contact@stellarwave.fr
-            </Text>
-          </Section>
+          <FooterBlock />
         </Container>
       </Body>
     </Html>
   );
 }
 
+// Email final avec PDF en pièce jointe
+function ReadyEmail({ url }: { url: string }) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Votre mini-audit Performance & SEO est prêt</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={header}>
+            <Text style={logoText}>✦ Stellar Wave</Text>
+          </Section>
+
+          <Section style={content}>
+            <Heading style={heading}>
+              Votre mini-audit est arrivé 📊
+            </Heading>
+
+            <Text style={text}>
+              Bonne nouvelle : le rapport complet est en pièce jointe de cet
+              email.
+            </Text>
+
+            <Section style={highlightBox}>
+              <Text style={highlightText}>
+                <strong>Site analysé :</strong>
+              </Text>
+              <Text style={urlText}>{url}</Text>
+            </Section>
+
+            <Text style={text}>
+              <strong>Au programme du PDF :</strong>
+            </Text>
+
+            <Section style={featuresList}>
+              <Text style={featureItem}>
+                <span style={checkmark}>✓</span> Scores Performance, SEO,
+                Accessibilité, Bonnes pratiques (mobile + desktop)
+              </Text>
+              <Text style={featureItem}>
+                <span style={checkmark}>✓</span> Core Web Vitals chiffrés (LCP,
+                FCP, CLS, TBT, Speed Index)
+              </Text>
+              <Text style={featureItem}>
+                <span style={checkmark}>✓</span> 12 points de contrôle SEO
+                technique avec ✓/✗
+              </Text>
+              <Text style={featureItem}>
+                <span style={checkmark}>✓</span> Top 6 recommandations
+                priorisées par impact
+              </Text>
+            </Section>
+
+            <Text style={text}>
+              Envie d&apos;un coup de main pour mettre en œuvre ces
+              recommandations ? Premier échange offert, sans engagement.
+            </Text>
+
+            <Section style={buttonContainer}>
+              <Button style={button} href="https://stellarwave.fr/#contact">
+                Discutons-en
+              </Button>
+            </Section>
+          </Section>
+
+          <Hr style={hr} />
+          <FooterBlock />
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+// Email de retard si le pipeline a échoué
+function DelayedEmail({ url }: { url: string }) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Votre audit prend un peu plus de temps que prévu</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={header}>
+            <Text style={logoText}>✦ Stellar Wave</Text>
+          </Section>
+
+          <Section style={content}>
+            <Heading style={heading}>
+              Petit délai sur votre audit
+            </Heading>
+
+            <Text style={text}>
+              Notre système d&apos;audit a rencontré une difficulté en
+              analysant votre site.
+            </Text>
+
+            <Section style={highlightBox}>
+              <Text style={highlightText}>
+                <strong>Site concerné :</strong>
+              </Text>
+              <Text style={urlText}>{url}</Text>
+            </Section>
+
+            <Text style={text}>
+              <strong>Notre équipe a été alertée</strong> et reprend la main
+              manuellement. Vous recevrez votre rapport au plus tard sous 24
+              heures.
+            </Text>
+
+            <Text style={text}>
+              Toutes nos excuses pour ce délai. Si vous voulez nous joindre
+              directement :
+            </Text>
+
+            <Section style={buttonContainer}>
+              <Button style={button} href="mailto:contact@stellarwave.fr">
+                Écrire à l&apos;équipe
+              </Button>
+            </Section>
+          </Section>
+
+          <Hr style={hr} />
+          <FooterBlock />
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+function FooterBlock() {
+  return (
+    <Section style={footer}>
+      <Text style={footerText}>Stellar Wave — Studio Product &amp; Cloud</Text>
+      <Text style={footerText}>Paris, France | contact@stellarwave.fr</Text>
+    </Section>
+  );
+}
+
 export default AuditConfirmationEmail;
 
-// Styles
+// Styles — fond sombre cohérent avec la plaquette
 const main = {
-  backgroundColor: "#0a0a0b",
+  backgroundColor: "#020617",
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif',
 };
 
 const container = {
-  backgroundColor: "#121214",
+  backgroundColor: "#0f172a",
   margin: "0 auto",
   borderRadius: "12px",
   overflow: "hidden",
   maxWidth: "600px",
+  border: "1px solid rgba(56, 189, 248, 0.15)",
 };
 
 const header = {
-  backgroundColor: "#1a1a1e",
+  backgroundColor: "#020617",
   padding: "24px 48px",
   textAlign: "center" as const,
 };
 
 const logoText = {
-  color: "#f59e0b",
+  color: "#38bdf8",
   fontSize: "20px",
   fontWeight: "700",
   margin: 0,
+  letterSpacing: "1px",
 };
 
 const content = {
-  padding: "48px",
+  padding: "40px 48px",
 };
 
 const heading = {
@@ -134,34 +279,38 @@ const heading = {
   color: "#ffffff",
   margin: "0 0 24px",
   lineHeight: "1.3",
+  letterSpacing: "-0.3px",
 };
 
 const text = {
   fontSize: "15px",
   lineHeight: "26px",
-  color: "#a1a1aa",
+  color: "#cbd5e1",
   margin: "16px 0",
 };
 
 const highlightBox = {
   margin: "24px 0",
   padding: "20px",
-  backgroundColor: "#1a1a1e",
+  backgroundColor: "#1e293b",
   borderRadius: "8px",
-  borderLeft: "4px solid #f59e0b",
+  borderLeft: "4px solid #38bdf8",
 };
 
 const highlightText = {
-  fontSize: "14px",
-  color: "#a1a1aa",
+  fontSize: "13px",
+  color: "#94a3b8",
   margin: "0 0 8px",
+  letterSpacing: "0.5px",
+  textTransform: "uppercase" as const,
 };
 
 const urlText = {
   fontSize: "16px",
-  color: "#f59e0b",
+  color: "#38bdf8",
   margin: "0",
   wordBreak: "break-all" as const,
+  fontWeight: "600",
 };
 
 const featuresList = {
@@ -171,34 +320,36 @@ const featuresList = {
 const featureItem = {
   fontSize: "14px",
   lineHeight: "32px",
-  color: "#d4d4d8",
+  color: "#cbd5e1",
   margin: "0",
 };
 
 const checkmark = {
-  color: "#22c55e",
-  marginRight: "8px",
+  color: "#38bdf8",
+  marginRight: "10px",
+  fontWeight: "700",
 };
 
 const buttonContainer = {
   textAlign: "center" as const,
-  margin: "32px 0",
+  margin: "32px 0 8px",
 };
 
 const button = {
-  backgroundColor: "#f59e0b",
-  borderRadius: "8px",
+  background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
+  borderRadius: "999px",
   color: "#000000",
   fontSize: "14px",
-  fontWeight: "600",
+  fontWeight: "700",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "inline-block",
-  padding: "12px 24px",
+  padding: "14px 28px",
+  letterSpacing: "0.2px",
 };
 
 const hr = {
-  borderColor: "#27272a",
+  borderColor: "rgba(56, 189, 248, 0.15)",
   margin: "0",
 };
 
@@ -209,6 +360,6 @@ const footer = {
 
 const footerText = {
   fontSize: "12px",
-  color: "#71717a",
+  color: "#64748b",
   margin: "4px 0",
 };
