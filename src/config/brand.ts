@@ -402,14 +402,14 @@ export const faqs = [
 
 export const leadMagnet = {
   title: "Mini-audit Performance & SEO",
-  subtitle: "Gratuit • 15 minutes • PDF récap sous 24h",
+  subtitle: "Gratuit • PDF reçu en 5-10 minutes",
   description:
     "Découvrez les quick wins pour améliorer les performances et le référencement de votre site. Analyse automatisée + recommandations personnalisées.",
   features: [
-    "Score Lighthouse détaillé",
-    "Audit SEO technique",
-    "Recommandations priorisées",
-    "Estimation des gains",
+    "Score performance détaillé (mobile + desktop)",
+    "Audit SEO complet et actionnable",
+    "Recommandations classées par impact",
+    "Estimation chiffrée des gains de conversion",
   ],
 } as const;
 

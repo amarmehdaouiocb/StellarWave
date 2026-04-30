@@ -10,14 +10,31 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import type { AuditEmailData } from "@/lib/resend";
+import type { PsiCategoryScores } from "@/lib/supabase";
 
-type AuditNotificationEmailProps = AuditEmailData;
+type AuditNotificationEmailProps = {
+  email: string;
+  url: string;
+  /** True si l'audit a été livré (envoyé après le pipeline) */
+  completed?: boolean;
+  mobileScores?: PsiCategoryScores | null;
+  desktopScores?: PsiCategoryScores | null;
+};
 
 export function AuditNotificationEmail({
   email,
   url,
+  completed = false,
+  mobileScores,
+  desktopScores,
 }: AuditNotificationEmailProps) {
+  if (completed) {
+    return <CompletedEmail email={email} url={url} mobileScores={mobileScores} desktopScores={desktopScores} />;
+  }
+  return <PendingEmail email={email} url={url} />;
+}
+
+function PendingEmail({ email, url }: { email: string; url: string }) {
   return (
     <Html>
       <Head />
@@ -44,19 +61,99 @@ export function AuditNotificationEmail({
           <Hr style={hr} />
 
           <Section style={section}>
-            <Heading as="h2" style={subheading}>
-              Actions à effectuer
-            </Heading>
-            <Text style={checklistItem}>☐ Lancer l&apos;audit Lighthouse</Text>
-            <Text style={checklistItem}>☐ Analyser le SEO technique</Text>
-            <Text style={checklistItem}>☐ Préparer les recommandations</Text>
-            <Text style={checklistItem}>☐ Envoyer le rapport PDF sous 24h</Text>
+            <Text style={text}>
+              ⚙️ Pipeline auto en cours d&apos;exécution. Le PDF sera envoyé au
+              prospect dans quelques minutes (PSI mobile + desktop, audit SEO,
+              génération PDF, envoi Resend). Tu recevras un mail de confirmation
+              à la fin avec les scores.
+            </Text>
           </Section>
 
           <Hr style={hr} />
 
           <Text style={footer}>
             Reçu le {new Date().toLocaleDateString("fr-FR")} à{" "}
+            {new Date().toLocaleTimeString("fr-FR")}
+          </Text>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+function CompletedEmail({
+  email,
+  url,
+  mobileScores,
+  desktopScores,
+}: {
+  email: string;
+  url: string;
+  mobileScores?: PsiCategoryScores | null;
+  desktopScores?: PsiCategoryScores | null;
+}) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Audit livré : {url}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Heading style={heading}>✅ Audit livré au prospect</Heading>
+
+          <Section style={section}>
+            <Text style={text}>
+              <strong>Email :</strong>{" "}
+              <Link href={`mailto:${email}`} style={link}>
+                {email}
+              </Link>
+            </Text>
+            <Text style={text}>
+              <strong>Site analysé :</strong>{" "}
+              <Link href={url} style={link}>
+                {url}
+              </Link>
+            </Text>
+          </Section>
+
+          {(mobileScores || desktopScores) && (
+            <>
+              <Hr style={hr} />
+              <Section style={section}>
+                <Heading as="h2" style={subheading}>
+                  Résumé des scores
+                </Heading>
+                {mobileScores && (
+                  <Text style={text}>
+                    <strong>Mobile :</strong> Perf {mobileScores.performance} ·
+                    SEO {mobileScores.seo} · A11y {mobileScores.accessibility} ·
+                    Best practices {mobileScores.bestPractices}
+                  </Text>
+                )}
+                {desktopScores && (
+                  <Text style={text}>
+                    <strong>Desktop :</strong> Perf {desktopScores.performance}{" "}
+                    · SEO {desktopScores.seo} · A11y{" "}
+                    {desktopScores.accessibility} · Best practices{" "}
+                    {desktopScores.bestPractices}
+                  </Text>
+                )}
+              </Section>
+            </>
+          )}
+
+          <Hr style={hr} />
+
+          <Section style={section}>
+            <Text style={text}>
+              💡 Tu peux maintenant relancer le prospect d&apos;ici 3-5 jours
+              pour proposer un appel découverte basé sur les recos du PDF.
+            </Text>
+          </Section>
+
+          <Hr style={hr} />
+
+          <Text style={footer}>
+            Livré le {new Date().toLocaleDateString("fr-FR")} à{" "}
             {new Date().toLocaleTimeString("fr-FR")}
           </Text>
         </Container>
@@ -108,15 +205,8 @@ const text = {
   margin: "8px 0",
 };
 
-const checklistItem = {
-  fontSize: "14px",
-  lineHeight: "32px",
-  color: "#525f7f",
-  margin: "0",
-};
-
 const link = {
-  color: "#f59e0b",
+  color: "#0ea5e9",
   textDecoration: "none",
 };
 

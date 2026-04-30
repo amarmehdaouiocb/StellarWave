@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // @react-pdf/renderer utilise des modules Node natifs (fs, stream, etc.)
+  // qu'il ne faut pas bundler côté serveur.
+  serverExternalPackages: ["@react-pdf/renderer"],
   async rewrites() {
     return [
       {

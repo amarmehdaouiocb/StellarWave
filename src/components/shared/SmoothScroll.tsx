@@ -1,16 +1,23 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const NO_SMOOTH_ROUTES = ["/plaquette"];
+
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+  const skip = NO_SMOOTH_ROUTES.some((route) => pathname?.startsWith(route));
 
   useEffect(() => {
+    if (skip) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       smoothWheel: true,
@@ -49,7 +56,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       document.removeEventListener("click", handleAnchorClick);
       lenis.destroy();
     };
-  }, []);
+  }, [skip]);
 
   return <>{children}</>;
 }

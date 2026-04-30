@@ -1,0 +1,189 @@
+/* ================================================
+   PLAQUETTE COMMERCIALE — A4 PRINT STYLES
+   210 × 297 mm portrait, fond sombre bord à bord
+   ================================================ */
+
+/* Force le format A4 sans marges browser */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* Container racine de la plaquette */
+.plaquette-root {
+  background: #020617;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+/* Page A4 : dimensions exactes en mm */
+.pdf-page {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  overflow: hidden;
+  background: #020617;
+  color: #ffffff;
+  page-break-after: always;
+  break-after: page;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  /* En screen view : ombre subtile pour visualiser les pages */
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+/* Le dernier .pdf-page ne doit PAS forcer un saut de page (sinon page fantôme).
+   On utilise :last-of-type car des éléments fixed (boutons) viennent après
+   dans le DOM, ce qui empêche :last-child de matcher. */
+.pdf-page:last-of-type,
+.pdf-page:nth-of-type(7) {
+  page-break-after: auto !important;
+  break-after: auto !important;
+}
+
+/* Container intérieur respectant les marges 16mm */
+.pdf-content {
+  position: absolute;
+  inset: 16mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header inter-pages (P2/P3/P4) — au-dessus du content */
+.pdf-page-header {
+  position: absolute;
+  top: 12mm;
+  left: 16mm;
+  right: 16mm;
+  height: 12mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.pdf-page-footer {
+  position: absolute;
+  bottom: 12mm;
+  left: 16mm;
+  right: 16mm;
+  height: 12mm;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+/* Désactive toutes les animations sur la plaquette (anti-flicker print) */
+.pdf-page *,
+.pdf-page *::before,
+.pdf-page *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ================================================
+   MODE PRINT (Cmd+P + Playwright)
+   ================================================ */
+
+@media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #020617 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html { scroll-behavior: auto !important; }
+
+  body { overflow: visible !important; }
+
+  /* Cache les éléments non imprimables */
+  .print-hidden { display: none !important; }
+
+  /* En mode print, le container racine n'a plus de padding ni d'ombre */
+  .plaquette-root {
+    padding: 0 !important;
+    gap: 0 !important;
+    background: #020617 !important;
+  }
+
+  .pdf-page {
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+}
+
+/* ================================================
+   MICRO-TYPO SIGNATURE
+   ================================================ */
+
+.pdf-micro-caps {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 8.5pt;
+  line-height: 1.4;
+}
+
+.pdf-page-number {
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-size: 8.5pt;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdf-jumbo-number {
+  font-family: var(--font-btn), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 96pt;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: rgba(56, 189, 248, 0.18);
+}
+
+/* Lime hairline separator */
+.pdf-hairline {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.6) 30%,
+    rgba(56, 189, 248, 0.6) 70%,
+    transparent 100%);
+}
+
+.pdf-hairline-solid {
+  height: 1px;
+  background: rgba(56, 189, 248, 0.35);
+}
+
+/* Noise overlay subtil pour casser le plat numérique */
+.pdf-noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* Dot grid background subtil */
+.pdf-dot-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(56, 189, 248, 0.20) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.10;
+  pointer-events: none;
+}
