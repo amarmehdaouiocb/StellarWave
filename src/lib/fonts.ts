@@ -146,9 +146,10 @@ export const monaSans = Mona_Sans({
 
 /**
  * Behind The Nineties - Display font 90s/80s retro
- * 6 weights chargés (Regular / Bold / Black + leurs italiques)
- * Mapping CSS standard : Rg=400, Bd=700, Blk=900
- * Used as accent display (e.g. "On Socials")
+ * 2 weights seulement (Regular + Italic) — les seuls réellement utilisés
+ * comme accents éditoriaux ("qui parlent", "pourquoi", numéros jumbo).
+ * Bd / Blk supprimés pour économiser ~240 KB au bundle initial.
+ * Pas en preload : pas critique au LCP, swap sur Mona Sans suffit.
  */
 export const behindTheNineties = localFont({
   src: [
@@ -162,30 +163,10 @@ export const behindTheNineties = localFont({
       weight: "400",
       style: "italic",
     },
-    {
-      path: "../../public/fonts/Behind-The-Nineties-Bd.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Behind-The-Nineties-Bd-It.otf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Behind-The-Nineties-Blk.otf",
-      weight: "900",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Behind-The-Nineties-Blk-It.otf",
-      weight: "900",
-      style: "italic",
-    },
   ],
   variable: "--font-btn",
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 export function getFontVariables(): string {

@@ -9,7 +9,9 @@ import { SmoothScroll } from "@/components/shared/SmoothScroll";
 export const metadata: Metadata = {
   metadataBase: new URL(brand.siteUrl),
   title: {
-    default: `${brand.name} | ${brand.tagline} - Landing Pages, Apps & Cloud`,
+    // Title court (47 chars) pour affichage complet dans les SERPs Google
+    // (limite ~60 chars avant troncature).
+    default: `${brand.name} — Studio Product & Cloud · Paris`,
     template: `%s | ${brand.name}`,
   },
   description: brand.description,

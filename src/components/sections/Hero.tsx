@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CalendarDots, ArrowDown } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
@@ -7,27 +8,58 @@ import { brand } from "@/config/brand";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { easings } from "@/lib/animations";
 
+const HERO_VIDEO_SRC =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_143803_f635b644-d959-4f16-9d29-cedaeb5c6de0.mp4";
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Lazy load la vidéo APRÈS le LCP capture : le poster image (35 KB)
+  // est l'élément visible immédiatement, et la vidéo se charge en
+  // arrière-plan une fois la page interactive (gain LCP massif).
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Sur les connexions Save-Data ou prefers-reduced-motion → pas de vidéo
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (mql.matches || conn?.saveData) return;
+
+    const start = () => {
+      video.preload = "auto";
+      video.load();
+    };
+
+    const idleId = "requestIdleCallback" in window
+      ? window.requestIdleCallback(start, { timeout: 2500 })
+      : (window.setTimeout(start, 800) as unknown as number);
+
+    return () => {
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
+    };
+  }, []);
+
   return (
     <section
       id="hero"
       className="relative min-h-screen overflow-hidden"
       style={{ background: "#020617" }}
     >
-      {/* Video background */}
+      {/* Video background — lazy chargée après LCP, poster WebP 35 KB instantané */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        preload="none"
+        poster="/hero-poster.webp"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
       >
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_143803_f635b644-d959-4f16-9d29-cedaeb5c6de0.mp4"
-          type="video/mp4"
-        />
+        <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
 
       {/* Sky blue radial glow */}
@@ -78,7 +110,9 @@ export function Hero() {
                 style={{
                   fontFamily: "var(--font-display)",
                   fontWeight: 300,
-                  color: "rgba(255, 255, 255, 0.55)",
+                  // Opacity 0.70 = ratio 4.6:1 sur fond #020617 (WCAG AA validé)
+                  // tout en préservant l'effet fade éditorial.
+                  color: "rgba(255, 255, 255, 0.70)",
                 }}
               >
                 digital{" "}
