@@ -31,13 +31,21 @@ export function Hero() {
       video.load();
     };
 
-    const idleId = "requestIdleCallback" in window
-      ? window.requestIdleCallback(start, { timeout: 2500 })
-      : (window.setTimeout(start, 800) as unknown as number);
+    // Polyfill : utiliser requestIdleCallback si dispo, sinon fallback setTimeout.
+    const ric = window.requestIdleCallback;
+    const cic = window.cancelIdleCallback;
+    let idleId: number;
+    let timerId: number;
+
+    if (typeof ric === "function") {
+      idleId = ric(start, { timeout: 2500 });
+    } else {
+      timerId = window.setTimeout(start, 800);
+    }
 
     return () => {
-      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
-      else window.clearTimeout(idleId);
+      if (typeof cic === "function" && idleId !== undefined) cic(idleId);
+      if (timerId !== undefined) window.clearTimeout(timerId);
     };
   }, []);
 
