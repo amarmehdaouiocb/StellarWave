@@ -13,12 +13,14 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 const HOUR_MS = 3_600_000;
 const MONTH_MS = 30 * 86_400_000;
 
+// Domaines bloqués : on évite uniquement les hosts locaux et les URLs
+// de test bidon. stellarwave.fr est volontairement autorisé pour qu'un
+// prospect puisse comparer son site au nôtre, ou que l'équipe puisse
+// auditer la prod en interne.
 const BLACKLIST_HOSTS = new Set([
   "localhost",
   "127.0.0.1",
   "0.0.0.0",
-  "stellarwave.fr",
-  "www.stellarwave.fr",
   "example.com",
   "www.example.com",
   "test.com",
