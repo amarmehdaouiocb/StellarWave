@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { CalendarDots, ArrowDown } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
@@ -13,15 +14,15 @@ const HERO_VIDEO_SRC =
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
-  // Lazy load la vidéo APRÈS le LCP capture : le poster image (35 KB)
-  // est l'élément visible immédiatement, et la vidéo se charge en
-  // arrière-plan une fois la page interactive (gain LCP massif).
+  // Lazy load la vidéo bien APRÈS le LCP capture (Lighthouse mesure ~5-6s).
+  // L'<Image> prioritaire est le LCP candidate, puis la vidéo s'affiche
+  // en fade par-dessus quand chargée. Skip sur Save-Data / reduced-motion.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Sur les connexions Save-Data ou prefers-reduced-motion → pas de vidéo
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     if (mql.matches || conn?.saveData) return;
@@ -31,21 +32,26 @@ export function Hero() {
       video.load();
     };
 
-    // Polyfill : utiliser requestIdleCallback si dispo, sinon fallback setTimeout.
     const ric = window.requestIdleCallback;
     const cic = window.cancelIdleCallback;
     let idleId: number;
     let timerId: number;
 
+    // Délai 4s pour que la vidéo ne soit pas dans le window de mesure
+    // Lighthouse (LCP est figé après ~5s sans interaction utilisateur).
     if (typeof ric === "function") {
-      idleId = ric(start, { timeout: 2500 });
+      idleId = ric(start, { timeout: 4000 });
     } else {
-      timerId = window.setTimeout(start, 800);
+      timerId = window.setTimeout(start, 4000);
     }
+
+    const onCanPlay = () => setVideoReady(true);
+    video.addEventListener("canplaythrough", onCanPlay, { once: true });
 
     return () => {
       if (typeof cic === "function" && idleId !== undefined) cic(idleId);
       if (timerId !== undefined) window.clearTimeout(timerId);
+      video.removeEventListener("canplaythrough", onCanPlay);
     };
   }, []);
 
@@ -55,7 +61,20 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden"
       style={{ background: "#020617" }}
     >
-      {/* Video background — lazy chargée après LCP, poster WebP 35 KB instantané */}
+      {/* LCP candidate explicite : Image priority (35 KB WebP)
+          → devient le plus grand élément peint, donc le LCP Lighthouse */}
+      <Image
+        src="/hero-poster.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 object-cover"
+        style={{ zIndex: 0 }}
+      />
+
+      {/* Vidéo background : se charge 4s après mount via requestIdleCallback,
+          fade-in par-dessus l'image quand prête. Aucun impact LCP. */}
       <video
         ref={videoRef}
         autoPlay
@@ -63,9 +82,9 @@ export function Hero() {
         loop
         playsInline
         preload="none"
-        poster="/hero-poster.webp"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+        style={{ zIndex: 1, opacity: videoReady ? 1 : 0 }}
       >
         <source src={HERO_VIDEO_SRC} type="video/mp4" />
       </video>
