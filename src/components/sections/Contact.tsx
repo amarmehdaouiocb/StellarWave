@@ -434,7 +434,7 @@ export function Contact() {
         {/* Devices flanking the form */}
         <div className="sw-device sw-device-mac" aria-hidden>
           <Image
-            src="/contact/macbook.png"
+            src="/contact/macbook.webp"
             alt=""
             width={1760}
             height={1100}
@@ -444,7 +444,7 @@ export function Contact() {
         </div>
         <div className="sw-device sw-device-iphone" aria-hidden>
           <Image
-            src="/contact/iphone.png"
+            src="/contact/iphone.webp"
             alt=""
             width={1020}
             height={2200}

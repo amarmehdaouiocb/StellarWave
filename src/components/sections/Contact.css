@@ -22,7 +22,7 @@
   background:
     radial-gradient(ellipse 60% 50% at 12% 55%, rgba(47, 139, 255, 0.18), transparent 65%),
     radial-gradient(ellipse 55% 45% at 88% 60%, rgba(47, 139, 255, 0.16), transparent 65%),
-    url("/contact/bg-topo.png") center / cover no-repeat,
+    url("/contact/bg-topo.webp") center / cover no-repeat,
     var(--sw-bg-deep);
   padding: 96px 56px 96px;
   overflow: hidden;

@@ -72,7 +72,7 @@ export function Footer() {
             }}
           >
             <Image
-              src="/logo-footer.png"
+              src="/logo-footer.webp"
               alt="Stellar Wave"
               width={1093}
               height={1438}

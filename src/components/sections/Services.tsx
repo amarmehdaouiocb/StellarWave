@@ -413,7 +413,7 @@ export function Services() {
           <SpotlightCard delay={0}>
             {/* Product Design illustration */}
             <CardArt
-              src="/services/product-design.png"
+              src="/services/product-design.webp"
               imgStyle={{
                 objectPosition: "52% center",
               }}
@@ -548,7 +548,7 @@ export function Services() {
             {/* Apps & Mobile */}
             <SpotlightCard delay={0.15} style={{ flex: 1 }}>
               <CardArt
-                src="/services/phone.png"
+                src="/services/phone.webp"
                 overlayStyle={{
                   background:
                     "linear-gradient(90deg, rgba(6,10,24,0.95) 0%, rgba(6,10,24,0.75) 45%, rgba(6,10,24,0.15) 100%)",
@@ -621,7 +621,7 @@ export function Services() {
             {/* Cloud & Infra */}
             <SpotlightCard delay={0.3} style={{ flex: 1 }}>
               <CardArt
-                src="/services/cloud.png"
+                src="/services/cloud.webp"
                 imgStyle={{ objectPosition: "center center" }}
                 overlayStyle={{
                   background:
