@@ -94,7 +94,11 @@ const COLORS = {
   scoreBad: "#ef4444",
 } as const;
 
-const FONT_DISPLAY = "CabinetGrotesk";
+// On garde Cabinet Grotesk en font enregistrée mais on utilise Helvetica
+// pour le body : @react-pdf casse les ligatures (ffi, ffl, fi) avec les
+// WOFF2 variables, ce qui produit "ofcielles" au lieu de "officielles".
+// Helvetica (built-in PDF) n'a pas ce bug. Behind the Nineties OTF est OK.
+const FONT_DISPLAY = "Helvetica";
 const FONT_SERIF = "BehindTheNineties";
 
 const scoreColor = (score: number) => {
@@ -515,12 +519,12 @@ const styles = StyleSheet.create({
     lineHeight: 1.5,
     fontFamily: FONT_DISPLAY,
   },
-  // CTA — pitch-style avec gradient lime
+  // CTA — compacte pour tenir avec les recos sur la page 2
   cta: {
     backgroundColor: COLORS.lime,
-    borderRadius: 12,
-    padding: 18,
-    marginTop: 14,
+    borderRadius: 10,
+    padding: 14,
+    marginTop: 10,
     position: "relative",
     overflow: "hidden",
   },
@@ -534,16 +538,16 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DISPLAY,
     fontWeight: 700,
     letterSpacing: 1.5,
-    marginBottom: 8,
+    marginBottom: 6,
     alignSelf: "flex-start",
   },
   ctaTitle: {
     color: "#000000",
-    fontSize: 22,
+    fontSize: 17,
     fontFamily: FONT_DISPLAY,
-    fontWeight: 800,
-    marginBottom: 4,
-    letterSpacing: -0.7,
+    fontWeight: 700,
+    marginBottom: 3,
+    letterSpacing: -0.5,
   },
   ctaTitleAccent: {
     fontFamily: FONT_SERIF,
@@ -553,19 +557,19 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     color: "rgba(0, 0, 0, 0.78)",
-    fontSize: 9,
-    lineHeight: 1.5,
-    marginBottom: 12,
-    maxWidth: "80%",
+    fontSize: 8.5,
+    lineHeight: 1.45,
+    marginBottom: 8,
+    maxWidth: "85%",
     fontFamily: FONT_DISPLAY,
   },
   ctaButton: {
     backgroundColor: "#000000",
     color: COLORS.white,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 14,
     borderRadius: 999,
-    fontSize: 10,
+    fontSize: 9,
     fontFamily: FONT_DISPLAY,
     fontWeight: 700,
     alignSelf: "flex-start",
@@ -797,7 +801,8 @@ export function AuditReportDocument({
     { label: "Page accessible (200 OK)", pass: seo.httpStatus < 400 },
   ];
 
-  const topRecos = recommendations.slice(0, 6);
+  // 4 recos max pour laisser respirer la page 2 et le CTA tienne sans déborder
+  const topRecos = recommendations.slice(0, 4);
 
   return (
     <Document
