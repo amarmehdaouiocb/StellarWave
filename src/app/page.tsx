@@ -1,41 +1,32 @@
-import { NavPill, Footer, Logo } from "@/components/layout";
-import {
-  Hero,
-  Services,
-  HorizontalGallery,
-  Contact,
-} from "@/components/sections";
+import { NavPill, Logo } from "@/components/layout";
+import { Hero, Services } from "@/components/sections";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
+import {
+  LazyHorizontalGallery,
+  LazyContact,
+  LazyFooter,
+} from "@/components/lazy-sections";
 
 export default function HomePage() {
   return (
     <>
-      {/* Scroll progress - lime gradient */}
       <ScrollProgress variant="gradient" />
 
-      {/* Logo - fixed top-left */}
       <Logo variant="fixed-topleft" height={44} priority />
 
-      {/* Navigation */}
       <NavPill />
 
-      {/* Main content */}
       <main id="main-content" className="relative">
-        {/* 1. HERO - Split-text */}
         <Hero />
 
-        {/* 2. SERVICES — tight spacing after hero */}
         <Services />
 
-        {/* 3. HORIZONTAL GALLERY — signature visual rupture */}
-        <HorizontalGallery />
+        <LazyHorizontalGallery />
 
-        {/* 4. CONTACT */}
-        <Contact />
+        <LazyContact />
       </main>
 
-      {/* Footer */}
-      <Footer />
+      <LazyFooter />
     </>
   );
 }

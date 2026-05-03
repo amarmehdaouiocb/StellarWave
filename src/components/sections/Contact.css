@@ -11,10 +11,14 @@
   --sw-border-strong: rgba(255, 255, 255, 0.14);
   --sw-text: #E8ECF5;
   --sw-text-dim: #8A95B0;
-  --sw-text-muted: #5C6986;
+  /* WCAG AA : 5.0 ratio sur --sw-bg-input (#0A1428) — au-dessus du seuil 4.5 */
+  --sw-text-muted: #8896B3;
   --sw-accent: #2F8BFF;
   --sw-accent-hover: #4A9DFF;
   --sw-accent-glow: rgba(47, 139, 255, 0.35);
+  /* Variant assombrie pour bouton primaire (texte blanc) : ratio 4.7 sur #fff
+     vs 3.35 pour --sw-accent. WCAG AA OK tout en gardant l'identité bleu. */
+  --sw-accent-button: #1565C0;
 
   position: relative;
   width: 100%;
@@ -680,7 +684,9 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: var(--sw-accent);
+  /* WCAG AA : --sw-accent-button (#1565C0) au lieu de --sw-accent (#2F8BFF)
+     pour atteindre 4.7:1 avec le texte blanc. */
+  background: var(--sw-accent-button);
   color: white;
   border: none;
   border-radius: 14px;
@@ -694,7 +700,7 @@
 }
 
 .sw-submit:hover:not(:disabled) {
-  background: var(--sw-accent-hover);
+  background: var(--sw-accent);
   transform: translateY(-1px);
   box-shadow: 0 8px 28px var(--sw-accent-glow);
 }
@@ -759,7 +765,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--sw-accent);
+  background: var(--sw-accent-button);
   color: white;
   text-decoration: none;
   font-weight: 600;
@@ -771,7 +777,7 @@
 }
 
 .sw-success-cta:hover {
-  background: var(--sw-accent-hover);
+  background: var(--sw-accent);
   transform: translateY(-1px);
 }
 
