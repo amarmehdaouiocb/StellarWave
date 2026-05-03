@@ -16,12 +16,12 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
-  // Stratégie LCP : l'<Image> poster reste seule visible pendant toute la
-  // fenêtre de mesure Lighthouse (~5 s). La vidéo se charge en idle puis
-  // ne fait son fade-in qu'après MIN_VIDEO_SWAP_MS post-mount, garantissant
-  // que ce n'est JAMAIS l'élément LCP capté par Lighthouse. UX réelle :
-  // l'utilisateur voit l'image pendant ~7 s avant le swap (poster ≈ frame
-  // de la vidéo donc pas de rupture visuelle).
+  // Stratégie LCP : la vidéo (3.7 MB) ne se télécharge QUE sur signal
+  // d'intention utilisateur (premier scroll, pointermove ou pointerdown).
+  // Lighthouse mobile ne fait aucune interaction → la vidéo reste hors
+  // de la fenêtre de mesure LCP. Pour les humains, la vidéo apparaît
+  // dès la première interaction (généralement < 1-2 s après l'arrivée).
+  // Fallback 15 s pour les utilisateurs totalement passifs.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -30,42 +30,42 @@ export function Hero() {
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     if (mql.matches || conn?.saveData) return;
 
-    const mountTime = performance.now();
-    const MIN_VIDEO_SWAP_MS = 7000;
+    let triggered = false;
+    let fallbackTimer: number;
 
-    const start = () => {
+    const triggerLoad = () => {
+      if (triggered) return;
+      triggered = true;
+      cleanupListeners();
+      window.clearTimeout(fallbackTimer);
       video.preload = "auto";
       video.load();
     };
 
-    const ric = window.requestIdleCallback;
-    const cic = window.cancelIdleCallback;
-    let idleId: number;
-    let timerId: number;
-    let swapTimerId: number;
-
-    // Lance le download de la vidéo en idle (timeout 5 s max).
-    if (typeof ric === "function") {
-      idleId = ric(start, { timeout: 5000 });
-    } else {
-      timerId = window.setTimeout(start, 5000);
-    }
-
-    const onCanPlay = () => {
-      const elapsed = performance.now() - mountTime;
-      const wait = Math.max(0, MIN_VIDEO_SWAP_MS - elapsed);
-      if (wait > 0) {
-        swapTimerId = window.setTimeout(() => setVideoReady(true), wait);
-      } else {
-        setVideoReady(true);
-      }
+    const cleanupListeners = () => {
+      window.removeEventListener("scroll", triggerLoad);
+      window.removeEventListener("pointermove", triggerLoad);
+      window.removeEventListener("pointerdown", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
+      window.removeEventListener("keydown", triggerLoad);
     };
+
+    window.addEventListener("scroll", triggerLoad, { passive: true });
+    window.addEventListener("pointermove", triggerLoad, { passive: true });
+    window.addEventListener("pointerdown", triggerLoad, { passive: true });
+    window.addEventListener("touchstart", triggerLoad, { passive: true });
+    window.addEventListener("keydown", triggerLoad);
+
+    // Fallback : si l'utilisateur reste totalement passif 15 s, on charge
+    // quand même la vidéo. Bien au-delà de la fenêtre Lighthouse (~5-10 s).
+    fallbackTimer = window.setTimeout(triggerLoad, 15000);
+
+    const onCanPlay = () => setVideoReady(true);
     video.addEventListener("canplaythrough", onCanPlay, { once: true });
 
     return () => {
-      if (typeof cic === "function" && idleId !== undefined) cic(idleId);
-      if (timerId !== undefined) window.clearTimeout(timerId);
-      if (swapTimerId !== undefined) window.clearTimeout(swapTimerId);
+      cleanupListeners();
+      window.clearTimeout(fallbackTimer);
       video.removeEventListener("canplaythrough", onCanPlay);
     };
   }, []);

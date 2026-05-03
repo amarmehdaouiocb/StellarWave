@@ -29,7 +29,6 @@ function CaseStudyCard({
         type="button"
         className="hg-card"
         onClick={onOpen}
-        aria-label={`${study.title} — voir le cas d'étude`}
         style={{ background: study.gradient, color: study.accent }}
       >
         {/* Illustration en background (si fournie). Le mask gradient garde

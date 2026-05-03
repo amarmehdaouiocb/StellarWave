@@ -210,17 +210,22 @@ function RollingText({
       // Deux SplitText synchronisés : orig (visible au repos) + copy
       // (positionnée en bas via top:100%, visible au hover quand
       // toute la composition glisse vers le haut de -100%).
+      // aria: false → SplitText ne pose PAS d'aria-label sur le wrapper
+      // (axe-core flag les "prohibited ARIA on span"). On gère
+      // l'accessibilité via un <span class="sr-only"> dans le JSX.
       splitOrig = SplitText.create(orig, {
         type: "chars,words",
         smartWrap: true,
         autoSplit: true,
         charsClass: "rt-char",
+        aria: "none",
       });
       splitCopy = SplitText.create(copy, {
         type: "chars,words",
         smartWrap: true,
         autoSplit: true,
         charsClass: "rt-char",
+        aria: "none",
       });
 
       const trigger = wrap.closest<HTMLElement>(".sw-h1") ?? wrap;
@@ -270,10 +275,10 @@ function RollingText({
 
   return (
     <span ref={wrapRef} className={`rt ${className ?? ""}`}>
-      {/* rt-orig est lu naturellement par les screen readers (pas de aria-label
-          sur span sans role : axe-core flag les "prohibited ARIA attributes").
-          rt-copy reste aria-hidden pour éviter la double lecture. */}
-      <span ref={origRef} className="rt-orig">
+      {/* Texte lisible par les screen readers (string complète, pas char
+          par char). Les spans split par GSAP sont aria-hidden. */}
+      <span className="sr-only">{text}</span>
+      <span ref={origRef} className="rt-orig" aria-hidden="true">
         {text}
       </span>
       <span ref={copyRef} className="rt-copy" aria-hidden="true">
