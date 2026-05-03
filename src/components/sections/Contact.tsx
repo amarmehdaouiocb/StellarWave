@@ -138,7 +138,7 @@ function Dropdown<T extends string>({
             />
           </svg>
         </button>
-        <div className="sw-dropdown-menu" role="listbox">
+        <div className="sw-dropdown-menu" role="listbox" aria-label={label}>
           {options.map((opt, idx) => {
             const isSel = opt.value === value;
             return (
@@ -269,12 +269,11 @@ function RollingText({
   }, []);
 
   return (
-    <span
-      ref={wrapRef}
-      className={`rt ${className ?? ""}`}
-      aria-label={text}
-    >
-      <span ref={origRef} className="rt-orig" aria-hidden="true">
+    <span ref={wrapRef} className={`rt ${className ?? ""}`}>
+      {/* rt-orig est lu naturellement par les screen readers (pas de aria-label
+          sur span sans role : axe-core flag les "prohibited ARIA attributes").
+          rt-copy reste aria-hidden pour éviter la double lecture. */}
+      <span ref={origRef} className="rt-orig">
         {text}
       </span>
       <span ref={copyRef} className="rt-copy" aria-hidden="true">
