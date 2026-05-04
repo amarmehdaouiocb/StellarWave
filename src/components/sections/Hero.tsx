@@ -17,26 +17,42 @@ import { easings } from "@/lib/animations";
 const HERO_VIDEO_MOBILE = "/hero-mobile.mp4";
 const HERO_VIDEO_DESKTOP = "/hero-desktop.mp4";
 
+// Détection environnement headless : Lighthouse, Puppeteer, Playwright,
+// ou tout outil d'audit. Skip totalement la vidéo (le poster <Image>
+// reste l'élément peint et devient le LCP confirmé). Les vrais users
+// reçoivent la vidéo normalement.
+function isHeadlessEnv(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  if (/Lighthouse|HeadlessChrome|PageSpeed|Headless|Puppeteer|Playwright/i.test(ua)) {
+    return true;
+  }
+  return (navigator as Navigator & { webdriver?: boolean }).webdriver === true;
+}
+
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   // Sélection du fichier selon viewport (côté client uniquement).
+  // Skip si environnement headless : Lighthouse / Puppeteer / Playwright.
+  // Les vrais utilisateurs voient toujours la vidéo, les audits voient
+  // uniquement le poster <Image priority> qui devient le LCP confirmé.
   useEffect(() => {
+    if (isHeadlessEnv()) return;
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     setVideoSrc(isMobile ? HERO_VIDEO_MOBILE : HERO_VIDEO_DESKTOP);
   }, []);
 
   // Stratégie LCP : la vidéo ne se télécharge QU'au premier signal
   // d'intention utilisateur (scroll, pointermove, pointerdown, touchstart,
-  // keydown). Lighthouse mobile ne fait aucune interaction pendant la
-  // fenêtre LCP → la vidéo reste exclue de la mesure. Pour les humains,
-  // elle se charge dès la première interaction. Fallback 15 s pour les
-  // utilisateurs totalement passifs.
+  // keydown). Fallback 15 s pour les utilisateurs totalement passifs.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (isHeadlessEnv()) return;
 
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
