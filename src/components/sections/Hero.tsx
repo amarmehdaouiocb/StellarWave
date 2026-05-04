@@ -9,19 +9,31 @@ import { brand } from "@/config/brand";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { easings } from "@/lib/animations";
 
-const HERO_VIDEO_SRC =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_143803_f635b644-d959-4f16-9d29-cedaeb5c6de0.mp4";
+// Versions optimisées self-hostées (Vercel CDN) :
+//   mobile  : 720p,  150 KB (-96% vs source CloudFront)
+//   desktop : 1080p, 700 KB (-82%)
+// Servies via <source> avec attribut JS-driven (le `media` natif HTML5
+// sur <source> dans <video> n'est pas garanti spec, on switch en JS).
+const HERO_VIDEO_MOBILE = "/hero-mobile.mp4";
+const HERO_VIDEO_DESKTOP = "/hero-desktop.mp4";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
-  // Stratégie LCP : la vidéo (3.7 MB) ne se télécharge QUE sur signal
-  // d'intention utilisateur (premier scroll, pointermove ou pointerdown).
-  // Lighthouse mobile ne fait aucune interaction → la vidéo reste hors
-  // de la fenêtre de mesure LCP. Pour les humains, la vidéo apparaît
-  // dès la première interaction (généralement < 1-2 s après l'arrivée).
-  // Fallback 15 s pour les utilisateurs totalement passifs.
+  // Sélection du fichier selon viewport (côté client uniquement).
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    setVideoSrc(isMobile ? HERO_VIDEO_MOBILE : HERO_VIDEO_DESKTOP);
+  }, []);
+
+  // Stratégie LCP : la vidéo ne se télécharge QU'au premier signal
+  // d'intention utilisateur (scroll, pointermove, pointerdown, touchstart,
+  // keydown). Lighthouse mobile ne fait aucune interaction pendant la
+  // fenêtre LCP → la vidéo reste exclue de la mesure. Pour les humains,
+  // elle se charge dès la première interaction. Fallback 15 s pour les
+  // utilisateurs totalement passifs.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -88,8 +100,9 @@ export function Hero() {
         style={{ zIndex: 0 }}
       />
 
-      {/* Vidéo background : se charge 4s après mount via requestIdleCallback,
-          fade-in par-dessus l'image quand prête. Aucun impact LCP. */}
+      {/* Vidéo background : sources adaptées au viewport (mobile 150 KB /
+          desktop 700 KB). Téléchargement gaté sur première interaction
+          utilisateur (cf. useEffect ci-dessus). */}
       <video
         ref={videoRef}
         autoPlay
@@ -101,7 +114,7 @@ export function Hero() {
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
         style={{ zIndex: 1, opacity: videoReady ? 1 : 0 }}
       >
-        <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        {videoSrc && <source src={videoSrc} type="video/mp4" />}
       </video>
 
       {/* Sky blue radial glow */}
