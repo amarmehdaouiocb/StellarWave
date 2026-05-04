@@ -7,7 +7,6 @@ import { CalendarDots, ArrowDown } from "@phosphor-icons/react";
 import ArrowNarrowRightIcon from "@/components/ui/arrow-narrow-right-icon";
 import { brand } from "@/config/brand";
 import { CTAButton } from "@/components/shared/CTAButton";
-import { easings } from "@/lib/animations";
 
 // Versions optimisées self-hostées (Vercel CDN) :
 //   mobile  : 720p,  150 KB (-96% vs source CloudFront)
@@ -148,13 +147,12 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 container-wide pt-32 lg:pt-40 pb-24">
         <div className="max-w-6xl mx-auto">
-          {/* SPLIT TEXT - Expressive hero title */}
-          <motion.h1
-            className="mb-8"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: easings.smooth }}
-          >
+          {/* SPLIT TEXT - Expressive hero title.
+              Pas de motion.initial sur le H1 : il est rendu opaque côté
+              SSR et reste visible immédiatement → ne devient pas un LCP
+              candidate tardif après hydration React (gain ~5 s sur mobile
+              slow 4G où l'hydration est lente). */}
+          <motion.h1 className="mb-8">
             <span
               className="block"
               style={{
