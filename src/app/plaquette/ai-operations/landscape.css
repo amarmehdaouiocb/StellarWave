@@ -1,0 +1,72 @@
+/* ================================================
+   DECK AI OPERATIONS — A4 LANDSCAPE PRINT STYLES
+   297 × 210 mm landscape · dérive de print.css
+   ================================================ */
+
+/* Force A4 landscape sur le PDF généré */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+/* Page A4 landscape : dimensions exactes */
+.pdf-page-landscape {
+  width: 297mm;
+  height: 210mm;
+  position: relative;
+  overflow: hidden;
+  background: #020617;
+  color: #ffffff;
+  page-break-after: always;
+  break-after: page;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+.pdf-page-landscape:last-of-type {
+  page-break-after: auto !important;
+  break-after: auto !important;
+}
+
+/* Container intérieur respectant les marges 14mm */
+.pdf-content-landscape {
+  position: absolute;
+  inset: 14mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Désactive animations en print (anti-flicker) */
+.pdf-page-landscape *,
+.pdf-page-landscape *::before,
+.pdf-page-landscape *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Mode print */
+@media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #020617 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body { overflow: visible !important; }
+
+  .print-hidden { display: none !important; }
+
+  .plaquette-root {
+    padding: 0 !important;
+    gap: 0 !important;
+    background: #020617 !important;
+  }
+
+  .pdf-page-landscape {
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+}
