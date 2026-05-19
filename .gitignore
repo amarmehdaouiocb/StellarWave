@@ -51,3 +51,6 @@ supabase/.temp/
 # caches régénérables du script Python de génération des decks
 scripts/__pycache__/
 scripts/_fonts_cache/
+
+# réglages Claude Code locaux (non partagés)
+.claude/settings.local.json
