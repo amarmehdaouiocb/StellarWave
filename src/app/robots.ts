@@ -7,7 +7,16 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/merci", "/api/", "/plaquette", "/plaquette/express"],
+        disallow: [
+          "/api/",
+          "/merci", // thank-you page, aucun intérêt SEO (absente du sitemap)
+          "/plaquette", // decks privés (lien envoyé sur demande)
+          "/admin", // back-office, non public
+          "/cv-ats", // version CV pour robots ATS, pas pour le SEO
+          "/v2", // variantes/redesigns de la home → duplicate content
+          "/v3",
+          "/v4",
+        ],
       },
     ],
     sitemap: `${brand.siteUrl}/sitemap.xml`,

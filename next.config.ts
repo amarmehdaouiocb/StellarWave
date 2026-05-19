@@ -24,6 +24,28 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Empêche l'indexation Google des URLs *.vercel.app (deployment URL par défaut,
+  // previews) pour éviter le duplicate content vis-à-vis du domaine canonique
+  // stellarwave.fr.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "(?<host>.*\\.vercel\\.app)",
+          },
+        ],
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
