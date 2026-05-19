@@ -122,7 +122,6 @@ export const caseStudies: CaseStudy[] = [
       "linear-gradient(155deg, #f59e0b 0%, #d97706 50%, #7c2d12 100%)",
     accent: "#ffffff",
     Icon: ForkKnife,
-    illustration: "/case-studies/on-mange-quoi.webp",
     sections: {
       company:
         "Plateforme de référencement de commerces alimentaires (boulangeries, primeurs, traiteurs, fromagers) qui alimente une expérience consumer « qu'est-ce qu'on mange aujourd'hui ? ».",
@@ -141,7 +140,6 @@ export const caseStudies: CaseStudy[] = [
       "linear-gradient(155deg, #ea4c89 0%, #ff7eb8 60%, #6f1e3c 100%)",
     accent: "#ffe5f0",
     Icon: Butterfly,
-    illustration: "/case-studies/mariposa-world.webp",
     sections: {
       company:
         "Maison de savoir-faire artisanal (textile et accessoires haut de gamme). Univers éditorial premium, marque qui vend par l'émotion.",
@@ -168,7 +166,6 @@ export const caseStudies: CaseStudy[] = [
       "linear-gradient(160deg, #1e3a8a 0%, #7c2d12 60%, #1c1917 100%)",
     accent: "#fef3c7",
     Icon: Car,
-    illustration: "/case-studies/ecole-gallieni.webp",
     sections: {
       company:
         "Centre de formation TAXI / VTC à Paris. Formations longues (préparation examen) avec contenu structuré (vidéos, QCM, fiches), suivi stagiaire individualisé.",
@@ -187,7 +184,6 @@ export const caseStudies: CaseStudy[] = [
       "linear-gradient(160deg, #7ED321 0%, #4CAF50 50%, #134e1f 100%)",
     accent: "#f0fdf4",
     Icon: Compass,
-    illustration: "/case-studies/gp-formation.webp",
     sections: {
       company:
         "Centre de formation TAXI / VTC. Mêmes formations qu'École Gallieni (initiale, continue, mobilité, passerelle Taxi↔VTC, distance, soir), identité distincte (vert dégradé).",
@@ -207,7 +203,6 @@ export const caseStudies: CaseStudy[] = [
       "linear-gradient(165deg, #1e40af 0%, #3b82f6 50%, #082f49 100%)",
     accent: "#e0ecff",
     Icon: HeartStraight,
-    illustration: "/case-studies/formation-edv.webp",
     sections: {
       company:
         "Centre de formation médicale Étoile de Vie (Paris) — auxiliaire ambulancier, DEA, brancardier, AFGSU 1/2, SST, PSC, Référent SST, Formateur SST. Partenaire Croix-Rouge.",
