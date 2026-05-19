@@ -80,7 +80,7 @@ export function ContactConfirmationEmail({
               Stellar Wave - Product & Cloud Studio
             </Text>
             <Text style={footerText}>
-              Paris, France | contact@stellarwave.fr
+              Île-de-France, France | contact@stellarwave.fr
             </Text>
           </Section>
         </Container>

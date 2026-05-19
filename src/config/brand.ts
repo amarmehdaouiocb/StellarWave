@@ -22,10 +22,10 @@ export const brand = {
   calendlyUrl: "https://calendly.com/stellarwave/discovery",
   contactEmail: "contact@stellarwave.fr",
   phone: "+33 6 25 05 97 32",
-  address: "Paris, France",
+  address: "Île-de-France, France",
   // Adresse réelle (NAP) alignée sur la fiche Google Business Profile.
-  // Alimente le JSON-LD LocalBusiness. La string `address` ci-dessus reste
-  // l'affichage marketing ("Paris") tant que l'alignement public n'est pas décidé.
+  // Alimente le JSON-LD LocalBusiness. La string `address` ci-dessus est
+  // l'affichage public (région Île-de-France, plus large que l'adresse précise).
   businessLocation: {
     streetAddress: "23 Rue de Normandie",
     postalCode: "93000",
@@ -467,5 +467,6 @@ export const seoKeywords = [
   "audit performance",
   "SEO technique",
   "studio digital Paris",
+  "studio digital Île-de-France",
   "agence développement web",
 ] as const;

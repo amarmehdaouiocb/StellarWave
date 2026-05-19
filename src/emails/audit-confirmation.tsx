@@ -232,7 +232,7 @@ function FooterBlock() {
   return (
     <Section style={footer}>
       <Text style={footerText}>Stellar Wave — Studio Product &amp; Cloud</Text>
-      <Text style={footerText}>Paris, France | contact@stellarwave.fr</Text>
+      <Text style={footerText}>Île-de-France, France | contact@stellarwave.fr</Text>
     </Section>
   );
 }

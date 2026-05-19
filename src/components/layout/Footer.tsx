@@ -146,7 +146,7 @@ export function Footer() {
               {brand.phone}
             </a>
             <span className="text-sm" style={{ color: "var(--text-muted)" }}>
-              Paris, France
+              Île-de-France, France
             </span>
 
             <div className="flex items-center gap-3 mt-2">
@@ -183,7 +183,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {brand.name}. Tous droits r&eacute;serv&eacute;s.
           </p>
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Con&ccedil;u avec <span style={{ color: "#38bdf8" }}>rigueur</span> &agrave; Paris
+            Con&ccedil;u avec <span style={{ color: "#38bdf8" }}>rigueur</span> en &Icirc;le-de-France
           </p>
         </div>
       </div>
