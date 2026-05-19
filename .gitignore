@@ -54,3 +54,6 @@ scripts/_fonts_cache/
 
 # réglages Claude Code locaux (non partagés)
 .claude/settings.local.json
+
+# worktrees Claude Code (git worktrees, jamais versionnés)
+.claude/worktrees/
