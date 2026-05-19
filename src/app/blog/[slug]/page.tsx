@@ -18,6 +18,7 @@ import {
 import { NavPill } from "@/components/layout/NavPill";
 import { Footer } from "@/components/layout/Footer";
 import { NoiseOverlay } from "@/components/shared/NoiseOverlay";
+import { BreadcrumbJsonLd } from "@/components/shared/BreadcrumbJsonLd";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -111,6 +112,13 @@ export default async function BlogPostPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Accueil", path: "" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ]}
       />
 
       <main className="pt-32 pb-20 px-4">
