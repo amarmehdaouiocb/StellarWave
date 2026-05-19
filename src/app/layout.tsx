@@ -78,6 +78,7 @@ function JsonLd() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${brand.siteUrl}/#organization`,
     name: brand.name,
     url: brand.siteUrl,
     logo: `${brand.siteUrl}/logo.svg`,
@@ -137,11 +138,48 @@ function JsonLd() {
     serviceType: "Cloud Services",
   };
 
+  // LocalBusiness (ProfessionalService) — entité dédiée au SEO local, en
+  // cohérence avec la fiche Google Business Profile. NAP volontairement
+  // limité aux données certaines de brand.ts (pas d'adresse de rue, de
+  // coordonnées GPS ni d'horaires inventés, pour ne pas créer d'incohérence
+  // NAP avec la fiche GBP).
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${brand.siteUrl}/#localbusiness`,
+    name: brand.name,
+    image: `${brand.siteUrl}/opengraph-image`,
+    url: brand.siteUrl,
+    telephone: brand.phone,
+    email: brand.contactEmail,
+    priceRange: "€€€",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Paris",
+      addressRegion: "Île-de-France",
+      addressCountry: "FR",
+    },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Île-de-France" },
+      { "@type": "Country", name: "France" },
+    ],
+    parentOrganization: { "@id": `${brand.siteUrl}/#organization` },
+    sameAs: [
+      brand.socials.linkedin,
+      brand.socials.twitter,
+      brand.socials.github,
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <script
         type="application/ld+json"
