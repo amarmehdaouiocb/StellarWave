@@ -75,6 +75,16 @@ export const viewport: Viewport = {
 
 // JSON-LD Structured Data
 function JsonLd() {
+  // Adresse postale réelle (NAP), partagée par l'Organization et le LocalBusiness.
+  const postalAddress = {
+    "@type": "PostalAddress",
+    streetAddress: brand.businessLocation.streetAddress,
+    postalCode: brand.businessLocation.postalCode,
+    addressLocality: brand.businessLocation.addressLocality,
+    addressRegion: brand.businessLocation.addressRegion,
+    addressCountry: brand.businessLocation.addressCountry,
+  };
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -85,11 +95,7 @@ function JsonLd() {
     description: brand.description,
     email: brand.contactEmail,
     telephone: brand.phone,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Paris",
-      addressCountry: "FR",
-    },
+    address: postalAddress,
     sameAs: [
       brand.socials.linkedin,
       brand.socials.twitter,
@@ -153,16 +159,17 @@ function JsonLd() {
     telephone: brand.phone,
     email: brand.contactEmail,
     priceRange: "€€€",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Paris",
-      addressRegion: "Île-de-France",
-      addressCountry: "FR",
-    },
+    address: postalAddress,
     areaServed: [
       { "@type": "AdministrativeArea", name: "Île-de-France" },
       { "@type": "Country", name: "France" },
     ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: brand.openingHours.days,
+      opens: brand.openingHours.opens,
+      closes: brand.openingHours.closes,
+    },
     parentOrganization: { "@id": `${brand.siteUrl}/#organization` },
     sameAs: [
       brand.socials.linkedin,

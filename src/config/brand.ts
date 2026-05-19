@@ -23,6 +23,22 @@ export const brand = {
   contactEmail: "contact@stellarwave.fr",
   phone: "+33 6 25 05 97 32",
   address: "Paris, France",
+  // Adresse réelle (NAP) alignée sur la fiche Google Business Profile.
+  // Alimente le JSON-LD LocalBusiness. La string `address` ci-dessus reste
+  // l'affichage marketing ("Paris") tant que l'alignement public n'est pas décidé.
+  businessLocation: {
+    streetAddress: "23 Rue de Normandie",
+    postalCode: "93000",
+    addressLocality: "Bobigny",
+    addressRegion: "Île-de-France",
+    addressCountry: "FR",
+  },
+  // Horaires d'ouverture (lun–ven 09:00–19:00, week-end fermé) — cohérents GBP.
+  openingHours: {
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "19:00",
+  },
   socials: {
     linkedin: "https://linkedin.com/company/stellarwave",
     twitter: "https://twitter.com/stellarwave",
