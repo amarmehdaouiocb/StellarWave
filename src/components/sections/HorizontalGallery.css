@@ -365,12 +365,27 @@
   inset: 0;
   z-index: 5;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   pointer-events: none;
-  /* Léger overlay pour préserver la lisibilité du texte par-dessus */
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.25) 100%);
-  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+/* Scrim cinématique : l'objet render 3D reste net en haut, le bas s'assombrit
+   progressivement pour garantir la lisibilité du titre / tagline / stack. */
+.hg-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(2, 6, 23, 0.45) 60%,
+    rgba(2, 6, 23, 0.88) 86%,
+    rgba(2, 6, 23, 0.96) 100%
+  );
 }
 
 .hg-card-pos:hover .hg-card {
@@ -400,7 +415,7 @@
 .hg-card-body,
 .hg-card-footer {
   position: relative;
-  z-index: 1;
+  z-index: 14;
 }
 
 .hg-card-header {
@@ -432,11 +447,13 @@
 }
 
 .hg-card-handle {
-  font-family: var(--font-mona), system-ui, sans-serif;
-  font-weight: 200;
-  font-size: 14px;
-  opacity: 0.85;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  opacity: 1;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
 }
 
 .hg-card-body {
@@ -445,16 +462,19 @@
   justify-content: flex-end;
   flex: 1;
   padding-top: 32px;
+  gap: 10px;
 }
 
 .hg-card-caption {
   font-family: var(--font-bodoni), Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 22px;
-  line-height: 1.18;
+  font-size: 18px;
+  line-height: 1.22;
   letter-spacing: -0.01em;
+  opacity: 0.92;
   margin: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
 .hg-card-footer {

@@ -31,9 +31,9 @@ function CaseStudyCard({
         onClick={onOpen}
         style={{ background: study.gradient, color: study.accent }}
       >
-        {/* Illustration en background (si fournie). Le mask gradient garde
-            la lisibilité du texte sur le bas de la card. Si l'image n'existe
-            pas, le navigateur fallback sur le gradient seul. */}
+        {/* Illustration render 3D en background (si fournie). Un scrim
+            dégradé (cf. .hg-card::after) assombrit le bas pour la lisibilité
+            du titre/tagline. Si absente, fallback sur le gradient seul. */}
         {study.illustration && (
           <div
             className="hg-card-illustration"
@@ -47,12 +47,12 @@ function CaseStudyCard({
             <Icon weight="fill" />
             {study.category}
           </span>
-          <span className="hg-card-handle">{study.title}</span>
         </div>
 
         <div className="hg-card-glow" aria-hidden />
 
         <div className="hg-card-body">
+          <span className="hg-card-handle">{study.title}</span>
           <p className="hg-card-caption">{study.tagline}</p>
         </div>
 
