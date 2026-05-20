@@ -92,10 +92,8 @@ export function HorizontalGallery() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
-    // Listener sur .hg-deck-area (zone hit étendue), PAS sur .hg-deck.
-    // Sinon, quand une card est lifted en pull-out (Y=-130px), elle dépasse
-    // le deck box → la souris peut sortir des bounds visuels du deck →
-    // mouseleave deck déclenché → collapseToStack → tout s'effondre.
+    // Conteneur deck — zone hit étendue .hg-deck-area (couvre le pull-out
+    // qui fait dépasser une card au-dessus de la base du deck).
     const deck =
       sectionRef.current?.querySelector<HTMLElement>(".hg-deck-area");
     const cards = Array.from(
@@ -157,17 +155,28 @@ export function HorizontalGallery() {
         });
       });
 
-      // Reveal au scroll : fade-in du STACK (pas de déploiement automatique).
-      // Les cards apparaissent empilées — c'est le hover qui déploiera ensuite.
+      // Reveal au scroll : fade-in + déploiement direct de l'éventail.
+      // L'éventail s'affiche dès que la section entre dans le viewport (plus
+      // besoin de survoler) ; le survol d'une card garde le pull-out individuel.
       gsap.to(cards, {
         opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: { each: 0.05, from: "center" },
+        "--hg-fan-x": (_i: number, el: Element) =>
+          readVar(el, "--hg-fan-x-base", "0px"),
+        "--hg-fan-y": (_i: number, el: Element) =>
+          readVar(el, "--hg-fan-y-base", "0px"),
+        "--hg-fan-rot": (_i: number, el: Element) =>
+          readVar(el, "--hg-fan-rot-base", "0deg"),
+        "--hg-fan-scale": 1,
+        duration: 1.0,
+        ease: "expo.out",
+        stagger: { each: 0.06, from: "center" },
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 78%",
           toggleActions: "play none none none",
+        },
+        onStart: () => {
+          isFanDeployed = true;
         },
       });
     }, sectionRef);
@@ -199,37 +208,12 @@ export function HorizontalGallery() {
       });
     };
 
-    const collapseToStack = () => {
-      if (!isFanDeployed) return;
-      isFanDeployed = false;
-
-      cards.forEach((card, i) => {
-        gsap.killTweensOf(card);
-        killZProxy(card);
-        const sp = stackPositions[i % stackPositions.length];
-        gsap.to(card, {
-          "--hg-fan-x": `${sp.x}px`,
-          "--hg-fan-y": "0px",
-          "--hg-fan-rot": `${sp.rot}deg`,
-          "--hg-fan-scale": 1,
-          duration: 0.85,
-          ease: "power3.inOut",
-          overwrite: "auto",
-          onComplete: () => {
-            card.style.zIndex = "";
-          },
-        });
-      });
-    };
-
-    // ---------- Listener container deck (mouseenter / mouseleave) ----------
-    // mouseleave (pas mouseout) ne se propage pas et ne se déclenche QUE
-    // quand on quitte vraiment le deck (pas en passant à un enfant card).
+    // ---------- Listener container deck (mouseenter) ----------
+    // L'éventail est déjà déployé au scroll ; ce listener n'est qu'un filet de
+    // sécurité (re-déploie si l'état n'avait pas encore été appliqué). Pas de
+    // repli au mouseleave : l'éventail reste affiché en permanence.
     const onDeckEnter = () => deployFan();
-    const onDeckLeave = () => collapseToStack();
-
     deck.addEventListener("mouseenter", onDeckEnter);
-    deck.addEventListener("mouseleave", onDeckLeave);
 
     // ---------- Hover individuel : pull out of deck ----------
     // z-index incrémental → la dernière card survolée est TOUJOURS au-dessus,
@@ -266,9 +250,8 @@ export function HorizontalGallery() {
       };
 
       const onLeave = () => {
-        // Si on quitte la card pour aller hors du deck → collapseToStack
-        // s'occupera de tout. Ici on retourne à la position fan UNIQUEMENT
-        // si on est encore en mode fan (sinon le collapse est déjà en cours).
+        // Retour de la card à sa position dans l'éventail (l'éventail reste
+        // déployé en permanence — il n'y a plus de repli en pile).
         if (!isFanDeployed) return;
         gsap.killTweensOf(card);
         killZProxy(card); // Au cas où un précédent retour serait encore en cours
@@ -333,7 +316,6 @@ export function HorizontalGallery() {
 
     return () => {
       deck.removeEventListener("mouseenter", onDeckEnter);
-      deck.removeEventListener("mouseleave", onDeckLeave);
       cleanups.forEach((fn) => fn());
       ctx.revert();
     };
