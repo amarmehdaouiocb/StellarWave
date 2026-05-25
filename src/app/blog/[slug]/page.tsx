@@ -17,7 +17,6 @@ import {
 } from "@/content/blog";
 import { NavPill } from "@/components/layout/NavPill";
 import { Footer } from "@/components/layout/Footer";
-import { NoiseOverlay } from "@/components/shared/NoiseOverlay";
 import { BreadcrumbJsonLd } from "@/components/shared/BreadcrumbJsonLd";
 
 type Props = {
@@ -105,7 +104,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <NoiseOverlay />
       <NavPill />
 
       {/* JSON-LD */}
