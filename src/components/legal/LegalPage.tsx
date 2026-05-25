@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "@/components/layout";
 import { Footer } from "@/components/layout/Footer";
-import { AuroraGlow, NoiseOverlay } from "@/components/shared/NoiseOverlay";
+import { AuroraGlow } from "@/components/shared/NoiseOverlay";
 
 // Accent du design system (token --lime / alias --ember-amber).
 export const LEGAL_ACCENT = "#38bdf8";
@@ -125,7 +125,6 @@ export function LegalPage({
             }}
           />
           <AuroraGlow animated={false} className="opacity-60" />
-          <NoiseOverlay opacity={0.035} />
         </div>
 
         <article className="relative z-10 mx-auto w-full max-w-[820px] px-6 pb-28 pt-36 sm:pt-40">

@@ -5,7 +5,6 @@ import { brand } from "@/config/brand";
 import { getAllPosts, getFeaturedPosts, blogCategories } from "@/content/blog";
 import { NavPill } from "@/components/layout/NavPill";
 import { Footer } from "@/components/layout/Footer";
-import { NoiseOverlay } from "@/components/shared/NoiseOverlay";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -32,7 +31,6 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <NoiseOverlay />
       <NavPill />
 
       <main className="pt-32 pb-20 px-4">
