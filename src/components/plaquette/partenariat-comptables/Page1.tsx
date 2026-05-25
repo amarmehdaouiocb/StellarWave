@@ -47,7 +47,7 @@ export function PartenariatComptablesPage1() {
           pointerEvents: "none",
         }}
       >
-        01
+        03
       </div>
 
       <div
@@ -68,7 +68,7 @@ export function PartenariatComptablesPage1() {
             width={220}
             height={50}
             priority
-            style={{ height: "11mm", width: "auto" }}
+            style={{ height: "8mm", width: "auto" }}
           />
           <div
             style={{
@@ -88,7 +88,7 @@ export function PartenariatComptablesPage1() {
               className="pdf-micro-caps"
               style={{ color: "#94a3b8" }}
             >
-              Éditeur de logiciels
+              Suite du pitch
             </span>
           </div>
         </div>
@@ -211,7 +211,7 @@ export function PartenariatComptablesPage1() {
               label="Notre offre"
               labelColor="#38bdf8"
               title="On construit l'app sur mesure qui les remplace."
-              body="Tickets 18 – 40 k€ + retainer 1,2 – 2,5 k€/mois. Livraison 6 à 10 semaines. Code possédé par le client. L'outil devient l'épine dorsale du quotidien."
+              body="Tickets 18 – 40 k€ + retainer 1,2 – 2,5 k€/mois. Vous touchez 10 % du contrat signé, à l'encaissement — et l'outil fidélise durablement vos clients."
               accent
             />
           </div>
@@ -275,9 +275,7 @@ export function PartenariatComptablesPage1() {
             className="pdf-page-number"
             style={{ color: "#38bdf8", fontSize: "8.5pt" }}
           >
-            <span style={{ color: "#94a3b8" }}>PAGE</span> 01{" "}
-            <span style={{ color: "#475569" }}>/</span>{" "}
-            <span style={{ color: "#94a3b8" }}>02</span>
+            <span style={{ color: "#94a3b8" }}>PAGE</span> 03
           </div>
         </div>
       </div>

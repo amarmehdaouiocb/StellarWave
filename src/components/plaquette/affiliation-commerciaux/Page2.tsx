@@ -37,7 +37,7 @@ export function AffiliationCommerciauxPage2() {
           pointerEvents: "none",
         }}
       >
-        02
+        04
       </div>
 
       <div
@@ -469,9 +469,7 @@ export function AffiliationCommerciauxPage2() {
             className="pdf-page-number"
             style={{ color: "#38bdf8", fontSize: "8.5pt" }}
           >
-            <span style={{ color: "#94a3b8" }}>PAGE</span> 02{" "}
-            <span style={{ color: "#475569" }}>/</span>{" "}
-            <span style={{ color: "#94a3b8" }}>02</span>
+            <span style={{ color: "#94a3b8" }}>PAGE</span> 04
           </div>
         </div>
       </div>
