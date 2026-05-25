@@ -345,7 +345,7 @@ export function Page7Process() {
               <ContactLine label="Adresse" value={brand.address} />
               <ContactLine
                 label="RDV"
-                value="calendly.com/stellarwave/discovery"
+                value="calendar.app.google/51BiLHgAVhsLrxTC9"
               />
             </div>
           </div>

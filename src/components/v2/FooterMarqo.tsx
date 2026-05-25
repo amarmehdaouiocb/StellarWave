@@ -15,7 +15,7 @@ const footerLinks = [
     ],
   },
   {
-    title: "Studio",
+    title: "Entreprise",
     links: [
       { label: "Process", href: "#process" },
       { label: "Projets", href: "#projets" },

@@ -71,7 +71,7 @@ export function AffiliationCommerciauxPage1() {
               className="pdf-micro-caps"
               style={{ color: "#94a3b8" }}
             >
-              Studio Product &amp; Cloud · Paris
+              Éditeur de logiciels
             </span>
           </div>
         </div>

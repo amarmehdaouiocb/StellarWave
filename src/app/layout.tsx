@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: {
     // Title court (~53 chars) pour affichage complet dans les SERPs Google
     // (limite ~60 chars avant troncature).
-    default: `${brand.name} — Studio Product & Cloud · Île-de-France`,
+    default: `${brand.name} — Éditeur de logiciels · Île-de-France`,
     template: `%s | ${brand.name}`,
   },
   description: brand.description,

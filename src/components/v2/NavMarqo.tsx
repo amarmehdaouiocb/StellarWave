@@ -76,7 +76,7 @@ export function NavMarqo() {
               Contact
             </a>
             <a
-              href={brand.calendlyUrl}
+              href={brand.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-xl bg-[var(--electric-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[var(--electric-blue-dark)] hover:shadow-lg"
@@ -148,7 +148,7 @@ export function NavMarqo() {
 
               <div className="mt-auto pt-6">
                 <a
-                  href={brand.calendlyUrl}
+                  href={brand.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex w-full items-center justify-center rounded-xl bg-[var(--electric-blue)] px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-[var(--electric-blue-dark)]"

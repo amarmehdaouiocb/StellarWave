@@ -729,7 +729,7 @@ function PageHeader({ date }: { date: string }) {
     <View style={styles.header}>
       <View>
         <Text style={styles.logoMark}>✦ STELLAR WAVE</Text>
-        <Text style={styles.logoTagline}>Studio Product &amp; Cloud</Text>
+        <Text style={styles.logoTagline}>Éditeur de logiciels</Text>
       </View>
       <View style={styles.headerRight}>
         <Text style={styles.reportTitle}>

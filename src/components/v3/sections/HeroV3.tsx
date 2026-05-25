@@ -24,7 +24,7 @@ export function HeroV3() {
             >
               <div className="w-2 h-2 rounded-full bg-[var(--v3-ember-amber)] animate-pulse" />
               <span className="text-sm font-medium tracking-wide text-white/80 uppercase">
-                Product & Cloud Studio
+                Éditeur de logiciels
               </span>
             </motion.div>
 

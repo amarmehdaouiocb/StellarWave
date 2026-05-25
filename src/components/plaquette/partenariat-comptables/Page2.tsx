@@ -351,6 +351,11 @@ export function PartenariatComptablesPage2() {
             <ContactItem label="Email" value="amar@stellarwave.fr" />
             <ContactItem label="Tél" value="+33 6 25 05 97 32" />
             <ContactItem label="Fondateur" value="Amar Mehdaoui" />
+            <ContactItem
+              label="RDV"
+              value="calendar.app.google/51BiLHgAVhsLrxTC9"
+              href="https://calendar.app.google/51BiLHgAVhsLrxTC9"
+            />
           </div>
           <div
             className="pdf-page-number"
@@ -513,7 +518,22 @@ function ExampleRow({
   );
 }
 
-function ContactItem({ label, value }: { label: string; value: string }) {
+function ContactItem({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+}) {
+  const valueStyle = {
+    fontFamily: "var(--font-mona), system-ui, sans-serif",
+    fontSize: "10pt",
+    color: "#ffffff",
+    fontWeight: 500,
+    textDecoration: "none",
+  } as const;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.5mm" }}>
       <span
@@ -522,16 +542,13 @@ function ContactItem({ label, value }: { label: string; value: string }) {
       >
         {label}
       </span>
-      <span
-        style={{
-          fontFamily: "var(--font-mona), system-ui, sans-serif",
-          fontSize: "10pt",
-          color: "#ffffff",
-          fontWeight: 500,
-        }}
-      >
-        {value}
-      </span>
+      {href ? (
+        <a href={href} style={valueStyle}>
+          {value}
+        </a>
+      ) : (
+        <span style={valueStyle}>{value}</span>
+      )}
     </div>
   );
 }

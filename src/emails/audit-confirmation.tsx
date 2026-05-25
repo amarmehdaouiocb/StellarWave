@@ -231,7 +231,7 @@ function DelayedEmail({ url }: { url: string }) {
 function FooterBlock() {
   return (
     <Section style={footer}>
-      <Text style={footerText}>Stellar Wave — Studio Product &amp; Cloud</Text>
+      <Text style={footerText}>Stellar Wave — Éditeur de logiciels</Text>
       <Text style={footerText}>Île-de-France, France | contact@stellarwave.fr</Text>
     </Section>
   );

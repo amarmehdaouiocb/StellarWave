@@ -132,7 +132,7 @@ export default function ThankYouPage() {
                 <CTAButton
                   variant="primary"
                   icon={<CalendarDots className="h-5 w-5" weight="duotone" />}
-                  href={brand.calendlyUrl}
+                  href={brand.bookingUrl}
                 >
                   Réserver un appel
                 </CTAButton>

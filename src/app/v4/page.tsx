@@ -9,7 +9,7 @@ export default function V4Page() {
       <div className="v4-noise" />
       <nav className="fixed top-0 inset-x-0 p-6 z-40 mix-blend-difference flex justify-between items-center v4-container">
         <div className="font-editorial text-2xl tracking-tighter italic">Stellar</div>
-        <div className="text-xs font-mono uppercase tracking-widest text-[#E0FF31]">Studio / 2026</div>
+        <div className="text-xs font-mono uppercase tracking-widest text-[#E0FF31]">Éditeur de logiciels / 2026</div>
       </nav>
       <main className="bg-[#050505] selection:bg-[#E0FF31] selection:text-black min-h-screen">
         <HeroV4 />

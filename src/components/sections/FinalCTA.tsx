@@ -66,7 +66,7 @@ export function FinalCTA() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
               <motion.a
-                href={brand.calendlyUrl}
+                href={brand.bookingUrl}
                 className="btn-liquid-primary inline-flex items-center gap-3 px-8 py-4 font-semibold text-lg rounded-full"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}

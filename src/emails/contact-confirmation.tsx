@@ -77,7 +77,7 @@ export function ContactConfirmationEmail({
 
           <Section style={footer}>
             <Text style={footerText}>
-              Stellar Wave - Product & Cloud Studio
+              Stellar Wave — Éditeur de logiciels
             </Text>
             <Text style={footerText}>
               Île-de-France, France | contact@stellarwave.fr

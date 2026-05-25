@@ -123,7 +123,7 @@ export function HeroMarqo() {
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <a
-            href={brand.calendlyUrl}
+            href={brand.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-2.5 rounded-xl bg-[var(--electric-blue)] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_4px_20px_oklch(0.55_0.25_255/30%)] transition-all hover:shadow-[0_8px_32px_oklch(0.55_0.25_255/40%)] hover:brightness-110"

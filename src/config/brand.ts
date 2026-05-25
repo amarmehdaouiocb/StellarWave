@@ -16,10 +16,10 @@ export type IconName =
 
 export const brand = {
   name: "Stellar Wave",
-  tagline: "Product & Cloud Studio",
+  tagline: "Éditeur de logiciels",
   description:
-    "Studio digital premium. Landing pages, applications web & mobile, architecture cloud. Exécution industrielle, résultats mesurables.",
-  calendlyUrl: "https://calendly.com/stellarwave/discovery",
+    "Éditeur de logiciels pour PME et scale-up. Sites, applications web & mobile, outils internes et automatisations. Du brief au monitoring.",
+  bookingUrl: "https://calendar.app.google/51BiLHgAVhsLrxTC9",
   contactEmail: "contact@stellarwave.fr",
   phone: "+33 6 25 05 97 32",
   address: "Île-de-France, France",
@@ -491,7 +491,7 @@ export const seoKeywords = [
   "architecture cloud",
   "audit performance",
   "SEO technique",
-  "studio digital Paris",
-  "studio digital Île-de-France",
+  "éditeur de logiciels Paris",
+  "éditeur de logiciels Île-de-France",
   "agence développement web",
 ] as const;

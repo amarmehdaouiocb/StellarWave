@@ -56,7 +56,7 @@ export function PremiumNav() {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <a href={brand.calendlyUrl} target="_blank" rel="noopener noreferrer">
+            <a href={brand.bookingUrl} target="_blank" rel="noopener noreferrer">
               <button className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-[var(--ember-amber)] hover:text-black transition-colors">
                 Démarrer
               </button>
