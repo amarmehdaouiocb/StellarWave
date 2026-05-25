@@ -36,7 +36,7 @@ export const emailConfig = {
   replyTo: "contact@stellarwave.fr",
   // Email interne pour recevoir les notifications.
   // Différent du from pour éviter l'auto-loop SMTP qui fait drop côté OVH.
-  notificationEmail: "amar@stellarwave.fr",
+  notificationEmail: "amar.mehdaoui@stellarwave.fr",
 } as const;
 
 // Types pour les données email
