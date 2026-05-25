@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <!-- Fond nuit profond, cohérent avec le thème (#020617) -->
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="64" y1="32" x2="448" y2="496">
+      <stop offset="0%" stop-color="#0b1526"/>
+      <stop offset="55%" stop-color="#050b18"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <!-- Halo sky « stellaire » derrière le symbole -->
+    <radialGradient id="halo" gradientUnits="userSpaceOnUse" cx="256" cy="150" r="280">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Remplissage clair satiné du monogramme -->
+    <linearGradient id="sym" gradientUnits="userSpaceOnUse" x1="40" y1="20" x2="450" y2="610">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="38%" stop-color="#eef5ff"/>
+      <stop offset="72%" stop-color="#cbe3ff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0a1020" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle de fond -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#halo)"/>
+
+  <!-- Monogramme Stellar Wave, centré et mis à l'échelle dans le carré -->
+  <g transform="translate(129.4 93.5) scale(0.52)" fill="url(#sym)" filter="url(#glow)">
+    <path d="M 0 625
+             L 0 190.5
+             A 40.5 40.5 0 0 1 81 190.5
+             L 81 584.5
+             A 40.5 40.5 0 0 1 40.5 625
+             Z"/>
+    <path fill-rule="evenodd"
+          d="M 109 625
+             L 109 134.5
+             A 134.5 134.5 0 0 1 378 134.5
+             L 378 625
+             Z
+             M 187 625
+             L 187 154
+             A 57.5 57.5 0 0 1 302 154
+             L 302 625
+             Z"/>
+    <path d="M 487 625
+             L 446.5 625
+             A 40.5 40.5 0 0 1 406 584.5
+             L 406 190.5
+             A 40.5 40.5 0 0 1 487 190.5
+             Z"/>
+    <circle cx="243.5" cy="283.5" r="25.5"/>
+  </g>
+
+  <!-- Liseré intérieur subtil pour la profondeur -->
+  <rect x="1" y="1" width="510" height="510" rx="111" fill="none"
+        stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+</svg>
