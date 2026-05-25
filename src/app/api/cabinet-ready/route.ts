@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
     // Envoyer l'email avec le template React
     const emailResult = await resend.emails.send({
       from: emailConfig.from,
-      to: "amar@stellarwave.fr",
+      to: emailConfig.notificationEmail,
       replyTo: data.email,
       subject: `[Cabinet Ready] ${data.prenom} — ${posteLabels[data.poste] || data.poste} (${data.collaborateurs} collab.)`,
       react: CabinetReadyNotificationEmail(emailData),
