@@ -35,28 +35,25 @@ export type PipelineInput = {
 export async function runAuditPipeline(input: PipelineInput): Promise<void> {
   const { id, email, url } = input;
   const supabase = getSupabaseAdmin();
-
-  if (!supabase) {
-    console.error(
-      "[Pipeline] Supabase non configuré — pipeline impossible",
-      { id },
-    );
-    await notifySlack({
-      severity: "critical",
-      title: "Pipeline audit impossible (Supabase KO)",
-      context: { id, email, url },
-    });
-    return;
-  }
+  // Tracking DB best-effort : sans Supabase, ou avec un id fallback (insert
+  // échoué côté route), on livre quand même l'audit. Les écritures DB sont
+  // alors ignorées — le PDF + l'email au prospect restent le livrable.
+  const hasTracking =
+    !!supabase && !id.startsWith("nodb-") && !id.startsWith("local-");
+  const track = async (patch: Record<string, unknown>): Promise<void> => {
+    if (!hasTracking || !supabase) return;
+    try {
+      await supabase.from("audit_requests").update(patch).eq("id", id);
+    } catch (e) {
+      console.error("[Pipeline] update tracking ignoré (non bloquant):", e);
+    }
+  };
 
   const startTime = Date.now();
 
   try {
     // 1) processing
-    await supabase
-      .from("audit_requests")
-      .update({ status: "processing" })
-      .eq("id", id);
+    await track({ status: "processing" });
 
     // 2) PSI + SEO en parallèle
     const [psiData, seoData] = await Promise.all([
@@ -68,15 +65,12 @@ export async function runAuditPipeline(input: PipelineInput): Promise<void> {
     const recommendations = buildRecommendations(psiData, seoData);
 
     // 4) update completed
-    await supabase
-      .from("audit_requests")
-      .update({
-        psi_data: psiData,
-        seo_data: seoData,
-        status: "completed",
-        completed_at: new Date().toISOString(),
-      })
-      .eq("id", id);
+    await track({
+      psi_data: psiData,
+      seo_data: seoData,
+      status: "completed",
+      completed_at: new Date().toISOString(),
+    });
 
     // 5) PDF
     const pdfBuffer = await renderAuditPdf({
@@ -138,13 +132,10 @@ export async function runAuditPipeline(input: PipelineInput): Promise<void> {
     }
 
     // 7) sent_at
-    await supabase
-      .from("audit_requests")
-      .update({
-        sent_at: new Date().toISOString(),
-        pdf_size_kb: pdfSizeKb,
-      })
-      .eq("id", id);
+    await track({
+      sent_at: new Date().toISOString(),
+      pdf_size_kb: pdfSizeKb,
+    });
 
     const durationS = Math.round((Date.now() - startTime) / 1000);
     console.log(
@@ -158,13 +149,10 @@ export async function runAuditPipeline(input: PipelineInput): Promise<void> {
     const durationS = Math.round((Date.now() - startTime) / 1000);
     console.error(`[Pipeline] ✗ Audit ${id} failed after ${durationS}s:`, err);
 
-    await supabase
-      .from("audit_requests")
-      .update({
-        status: "failed",
-        error_message: message.slice(0, 500),
-      })
-      .eq("id", id);
+    await track({
+      status: "failed",
+      error_message: message.slice(0, 500),
+    });
 
     await notifySlack({
       severity: "high",

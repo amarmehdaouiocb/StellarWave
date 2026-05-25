@@ -14,7 +14,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { after } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { leadMagnetSchema, validateAntiSpam } from "@/lib/validators";
-import { getClientIp, runGuards } from "@/lib/audit/guards";
+import { getClientIp, runGuards, type GuardResult } from "@/lib/audit/guards";
 import { runAuditPipeline } from "@/lib/audit/pipeline";
 import { notifySlack } from "@/lib/audit/alerts";
 
@@ -49,11 +49,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    // 3) Guards (rate limit, quota, URL HEAD, blacklist)
-    const guard = await runGuards(
-      { email: data.email.toLowerCase(), url: data.url },
-      request,
-    );
+    const email = data.email.toLowerCase();
+
+    // 3) Guards (rate limit, quota, URL HEAD, blacklist) — BEST-EFFORT.
+    // Si la DB est indisponible (projet en pause), on ne bloque pas le lead.
+    let guard: GuardResult;
+    try {
+      guard = await runGuards({ email, url: data.url }, request);
+    } catch (guardErr) {
+      console.error(
+        "[Audit API] Guards indisponibles (Supabase ?), on continue best-effort:",
+        guardErr,
+      );
+      guard = { ok: true };
+    }
     if (!guard.ok) {
       return NextResponse.json(
         { error: guard.reason },
@@ -61,68 +70,78 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4) Insert pending
+    // 4) Insert pending (tracking) — BEST-EFFORT.
+    // Si l'insert échoue (Supabase en pause/indisponible), on ne renvoie PAS
+    // d'erreur au prospect : on lance quand même le pipeline pour lui livrer
+    // son PDF (le lead n'est jamais perdu). On alerte uniquement en interne.
     const supabase = getSupabaseAdmin();
+    let trackingId = `nodb-${Date.now()}`;
+
     if (!supabase) {
-      // En dev sans Supabase, on lance quand même le pipeline en best-effort
-      // (sans tracking DB) pour permettre les tests locaux.
-      console.warn("[Audit API] Supabase non configuré — fallback pipeline sans tracking");
-
-      const fakeId = `local-${Date.now()}`;
-      after(() =>
-        runAuditPipeline({
-          id: fakeId,
-          email: data.email.toLowerCase(),
-          url: data.url,
-        }).catch((err) =>
-          console.error("[Audit pipeline failed]", fakeId, err),
-        ),
+      console.warn(
+        "[Audit API] Supabase non configuré — pipeline sans tracking",
       );
+    } else {
+      try {
+        const { data: row, error: insertError } = await supabase
+          .from("audit_requests")
+          .insert({
+            email,
+            url: data.url,
+            status: "pending",
+            ip: getClientIp(request),
+            user_agent:
+              request.headers.get("user-agent")?.slice(0, 500) ?? null,
+          })
+          .select("id")
+          .single();
 
-      return NextResponse.json({ success: true, id: fakeId });
+        if (insertError || !row) {
+          console.error(
+            "[Audit API] Insert échoué — pipeline best-effort:",
+            insertError,
+          );
+          await notifySlack({
+            severity: "high",
+            title: "Insert audit_requests échoué — pipeline lancé sans tracking",
+            context: {
+              email,
+              url: data.url,
+              error: insertError?.message ?? "unknown",
+            },
+          });
+        } else {
+          trackingId = row.id;
+        }
+      } catch (insertErr) {
+        console.error(
+          "[Audit API] Insert exception — pipeline best-effort:",
+          insertErr,
+        );
+        await notifySlack({
+          severity: "high",
+          title: "Insert audit_requests exception — pipeline lancé sans tracking",
+          context: {
+            email,
+            url: data.url,
+            error:
+              insertErr instanceof Error
+                ? insertErr.message
+                : String(insertErr),
+          },
+        });
+      }
     }
 
-    const { data: row, error: insertError } = await supabase
-      .from("audit_requests")
-      .insert({
-        email: data.email.toLowerCase(),
-        url: data.url,
-        status: "pending",
-        ip: getClientIp(request),
-        user_agent: request.headers.get("user-agent")?.slice(0, 500) ?? null,
-      })
-      .select("id")
-      .single();
-
-    if (insertError || !row) {
-      console.error("[Audit API] Insert failed:", insertError);
-      await notifySlack({
-        severity: "high",
-        title: "Insert audit_requests échoué",
-        context: {
-          email: data.email,
-          url: data.url,
-          error: insertError?.message ?? "unknown",
-        },
-      });
-      return NextResponse.json(
-        { error: "Erreur interne, équipe alertée." },
-        { status: 500 },
-      );
-    }
-
-    // 5) Pipeline async — réponse instant au client
+    // 5) Pipeline async — réponse instant au client. La demande valide réussit
+    // toujours côté client, même si le tracking DB a échoué.
     after(() =>
-      runAuditPipeline({
-        id: row.id,
-        email: data.email.toLowerCase(),
-        url: data.url,
-      }).catch((err) =>
-        console.error("[Audit pipeline failed]", row.id, err),
+      runAuditPipeline({ id: trackingId, email, url: data.url }).catch((err) =>
+        console.error("[Audit pipeline failed]", trackingId, err),
       ),
     );
 
-    return NextResponse.json({ success: true, id: row.id });
+    return NextResponse.json({ success: true, id: trackingId });
   } catch (err) {
     console.error("[Audit API] Error:", err);
     return NextResponse.json(
