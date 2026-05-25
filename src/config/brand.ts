@@ -47,6 +47,31 @@ export const brand = {
   siteUrl: "https://stellarwave.fr",
 } as const;
 
+// Entité juridique éditrice du site — données issues de l'extrait Kbis
+// (Greffe du Tribunal de Commerce de Bobigny, à jour au 15/05/2026).
+// Alimente la page /mentions-legales (et, à terme, /cgv et /confidentialite).
+export const legalEntity = {
+  name: "STELLARWAVE",
+  legalForm: "Société par actions simplifiée à associé unique (SASU)",
+  capital: "500 €",
+  rcs: "R.C.S. Bobigny 104 979 125",
+  siren: "104 979 125",
+  // N° TVA intracommunautaire calculé à partir du SIREN (clé 18).
+  // À retirer si la société est en franchise en base de TVA (art. 293 B du CGI).
+  vatNumber: "FR18 104 979 125",
+  headquarters: "23 Rue de Normandie, 93000 Bobigny, France",
+  publicationDirector: "Amar Mehdaoui",
+  email: brand.contactEmail,
+  phone: brand.phone,
+} as const;
+
+// Hébergeur du site (déploiement Vercel).
+export const hosting = {
+  name: "Vercel Inc.",
+  address: "340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis",
+  url: "https://vercel.com",
+} as const;
+
 export const heroMetrics = [
   { value: "4.8%", label: "Taux de conversion moyen" },
   { value: "-65%", label: "Coûts cloud réduits" },
