@@ -163,8 +163,8 @@ export function PartenariatComptablesPage1() {
               margin: "8mm 0 0 0",
             }}
           >
-            Vous présentez un client PME, on construit son outil interne sur
-            mesure.{" "}
+            Vous présentez un client PME, on conçoit le digital sur mesure
+            dont il a besoin.{" "}
             <span style={{ color: "#94a3b8" }}>
               10 % du contrat signé vous revient — à l&apos;encaissement,
               sans engagement.
@@ -204,14 +204,14 @@ export function PartenariatComptablesPage1() {
             <CompareCard
               label="Le constat"
               labelColor="#fb7185"
-              title="Vos clients perdent leurs journées sur Excel."
-              body="Ressaisies, erreurs, fichiers v17_FINAL_v3. Vous le voyez dans leurs dossiers comptables. Vous connaissez déjà le problème mieux que personne."
+              title="Vos clients ont un retard digital."
+              body="Site qui date, pas d'app, tout sur Excel, zéro automatisation. Au plus près de leur gestion, vous voyez ce retard avant tout le monde."
             />
             <CompareCard
-              label="Notre offre"
+              label="Ce que vous touchez"
               labelColor="#38bdf8"
-              title="On construit l'app sur mesure qui les remplace."
-              body="Tickets 18 – 40 k€ + retainer 1,2 – 2,5 k€/mois. Vous touchez 10 % du contrat signé, à l'encaissement — et l'outil fidélise durablement vos clients."
+              title="10 % du contrat, à l'encaissement."
+              body="Sur un projet 18 – 40 k€, ça fait 1 800 à 4 000 € par client présenté — sans rien gérer après l'intro, et l'outil fidélise durablement vos clients."
               accent
             />
           </div>

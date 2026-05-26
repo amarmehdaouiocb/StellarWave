@@ -1,12 +1,6 @@
 import Image from "next/image";
 import { BlobBackground } from "../BlobBackground";
 
-const products = [
-  "Outils internes sur mesure (remplace Excel)",
-  "Automatisations IA & workflows",
-  "Apps métier B2B (CRM, gestion, reporting)",
-];
-
 export function AffiliationCommerciauxPage1() {
   return (
     <>
@@ -146,8 +140,7 @@ export function AffiliationCommerciauxPage1() {
               margin: "8mm 0 0 0",
             }}
           >
-            8 % sur chaque contrat signé. 5 % récurrent sur le retainer
-            mensuel pendant 12 mois.{" "}
+            8 % sur chaque contrat signé.{" "}
             <span style={{ color: "#94a3b8" }}>
               Vous apportez l&apos;intro, on gère tout le reste — sans
               exclusivité.
@@ -175,7 +168,7 @@ export function AffiliationCommerciauxPage1() {
                 background: "rgba(148,163,184,0.5)",
               }}
             />
-            Le deal en trois temps
+            Le deal en un coup d&apos;œil
           </div>
           <div
             style={{
@@ -184,7 +177,7 @@ export function AffiliationCommerciauxPage1() {
               gap: "3mm",
             }}
           >
-            {/* CARD 1 — Ce qu'on vend */}
+            {/* CARD 1 — Pour qui */}
             <div
               style={{
                 background: "#0f172a",
@@ -213,7 +206,7 @@ export function AffiliationCommerciauxPage1() {
                 className="pdf-micro-caps"
                 style={{ color: "#94a3b8", fontSize: "7pt" }}
               >
-                Ce que vous placez
+                Pour qui
               </div>
               <h3
                 style={{
@@ -226,48 +219,23 @@ export function AffiliationCommerciauxPage1() {
                   lineHeight: 1.2,
                 }}
               >
-                Les offres du pitch
+                Toute PME avec
                 <br />
-                les plus simples à placer.
+                un besoin digital.
               </h3>
-              <ul
+              <p
                 style={{
-                  margin: "1mm 0 0 0",
-                  padding: 0,
-                  listStyle: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1.8mm",
+                  fontFamily: "var(--font-mona), system-ui, sans-serif",
+                  fontSize: "8.5pt",
+                  color: "#cbd5e1",
+                  lineHeight: 1.4,
+                  margin: 0,
                 }}
               >
-                {products.map((p) => (
-                  <li
-                    key={p}
-                    style={{
-                      fontFamily: "var(--font-mona), system-ui, sans-serif",
-                      fontSize: "8.5pt",
-                      color: "#cbd5e1",
-                      lineHeight: 1.35,
-                      paddingLeft: "5mm",
-                      position: "relative",
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "1.5mm",
-                        width: "2.5mm",
-                        height: "2.5mm",
-                        borderRadius: "50%",
-                        background: "rgba(56,189,248,0.45)",
-                      }}
-                    />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+                Site qui ne convertit plus, pas d&apos;app, outils internes à
+                bâtir, tâches à automatiser. Le bon prospect : un dirigeant
+                prêt à passer au digital.
+              </p>
               <div
                 style={{
                   marginTop: "auto",
@@ -282,38 +250,18 @@ export function AffiliationCommerciauxPage1() {
                   className="pdf-micro-caps"
                   style={{ color: "#94a3b8", fontSize: "6.5pt" }}
                 >
-                  Cible
+                  Cible idéale
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-mona), system-ui, sans-serif",
-                    fontSize: "10pt",
+                    fontSize: "13pt",
                     fontWeight: 600,
                     color: "#ffffff",
+                    letterSpacing: "-0.01em",
                   }}
                 >
                   PME 5 – 200 personnes
-                </div>
-                <div
-                  className="pdf-micro-caps"
-                  style={{
-                    color: "#94a3b8",
-                    fontSize: "6.5pt",
-                    marginTop: "1.5mm",
-                  }}
-                >
-                  Tickets
-                </div>
-                <div
-                  className="text-gradient"
-                  style={{
-                    fontFamily: "var(--font-mona), system-ui, sans-serif",
-                    fontSize: "18pt",
-                    fontWeight: 700,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  18 – 40 k€
                 </div>
               </div>
             </div>
@@ -353,18 +301,18 @@ export function AffiliationCommerciauxPage1() {
               <div
                 style={{
                   display: "flex",
-                  alignItems: "baseline",
-                  gap: "4mm",
+                  flexDirection: "column",
                 }}
               >
                 <span
                   className="text-gradient"
                   style={{
                     fontFamily: "var(--font-mona), system-ui, sans-serif",
-                    fontSize: "44pt",
+                    fontSize: "56pt",
                     fontWeight: 800,
                     letterSpacing: "-0.04em",
                     lineHeight: 0.9,
+                    whiteSpace: "nowrap",
                   }}
                 >
                   8 %
@@ -373,23 +321,12 @@ export function AffiliationCommerciauxPage1() {
                   style={{
                     fontFamily: "var(--font-btn), Georgia, serif",
                     fontStyle: "italic",
-                    fontSize: "18pt",
+                    fontSize: "15pt",
                     color: "rgba(56,189,248,0.55)",
+                    marginTop: "1mm",
                   }}
                 >
-                  +
-                </span>
-                <span
-                  className="text-gradient"
-                  style={{
-                    fontFamily: "var(--font-mona), system-ui, sans-serif",
-                    fontSize: "44pt",
-                    fontWeight: 800,
-                    letterSpacing: "-0.04em",
-                    lineHeight: 0.9,
-                  }}
-                >
-                  5 %
+                  du contrat
                 </span>
               </div>
               <div
@@ -400,10 +337,10 @@ export function AffiliationCommerciauxPage1() {
                   lineHeight: 1.4,
                 }}
               >
-                À la signature du contrat
+                À la signature du contrat.
                 <br />
                 <span style={{ color: "#94a3b8" }}>
-                  + récurrent sur 12 mois de retainer
+                  Versé à l&apos;encaissement, pas d&apos;avance.
                 </span>
               </div>
 
@@ -421,30 +358,28 @@ export function AffiliationCommerciauxPage1() {
                   className="pdf-micro-caps"
                   style={{ color: "#94a3b8", fontSize: "6.5pt" }}
                 >
-                  Deal moyen
+                  Par client présenté
                 </div>
                 <div
+                  className="text-gradient"
                   style={{
                     fontFamily: "var(--font-mona), system-ui, sans-serif",
                     fontSize: "20pt",
                     fontWeight: 700,
-                    color: "#ffffff",
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  ≈ 3 200 €
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mona), system-ui, sans-serif",
-                      fontSize: "10pt",
-                      fontWeight: 400,
-                      color: "#94a3b8",
-                      marginLeft: "3mm",
-                      letterSpacing: "0",
-                    }}
-                  >
-                    sur 12 mois
-                  </span>
+                  1 440 – 3 200 €
+                </div>
+                <div
+                  className="pdf-micro-caps"
+                  style={{
+                    color: "#94a3b8",
+                    fontSize: "6.5pt",
+                    marginTop: "0.5mm",
+                  }}
+                >
+                  Sur un ticket 18 – 40 k€
                 </div>
               </div>
             </div>
@@ -552,7 +487,8 @@ export function AffiliationCommerciauxPage1() {
                       lineHeight: 1.35,
                     }}
                   >
-                    Audit, démo, devis, contrat, livraison, support, retainer.
+                    Audit, démo, devis, contrat, livraison, support — et
+                    maintenance si le client la souhaite.
                   </li>
                 </ul>
               </div>

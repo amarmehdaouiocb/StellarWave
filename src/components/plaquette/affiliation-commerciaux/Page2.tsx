@@ -2,10 +2,10 @@ import Image from "next/image";
 import { BlobBackground } from "../BlobBackground";
 
 const tools = [
-  "Deck principal AI Operations",
-  "2 case studies chiffrés",
-  "Lien de tracking dédié",
-  "Brief produit · 1 page",
+  "La plaquette pitch Stellar Wave",
+  "Le script de pitch à donner",
+  "Des exemples de réalisations",
+  "Attribution à l'intro, sans lien",
 ];
 
 const conditions = [
@@ -154,8 +154,8 @@ export function AffiliationCommerciauxPage2() {
               }}
             >
               <span style={{ color: "rgba(255,255,255,0.55)" }}>
-                « Tu as encore des Excel partout dans ta boîte ? Stellar Wave
-                construit l&apos;app
+                « Tu connais une boîte avec un site qui date, pas d&apos;app, ou
+                des Excel partout ? Stellar Wave conçoit le digital
               </span>{" "}
               <span
                 style={{
@@ -167,8 +167,8 @@ export function AffiliationCommerciauxPage2() {
                 sur mesure
               </span>{" "}
               <span style={{ color: "rgba(255,255,255,0.55)" }}>
-                qui les remplace. 6 à 10 semaines, ROI calculable avant
-                signature,
+                — sites, apps, outils, automatisations. 6 à 10 semaines, ROI
+                calculable avant signature,
               </span>{" "}
               <span style={{ fontWeight: 600, color: "#ffffff" }}>
                 audit gratuit
@@ -191,7 +191,7 @@ export function AffiliationCommerciauxPage2() {
             >
               Adaptez à votre relation. Les mots-clés à garder absolument :{" "}
               <span style={{ color: "#cbd5e1" }}>
-                « Excel » · « sur mesure » · « audit gratuit »
+                « sur mesure » · « ROI calculable » · « audit gratuit »
               </span>
               .
             </p>
@@ -225,7 +225,7 @@ export function AffiliationCommerciauxPage2() {
                   background: "rgba(148,163,184,0.5)",
                 }}
               />
-              Outils fournis à chaque affilié
+              Ce que vous obtenez
             </div>
             <div
               style={{
@@ -391,8 +391,8 @@ export function AffiliationCommerciauxPage2() {
                   margin: 0,
                 }}
               >
-                Un email pour vous inscrire. On vous renvoie le lien de
-                tracking + les supports sous 24 h.
+                Un email pour vous inscrire. On vous renvoie tous les
+                supports de vente sous 24 h.
               </p>
             </div>
             <div
