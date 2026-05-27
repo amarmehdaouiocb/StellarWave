@@ -50,7 +50,7 @@ export function HeroAsymmetric() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-[var(--ember-amber)] animate-pulse" />
-            <span className="text-xs font-medium tracking-widest text-zinc-300 uppercase">Product & Cloud Studio</span>
+            <span className="text-xs font-medium tracking-widest text-zinc-300 uppercase">Éditeur de logiciels</span>
           </motion.div>
 
           <h1 className="text-mega text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-500 font-extrabold tracking-tighter leading-[0.85] mb-6">
@@ -88,7 +88,7 @@ export function HeroAsymmetric() {
             transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row gap-4 items-center"
           >
-            <a href={brand.calendlyUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+            <a href={brand.bookingUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <MagneticButton variant="primary" className="w-full sm:w-auto">
                 Lancer un projet <ArrowRight className="w-4 h-4 ml-1" />
               </MagneticButton>

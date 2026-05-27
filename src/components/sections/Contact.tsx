@@ -526,7 +526,7 @@ export function Contact() {
               </p>
               <a
                 className="sw-success-cta"
-                href={brand.calendlyUrl ?? "#"}
+                href={brand.bookingUrl ?? "#"}
                 target="_blank"
                 rel="noopener noreferrer"
               >

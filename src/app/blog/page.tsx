@@ -9,7 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Articles sur la performance web, le SEO, le cloud et le développement. Conseils et études de cas par Stellar Wave.",
+    "Articles sur la performance web, le SEO, le cloud et le développement. Conseils et études de cas par StellarWave.",
   openGraph: {
     title: `Blog | ${brand.name}`,
     description:

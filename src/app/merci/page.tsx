@@ -63,7 +63,7 @@ export default function ThankYouPage() {
           </Link>
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority
@@ -282,7 +282,7 @@ export default function ThankYouPage() {
             </section>
           </div>
 
-          {/* CTA Calendly */}
+          {/* CTA RDV (Google Calendar) */}
           <div
             className="mt-12 rounded-2xl p-8 relative overflow-hidden"
             style={{
@@ -342,7 +342,7 @@ export default function ThankYouPage() {
                 </p>
               </div>
               <a
-                href={brand.calendlyUrl}
+                href={brand.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full shrink-0 transition-all"

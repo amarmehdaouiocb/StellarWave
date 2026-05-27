@@ -240,7 +240,7 @@ export function Hero() {
               variant="primary"
               size="lg"
               icon={<CalendarDots weight="duotone" className="h-5 w-5" />}
-              href={brand.calendlyUrl}
+              href={brand.bookingUrl}
             >
               R&eacute;server un appel d&eacute;couverte
             </CTAButton>

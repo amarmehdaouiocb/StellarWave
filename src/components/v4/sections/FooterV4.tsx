@@ -10,7 +10,7 @@ export function FooterV4() {
             Stellar.
           </h2>
           <p className="font-mono text-xs mt-6 text-zinc-500">
-            © {new Date().getFullYear()} STELLAR WAVE STUDIO.<br/>
+            © {new Date().getFullYear()} STELLAR WAVE.<br/>
             ALL RIGHTS RESERVED.
           </p>
         </div>

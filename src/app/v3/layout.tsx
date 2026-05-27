@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./v3.css";
 
 export const metadata: Metadata = {
-  title: "Stellar Wave V3 | Product & Cloud Studio",
-  description: "Studio digital premium. Landing pages, applications web & mobile, architecture cloud.",
+  title: "StellarWave V3 | Éditeur de logiciels",
+  description: "Éditeur de logiciels pour PME et scale-up. Sites, applications web & mobile, outils internes et automatisations. Du brief au monitoring.",
 };
 
 export default function V3Layout({

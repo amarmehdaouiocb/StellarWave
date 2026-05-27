@@ -54,7 +54,7 @@ export function CTABanner() {
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href={brand.calendlyUrl}
+                href={brand.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-2.5 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[oklch(0.35_0.22_260)] shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"

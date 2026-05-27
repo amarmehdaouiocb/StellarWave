@@ -2,10 +2,10 @@ import Image from "next/image";
 import { BlobBackground } from "../BlobBackground";
 
 const tools = [
-  "Deck principal AI Operations",
-  "2 case studies chiffrés",
-  "Lien de tracking dédié",
-  "Brief produit · 1 page",
+  "La plaquette pitch StellarWave",
+  "Le script de pitch à donner",
+  "Des exemples de réalisations",
+  "Attribution à l'intro, sans lien",
 ];
 
 const conditions = [
@@ -37,7 +37,7 @@ export function AffiliationCommerciauxPage2() {
           pointerEvents: "none",
         }}
       >
-        02
+        04
       </div>
 
       <div
@@ -54,7 +54,7 @@ export function AffiliationCommerciauxPage2() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority
@@ -154,8 +154,8 @@ export function AffiliationCommerciauxPage2() {
               }}
             >
               <span style={{ color: "rgba(255,255,255,0.55)" }}>
-                « Tu as encore des Excel partout dans ta boîte ? Stellar Wave
-                construit l&apos;app
+                « Tu connais une boîte avec un site qui date, pas d&apos;app, ou
+                des Excel partout ? StellarWave conçoit le digital
               </span>{" "}
               <span
                 style={{
@@ -167,8 +167,8 @@ export function AffiliationCommerciauxPage2() {
                 sur mesure
               </span>{" "}
               <span style={{ color: "rgba(255,255,255,0.55)" }}>
-                qui les remplace. 6 à 10 semaines, ROI calculable avant
-                signature,
+                — sites, apps, outils, automatisations. 6 à 10 semaines, ROI
+                calculable avant signature,
               </span>{" "}
               <span style={{ fontWeight: 600, color: "#ffffff" }}>
                 audit gratuit
@@ -191,7 +191,7 @@ export function AffiliationCommerciauxPage2() {
             >
               Adaptez à votre relation. Les mots-clés à garder absolument :{" "}
               <span style={{ color: "#cbd5e1" }}>
-                « Excel » · « sur mesure » · « audit gratuit »
+                « sur mesure » · « ROI calculable » · « audit gratuit »
               </span>
               .
             </p>
@@ -225,7 +225,7 @@ export function AffiliationCommerciauxPage2() {
                   background: "rgba(148,163,184,0.5)",
                 }}
               />
-              Outils fournis à chaque affilié
+              Ce que vous obtenez
             </div>
             <div
               style={{
@@ -300,49 +300,24 @@ export function AffiliationCommerciauxPage2() {
           </div>
         </div>
 
-        {/* CTA gradient cyan */}
+        {/* CTA — aplat cyan opaque, sans couche composite : évite les
+            artefacts de tuilage du viewer PDF de Gmail mobile) */}
         <div
           style={{
-            position: "relative",
             borderRadius: "14px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%)",
+            background: "#0d95d2",
             padding: "8mm 9mm",
             color: "#000000",
-            boxShadow: "0 20px 50px rgba(56,189,248,0.25)",
           }}
         >
           <div
-            aria-hidden
             style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(0,0,0,0.10)",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px)",
-              backgroundSize: "14px 14px",
-              opacity: 0.5,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
+              display: "flex",
               gap: "8mm",
               alignItems: "center",
             }}
           >
-            <div>
+            <div style={{ flex: "1.5 1 0" }}>
               <div
                 style={{
                   display: "inline-block",
@@ -391,8 +366,8 @@ export function AffiliationCommerciauxPage2() {
                   margin: 0,
                 }}
               >
-                Un email pour vous inscrire. On vous renvoie le lien de
-                tracking + les supports sous 24 h.
+                Un email pour vous inscrire. On vous renvoie tous les
+                supports de vente sous 24 h.
               </p>
             </div>
             <div
@@ -401,6 +376,7 @@ export function AffiliationCommerciauxPage2() {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "3mm",
+                flex: "1 1 0",
               }}
             >
               <a
@@ -417,7 +393,6 @@ export function AffiliationCommerciauxPage2() {
                   textDecoration: "none",
                   textAlign: "center",
                   minWidth: "55mm",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                 }}
               >
                 → M&apos;inscrire au programme
@@ -459,14 +434,17 @@ export function AffiliationCommerciauxPage2() {
             <ContactItem label="Email" value="amar@stellarwave.fr" />
             <ContactItem label="Tél" value="+33 6 25 05 97 32" />
             <ContactItem label="Fondateur" value="Amar Mehdaoui" />
+            <ContactItem
+              label="RDV"
+              value="calendar.app.google/51BiLHgAVhsLrxTC9"
+              href="https://calendar.app.google/51BiLHgAVhsLrxTC9"
+            />
           </div>
           <div
             className="pdf-page-number"
             style={{ color: "#38bdf8", fontSize: "8.5pt" }}
           >
-            <span style={{ color: "#94a3b8" }}>PAGE</span> 02{" "}
-            <span style={{ color: "#475569" }}>/</span>{" "}
-            <span style={{ color: "#94a3b8" }}>02</span>
+            <span style={{ color: "#94a3b8" }}>PAGE</span> 04
           </div>
         </div>
       </div>
@@ -515,7 +493,22 @@ function ToolPill({ num, label }: { num: number; label: string }) {
   );
 }
 
-function ContactItem({ label, value }: { label: string; value: string }) {
+function ContactItem({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+}) {
+  const valueStyle = {
+    fontFamily: "var(--font-mona), system-ui, sans-serif",
+    fontSize: "10pt",
+    color: "#ffffff",
+    fontWeight: 500,
+    textDecoration: "none",
+  } as const;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.5mm" }}>
       <span
@@ -524,16 +517,13 @@ function ContactItem({ label, value }: { label: string; value: string }) {
       >
         {label}
       </span>
-      <span
-        style={{
-          fontFamily: "var(--font-mona), system-ui, sans-serif",
-          fontSize: "10pt",
-          color: "#ffffff",
-          fontWeight: 500,
-        }}
-      >
-        {value}
-      </span>
+      {href ? (
+        <a href={href} style={valueStyle}>
+          {value}
+        </a>
+      ) : (
+        <span style={valueStyle}>{value}</span>
+      )}
     </div>
   );
 }

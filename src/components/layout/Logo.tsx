@@ -25,7 +25,7 @@ export function Logo({
   const imgEl = (
     <Image
       src="/logo.svg"
-      alt="Stellar Wave"
+      alt="StellarWave"
       width={numericHeight ? Math.round(numericHeight * (487 / 625)) : 80}
       height={numericHeight ?? 100}
       priority={priority}
@@ -53,7 +53,7 @@ export function Logo({
       >
         <Link
           href={href}
-          aria-label="Stellar Wave — retour accueil"
+          aria-label="StellarWave — retour accueil"
           className="group inline-flex items-center"
           style={{
             filter:
@@ -80,7 +80,7 @@ export function Logo({
   return (
     <Link
       href={href}
-      aria-label="Stellar Wave — retour accueil"
+      aria-label="StellarWave — retour accueil"
       className={className}
       style={{ display: "inline-block" }}
     >

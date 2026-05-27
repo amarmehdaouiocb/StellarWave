@@ -71,7 +71,7 @@ export function AiOpsPage3Approach() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={150}
             height={34}
             priority

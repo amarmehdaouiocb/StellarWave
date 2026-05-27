@@ -11,7 +11,7 @@ export function PageHeader({ pageLabel, pageNumber }: PageHeaderProps) {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Image
           src="/logo.svg"
-          alt="Stellar Wave"
+          alt="StellarWave"
           width={120}
           height={28}
           priority

@@ -56,7 +56,7 @@ export function Page1Cover() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -80,7 +80,7 @@ export function Page1Cover() {
               className="pdf-micro-caps"
               style={{ color: "#94a3b8" }}
             >
-              Studio Product &amp; Cloud · Paris
+              Éditeur de logiciels
             </span>
           </div>
         </div>
@@ -287,7 +287,7 @@ export function Page1Cover() {
               textTransform: "uppercase",
             }}
           >
-            Stellar Wave · 2026
+            StellarWave · 2026
           </div>
         </div>
       </div>

@@ -104,7 +104,7 @@ export function FeaturesIntro() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--electric-blue)]/15 bg-[var(--electric-blue)]/5 px-4 py-1.5">
               <Sparkle size={16} weight="fill" className="text-[var(--electric-blue)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--electric-blue)]">
-                Studio Digital Premium
+                Éditeur de logiciels
               </span>
             </div>
 

@@ -50,7 +50,7 @@ export function Footer() {
         >
           <Link
             href="/"
-            aria-label="Stellar Wave — retour accueil"
+            aria-label="StellarWave — retour accueil"
             className="group inline-block select-none"
             style={{
               opacity: 0.55,
@@ -73,7 +73,7 @@ export function Footer() {
           >
             <Image
               src="/logo-footer.webp"
-              alt="Stellar Wave"
+              alt="StellarWave"
               width={1093}
               height={1438}
               priority={false}

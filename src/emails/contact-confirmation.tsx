@@ -23,13 +23,13 @@ export function ContactConfirmationEmail({
     <Html>
       <Head />
       <Preview>
-        Merci {firstName} ! Nous avons bien reçu votre demande - Stellar Wave
+        Merci {firstName} ! Nous avons bien reçu votre demande - StellarWave
       </Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header */}
           <Section style={header}>
-            <Text style={logoText}>✦ Stellar Wave</Text>
+            <Text style={logoText}>✦ StellarWave</Text>
           </Section>
 
           <Section style={content}>
@@ -77,7 +77,7 @@ export function ContactConfirmationEmail({
 
           <Section style={footer}>
             <Text style={footerText}>
-              Stellar Wave - Product & Cloud Studio
+              StellarWave — Éditeur de logiciels
             </Text>
             <Text style={footerText}>
               Île-de-France, France | contact@stellarwave.fr

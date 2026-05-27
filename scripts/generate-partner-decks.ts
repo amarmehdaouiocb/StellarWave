@@ -2,8 +2,8 @@
  * Génère les PDFs partenariat depuis Next.js + Playwright.
  *
  * Sorties :
- *   public/decks/stellarwave-partenariat-comptables-fr.pdf
- *   public/decks/stellarwave-affiliation-commerciaux-fr.pdf
+ *   public/decks/cabinetcomptable/stellarwave-partenariat-comptables-fr.pdf
+ *   public/decks/commerciaux/stellarwave-affiliation-commerciaux-fr.pdf
  *
  * Usage :
  *   1) npm run dev (laisser tourner sur :3000)
@@ -15,7 +15,7 @@ import { chromium } from "playwright";
 import { mkdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
-type DeckKey = "accountants" | "affiliates";
+type DeckKey = "accountants" | "affiliates" | "guide" | "contrat" | "guide-comptable";
 
 type DeckConfig = {
   path: string;
@@ -28,13 +28,28 @@ const BASE_URL = process.env.PARTNER_DECKS_BASE_URL ?? "http://localhost:3000";
 const DECKS: Record<DeckKey, DeckConfig> = {
   accountants: {
     path: "/plaquette/partenariat-comptables",
-    output: "public/decks/stellarwave-partenariat-comptables-fr.pdf",
+    output: "public/decks/cabinetcomptable/stellarwave-partenariat-comptables-fr.pdf",
     label: "Programme partenariat — Cabinets comptables",
   },
   affiliates: {
     path: "/plaquette/affiliation-commerciaux",
-    output: "public/decks/stellarwave-affiliation-commerciaux-fr.pdf",
+    output: "public/decks/commerciaux/stellarwave-affiliation-commerciaux-fr.pdf",
     label: "Programme d'affiliation — Apporteurs d'affaires",
+  },
+  guide: {
+    path: "/plaquette/guide-apporteur",
+    output: "public/decks/commerciaux/stellarwave-guide-apporteur-fr.pdf",
+    label: "Guide de l'apporteur",
+  },
+  contrat: {
+    path: "/plaquette/contrat-apporteur",
+    output: "public/decks/commerciaux/stellarwave-contrat-apporteur.pdf",
+    label: "Contrat d'apporteur d'affaires",
+  },
+  "guide-comptable": {
+    path: "/plaquette/guide-cabinet-comptable",
+    output: "public/decks/cabinetcomptable/stellarwave-guide-cabinet-comptable-fr.pdf",
+    label: "Guide du cabinet partenaire",
   },
 };
 
@@ -49,10 +64,16 @@ function parseDeckArg(): DeckKey[] {
   if (!chosen || chosen === "all") {
     return ["accountants", "affiliates"];
   }
-  if (chosen === "accountants" || chosen === "affiliates") {
+  if (
+    chosen === "accountants" ||
+    chosen === "affiliates" ||
+    chosen === "guide" ||
+    chosen === "contrat" ||
+    chosen === "guide-comptable"
+  ) {
     return [chosen];
   }
-  console.error(`✖ --deck invalide : "${chosen}". Valeurs : accountants | affiliates | all`);
+  console.error(`✖ --deck invalide : "${chosen}". Valeurs : accountants | affiliates | guide | contrat | all`);
   process.exit(1);
 }
 
@@ -62,7 +83,7 @@ async function renderDeck(
 ) {
   const context = await browser.newContext({
     viewport: { width: 794, height: 1123 },
-    deviceScaleFactor: 1.5,
+    deviceScaleFactor: Number(process.env.DECK_SCALE ?? 2),
   });
   const page = await context.newPage();
 

@@ -46,7 +46,7 @@ export function AiOpsPage1Cover() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={240}
             height={54}
             priority
@@ -67,7 +67,7 @@ export function AiOpsPage1Cover() {
               }}
             />
             <span className="pdf-micro-caps" style={{ color: "#94a3b8" }}>
-              Stellar Wave × Wealth Management · Paris
+              StellarWave × Wealth Management · Paris
             </span>
           </div>
         </div>

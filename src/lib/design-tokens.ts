@@ -1,5 +1,5 @@
 /**
- * Design Tokens for Stellar Wave
+ * Design Tokens for StellarWave
  * Stellar Macro Theme - Light Premium with Electric Blue
  */
 

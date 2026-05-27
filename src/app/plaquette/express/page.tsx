@@ -4,7 +4,7 @@ import { ExpressPage2 } from "@/components/plaquette/express/ExpressPage2";
 import { PrintButton } from "@/components/plaquette/PrintButton";
 
 export const metadata = {
-  title: "Plaquette express — Stellar Wave",
+  title: "Plaquette express — StellarWave",
   description: "Plaquette pitch 2 pages, version courte.",
   robots: { index: false, follow: false },
 };
@@ -12,10 +12,10 @@ export const metadata = {
 export default function PlaquetteExpressPage() {
   return (
     <>
-      <PdfPage>
+      <PdfPage noise={false}>
         <ExpressPage1 />
       </PdfPage>
-      <PdfPage>
+      <PdfPage noise={false}>
         <ExpressPage2 />
       </PdfPage>
 

@@ -21,7 +21,7 @@ async function main() {
   try {
     const context = await browser.newContext({
       viewport: { width: 794, height: 1123 },
-      deviceScaleFactor: 1.5,
+      deviceScaleFactor: 2,
     });
     const page = await context.newPage();
 

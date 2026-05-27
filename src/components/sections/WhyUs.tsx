@@ -62,7 +62,7 @@ export function WhyUs() {
             }}
           >
             <span style={{ color: "rgba(17, 17, 17, 0.35)" }}>Pourquoi choisir </span>
-            <span style={{ color: "#111111", fontWeight: 600 }}>Stellar Wave</span>
+            <span style={{ color: "#111111", fontWeight: 600 }}>StellarWave</span>
             <span style={{ color: "rgba(17, 17, 17, 0.35)" }}> ?</span>
           </h2>
           <p

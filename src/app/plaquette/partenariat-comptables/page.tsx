@@ -4,7 +4,7 @@ import { PartenariatComptablesPage2 } from "@/components/plaquette/partenariat-c
 import { PrintButton } from "@/components/plaquette/PrintButton";
 
 export const metadata = {
-  title: "Programme partenariat — Cabinets comptables — Stellar Wave",
+  title: "Programme partenariat — Cabinets comptables — StellarWave",
   description:
     "Plaquette partenariat 2 pages destinée aux cabinets d'expertise comptable.",
   robots: { index: false, follow: false },
@@ -13,15 +13,15 @@ export const metadata = {
 export default function PartenariatComptablesPlaquettePage() {
   return (
     <>
-      <PdfPage>
+      <PdfPage noise={false}>
         <PartenariatComptablesPage1 />
       </PdfPage>
-      <PdfPage>
+      <PdfPage noise={false}>
         <PartenariatComptablesPage2 />
       </PdfPage>
 
       <a
-        href="/decks/stellarwave-partenariat-comptables-fr.pdf"
+        href="/decks/cabinetcomptable/stellarwave-partenariat-comptables-fr.pdf"
         download
         className="print-hidden"
         style={{

@@ -5,7 +5,7 @@ const services = [
   {
     title: "Sites web",
     desc: "Donnez envie à vos visiteurs de vous contacter.",
-    price: "À partir de 5 000 €",
+    price: "À partir de 2 500 €",
   },
   {
     title: "Applications web",
@@ -28,17 +28,10 @@ const services = [
     price: "À partir de 800 €",
   },
   {
-    title: "Croissance récurrente",
-    desc: "Restez en ligne, à jour, sans y penser.",
-    price: "À partir de 490 €/mois",
+    title: "Automatisations sur mesure",
+    desc: "Connectez vos outils, supprimez les tâches manuelles.",
+    price: "À partir de 3 000 €",
   },
-];
-
-const kpis = [
-  { value: "4.8%", label: "Conversion moyenne" },
-  { value: "98+", label: "Score performance" },
-  { value: "−65%", label: "Coûts d'hébergement" },
-  { value: "<48h", label: "Délai de réponse" },
 ];
 
 export function ExpressPage1() {
@@ -81,7 +74,7 @@ export function ExpressPage1() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -105,7 +98,7 @@ export function ExpressPage1() {
               className="pdf-micro-caps"
               style={{ color: "#94a3b8" }}
             >
-              Studio Product &amp; Cloud · Paris
+              Éditeur de logiciels
             </span>
           </div>
         </div>
@@ -179,7 +172,7 @@ export function ExpressPage1() {
               margin: "8mm 0 0 0",
             }}
           >
-            Studio digital premium pour PME et scale-up.{" "}
+            Éditeur de logiciels pour PME et scale-up.{" "}
             <span style={{ color: "#94a3b8" }}>
               On conçoit, on développe, on accompagne — du brief au monitoring.
             </span>
@@ -217,85 +210,6 @@ export function ExpressPage1() {
           >
             {services.map((s, i) => (
               <ServiceLine key={s.title} index={i + 1} {...s} />
-            ))}
-          </div>
-        </div>
-
-        {/* KPIs */}
-        <div>
-          <div
-            className="pdf-micro-caps"
-            style={{
-              color: "#94a3b8",
-              marginBottom: "4mm",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              fontSize: "8pt",
-            }}
-          >
-            <span
-              style={{
-                width: "8mm",
-                height: "1px",
-                background: "rgba(148,163,184,0.5)",
-              }}
-            />
-            Nos résultats sur projets web 2024-2025
-          </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "3mm",
-            }}
-          >
-            {kpis.map((k) => (
-              <div
-                key={k.label}
-                style={{
-                  background: "#0f172a",
-                  border: "1px solid rgba(56,189,248,0.20)",
-                  borderRadius: "10px",
-                  padding: "5mm 4mm 4mm",
-                  textAlign: "left",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: "1px",
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent)",
-                  }}
-                />
-                <div
-                  className="text-gradient"
-                  style={{
-                    fontFamily: "var(--font-mona), system-ui, sans-serif",
-                    fontSize: "32pt",
-                    fontWeight: 700,
-                    letterSpacing: "-0.03em",
-                    lineHeight: 1,
-                    fontVariantNumeric: "tabular-nums",
-                    marginBottom: "2mm",
-                  }}
-                >
-                  {k.value}
-                </div>
-                <div
-                  className="pdf-micro-caps"
-                  style={{ color: "#cbd5e1", fontSize: "7.5pt" }}
-                >
-                  {k.label}
-                </div>
-              </div>
             ))}
           </div>
         </div>
@@ -415,13 +329,13 @@ function ServiceLine({
         {desc}
       </p>
       <div
-        className="text-gradient"
         style={{
           fontFamily: "var(--font-mona), system-ui, sans-serif",
           fontSize: "10.5pt",
           fontWeight: 700,
           letterSpacing: "-0.01em",
           marginTop: "auto",
+          color: "#7dd3fc",
         }}
       >
         {price}

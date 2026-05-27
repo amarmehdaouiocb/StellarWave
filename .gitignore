@@ -52,8 +52,26 @@ supabase/.temp/
 scripts/__pycache__/
 scripts/_fonts_cache/
 
+# exports locaux de prospection (donnees commerciales a regenerer)
+Acquisition/outbound/*.csv
+Acquisition/outbound/*.json
+Acquisition/outbound/*.xlsx
+!Acquisition/outbound/.gitkeep
+
+# suivi acquisition (donnees prospects saisies a la main — RGPD, jamais versionne)
+Acquisition/suivi_acquisition.xlsx
+
 # réglages Claude Code locaux (non partagés)
 .claude/settings.local.json
 
 # worktrees Claude Code (git worktrees, jamais versionnés)
 .claude/worktrees/
+
+# credentials API OVH (jamais versionnés — config DNS délivrabilité)
+.ovh-credentials.json
+scripts/.ovh*
+
+# artefacts locaux du script d'envoi outreach (générés à la volée, non versionnés)
+scripts/.draft.eml
+scripts/.email-*
+scripts/.partner-email-preview*

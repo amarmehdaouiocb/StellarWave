@@ -47,7 +47,7 @@ export function PartenariatComptablesPage1() {
           pointerEvents: "none",
         }}
       >
-        01
+        03
       </div>
 
       <div
@@ -64,11 +64,11 @@ export function PartenariatComptablesPage1() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
-            style={{ height: "11mm", width: "auto" }}
+            style={{ height: "8mm", width: "auto" }}
           />
           <div
             style={{
@@ -88,7 +88,7 @@ export function PartenariatComptablesPage1() {
               className="pdf-micro-caps"
               style={{ color: "#94a3b8" }}
             >
-              Studio Product &amp; Cloud · Paris
+              Suite du pitch
             </span>
           </div>
         </div>
@@ -163,8 +163,8 @@ export function PartenariatComptablesPage1() {
               margin: "8mm 0 0 0",
             }}
           >
-            Vous présentez un client PME, on construit son outil interne sur
-            mesure.{" "}
+            Vous présentez un client PME, on conçoit le digital sur mesure
+            dont il a besoin.{" "}
             <span style={{ color: "#94a3b8" }}>
               10 % du contrat signé vous revient — à l&apos;encaissement,
               sans engagement.
@@ -204,14 +204,14 @@ export function PartenariatComptablesPage1() {
             <CompareCard
               label="Le constat"
               labelColor="#fb7185"
-              title="Vos clients perdent leurs journées sur Excel."
-              body="Ressaisies, erreurs, fichiers v17_FINAL_v3. Vous le voyez dans leurs dossiers comptables. Vous connaissez déjà le problème mieux que personne."
+              title="Vos clients ont un retard digital."
+              body="Site qui date, pas d'app, tout sur Excel, zéro automatisation. Au plus près de leur gestion, vous voyez ce retard avant tout le monde."
             />
             <CompareCard
-              label="Notre offre"
+              label="Ce que vous touchez"
               labelColor="#38bdf8"
-              title="On construit l'app sur mesure qui les remplace."
-              body="Tickets 18 – 40 k€ + retainer 1,2 – 2,5 k€/mois. Livraison 6 à 10 semaines. Code possédé par le client. L'outil devient l'épine dorsale du quotidien."
+              title="10 % du contrat, à l'encaissement."
+              body="Sur un projet sur mesure typique (18 – 40 k€), ça fait 1 800 à 4 000 € par client présenté — montant indicatif selon la taille du projet. Vous ne gérez rien après l'intro."
               accent
             />
           </div>
@@ -275,9 +275,7 @@ export function PartenariatComptablesPage1() {
             className="pdf-page-number"
             style={{ color: "#38bdf8", fontSize: "8.5pt" }}
           >
-            <span style={{ color: "#94a3b8" }}>PAGE</span> 01{" "}
-            <span style={{ color: "#475569" }}>/</span>{" "}
-            <span style={{ color: "#94a3b8" }}>02</span>
+            <span style={{ color: "#94a3b8" }}>PAGE</span> 03
           </div>
         </div>
       </div>

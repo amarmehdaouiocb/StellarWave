@@ -32,7 +32,7 @@ export const resend = {
 
 // Configuration email
 export const emailConfig = {
-  from: "Stellar Wave <contact@stellarwave.fr>",
+  from: "StellarWave <contact@stellarwave.fr>",
   replyTo: "contact@stellarwave.fr",
   // Email interne pour recevoir les notifications.
   // Différent du from pour éviter l'auto-loop SMTP qui fait drop côté OVH.

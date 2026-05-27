@@ -345,7 +345,7 @@ export function Page7Process() {
               <ContactLine label="Adresse" value={brand.address} />
               <ContactLine
                 label="RDV"
-                value="calendly.com/stellarwave/discovery"
+                value="calendar.app.google/51BiLHgAVhsLrxTC9"
               />
             </div>
           </div>
@@ -356,7 +356,7 @@ export function Page7Process() {
               className="pdf-micro-caps"
               style={{ color: "#38bdf8", marginBottom: "3mm" }}
             >
-              Pourquoi Stellar Wave
+              Pourquoi StellarWave
             </div>
             <div
               style={{

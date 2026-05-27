@@ -5,22 +5,22 @@ const clientsLogos = [
   {
     name: "Fidelya",
     logo: "/projects/fidelya-logo.png",
-    line: "Fidélise les clients restaurant : commande WhatsApp, caisse en ligne, programme de fidélité — tout intégré.",
+    line: "Les restaurateurs savent rarement qui sont leurs clients ni comment les faire revenir. On a conçu Fidelya, une plateforme de fidélisation tout-en-un : points & cashback, caisse web, commande WhatsApp et campagnes email/SMS — pour transformer un client de passage en habitué.",
   },
   {
     name: "BoatAcademy",
     logo: "/projects/boatacademy-logo.png",
-    line: "Gère l'école de A à Z : back-office web, apps iOS / Android élèves, paiements en ligne sécurisés.",
+    line: "Un bateau-école qui voulait se dupliquer en franchise, mais tournait encore sur Excel et papier. On a livré une plateforme complète — gestion des sessions, paiements et inscriptions côté école, révisions, planning et paiement en ligne côté stagiaire — pensée multi-écoles pour ouvrir de nouveaux centres.",
   },
   {
     name: "OnMangeQuoi",
     logo: "/projects/onmangequoi.png",
-    line: "Onboarde 5× plus vite : formulaire web intelligent qui pré-remplit les infos restaurant automatiquement.",
+    line: "OnMangeQuoi voulait référencer des centaines de commerces et leur donner de la visibilité, sans saisir chaque fiche à la main. On a créé un formulaire qui se remplit tout seul via Google Places, suggère des offres par IA, et un back-office pour valider et modérer en masse.",
   },
   {
     name: "RA Bâtiment",
     logo: "/projects/ra-batiment-dark.svg",
-    line: "Convertit les visites en devis qualifiés : portfolio avant / après, SEO local, formulaire optimisé.",
+    line: "Une entreprise du bâtiment noyée sous l'administratif des syndics. On a livré deux outils : un site vitrine qui transforme les visiteurs en demandes de devis, et AppliSyndicOS, une appli web qui automatise tout le suivi — interventions reçues par mail, devis et factures générés, rapports au syndic, chantiers tracés (photos avant/après, commentaire terrain).",
   },
 ];
 
@@ -28,7 +28,7 @@ const steps = [
   { num: "01", title: "Brief & devis", desc: "Réponse sous 48 h, prix fixe validé." },
   { num: "02", title: "Design & build", desc: "Démos hebdo, vous voyez avancer." },
   { num: "03", title: "Mise en production", desc: "Déploiement progressif, formation équipe." },
-  { num: "04", title: "Croissance continue", desc: "Maintenance, évolutions, optimisations." },
+  { num: "04", title: "Suivi & évolutions", desc: "Maintenance, optimisations, nouveautés." },
 ];
 
 export function ExpressPage2() {
@@ -71,7 +71,7 @@ export function ExpressPage2() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority
@@ -209,49 +209,24 @@ export function ExpressPage2() {
           </div>
         </div>
 
-        {/* CTA MINI-AUDIT — bande lime gradient */}
+        {/* CTA MINI-AUDIT — aplat cyan opaque, sans couche composite :
+            évite les artefacts de tuilage du viewer PDF de Gmail mobile) */}
         <div
           style={{
-            position: "relative",
             borderRadius: "14px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%)",
+            background: "#0d95d2",
             padding: "8mm 9mm",
             color: "#000000",
-            boxShadow: "0 20px 50px rgba(56,189,248,0.25)",
           }}
         >
           <div
-            aria-hidden
             style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(0,0,0,0.10)",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px)",
-              backgroundSize: "14px 14px",
-              opacity: 0.5,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
+              display: "flex",
               gap: "8mm",
               alignItems: "center",
             }}
           >
-            <div>
+            <div style={{ flex: "1.5 1 0" }}>
               <div
                 style={{
                   display: "inline-block",
@@ -310,6 +285,7 @@ export function ExpressPage2() {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "3mm",
+                flex: "1 1 0",
               }}
             >
               <a
@@ -326,7 +302,6 @@ export function ExpressPage2() {
                   textDecoration: "none",
                   textAlign: "center",
                   minWidth: "55mm",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                 }}
               >
                 → Lancer mon audit
@@ -367,7 +342,11 @@ export function ExpressPage2() {
           >
             <ContactItem label="Email" value="contact@stellarwave.fr" />
             <ContactItem label="Tél" value="+33 6 25 05 97 32" />
-            <ContactItem label="RDV" value="calendly.com/stellarwave/discovery" />
+            <ContactItem
+              label="RDV"
+              value="calendar.app.google/51BiLHgAVhsLrxTC9"
+              href="https://calendar.app.google/51BiLHgAVhsLrxTC9"
+            />
           </div>
           <div
             className="pdf-page-number"
@@ -466,7 +445,22 @@ function ClientRow({
   );
 }
 
-function ContactItem({ label, value }: { label: string; value: string }) {
+function ContactItem({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+}) {
+  const valueStyle = {
+    fontFamily: "var(--font-mona), system-ui, sans-serif",
+    fontSize: "10pt",
+    color: "#ffffff",
+    fontWeight: 500,
+    textDecoration: "none",
+  } as const;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.5mm" }}>
       <span
@@ -475,16 +469,13 @@ function ContactItem({ label, value }: { label: string; value: string }) {
       >
         {label}
       </span>
-      <span
-        style={{
-          fontFamily: "var(--font-mona), system-ui, sans-serif",
-          fontSize: "10pt",
-          color: "#ffffff",
-          fontWeight: 500,
-        }}
-      >
-        {value}
-      </span>
+      {href ? (
+        <a href={href} style={valueStyle}>
+          {value}
+        </a>
+      ) : (
+        <span style={valueStyle}>{value}</span>
+      )}
     </div>
   );
 }
