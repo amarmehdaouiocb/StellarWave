@@ -2,7 +2,7 @@ import Image from "next/image";
 import { BlobBackground } from "../BlobBackground";
 
 const tools = [
-  "La plaquette pitch Stellar Wave",
+  "La plaquette pitch StellarWave",
   "Le script de pitch à donner",
   "Des exemples de réalisations",
   "Attribution à l'intro, sans lien",
@@ -54,7 +54,7 @@ export function AffiliationCommerciauxPage2() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority
@@ -155,7 +155,7 @@ export function AffiliationCommerciauxPage2() {
             >
               <span style={{ color: "rgba(255,255,255,0.55)" }}>
                 « Tu connais une boîte avec un site qui date, pas d&apos;app, ou
-                des Excel partout ? Stellar Wave conçoit le digital
+                des Excel partout ? StellarWave conçoit le digital
               </span>{" "}
               <span
                 style={{
@@ -300,49 +300,24 @@ export function AffiliationCommerciauxPage2() {
           </div>
         </div>
 
-        {/* CTA gradient cyan */}
+        {/* CTA — aplat cyan opaque, sans couche composite : évite les
+            artefacts de tuilage du viewer PDF de Gmail mobile) */}
         <div
           style={{
-            position: "relative",
             borderRadius: "14px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%)",
+            background: "#0d95d2",
             padding: "8mm 9mm",
             color: "#000000",
-            boxShadow: "0 20px 50px rgba(56,189,248,0.25)",
           }}
         >
           <div
-            aria-hidden
             style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(0,0,0,0.10)",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px)",
-              backgroundSize: "14px 14px",
-              opacity: 0.5,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
+              display: "flex",
               gap: "8mm",
               alignItems: "center",
             }}
           >
-            <div>
+            <div style={{ flex: "1.5 1 0" }}>
               <div
                 style={{
                   display: "inline-block",
@@ -401,6 +376,7 @@ export function AffiliationCommerciauxPage2() {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "3mm",
+                flex: "1 1 0",
               }}
             >
               <a
@@ -417,7 +393,6 @@ export function AffiliationCommerciauxPage2() {
                   textDecoration: "none",
                   textAlign: "center",
                   minWidth: "55mm",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                 }}
               >
                 → M&apos;inscrire au programme

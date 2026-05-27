@@ -64,7 +64,7 @@ export function PartenariatComptablesPage2() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority
@@ -172,8 +172,16 @@ export function PartenariatComptablesPage2() {
               gap: "8mm",
             }}
           >
-            <ExampleRow contract="25 000 €" commission="2 500 €" />
-            <ExampleRow contract="35 000 €" commission="3 500 €" />
+            <ExampleRow
+              label="1 client apporté"
+              contract="25 000 €"
+              commission="2 500 €"
+            />
+            <ExampleRow
+              label="3 clients dans l'année"
+              contract="75 000 €"
+              commission="7 500 €"
+            />
           </div>
 
           <p
@@ -192,49 +200,24 @@ export function PartenariatComptablesPage2() {
           </p>
         </div>
 
-        {/* CTA gradient cyan */}
+        {/* CTA — aplat cyan opaque, sans couche composite : évite les
+            artefacts de tuilage du viewer PDF de Gmail mobile) */}
         <div
           style={{
-            position: "relative",
             borderRadius: "14px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%)",
+            background: "#0d95d2",
             padding: "8mm 9mm",
             color: "#000000",
-            boxShadow: "0 20px 50px rgba(56,189,248,0.25)",
           }}
         >
           <div
-            aria-hidden
             style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(0,0,0,0.10)",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px)",
-              backgroundSize: "14px 14px",
-              opacity: 0.5,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
+              display: "flex",
               gap: "8mm",
               alignItems: "center",
             }}
           >
-            <div>
+            <div style={{ flex: "1.5 1 0" }}>
               <div
                 style={{
                   display: "inline-block",
@@ -293,6 +276,7 @@ export function PartenariatComptablesPage2() {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "3mm",
+                flex: "1 1 0",
               }}
             >
               <a
@@ -309,7 +293,6 @@ export function PartenariatComptablesPage2() {
                   textDecoration: "none",
                   textAlign: "center",
                   minWidth: "55mm",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                 }}
               >
                 → Réserver 30 min
@@ -443,9 +426,11 @@ function StepCard({
 function ExampleRow({
   contract,
   commission,
+  label = "Contrat signé",
 }: {
   contract: string;
   commission: string;
+  label?: string;
 }) {
   return (
     <div
@@ -459,7 +444,7 @@ function ExampleRow({
         className="pdf-micro-caps"
         style={{ color: "#94a3b8", fontSize: "7pt" }}
       >
-        Contrat signé
+        {label}
       </div>
       <div
         style={{
@@ -491,13 +476,13 @@ function ExampleRow({
           →
         </span>
         <span
-          className="text-gradient"
           style={{
             fontFamily: "var(--font-mona), system-ui, sans-serif",
             fontSize: "26pt",
             fontWeight: 700,
             letterSpacing: "-0.02em",
             fontVariantNumeric: "tabular-nums",
+            color: "#7dd3fc",
           }}
         >
           {commission}

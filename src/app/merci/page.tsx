@@ -63,7 +63,7 @@ export default function ThankYouPage() {
           </Link>
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={140}
             height={32}
             priority

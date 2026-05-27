@@ -168,7 +168,7 @@ export const profileEn: ProfileData = {
       tech: ["Kubernetes", "Istio", "AWS EKS", "Terraform", "GitLab CI", "Datadog", "Java", "Go"],
     },
     {
-      name: "Stellar Wave — Studio",
+      name: "StellarWave — Studio",
       description: "My freelance studio — Premium Next.js 15 landing page with automated acquisition, smart forms, analytics and Vercel CI/CD deployment.",
       tech: ["Next.js 15", "Tailwind CSS 4", "Framer Motion", "Resend", "Vercel"],
       url: "https://stellarwave.fr",

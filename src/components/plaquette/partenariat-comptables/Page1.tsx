@@ -64,7 +64,7 @@ export function PartenariatComptablesPage1() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -211,7 +211,7 @@ export function PartenariatComptablesPage1() {
               label="Ce que vous touchez"
               labelColor="#38bdf8"
               title="10 % du contrat, à l'encaissement."
-              body="Sur un projet 18 – 40 k€, ça fait 1 800 à 4 000 € par client présenté — sans rien gérer après l'intro, et l'outil fidélise durablement vos clients."
+              body="Sur un projet sur mesure typique (18 – 40 k€), ça fait 1 800 à 4 000 € par client présenté — montant indicatif selon la taille du projet. Vous ne gérez rien après l'intro."
               accent
             />
           </div>

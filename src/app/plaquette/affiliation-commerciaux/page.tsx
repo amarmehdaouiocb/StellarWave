@@ -4,7 +4,7 @@ import { AffiliationCommerciauxPage2 } from "@/components/plaquette/affiliation-
 import { PrintButton } from "@/components/plaquette/PrintButton";
 
 export const metadata = {
-  title: "Programme d'affiliation — Apporteurs d'affaires — Stellar Wave",
+  title: "Programme d'affiliation — Apporteurs d'affaires — StellarWave",
   description:
     "Plaquette d'affiliation 2 pages destinée aux commerciaux et apporteurs d'affaires.",
   robots: { index: false, follow: false },
@@ -13,15 +13,15 @@ export const metadata = {
 export default function AffiliationCommerciauxPlaquettePage() {
   return (
     <>
-      <PdfPage>
+      <PdfPage noise={false}>
         <AffiliationCommerciauxPage1 />
       </PdfPage>
-      <PdfPage>
+      <PdfPage noise={false}>
         <AffiliationCommerciauxPage2 />
       </PdfPage>
 
       <a
-        href="/decks/stellarwave-affiliation-commerciaux-fr.pdf"
+        href="/decks/commerciaux/stellarwave-affiliation-commerciaux-fr.pdf"
         download
         className="print-hidden"
         style={{

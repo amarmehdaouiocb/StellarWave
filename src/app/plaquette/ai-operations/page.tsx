@@ -6,7 +6,7 @@ import { PrintButton } from "@/components/plaquette/PrintButton";
 import "./landscape.css";
 
 export const metadata = {
-  title: "Opérations IA pour cabinets de gestion — Stellar Wave",
+  title: "Opérations IA pour cabinets de gestion — StellarWave",
   description:
     "Deck commercial AI Operations — version preview 3 pages (FR, A4 landscape).",
   robots: { index: false, follow: false },

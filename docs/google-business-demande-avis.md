@@ -133,16 +133,16 @@ ADAPTER à ta sauce (l'idéal c'est d'y mettre un mot perso, ça sonne mieux) :
 
 ---
 Option courte :
-"On a travaillé avec Amar sur la refonte complète de notre outil
+"On a travaillé avec Stellarwave sur la refonte complète de notre outil
 restaurant : programme de fidélité, caisse, espace client. Tout est simple
-à utiliser, ça marche du premier coup et il est dispo quand on a une
+à utiliser, ça marche du premier coup et l'équipe est dispo quand on a une
 question. Je recommande sans hésiter."
 
 Option un peu plus longue :
 "Stellarwave nous a accompagnés sur un gros chantier : un outil complet
 pour gérer notre programme de fidélité restaurant, avec une caisse qui
 tourne même quand le wifi lâche, et un espace membres accessible juste avec
-un QR code. Amar a écouté nos besoins terrain et livré quelque chose de
+un QR code. Ils ont écouté nos besoins terrain et livré quelque chose de
 carré, dans les délais et le budget annoncés. On continue à bosser
 ensemble."
 ---
@@ -181,18 +181,18 @@ ADAPTER à ta sauce (ça sonne mieux avec une touche perso) :
 
 ---
 Option courte :
-"Amar nous a livré toute notre plateforme de formation : site web + appli
-mobile, paiements en ligne, gestion des élèves. C'est intuitif, ça tourne
-bien, et il a tenu les délais qu'il avait annoncés. Très pro et
+"Stellarwave nous a livré toute notre plateforme de formation : site web +
+appli mobile, paiements en ligne, gestion des élèves. C'est intuitif, ça
+tourne bien, et les délais annoncés ont été tenus. Très pro et
 accessible."
 
 Option un peu plus longue :
 "On cherchait quelqu'un capable de nous bâtir une vraie plateforme pour
 gérer nos formations nautiques : inscriptions, cours, paiements, suivi des
-élèves. Amar a livré site web + appli mobile sans dépasser le budget, avec
-une vraie écoute de nos contraintes terrain. Il reste impliqué après la
-mise en service — c'est ce qui fait la différence avec d'autres
-prestataires qu'on avait testés."
+élèves. Stellarwave a livré site web + appli mobile sans dépasser le
+budget, avec une vraie écoute de nos contraintes terrain. L'équipe reste
+impliquée après la mise en service — c'est ce qui fait la différence avec
+d'autres prestataires qu'on avait testés."
 ---
 
 Sans engagement évidemment, je sais que t'es chargé. Mais si possible, ça
@@ -227,15 +227,16 @@ ADAPTER à ta sauce (ça sonne mieux avec ta patte) :
 
 ---
 Option courte :
-"Amar a développé notre annuaire alimentaire avec un espace admin clair et
-un système d'inscription qui permet aux restaurateurs de s'enregistrer
-eux-mêmes. Travail soigné, bonne communication. Je recommande."
+"Stellarwave a développé notre annuaire alimentaire avec un espace admin
+clair et un système d'inscription qui permet aux restaurateurs de
+s'enregistrer eux-mêmes. Travail soigné, bonne communication. Je
+recommande."
 
 Option un peu plus longue :
 "Stellarwave nous a livré une plateforme complète avec un détail qu'on
 apprécie particulièrement : elle continue à marcher même si la connexion
 lâche côté utilisateur. L'inscription des restaurateurs est fluide,
-l'espace d'administration est lisible et bien pensé. Amar est facile à
+l'espace d'administration est lisible et bien pensé. L'équipe est facile à
 joindre, propose des solutions au lieu d'attendre nos demandes, et le
 résultat est clairement au rendez-vous."
 ---
@@ -273,15 +274,15 @@ ADAPTER à ta sauce (l'idéal c'est de garder ton ton à toi) :
 
 ---
 Option courte :
-"Amar a refait mon site de A à Z. Le rendu est vraiment pro, les demandes
-de devis arrivent depuis le formulaire, et il a soigné le côté Google
-local. Pour un artisan, c'est exactement ce qu'il fallait. Je recommande
-sans hésiter."
+"Stellarwave a refait mon site de A à Z. Le rendu est vraiment pro, les
+demandes de devis arrivent depuis le formulaire, et le côté Google local a
+été soigné. Pour un artisan, c'est exactement ce qu'il fallait. Je
+recommande sans hésiter."
 
 Option un peu plus longue :
 "Artisan en rénovation, j'avais besoin d'un site qui inspire confiance et
-qui remonte sur Google quand on cherche un artisan dans le coin. Amar a
-livré exactement ça : un site qui sort des templates qu'on voit partout,
+qui remonte sur Google quand on cherche un artisan dans le coin. Stellarwave
+a livré exactement ça : un site qui sort des templates qu'on voit partout,
 avec un vrai travail sur les avant/après et un formulaire de devis qui
 amène des contacts qualifiés. Délais respectés, dispo pour les ajustements
 après livraison. Si vous êtes artisan et que vous voulez un vrai site,

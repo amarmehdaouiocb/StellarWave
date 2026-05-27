@@ -74,7 +74,7 @@ export function ExpressPage1() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -329,13 +329,13 @@ function ServiceLine({
         {desc}
       </p>
       <div
-        className="text-gradient"
         style={{
           fontFamily: "var(--font-mona), system-ui, sans-serif",
           fontSize: "10.5pt",
           fontWeight: 700,
           letterSpacing: "-0.01em",
           marginTop: "auto",
+          color: "#7dd3fc",
         }}
       >
         {price}

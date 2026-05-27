@@ -10,7 +10,11 @@
     "plaquette:build": "tsx scripts/generate-plaquette.ts",
     "pitch:build": "tsx scripts/generate-pitch.ts",
     "partner-decks:build": "tsx scripts/generate-partner-decks.ts",
-    "ai-ops:build": "tsx scripts/generate-ai-ops-deck.ts"
+    "ai-ops:build": "tsx scripts/generate-ai-ops-deck.ts",
+    "leads:cabinets": "tsx scripts/generate-accounting-firm-leads.ts",
+    "contacts:cabinets": "tsx scripts/enrich-accounting-firm-contacts.ts",
+    "contacts:oec": "tsx scripts/generate-oec-accounting-firm-contacts.ts",
+    "contacts:export": "tsx scripts/build-accounting-contact-export.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

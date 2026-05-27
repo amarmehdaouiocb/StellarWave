@@ -41,7 +41,7 @@ export function AffiliationCommerciauxPage1() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -103,7 +103,7 @@ export function AffiliationCommerciauxPage1() {
               margin: 0,
             }}
           >
-            Vendez Stellar Wave
+            Vendez StellarWave
             <br />
             <span
               style={{
@@ -305,7 +305,6 @@ export function AffiliationCommerciauxPage1() {
                 }}
               >
                 <span
-                  className="text-gradient"
                   style={{
                     fontFamily: "var(--font-mona), system-ui, sans-serif",
                     fontSize: "56pt",
@@ -313,6 +312,7 @@ export function AffiliationCommerciauxPage1() {
                     letterSpacing: "-0.04em",
                     lineHeight: 0.9,
                     whiteSpace: "nowrap",
+                    color: "#7dd3fc",
                   }}
                 >
                   8 %
@@ -361,12 +361,12 @@ export function AffiliationCommerciauxPage1() {
                   Par client présenté
                 </div>
                 <div
-                  className="text-gradient"
                   style={{
                     fontFamily: "var(--font-mona), system-ui, sans-serif",
                     fontSize: "20pt",
                     fontWeight: 700,
                     letterSpacing: "-0.02em",
+                    color: "#7dd3fc",
                   }}
                 >
                   1 440 – 3 200 €
@@ -379,7 +379,7 @@ export function AffiliationCommerciauxPage1() {
                     marginTop: "0.5mm",
                   }}
                 >
-                  Sur un ticket 18 – 40 k€
+                  Indicatif · ticket 18 – 40 k€
                 </div>
               </div>
             </div>

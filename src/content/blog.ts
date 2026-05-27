@@ -93,7 +93,7 @@ export const blogPosts: BlogPost[] = [
     `,
     category: "performance",
     author: {
-      name: "Stellar Wave",
+      name: "StellarWave",
       role: "Product Studio",
     },
     publishedAt: "2024-01-15",
@@ -173,7 +173,7 @@ export const blogPosts: BlogPost[] = [
     `,
     category: "performance",
     author: {
-      name: "Stellar Wave",
+      name: "StellarWave",
       role: "Product Studio",
     },
     publishedAt: "2024-01-08",
@@ -244,7 +244,7 @@ export const blogPosts: BlogPost[] = [
     `,
     category: "cloud",
     author: {
-      name: "Stellar Wave",
+      name: "StellarWave",
       role: "Cloud Studio",
     },
     publishedAt: "2024-01-02",

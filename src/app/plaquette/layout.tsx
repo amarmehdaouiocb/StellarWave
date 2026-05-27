@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./print.css";
 
 export const metadata: Metadata = {
-  title: "Plaquette commerciale — Stellar Wave",
-  description: "Plaquette PDF Stellar Wave, à usage interne et prospect.",
+  title: "Plaquette commerciale — StellarWave",
+  description: "Plaquette PDF StellarWave, à usage interne et prospect.",
   robots: {
     index: false,
     follow: false,

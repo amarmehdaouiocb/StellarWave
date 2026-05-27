@@ -15,7 +15,7 @@ export type IconName =
   | "Handshake";
 
 export const brand = {
-  name: "Stellar Wave",
+  name: "StellarWave",
   tagline: "Éditeur de logiciels",
   description:
     "Éditeur de logiciels pour PME et scale-up. Sites, applications web & mobile, outils internes et automatisations. Du brief au monitoring.",

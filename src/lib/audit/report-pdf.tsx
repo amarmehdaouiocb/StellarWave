@@ -1,7 +1,7 @@
 /**
  * Composant PDF du rapport d'audit Performance & SEO.
  * Utilise @react-pdf/renderer avec les fonts officielles du site
- * Stellar Wave (Cabinet Grotesk + Behind the Nineties).
+ * StellarWave (Cabinet Grotesk + Behind the Nineties).
  *
  * Le PDF est généré côté serveur (Vercel Function) puis attaché
  * à l'email Resend envoyé au prospect.
@@ -806,8 +806,8 @@ export function AuditReportDocument({
 
   return (
     <Document
-      title="Mini-audit Performance & SEO — Stellar Wave"
-      author="Stellar Wave"
+      title="Mini-audit Performance & SEO — StellarWave"
+      author="StellarWave"
       subject={`Audit de ${url}`}
     >
       {/* ===== PAGE 1 ===== */}

@@ -28,7 +28,7 @@
   <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
   <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#halo)"/>
 
-  <!-- Monogramme Stellar Wave, centré et mis à l'échelle dans le carré -->
+  <!-- Monogramme StellarWave, centré et mis à l'échelle dans le carré -->
   <g transform="translate(129.4 93.5) scale(0.52)" fill="url(#sym)" filter="url(#glow)">
     <path d="M 0 625
              L 0 190.5

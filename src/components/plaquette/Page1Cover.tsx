@@ -56,7 +56,7 @@ export function Page1Cover() {
         >
           <Image
             src="/logo.svg"
-            alt="Stellar Wave"
+            alt="StellarWave"
             width={220}
             height={50}
             priority
@@ -287,7 +287,7 @@ export function Page1Cover() {
               textTransform: "uppercase",
             }}
           >
-            Stellar Wave · 2026
+            StellarWave · 2026
           </div>
         </div>
       </div>

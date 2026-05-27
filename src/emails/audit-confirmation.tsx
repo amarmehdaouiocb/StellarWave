@@ -38,7 +38,7 @@ function PendingEmail({ url }: { url: string }) {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Text style={logoText}>✦ Stellar Wave</Text>
+            <Text style={logoText}>✦ StellarWave</Text>
           </Section>
 
           <Section style={content}>
@@ -110,7 +110,7 @@ function ReadyEmail({ url }: { url: string }) {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Text style={logoText}>✦ Stellar Wave</Text>
+            <Text style={logoText}>✦ StellarWave</Text>
           </Section>
 
           <Section style={content}>
@@ -182,7 +182,7 @@ function DelayedEmail({ url }: { url: string }) {
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
-            <Text style={logoText}>✦ Stellar Wave</Text>
+            <Text style={logoText}>✦ StellarWave</Text>
           </Section>
 
           <Section style={content}>
@@ -231,7 +231,7 @@ function DelayedEmail({ url }: { url: string }) {
 function FooterBlock() {
   return (
     <Section style={footer}>
-      <Text style={footerText}>Stellar Wave — Éditeur de logiciels</Text>
+      <Text style={footerText}>StellarWave — Éditeur de logiciels</Text>
       <Text style={footerText}>Île-de-France, France | contact@stellarwave.fr</Text>
     </Section>
   );

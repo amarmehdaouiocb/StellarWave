@@ -1,0 +1,516 @@
+import Image from "next/image";
+import { PdfPage } from "@/components/plaquette/PdfPage";
+import { BlobBackground } from "@/components/plaquette/BlobBackground";
+import { PrintButton } from "@/components/plaquette/PrintButton";
+
+export const metadata = {
+  title: "Guide du cabinet partenaire — StellarWave",
+  description:
+    "Support pour les cabinets d'expertise comptable partenaires de StellarWave (programme partenariat 10 %).",
+  robots: { index: false, follow: false },
+};
+
+const CYAN = "#38bdf8";
+const CYAN_LIGHT = "#7dd3fc";
+const MONA = "var(--font-mona), system-ui, sans-serif";
+const SERIF = "var(--font-btn), Georgia, serif";
+
+export default function GuideCabinetComptablePage() {
+  return (
+    <>
+      <PdfPage noise={false}><Cover /></PdfPage>
+      <PdfPage noise={false}><Deal /></PdfPage>
+      <PdfPage noise={false}><Signals /></PdfPage>
+      <PdfPage noise={false}><Offers /></PdfPage>
+      <PdfPage noise={false}><Proofs /></PdfPage>
+      <PdfPage noise={false}><HowToTalk /></PdfPage>
+      <PdfPage noise={false}><HandOff /></PdfPage>
+
+      <a
+        href="/decks/cabinetcomptable/stellarwave-guide-cabinet-comptable-fr.pdf"
+        download
+        className="print-hidden"
+        style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          zIndex: 999,
+          background: "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)",
+          color: "#000",
+          padding: "12px 20px",
+          borderRadius: "999px",
+          fontFamily: MONA,
+          fontSize: "13px",
+          fontWeight: 700,
+          textDecoration: "none",
+        }}
+      >
+        ↓ Télécharger le PDF
+      </a>
+      <PrintButton />
+    </>
+  );
+}
+
+/* ───────────────────────── Helpers ───────────────────────── */
+
+function Eyebrow({ children, color = "#94a3b8" }: { children: React.ReactNode; color?: string }) {
+  return (
+    <div
+      className="pdf-micro-caps"
+      style={{ color, display: "flex", alignItems: "center", gap: "10px", fontSize: "8pt" }}
+    >
+      <span style={{ width: "10mm", height: "1px", background: color }} />
+      {children}
+    </div>
+  );
+}
+
+function Jumbo({ n }: { n: string }) {
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "absolute",
+        top: "8mm",
+        right: "12mm",
+        fontFamily: SERIF,
+        fontStyle: "italic",
+        fontSize: "180pt",
+        color: "rgba(56,189,248,0.07)",
+        lineHeight: 0.85,
+        letterSpacing: "-0.05em",
+        zIndex: 1,
+        pointerEvents: "none",
+      }}
+    >
+      {n}
+    </div>
+  );
+}
+
+function Footer({ n }: { n: number }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingTop: "4mm",
+        borderTop: "1px solid rgba(56,189,248,0.15)",
+      }}
+    >
+      <div style={{ fontFamily: MONA, fontSize: "8.5pt", color: "#94a3b8" }}>
+        stellarwave.fr · contact@stellarwave.fr · +33 6 25 05 97 32
+      </div>
+      <div className="pdf-page-number" style={{ color: CYAN, fontSize: "8.5pt" }}>
+        <span style={{ color: "#94a3b8" }}>PAGE</span> 0{n}{" "}
+        <span style={{ color: "#475569" }}>/</span>{" "}
+        <span style={{ color: "#94a3b8" }}>07</span>
+      </div>
+    </div>
+  );
+}
+
+function TopBar({ label }: { label: string }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Image src="/logo.svg" alt="StellarWave" width={220} height={50} priority style={{ height: "10mm", width: "auto" }} />
+      <span className="pdf-micro-caps" style={{ color: "#94a3b8", fontSize: "7.5pt" }}>{label}</span>
+    </div>
+  );
+}
+
+function SectionTitle({ light, accent, strong }: { light: string; accent?: string; strong?: string }) {
+  return (
+    <h2
+      style={{
+        fontFamily: MONA,
+        fontSize: "34pt",
+        fontWeight: 300,
+        lineHeight: 1.0,
+        letterSpacing: "-0.03em",
+        color: "rgba(255,255,255,0.6)",
+        margin: "5mm 0 0 0",
+      }}
+    >
+      {light}{" "}
+      {accent ? <span style={{ fontFamily: SERIF, fontStyle: "italic", color: CYAN }}>{accent}</span> : null}
+      {strong ? <span style={{ fontWeight: 800, color: "#fff", letterSpacing: "-0.04em" }}> {strong}</span> : null}
+    </h2>
+  );
+}
+
+/* ───────────────────────── Page 1 — Couverture ───────────────────────── */
+
+function Cover() {
+  return (
+    <>
+      <BlobBackground variant="top-left" intensity="intense" />
+      <Jumbo n="%" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Partenariat · Cabinets comptables · 2026" />
+        <div style={{ marginRight: "10mm" }}>
+          <Eyebrow color={CYAN}>Guide du cabinet partenaire</Eyebrow>
+          <h1
+            style={{
+              fontFamily: MONA,
+              fontSize: "60pt",
+              fontWeight: 300,
+              lineHeight: 0.98,
+              letterSpacing: "-0.04em",
+              color: "rgba(255,255,255,0.6)",
+              margin: "6mm 0 0 0",
+            }}
+          >
+            Vous présentez.
+            <br />
+            <span style={{ fontFamily: SERIF, fontStyle: "italic", color: CYAN }}>On construit.</span>
+            <br />
+            <span style={{ fontWeight: 800, color: "#fff", letterSpacing: "-0.045em" }}>
+              10&nbsp;% pour le cabinet.
+            </span>
+          </h1>
+          <p style={{ marginTop: "9mm", fontFamily: MONA, fontSize: "13pt", lineHeight: 1.5, color: "#cbd5e1", maxWidth: "152mm" }}>
+            Comment recommander StellarWave à vos clients et toucher une commission —{" "}
+            <span style={{ color: "#94a3b8" }}>
+              sans porter la moindre mission technique, ni le moindre risque.
+            </span>
+          </p>
+        </div>
+        <Footer n={1} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 2 — Le deal ───────────────────────── */
+
+const STEPS = [
+  { n: "1", t: "Vous présentez", d: "Un client a un besoin informatique ? Vous nous le présentez. Votre rôle s'arrête là." },
+  { n: "2", t: "On gère tout", d: "Cadrage, devis à prix fixe, développement, livraison et support. Le cabinet ne porte aucune mission technique." },
+  { n: "3", t: "Le cabinet est payé", d: "Le projet est signé puis encaissé ? Le cabinet touche sa commission." },
+];
+
+function Deal() {
+  return (
+    <>
+      <BlobBackground variant="top-right" intensity="default" />
+      <Jumbo n="01" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Le partenariat" />
+        <div>
+          <Eyebrow color={CYAN}>En 30 secondes</Eyebrow>
+          <SectionTitle light="Simple." accent="Sans risque." strong="Rémunérateur." />
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "5mm" }}>
+          {STEPS.map((s) => (
+            <div key={s.n} style={{ background: "#0f172a", border: "1px solid rgba(56,189,248,0.18)", borderRadius: "12px", padding: "7mm 6mm" }}>
+              <div
+                style={{
+                  width: "10mm",
+                  height: "10mm",
+                  borderRadius: "8px",
+                  background: CYAN,
+                  color: "#020617",
+                  fontFamily: MONA,
+                  fontWeight: 800,
+                  fontSize: "16pt",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "4mm",
+                }}
+              >
+                {s.n}
+              </div>
+              <div style={{ fontFamily: MONA, fontWeight: 700, fontSize: "13pt", color: "#fff", marginBottom: "2mm" }}>{s.t}</div>
+              <div style={{ fontFamily: MONA, fontSize: "10pt", lineHeight: 1.45, color: "#cbd5e1" }}>{s.d}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: "#0ea5e9", borderRadius: "14px", padding: "8mm 9mm", color: "#020617", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <div className="pdf-micro-caps" style={{ color: "rgba(2,6,23,0.6)", fontSize: "8pt" }}>La rémunération du cabinet</div>
+            <div style={{ fontFamily: MONA, fontWeight: 800, fontSize: "30pt", letterSpacing: "-0.02em", lineHeight: 1.05 }}>10 % du contrat</div>
+            <div style={{ fontFamily: MONA, fontSize: "11pt", fontWeight: 600, color: "#0c1f33" }}>Soit 1 800 à 4 000 € par client présenté.</div>
+            <div style={{ fontFamily: MONA, fontSize: "8pt", color: "#0c1f33", opacity: 0.65, marginTop: "1mm" }}>Fourchette indicative — sur un projet sur mesure typique.</div>
+          </div>
+          <div style={{ textAlign: "right", fontFamily: MONA, fontSize: "9.5pt", color: "#0c1f33", maxWidth: "62mm", lineHeight: 1.5 }}>
+            Versé à l'encaissement.
+            <br />
+            Sans exclusivité, sans engagement.
+            <br />
+            <strong>Aucune mission technique pour le cabinet.</strong>
+          </div>
+        </div>
+
+        <Footer n={2} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 3 — Qui présenter ───────────────────────── */
+
+const SIGNALS = [
+  "« Le client gère sa facturation sur Excel. »",
+  "« Son site date, ou il n'en a pas. »",
+  "« Il perd des heures en double saisie. »",
+  "« Il fait ses devis et relances à la main. »",
+  "« Il croule sous les mails et les appels clients. »",
+  "« Il rêve d'une appli mais ne sait pas par où commencer. »",
+  "« Son logiciel métier est vieillissant et coûteux. »",
+  "« Il aimerait automatiser une tâche chronophage. »",
+];
+
+function Signals() {
+  return (
+    <>
+      <BlobBackground variant="center" intensity="subtle" />
+      <Jumbo n="02" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Quels clients présenter" />
+        <div>
+          <Eyebrow color={CYAN}>Vous les repérez déjà</Eyebrow>
+          <SectionTitle light="Ces situations" strong="= un client à présenter." />
+          <p style={{ fontFamily: MONA, fontSize: "11pt", color: "#94a3b8", marginTop: "4mm", maxWidth: "152mm", lineHeight: 1.5 }}>
+            Au fil de vos échanges et de leurs bilans, vous voyez ces signaux mieux que personne. Quand vous en repérez un, présentez le client — vous n'avez rien d'autre à faire.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3.5mm" }}>
+          {SIGNALS.map((s) => (
+            <div
+              key={s}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "4mm",
+                background: "#0f172a",
+                border: "1px solid rgba(56,189,248,0.12)",
+                borderRadius: "10px",
+                padding: "5mm 6mm",
+                fontFamily: MONA,
+                fontSize: "11pt",
+                color: "#e2e8f0",
+              }}
+            >
+              <span style={{ color: CYAN, fontSize: "16pt", fontFamily: SERIF }}>›</span>
+              {s}
+            </div>
+          ))}
+        </div>
+
+        <div style={{ fontFamily: MONA, fontSize: "10.5pt", color: "#cbd5e1", lineHeight: 1.5 }}>
+          <strong style={{ color: CYAN_LIGHT }}>La cible :</strong> vos clients TPE / PME qui se digitalisent mal — et pour qui un bon outil ferait gagner du temps et de l'argent.
+        </div>
+
+        <Footer n={3} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 4 — Ce qu'on sait faire ───────────────────────── */
+
+const OFFERS = [
+  { t: "Sites & boutiques en ligne", d: "Vitrines qui donnent envie de contacter, sites de vente, prise de rendez-vous.", p: "Déjà fait pour : formation, artisanat" },
+  { t: "Applications mobiles", d: "Une appli iPhone + Android pour leurs clients ou leurs équipes — qui marche même sans connexion.", p: "Déjà fait pour : auto-école, formation" },
+  { t: "Outils de gestion sur mesure", d: "On remplace les fichiers Excel : suivi clients, tableaux de bord, espaces privés sécurisés.", p: "Déjà fait pour : restaurant, syndic" },
+  { t: "Assistants IA & automatisations", d: "Des assistants qui travaillent à leur place : réponses WhatsApp, tri des mails, devis et factures générés automatiquement.", p: "Déjà fait pour : restaurant (WhatsApp), bâtiment (mails & devis)", star: true },
+  { t: "Image de marque", d: "Logo, identité, cartes de visite prêtes pour l'imprimeur, signatures e-mail.", p: "Déjà fait pour : formation médicale" },
+];
+
+function Offers() {
+  return (
+    <>
+      <BlobBackground variant="top-left" intensity="default" />
+      <Jumbo n="03" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Ce qu'on sait faire" />
+        <div>
+          <Eyebrow color={CYAN}>Nos offres, en clair</Eyebrow>
+          <SectionTitle light="On transforme une galère" strong="en outil." />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "3mm" }}>
+          {OFFERS.map((o) => (
+            <div
+              key={o.t}
+              style={{
+                background: o.star ? "rgba(56,189,248,0.08)" : "#0f172a",
+                border: `1px solid ${o.star ? "rgba(56,189,248,0.4)" : "rgba(56,189,248,0.12)"}`,
+                borderRadius: "10px",
+                padding: "5mm 7mm",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "6mm",
+              }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: MONA, fontWeight: 700, fontSize: "13pt", color: o.star ? CYAN_LIGHT : "#fff" }}>
+                  {o.t}
+                  {o.star ? <span style={{ fontFamily: SERIF, fontStyle: "italic", color: CYAN, fontSize: "11pt" }}> · le plus demandé</span> : null}
+                </div>
+                <div style={{ fontFamily: MONA, fontSize: "10pt", color: "#cbd5e1", lineHeight: 1.4, marginTop: "1.5mm" }}>{o.d}</div>
+              </div>
+              <div style={{ fontFamily: MONA, fontSize: "8pt", color: "#94a3b8", textAlign: "right", maxWidth: "48mm", lineHeight: 1.4 }}>{o.p}</div>
+            </div>
+          ))}
+        </div>
+
+        <Footer n={4} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 5 — Réalisations ───────────────────────── */
+
+const PROOFS = [
+  { e: "🍽️", t: "Fidelya", s: "Restauration", d: "Fidélité client + caisse + relances WhatsApp automatiques." },
+  { e: "🏗️", t: "RA Bâtiment", s: "Bâtiment", d: "Suivi des chantiers, rapports par mail, devis & factures auto." },
+  { e: "⛵", t: "BoatAcademy", s: "Auto-école bateau", d: "Appli mobile élève (iPhone + Android) + paiement en ligne." },
+  { e: "🚕", t: "École Gallieni", s: "Formation TAXI/VTC", d: "Appli native sauvée et republiée sur l'App Store + suivi élèves." },
+  { e: "🥖", t: "OnMangeQuoi", s: "Commerces alimentaires", d: "Référencement de 1000+ commerces + back-office d'admin." },
+  { e: "📹", t: "Stellarvision", s: "Copropriétés", d: "Extraction vidéo à la demande, 100 % conforme RGPD." },
+];
+
+function Proofs() {
+  return (
+    <>
+      <BlobBackground variant="bottom-right" intensity="default" />
+      <Jumbo n="04" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Nos réalisations" />
+        <div>
+          <Eyebrow color={CYAN}>Des preuves, pas des promesses</Eyebrow>
+          <SectionTitle light="Déjà livré," accent="déjà en service." />
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3.5mm" }}>
+          {PROOFS.map((p) => (
+            <div key={p.t} style={{ background: "#0f172a", border: "1px solid rgba(56,189,248,0.12)", borderRadius: "10px", padding: "5mm 6mm" }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "3mm", marginBottom: "1.5mm" }}>
+                <span style={{ fontSize: "13pt" }}>{p.e}</span>
+                <span style={{ fontFamily: MONA, fontWeight: 700, fontSize: "12.5pt", color: "#fff" }}>{p.t}</span>
+                <span className="pdf-micro-caps" style={{ color: CYAN, fontSize: "6.5pt" }}>{p.s}</span>
+              </div>
+              <div style={{ fontFamily: MONA, fontSize: "10pt", color: "#cbd5e1", lineHeight: 1.45 }}>{p.d}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ fontFamily: MONA, fontSize: "10pt", color: "#94a3b8", lineHeight: 1.5 }}>
+          Secteurs déjà adressés : <strong style={{ color: "#cbd5e1" }}>restauration, bâtiment, formation, copropriété, commerce, artisanat.</strong> Citez l'exemple le plus proche de votre client.
+        </div>
+
+        <Footer n={5} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 6 — Comment en parler ───────────────────────── */
+
+const OBJECTIONS = [
+  { q: "« Ça coûte combien ? »", a: "« Ça dépend du projet — c'est pour ça qu'ils établissent un devis à prix fixe gratuit. Pas de surprise, validé avant de démarrer. »" },
+  { q: "« J'ai déjà un prestataire. »", a: "« Très bien — un second avis gratuit ne coûte rien, et sans engagement. Beaucoup voient la différence sur le suivi. »" },
+  { q: "« C'est sérieux ? »", a: "« StellarWave, éditeur de logiciels en Île-de-France. Ils ont livré pour des restaurants, écoles, syndics… Je peux vous transmettre des exemples. »" },
+];
+
+function HowToTalk() {
+  return (
+    <>
+      <BlobBackground variant="top-right" intensity="subtle" />
+      <Jumbo n="05" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Comment en parler" />
+        <div>
+          <Eyebrow color={CYAN}>Votre phrase</Eyebrow>
+          <SectionTitle light="Lors d'un point," strong="vous ouvrez le sujet." />
+        </div>
+
+        <div
+          style={{
+            background: "#0f172a",
+            borderLeft: `3px solid ${CYAN}`,
+            borderRadius: "10px",
+            padding: "7mm 8mm",
+            fontFamily: MONA,
+            fontSize: "12pt",
+            lineHeight: 1.6,
+            color: "#e2e8f0",
+            fontStyle: "italic",
+          }}
+        >
+          « Je vois que vous perdez du temps avec{" "}
+          <strong style={{ color: CYAN_LIGHT, fontStyle: "normal" }}>
+            Excel / vos devis / des tâches manuelles
+          </strong>
+          . J'ai un partenaire,{" "}
+          <strong style={{ color: CYAN_LIGHT, fontStyle: "normal" }}>StellarWave</strong>, qui crée
+          des logiciels sur mesure pour des entreprises comme la vôtre — ils ont déjà accompagné des
+          sociétés de votre secteur. Voulez-vous que je vous mette en relation ? C'est un audit
+          gratuit et sans engagement. »
+        </div>
+
+        <div>
+          <Eyebrow color="#94a3b8">Répondre aux 3 questions classiques</Eyebrow>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2.5mm", marginTop: "3mm" }}>
+            {OBJECTIONS.map((o) => (
+              <div key={o.q} style={{ background: "#0b1220", borderRadius: "8px", padding: "4mm 6mm" }}>
+                <div style={{ fontFamily: MONA, fontWeight: 700, fontSize: "10.5pt", color: "#fff", marginBottom: "1mm" }}>{o.q}</div>
+                <div style={{ fontFamily: MONA, fontSize: "10pt", color: "#cbd5e1", lineHeight: 1.45 }}>{o.a}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Footer n={6} />
+      </div>
+    </>
+  );
+}
+
+/* ───────────────────────── Page 7 — Passer la main ───────────────────────── */
+
+function HandOff() {
+  return (
+    <>
+      <BlobBackground variant="center" intensity="intense" />
+      <Jumbo n="06" />
+      <div className="pdf-content" style={{ inset: "16mm", zIndex: 2, justifyContent: "space-between" }}>
+        <TopBar label="Passer la main" />
+        <div>
+          <Eyebrow color={CYAN}>La dernière étape</Eyebrow>
+          <SectionTitle light="Vous présentez," strong="on prend le relais." />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "4mm" }}>
+          <div style={{ fontFamily: MONA, fontSize: "12pt", color: "#e2e8f0", lineHeight: 1.6 }}>
+            Présentez-nous le client en une phrase : <strong style={{ color: CYAN_LIGHT }}>raison sociale, activité, et le besoin</strong>. Par e-mail ou en nous mettant en copie. On reprend la main <strong>sous 24 à 48 h</strong>, en votre nom.
+          </div>
+          <div style={{ background: "#0ea5e9", borderRadius: "14px", padding: "8mm 9mm", color: "#020617" }}>
+            <div className="pdf-micro-caps" style={{ color: "rgba(2,6,23,0.6)", fontSize: "8pt" }}>Pour présenter un client ou poser une question</div>
+            <div style={{ fontFamily: MONA, fontWeight: 800, fontSize: "22pt", margin: "2mm 0", letterSpacing: "-0.02em" }}>contact@stellarwave.fr</div>
+            <div style={{ fontFamily: MONA, fontSize: "11pt", fontWeight: 600, color: "#0c1f33" }}>
+              Réserver 30 min : calendar.app.google/51BiLHgAVhsLrxTC9 · +33 6 25 05 97 32
+            </div>
+          </div>
+          <div style={{ fontFamily: MONA, fontSize: "10.5pt", color: "#94a3b8", lineHeight: 1.5 }}>
+            Vous restez informé à chaque étape, et le cabinet touche sa commission <strong style={{ color: "#cbd5e1" }}>dès l'encaissement du client</strong>.
+          </div>
+        </div>
+
+        <div style={{ fontFamily: MONA, fontSize: "7.5pt", color: "#64748b", lineHeight: 1.5, borderTop: "1px solid rgba(56,189,248,0.15)", paddingTop: "4mm" }}>
+          STELLARWAVE · Éditeur de logiciels — SASU au capital de 500 € · RCS Bobigny 104 979 125 · 23 Rue de Normandie, 93000 Bobigny · contact@stellarwave.fr · stellarwave.fr
+        </div>
+      </div>
+    </>
+  );
+}
